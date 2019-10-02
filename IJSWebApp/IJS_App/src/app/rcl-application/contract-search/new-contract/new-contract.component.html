@@ -1,0 +1,706 @@
+<div auto-scroll lock-y-offset="10" observe-attributes (inputError)="inputErrore($event)">
+  <div class="row text-primary header-arrow-icon">
+    <div class="col-sm-72" (click)="closeNewContract()">
+      <p><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Intermodel and Job Order System &#x7c; <span>{{action}} Transportation Contract</span></p>
+    </div>
+  </div>
+
+  <div class="new-contract">
+    <div class="row">
+      <div class="col-sm-10"></div>
+      <div class="col-sm-45">
+        <p class="newContractUnderline"> {{action + ' Transport Contract' | uppercase}} </p>
+      </div>
+      <div class="col-sm-22"></div>
+    </div>
+
+    <form name="newEditForm" #newContactForm="ngForm">
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>VENDOR</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-input-look-up [disabled]="(action == 'Edit')" required="true" placeholder="Vendor ID" lookupName="Vendor Lookup" helptext="What is code for Vendor?"
+                (transportModeList)="setTransportMode($event, 'newContract')" klass="form-control" compid="inputlookup3" #inputlookupNewContract
+                [data]='vendorLookUpData' name="look1" [(lookUpvalue)]="newContractData.contract.vendorCode" (vendorNameChange)="setVendorName($event)"    >
+              </app-rcl-input-look-up>
+              <div  class="alert-danger" *ngIf="!errorField">
+                    <p style="background-color: #d9534f;color: #fff;padding-left: 3px;">{{errorTextMsg}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>EFFECTIVE DATE</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-daterangepicker name="starCal" required [single]="true" [time]="false" [time24H]="true" label="" placeholder="Select Date"
+                [(ngModel)]="newContractData.contract.startDate" #rclNewContractdaterangepicker="ngModel" klass="form-control inputMandatoryClass"
+                (effectiveDate)="setExpiryDate($event)">
+              </app-rcl-daterangepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>EXPIRY DATE</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-daterangepicker required [single]="true" [time]="false" [time24H]="true" label="" placeholder="Select Date" name="endCal"
+                [(ngModel)]="newContractData.contract.endDate" #rclNewContractNewContractdaterangepicker1 klass="form-control inputMandatoryClass">
+              </app-rcl-daterangepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>TRANSPORT MODE</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-selectize required name="transportSelect" [config]="singleSelectConfig" [options]="selectOptionsForTransport" [(ngModel)]="newContractData.contract.transMode"
+                #rclNewContractTansport klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one" label=""
+                (onChangeValue)="changeTransmode($event)">
+              </app-rcl-selectize>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>STATUS</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-selectize [hidden]="(userType == 'modifyOnly' && contractType == 'Edit')" required name="statusSelect" [config]="singleSelectConfig"
+                [options]="selectOptionsForStatus" [(ngModel)]="newContractData.contract.status" #criteriaSelectCustType="ngModel"
+                klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one" label="">
+              </app-rcl-selectize>
+
+              <app-rcl-input [hidden]="!(userType == 'modifyOnly' && contractType == 'Edit')" [disabled]="(userType == 'modifyOnly' && contractType == 'Edit')"
+                label="" klass="form-control inputMandatoryClass" name="criteriaSelectCustInput" placeholder="Enter value"
+                #criteriaSelectCustInput="ngModel" [(ngModel)]="newContractData.contract.status">
+              </app-rcl-input>
+            </div>
+            <div [hidden]="!(userType == 'modifyOnly')"><!-- showing status as Active or Suspended in case of Location User -->
+                <div *ngIf="newContractData.contract.status=='Active'">
+                  <h5>{{newContractData.contract.status}}</h5>
+                </div>
+                <div *ngIf="newContractData.contract.status=='Suspend'">
+                  <h5>{{newContractData.contract.status}}</h5>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+      <!-- <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>CURRENCY</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-currency [required]="true" label="" placeholder="Currency" lookupName="Currency Lookup" helptext="What is code for Currency?"
+                klass="form-control" compid="contractCurrencyLookup" #contractCurrencyLookup [data]='currencyLookUpData' [(lookUpvalue)]="newContractData.contract.currency">
+              </app-rcl-currency>
+            </div>
+          </div>
+          <div class="col-sm-18"></div>
+        </div>
+      </div>
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label>PRIORITY</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-input type="number" maxlength="2" required label="" klass="form-control inputMandatoryClass" name="priorityInput"
+                placeholder="Enter value" #priorityInput="ngModel" [(ngModel)]="newContractData.contract.priority" min="1">
+              </app-rcl-input>
+            </div>
+          </div>
+          <div class="col-sm-18"></div>
+        </div>
+      </div> -->
+
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-19">
+              <label for ="term">PURCHASE TERM</label>
+            </div>
+            <div class="col-sm-35">
+              <app-rcl-selectize [disabled]="newContractData.contract.transMode == 'Truck' || newContractData.contract.transMode == 'Rail'"
+                name="term" [config]="multiSelectConfig" [options]="termCodesList" [(ngModel)]="newContractData.contract.term"
+                #criteriaSelectCustType="ngModel" klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one"
+                label="">
+              </app-rcl-selectize>
+            </div>
+          </div>
+          <div class="col-sm-18"></div>
+        </div>
+      </div>
+      <!--{{newContractData.contract | json}}-->
+
+      <div *ngFor="let location of newContractData.contract['locations']; let i = index">
+        <div class="row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-35" style="background: #cbcccd; border-radius: 5px;">
+            <h5 style="display: inline-block; color: #0275d8; margin-bottom: 4px;">Location {{i+1}}</h5>
+            <i *ngIf="newContractData.contract['locations'].length > 1" class="fa fa-times" style="float: right; margin-top: 4px; color: #0275d8;"
+              (click)="removeLocations(i);"></i>
+          </div>
+        </div>
+        <div class="row newContractRow">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-45">
+            <p class="newContractUnderline">From</p>
+          </div>
+          <div class="col-sm-22"></div>
+        </div>
+
+        <div class="row newContractRow" style="margin-bottom:20px;">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>LOCATION TYPE</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-selectize required name="fromLocType{{i}}"  id="fromLocType{{i}}" [config]="singleSelectConfig" [options]="selectOptionsForFromLocType"
+                  [(ngModel)]="location.fromLocType" #criteriaSelectCustType="ngModel" klass="form-control inputMandatoryClass"
+                  hasOptionsPlaceholder="Select one" label="" (onChangeValue)="pickUpDropDownChange($event, i,'fromLocType')">
+                </app-rcl-selectize>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>LOCATION</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-input-search [required]="true" [disabled]="!location.fromLocType" maxlength="5" label="" klass="form-control inputMandatoryClass"
+                  name="fromLocationInput{{i}}" placeholder="Enter value" #fromLocationInput="ngModel" [(ngModel)]="location.fromLocation" 
+                  (fscCode)="getfscCode(i)" (handleSearch)="openFromLookup(location.fromLocType,'from', i)">
+                </app-rcl-input-search>
+                  <div  class="alert-danger" *ngIf="location.fromLocationErr">
+                    <!-- #NIIT CR5-->
+                    <p style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;background-color: #d9534f;color: #fff;padding-left: 3px;" data-toggle="tooltip" title={{locationErrorTextMsg}}>{{locationErrorTextMsg}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>TRM/DPT/H.LOC</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-input-search maxlength="5" [disabled]="location.fromLocType == 'Door'" label="" [required]="true" klass="form-control inputMandatoryClass"
+                  name="fromTerminalInput{{i}}" placeholder="Enter value" #fromTerminalInput="ngModel" [(ngModel)]="location.fromTerminal"
+                  (fromTerminal)="validateFromTerminal(i)" (handleSearch)="openFromLookup(location.fromLocType,'from', i)">
+                </app-rcl-input-search>
+                <div  class="alert-danger" *ngIf="location.fromTerminalErr" >
+                   <!-- #NIIT CR5-->
+                  <p style="background-color: #d9534f;color: #fff;padding-left: 3px;">{{fromTerminalErrorTextMsg}}</p>
+              </div>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>PAYMENT FSC</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-fsc-look-up [required]="true" label="" placeholder="FSC Code" lookupName="FSC Lookup" helptext="What is code for FSC?"
+                  (currencyList)="getCurrency(i)" klass="form-control" compid="contractfsclookup" #contractfsclookup1 [data]='fscLookUpData'
+                  [(lookUpvalue)]="location.paymentFsc">
+                </app-rcl-fsc-look-up>
+                <div  class="alert-danger" *ngIf="location.paymentFscErr">
+                    <p style="background-color: #d9534f;color: #fff;padding-left: 3px;">{{fscErrorTextMsg}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>CURRENCY</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-currency [required]="true" label="" placeholder="Currency" lookupName="Currency Lookup" helptext="What is code for Currency?"
+                  klass="form-control" compid="contractCurrencyLookup" #contractCurrencyLookup [data]='currencyLookUpData'
+                  [(lookUpvalue)]="location.currency">
+                </app-rcl-currency>
+                
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>PRIORITY</label>
+              </div>
+              <div class="col-sm-35">
+                <!-- "CR-changed for taskNo-3-Nikash" -->
+                <!-- [disabled]="userType == 'modifyOnly'" -->
+                <!-- *ngIf=isReadOnly -->
+                <app-rcl-input  type="number" maxlength="2"  label="" klass="form-control inputMandatoryClass" name="priorityInput{{i}}" 
+                  placeholder="Enter value" #priorityInput="ngModel" [(ngModel)]="location.priority" min="0">
+                </app-rcl-input>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+      
+
+        <div class="row newContractRow">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-45">
+            <p class="newContractUnderline">To </p>
+          </div>
+          <div class="col-sm-22"></div>
+        </div>
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>LOCATION TYPE</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-selectize required name="toLocType{{i}}" klass="form-control inputMandatoryClass" [config]="singleSelectConfig"
+                  [options]="selectOptionsForToLocType" [(ngModel)]="location.toLocType" #criteriaSelectCustType="ngModel"
+                  hasOptionsPlaceholder="Select one" label="" (onChangeValue)="dropOffDropDownChange($event, i)">
+                </app-rcl-selectize>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+        
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>LOCATION</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-input-search required [disabled]="!location.toLocType" maxlength="5" label="" klass="form-control inputMandatoryClass" name="toLocationInput{{i}}"
+                  (fscCode)="getfscCodeToLoc(i)" placeholder="Enter value" #toLocationInput="ngModel" [(ngModel)]="location.toLocation" (handleSearch)="openToLookup(location.toLocType, 'to', i)">
+                </app-rcl-input-search>
+                <div  class="alert-danger" *ngIf="location.toLocationErr">
+                    <!-- #NIIT CR5-->
+                    <p style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;background-color: #d9534f;color: #fff;padding-left: 3px;" data-toggle="tooltip" title={{location.toLocationErrorTextMsg}}>{{location.toLocationErrorTextMsg}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+        <div class="row newContractRow">
+          <div class="col-sm-18"></div>
+          <div class="col-sm-36">
+            <div class="row">
+              <div class="col-sm-19">
+                <label>TRM/DPT/H.LOC</label>
+              </div>
+              <div class="col-sm-35">
+                <app-rcl-input-search maxlength="5" [disabled]="location.toLocType == 'Door'" label="" klass="form-control inputMandatoryClass"
+                [required]= "true"
+                  name="toTerminalInput{{i}}" placeholder="Enter value" #toTerminalInput="ngModel" [(ngModel)]="location.toTerminal"
+                  (toTerminal)="validateToTerminal(i)" (handleSearch)="openToLookup(location.toLocType, 'to', i)">
+                </app-rcl-input-search>
+                <div  class="alert-danger" *ngIf="location.toTerminalErr" >
+                   <!-- #NIIT CR5-->
+                  <p style="background-color: #d9534f;color: #fff;padding-left: 3px;">{{toTerminalErrorTextMsg}}</p>
+              </div>
+              </div>
+            </div>
+            <div class="col-sm-18"></div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-45">
+          <a *ngIf="action == 'New'" class="uk-button uk-button-link" (click)="addLocations()">Add +  </a>
+        </div>
+        <div class="col-sm-22"></div>
+      </div>
+
+      <div class="row newContractRow">
+        <div class="col-sm-10"></div>
+        <div class="col-sm-45">
+          <p class="newContractUnderline">Transport Time <i title="Click to see transport time section" (click)="showHideTransport($event)" class="fa fa-info-circle"
+              aria-hidden="true"></i> </p>
+        </div>
+        <div class="col-sm-22"></div>
+      </div>
+
+
+      <div [hidden]="!showTransTimeFlag" class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-54">
+          <div class="row">
+            <div class="col-sm-27">
+              <div class="row">
+                <div class="col-sm-20">
+                  <label>Days</label>
+                </div>
+                <div class="col-sm-52">
+                  <app-rcl-input type="number" maxlength="6" label="" klass="form-control" name="daysInput" placeholder="Enter value" #daysInput="ngModel"
+                    [(ngModel)]="newContractData.contract.days">
+                  </app-rcl-input>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-27">
+              <div class="row">
+                <div class="col-sm-20">
+                  <label>Hours</label>
+                </div>
+                <div class="col-sm-50">
+                  <app-rcl-input type="number" maxlength="7" label="" klass="form-control" name="hoursInput" placeholder="Enter value" #hoursInput="ngModel"
+                    [(ngModel)]="newContractData.contract.hours">
+                  </app-rcl-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div [hidden]="!showTransTimeFlag" class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-54">
+          <div class="row">
+            <div class="col-sm-27">
+              <div class="row">
+                <div class="col-sm-20">
+                  <label>Distance</label>
+                </div>
+                <div class="col-sm-52">
+                  <app-rcl-input type="number" maxlength="12" label="" klass="form-control" name="distanceInput" placeholder="Enter value"
+                    #distanceInput="ngModel" [(ngModel)]="newContractData.contract.distance">
+                  </app-rcl-input>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-27">
+              <div class="row">
+                <div class="col-sm-20">
+                  <label>UOM</label>
+                </div>
+                <div class="col-sm-50">
+                  <app-rcl-input maxlength="2" [disabled]="true" label="" klass="form-control" [name]="uomInput" placeholder="Enter value"
+                    #uomInput="ngModel" [(ngModel)]="newContractData.contract.uom">
+                  </app-rcl-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div [hidden]="!showTransTimeFlag" class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-40">
+          <div class="row">
+            <div class="col-sm-10">
+              <label>Remark</label>
+            </div>
+            <div class="col-sm-62">
+              <app-rcl-input maxlength="50" label="" klass="form-control" name="remarksInput" placeholder="Enter value" #remarksInput="ngModel"
+                [(ngModel)]="newContractData.contract.remarks">
+              </app-rcl-input>
+            </div>
+          </div>
+
+          <div class="col-sm-14"></div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-sm-10"></div>
+        <div class="col-sm-52">
+          <hr>
+        </div>
+        <div class="col-sm-10"></div>
+      </div>
+
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-21">
+              <label>Excempted</label>
+            </div>
+            <div class="col-sm-16">
+              <app-rcl-checkbox label="" name="excempted" [(ngModel)]="newContractData.contract.exempted" klass="form-control form-control-sm">
+              </app-rcl-checkbox>
+            </div>
+            <!--<div class="col-sm-14">
+            <app-rcl-checkbox label="" [disabled] name="manualRate" [(ngModel)]="newContractData.contract.manualRate" klass="form-control form-control-sm">
+            </app-rcl-checkbox>
+          </div>
+          <div class="col-sm-18">
+            <label>Auto/Manual rate</label>
+          </div>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+      </div>
+      <div class="row">
+      </div>
+      <div class="row newContractRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-11"></div>
+            <div class="col-sm-25">
+              <div class="row">
+                <button type="button" class="uk-button uk-button-secondary" (click)="closeNewContract()">close</button>
+              </div>
+            </div>
+            <div class="col-sm-25">
+              <div class="row">
+				        <!-- #NIIT CR5-->
+                <button [disabled]="!newContactForm.valid || toLocationErrFlag" type="button" class="uk-button uk-button-primary" (click)="saveNewContract($event.target, action)">save</button>
+              </div>
+            </div>
+            <div class="col-sm-11"></div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+  <div class="vandor-Contract-Info" style="height:700px; overflow:auto;">
+    <div class="col-sm-72">
+      <div class="row">
+        <div class="col-sm-35 text-right">VENDOR:</div>
+        <div class="col-sm-35">{{newContractData.contract.vendorCode}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">VENDOR NAME:</div>
+        <div class="col-sm-35" [title]="newContractData.contract.vendorName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{newContractData.contract.vendorName}}</div>
+      </div>
+       <div class="row"  *ngIf="contractId">
+        <div class="col-sm-35 text-right">Contract ID :</div>
+        <div class="col-sm-35" [title]="newContractData.contract.contractId" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{newContractData.contract.contractId}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">EFFECTIVE DATE:</div>
+        <div class="col-sm-35">{{newContractData.contract.startDate}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">EXPIRY DATE:</div>
+        <div class="col-sm-35">{{newContractData.contract.endDate}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">TRANSPORT MODE:</div>
+        <div class="col-sm-35">{{newContractData.contract.transMode}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">STATUS:</div>
+        <div class="col-sm-35">{{newContractData.contract.status}}</div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-35 text-right">PURCHASE TERM:</div>
+        <div class="col-sm-35">{{newContractData.contract.term}}</div>
+      </div>
+
+      <div *ngFor="let loct of newContractData.contract.locations; let i = index">
+        <div class="row">
+          <div class="col-sm-35 text-right">FROM LOC. TYPE: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.fromLocType}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">FROM LOCATION: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.fromLocation}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">TRM/DPT/H.LOC: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.fromTerminal}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">PAYMENT FSC: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.paymentFsc}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">TO LOC. TYPE: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.toLocType}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">TO LOCATION: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.toLocation}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">TRM/DPT/H.LOC: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.toTerminal}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">PRIORITY: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.priority}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-35 text-right">CURRENCY: {{i+1}}</div>
+          <div class="col-sm-35">{{loct.currency}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-35 text-right">DAYS:</div>
+        <div class="col-sm-35">{{newContractData.contract.days}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">HOURS:</div>
+        <div class="col-sm-35">{{newContractData.contract.hours}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">DISTANCE:</div>
+        <div class="col-sm-35">{{newContractData.contract.distance}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">UOM:</div>
+        <div class="col-sm-35">{{newContractData.contract.uom}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">REMARK:</div>
+        <div class="col-sm-35" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" [title]="newContractData.contract.remarks">{{newContractData.contract.remarks}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-35 text-right">EXEMPTED:</div>
+        <div class="col-sm-35">{{newContractData.contract.exempted}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div id="success-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{successTextMsg}}</h5>
+    <button [hidden]="successtextFlag" class="uk-button uk-button-primary uk-modal-close" type="button" (click)="searchContract($event)">Ok</button>
+    <button [hidden]="okFlag" class="uk-button uk-button-primary uk-modal-close" type="button" >Close</button>
+    <button [hidden]="changePriorityFlag" class="uk-button uk-button-primary uk-modal-close" type="button" style="margin-right: 5px;"
+      (click)="saveNewContract($event.target, 'changepriority')">Change</button>
+    <button [hidden]="failureTextFlag" class="uk-button uk-button-primary uk-modal-close" type="button" (click)="closeNewContract($event.target)">Close</button>
+
+    <!-- <button [hidden]="changePriorityFlag" class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;"
+      (click)="closeNewContract()">Close</button> -->
+
+  </div>
+</div>
+
+<div id="priority-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" >
+    <h5>{{priorityTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click) ="closeWarning()">Close</button>
+  </div>
+</div>
+
+<div id="validation-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" >
+    <h5>{{errorMessage}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click) ="closeValidationWarning()">Close</button>
+  </div>
+</div>
+<!-- <div id="error-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" >
+    <h5>{{errorTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click) ="closeBox()">Close</button>
+  </div>
+</div> -->
+
+
+<!-- #NIIT CR5-->
+<app-door-lookup #lookupAddContract (rowSelected)="rowSelected($event)"></app-door-lookup>
+
+<!-- for tooltip-->
+<!-- #NIIT CR5-->
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

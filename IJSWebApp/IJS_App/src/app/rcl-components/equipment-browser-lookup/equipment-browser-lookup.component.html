@@ -1,0 +1,186 @@
+<div *ngIf="openModal" class="lookup-popup-input">
+  <div id="equipment-browser-modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <button class="uk-modal-close-default" type="button" uk-close (click)="resetEqBrowserModal($event)"></button>
+      <p><span class="lookup-heading">Equipment Browser</span></p>
+      <div class="col-sm-72">
+        <div class="row search-lookup-row">
+          <div class="col-sm-12">
+            <app-rcl-selectize required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="eqBrowserDropDownData"
+              placeholder="Select one" [(ngModel)]="selectedDropDown1"></app-rcl-selectize>
+          </div>
+          <div class="col-sm-12">
+            <app-rcl-selectize required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="eqBrowserDropDownData1"
+              placeholder="Select one" [(ngModel)]="selectedDropDown2"></app-rcl-selectize>
+          </div>
+          <div class="col-sm-15">
+            <app-rcl-input required [ngModelOptions]="{standalone: true}" label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..."
+              [(ngModel)]="_textValue">
+            </app-rcl-input>
+          </div>
+          <div class="col-sm-12">
+            <app-rcl-selectize required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="eqBrowserDropDownData2"
+              placeholder="Select one" [(ngModel)]="selectedDropDown3"></app-rcl-selectize>
+          </div>
+          <div class="col-sm-11">
+            <button [disabled]="!(selectedDropDown1 && selectedDropDown2 && selectedDropDown3 && _textValue)" class="uk-button uk-button-default"
+              (click)="addEquipmentQuery(selectedDropDown1, selectedDropDown2, _textValue, selectedDropDown3 )"><i class="fa fa-plus" aria-hidden="true"></i>Add</button>
+          </div>
+          <div class="col-sm-10">
+            <button [disabled]="seachCriteriaList.length < 1" class="uk-button uk-button-primary"  (click)="getLocLookUpData()" >FIND</button>
+          </div>
+        </div>
+
+        <div class="row condition-button-row">
+          <div class="col-sm-12 text-muted">Condition :</div>
+          <div class="col-sm-60" *ngIf="seachCriteriaList.length > 0">
+            <div *ngFor="let item of seachCriteriaList; let i = index;" class="condition-button">
+              {{item.selectedDropDown3}} {{item.displayText}} {{item.selectedDropDown2}} {{item.textValue}} &nbsp;&nbsp;
+              <i [hidden]="crossFlag" class="fa fa-times" (click)="removeEquipmentQuery(item, i)"></i>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="showlookuptable">
+          <div class="row search-lookup-row">
+            <div class="col-sm-14">Total {{locLookUpEqBrowserTableData.length}} items</div>
+            <div class="col-sm-20">
+              <select [(ngModel)]="resultsPerPage">
+                  <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                  </select> Results Per Page
+            </div>
+            <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+              <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                  <option *ngFor="let pageresult of eqBrowserSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+            </div>
+            <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+              <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                  <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+            </div>
+          </div>
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Select</th>
+                  <th>Equipment#</th>
+                  <th>Size</th>
+                  <th>Type</th>
+                  <th>Point</th>
+                  <th>Activity</th>
+                  <th>Activiy Date</th>
+                  <th>Activiy Time</th>      
+                </tr>
+              </thead>
+              <tbody>
+                <tr (dblclick)="selectRowData($event); $event.stopPropagation()" *ngFor="let tableRow of locLookUpEqBrowserTableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupEqBrowser'}; let i = index"
+                  class="slidein-from-top">
+                  <td>{{i+1}}</td>
+                   <td>
+                    <app-rcl-checkbox class="lookUpCheckBox tableCheckBox" label="" name="lookUpCheckBox" #eqBrowserlookUpCheckBox (rclCheckChanged)="selectTableRowCheckBoxes($event, tableRow)" (click)="$event.stopPropagation()"  [(ngModel)]="tableRow.checked"></app-rcl-checkbox>
+                  </td>
+                  <td>{{tableRow.eqpNum}}</td>
+                  <td>{{tableRow.size}}</td>
+                  <td>{{tableRow.type}}</td>
+                  <td>{{tableRow.point}}</td>
+                  <td>{{tableRow.activity}}</td>
+                  <td>{{tableRow.activityDate}}</td>
+                  <td>{{tableRow.activityTime}}</td>           
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="pc = $event" id="lookupEqBrowser"></pagination-controls>
+          </div>
+          <div class="uk-modal-footer uk-text-center">
+            <button class="uk-button uk-button-default uk-modal-close" type="button" (click)="resetEqBrowserModal($event)">Close</button>
+            <button class="uk-button uk-button-primary" type="button" (click)="updateEquipment()">Update Equipment</button>
+          </div>
+        </div>
+        <!-- to show error text message when no record is found for given search criteria -->
+        <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--#NIIT CR3 BEGIN -->
+<!-- modal to add empty equipments -->
+<div *ngIf="openEmptyEquipemtModal">
+  <div id="add-empty-equipment-setup-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"> 
+      <!--<button class="uk-modal-close-default" type="button" uk-close ></button>   -->
+    <p><span class="lookup-heading">Unavailable Equipment</span></p>
+    <div>
+      <form  #pcsm="ngForm" >
+        <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+          <thead>
+              <tr>
+                  <th>Type</th>
+                  <th>Size</th>
+                  <th>Quantity</th>   
+                  <th>Delete</th>               
+              </tr>
+          </thead>
+          <tbody>
+              <tr  *ngFor="let rowData of emptyContainerList; let i = index">
+                  <td style="width:25%"><app-rcl-selectize required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="eqTypeOptions"
+                      placeholder="Select one" [(ngModel)]="rowData['type']" (ngModelChange)="change($event)"></app-rcl-selectize></td>
+                  <td style="width:25%"><app-rcl-selectize required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="rateOptions"
+                      placeholder="Select one" [(ngModel)]="rowData['size']" (ngModelChange)="change($event)"></app-rcl-selectize></td>
+                  <td style="width:25%"><app-rcl-input  pattern="^[0-9]*$" [ngModelOptions]="{standalone: true}" label="" klass="form-control" [name]="selectedDropDown" 
+                      placeholder="Enter Quantity..." [(ngModel)]="rowData['quantityValue']" (ngModelChange)="change($event)"></app-rcl-input></td>
+                  <td style="width:25%"><app-rcl-checkbox  label="" compid="rowCheck_{{i}}" name="rowCheck" #rowCheck klass="form-control form-control-sm" [(ngModel)]="rowData['checked']"
+                      (rclCheckChanged)="checkSelectedRow($event, rowData, i)"></app-rcl-checkbox></td>    
+              </tr>
+          </tbody>
+       </table>
+      </form>     
+      <div class="uk-modal-footer uk-text-center">
+         <button class="uk-button uk-button-default uk-modal-close" type="button" (click)="resetEmptyEquipmentList()">Close</button>
+            <button class="uk-button uk-button-primary" type="button" (click)="addEmptyEquipment()">Add</button>            
+            <button class="uk-button uk-button-primary" type="button" (click)="deleteSelectedRow()">Delete</button> 
+            <button class="uk-button uk-button-primary" [disabled]="!pcsm.valid" type="button" (click)="saveEmptyEquipment()">Confirm</button>           
+      </div>
+
+       <!-- modal incase duplicate records are addded -->
+       <div class="AlertModel" *ngIf="showAlertPopup">
+          <div class="modelBody" style="margin-top: 140px">
+            <p style="">Duplicate Record Exist</p>
+              <div class="text-right">
+                <button (click)="showAlertPopup=!showAlertPopup" type="button">OK</button>
+              </div>
+          </div>
+        </div>
+
+        <!-- modal incase duplicate records are addded -->
+        <div class="AlertModel" *ngIf="showDuplicateError">
+          <div class="modelBody" style="margin-top: 140px">
+            <p style="">Please input correct values</p>
+              <div class="text-right">
+                <button (click)="showDuplicateError=!showDuplicateError" type="button">OK</button>
+              </div>
+          </div>
+        </div>
+
+        <!-- modal incase negative or 0 quantity is input -->
+        <div class="AlertModel" *ngIf="showNegativeError">
+          <div class="modelBody" style="margin-top: 140px">
+            <p style="">Please input quantity > 0</p>
+              <div class="text-right">
+                <button (click)="showNegativeError=!showNegativeError" type="button">OK</button>
+              </div>
+          </div>
+        </div>
+
+     </div>
+    </div>
+  </div>
+</div>
+<!--#NIIT CR3 END -->
+
+

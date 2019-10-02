@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+  <!-- ========== Form Bean Definitions ============ -->
+  <form-beans>
+  	<form-bean name="contractSearchUIM" type="com.rclgroup.dolphin.ijs.web.ui" />
+        <form-bean name="joSearchUIM" type="com.rclgroup.dolphin.ijs.web.ui.IjsJOLookupUIM" />
+        <form-bean name="joSearchBookingBLUIM"
+                   type="com.rclgroup.dolphin.ijs.web.ui.IjsProcessJOBkgBLSearchUIM" />
+       <form-bean name="joMaintainSearchUIM"
+                   type="com.rclgroup.dolphin.ijs.web.ui.IjsMaintainJOSearchUIM" />
+        <form-bean name="joEnquiryUIM"
+                   type="com.rclgroup.dolphin.ijs.web.ui.IjsJoEnquiryUIM" />
+        <form-bean name="fileUploadForm"
+			type="com.rclgroup.dolphin.ijs.web.ui.IjsContractExcelUploadForm"/>
+        <form-bean name="exemptCustForm"
+			type="com.rclgroup.dolphin.ijs.web.ui.IjsJoExemptedCustUIM"/>
+  </form-beans>
+
+
+  <!-- ========== Global Forward Definitions ========= -->
+  <global-forwards>
+  </global-forwards>
+
+
+  <!-- ========== Action Mapping Definitions ======== -->
+  <action-mappings>
+    <action
+    	path="/contractSearch"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsContractSearchAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+	</action>
+    <action
+    	path="/lookupSearch"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsContractLookupAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/lookupSearchJOAll"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsJOLookupAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/processJOSearchBookingBL"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsProcessJOBkgBLSearchAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/resultTableSearchBL"
+    	type="com.rclgroup.dolphin.ijs.web.action.ResultTableAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/maintainJOSearch"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsMaintainJOSearchAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/joEnquiry"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsJoEnquiryAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/exemptCustSearch"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsJoExemptedCustAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
+    	path="/loadUser"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsUserAction" >
+	    <forward name="valid" path="/index.html" />
+    </action>
+     <action
+    	path="/rateSearch"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsContractRateAction" >
+	    <forward name="valid" path="/index.jsp" />
+	</action>
+     <action
+    	path="/uploadExcel"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsContractsUploadAction" name ="fileUploadForm" >
+	      <forward name="success" path="/index.jsp"></forward> 
+              <forward name="fail"  path="/index.jsp" ></forward> 
+	</action>
+    <action
+    	path="/viewJoUrl"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsCommonAction" >
+	    <forward name="valid" path="/index.jsp" />
+    </action>
+     <action
+    	path="/sessionExpiryError"
+    	type="com.rclgroup.dolphin.ijs.web.action.IJSSessionErrorAction" >
+	    <forward name="valid" path="/index.jsp" />
+    </action>
+  </action-mappings>
+  <controller>
+         <set-property property="processorClass" value="com.rclgroup.dolphin.ijs.web.processor.IjsRequestProcessor" />
+  </controller>
+<message-resources parameter="com.rclgroup.dolphin.ApplicationResources"/>
+
+</struts-config>

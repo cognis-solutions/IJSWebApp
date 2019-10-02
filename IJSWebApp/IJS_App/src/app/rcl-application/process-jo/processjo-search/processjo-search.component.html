@@ -1,0 +1,353 @@
+<div class="ijs_processjo_container slidein-from-left">
+  <div class="row">
+    <div class="col-sm-72">
+      <div class="col-sm-72" style="padding:15px 30px 10px 30px;  background:rgb(46, 180, 241);">
+        <div class="col-sm-50">
+          <h4 style="color:#fff;">Search 
+            <span class="job-order-type"
+              *ngIf="processJoSearchData.processJoParam.processJoType == 'ER'">{{joTypeSelected}}
+            </span>
+            <span class="job-order-type"
+              *ngIf="processJoSearchData.processJoParam.processJoType == 'LAH'">{{processJoTypeSelectAllOptions[5].label}}
+            </span>
+          </h4>
+        </div>
+        <div class="col-sm-72">
+          <div class="filter-button-wrapper" style="padding:10px 0 0 0;">
+
+            <!--<div class="filter-button">
+              <button type="button" id="find-button" class="btn   btn-secondary btn-info btn-new" (click)="searchProcessJoOrder($event.target)"><i class="fa fa-search">&nbsp;&nbsp;</i><span>Find</span></button>
+            </div>-->
+            <div class="filter-button">
+              <button [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                type="button" id="find-button" class="btn   btn-secondary btn-info btn-new" (click)="searchProcessJoOrder($event.target)"><i class="fa fa-search">&nbsp;&nbsp;</i><span>Find</span></button>
+            </div>
+            <div class="filter-button">
+              <button type="button" id="filterButton" class="btn btn-secondary btn-new " placement="bottom" (click)=showhideFilter($event)><i class="fa fa-filter">&nbsp;&nbsp;</i><span>Sort</span></button>
+            </div>
+            <div class="reset-button">
+              <button type="button" class="btn btn-secondary btn-new" (click)="resetSearch()"><i class="fa fa-refresh">&nbsp;&nbsp;</i><span>Reset</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- change code -->
+      <!--<div class="row search-row1">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-25">
+          <div id="search-tab-button">Search</div>
+        </div>
+        <div class="col-sm-32"></div>
+        <div class="col-sm-13 text-right">
+          <div class="filter-button">
+            <button type="button" id="filterButton" class="btn btn-secondary" placement="bottom" (click)=showhideFilter($event)><i class="fa fa-filter">&nbsp;&nbsp;</i><span>Sort</span></button>
+          </div>
+          <div class="reset-button">
+            <button type="button" class="btn btn-secondary" (click)="resetSearch()"><i class="fa fa-refresh">&nbsp;&nbsp;</i><span>Reset</span></button>
+          </div>
+        </div>
+      </div>-->
+      <div class="row">
+        <div class="col-sm-72">
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10 search-for-text">Search For</div>
+            <div class="col-sm-10 vehicle-tool-tip">
+              <button [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                type="button" (document:click)="proceessJovehicleTip.close()" (click)="$event.stopPropagation()"  triggers="manual" class="btn btn-sm tooltip-button" placement="right" #proceessJovehicleTip="ngbTooltip"
+                [ngbTooltip]="processVehicleTipContent" (click)="showHideVehicleToolTip()">{{processJoSearchData.processJoParam.transMode}}</button>
+
+              <ng-template #processVehicleTipContent>
+                <div class="row vehicle-tooltip-Content" (click)="proceessJovehicleTip.close()">
+                  <div class="col-sm-72">
+                    <app-rcl-radio-fa-icon #processJoVehicleRadio="ngModel" [data]='processJoTransModeData' label="" labelclass="medium trans-type-label"
+                      name="rclAdvanceContractVehicle" (click)="setJobOrederTypeOptions(processJoSearchData.processJoParam.transMode)"
+                      [(ngModel)]="processJoSearchData.processJoParam.transMode">
+                    </app-rcl-radio-fa-icon>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-10 text-tool-tip">
+              <button [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                type="button" (document:click)="proceessJoBookingTip.close()" (click)="$event.stopPropagation()" triggers="manual" class="btn btn-sm tooltip-button" placement="right" #proceessJoBookingTip="ngbTooltip"
+                [ngbTooltip]="processBookingTipContent" (click)="showHideBookingToolTip()">{{bookingTypeText}}</button>
+              <ng-template #processBookingTipContent>
+                <div class="row vehicle-tooltip-Content" (click)="proceessJoBookingTip.close()">
+                  <div class="col-sm-72">
+                    <app-text-group-radio #processJoVehicleRadio="ngModel" [data]='processjoBookingType' label="" labelclass="medium trans-type-label"
+                      name="rclAdvanceContractVehicle" [(ngModel)]="bookingTypeText" (onChangeValue)="changeBookingTypeValue($event)">
+                    </app-text-group-radio>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-72">
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-selectize name="processJoTypeSelect" [config]="processJoSelectConfig" [options]="processJoTypeSelectOptions" [(ngModel)]="processJoSearchData.processJoParam.processJoType"
+                #criteriaSelectCustType="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Job Order Type"
+                (onChangeValue)="onChangeProcessJOType($event)">
+              </app-rcl-selectize>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input-look-up [required]="processJoSearchData.processJoParam.processJoType == 'IT'" label="Vendor" placeholder="Vendor ID" lookupName="Vendor Lookup" helptext="What is code for Vendor?"
+                klass="form-control" compid="processJoVendorlookup1" #processJoVendorlookup [data]='processJoVendorLookUpData'
+                [(lookUpvalue)]="processJoSearchData.processJoParam.vendorCode">
+              </app-rcl-input-look-up>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                label="Booking/BL #" klass="form-control search-box" compid="processJoBooking" name="processJoBooking" placeholder="Booking/BL #"
+                #processJoBookingInput="ngModel" [(ngModel)]="processJoSearchData.processJoParam.bookingVal">
+              </app-rcl-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-72">
+          <div class="row search-row-last">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-service-vessel-voyage-lookup [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                valToSelect="service" label="Service" placeholder="Service" lookupName="Service/Vessel/Voyage Lookup" helptext=""
+                klass="form-control" compid="processJoServicelookup1" #processJoserviceVesselVoyagelookup [data]='processJoserviceVesselVoyagelookupData'
+                [(lookUpvalue)]="processJoSearchData.processJoParam.serviceVal"  (lookUpvalueChange)="getLookupValues($event)" (svvValueChange)="getSVVValue($event)"></app-service-vessel-voyage-lookup>
+            </div>
+            <div class="col-sm-17">
+              <app-service-vessel-voyage-lookup [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                valToSelect="vessel" label="Vessel" placeholder="Vessel" lookupName="Service/Vessel/Voyage Lookup" helptext=""
+                klass="form-control" compid="processJoVesselookup1" #processJoserviceVesselVoyagelookup [data]='processJoserviceVesselVoyagelookupData'
+                [(lookUpvalue)]="processJoSearchData.processJoParam.vesselVal" (lookUpvalueChange)="getLookupValues($event)" (svvValueChange)="getSVVValue($event)"></app-service-vessel-voyage-lookup>
+            </div>
+            <div class="col-sm-17">
+              <app-service-vessel-voyage-lookup [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                valToSelect="voyage" label="Voyage" placeholder="Voyage" lookupName="Service/Vessel/Voyage Lookup" helptext=""
+                klass="form-control" compid="processJoVoyagelookup1" #processJoserviceVesselVoyagelookup [data]='processJoserviceVesselVoyagelookupData'
+                [(lookUpvalue)]="processJoSearchData.processJoParam.voyageVal" (lookUpvalueChange)="getLookupValues($event)" (svvValueChange)="getSVVValue($event)"></app-service-vessel-voyage-lookup>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-checkbox [disabled]="(processJoSearchData.processJoParam.processJoType != 'ER' && processJoSearchData.processJoParam.processJoType != 'LAH')"
+                style="top: 54px; position: relative;" label="AddHoc" #adHocCheckbox (rclCheckChanged)="showAddHoc($event)"
+                [(ngModel)]="checkBoxValue"></app-rcl-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row radio-select" style="margin-bottom: 0; color: #007bce;">
+        <div class="col-sm-72">
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-70"><label style="text-decoration: underline; margin-bottom: 0;"><b>Pick Up</b></label></div>
+          </div>
+        </div>
+      </div>
+      <div class="row search-row-last" style="margin-top: 0;">
+        <div class="col-sm-72">
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-selectize [required]="processJoSearchData.processJoParam.processJoType == 'IT'" [disabled] = "(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                 name="PickUpLocDrop" [config]="processJoSelectConfig" [options]="processJoLocOptions" [(ngModel)]="processJoSearchData.processJoParam['fromLocType']"
+                #processJoPickLoc="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Pickup Loc. Type"
+                (onChangeValue)="pickUpDropDownChange($event)">
+              </app-rcl-selectize>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input-search [required]="processJoSearchData.processJoParam.fromLocType == 'Haulage' ||
+                processJoSearchData.processJoParam.fromLocType == 'Terminal' || processJoSearchData.processJoParam.fromLocType == 'Depot' || processJoSearchData.processJoParam.fromLocType == 'Door'" [disabled]="!processJoSearchData.processJoParam['fromLocType'] || processJoSearchData.processJoParam['fromLocType'] == 'Port'"
+                label="Location" klass="form-control" compid="PickUpLoc" name="PickUpLoc" placeholder="Location" #processJoPickLocCode="ngModel"
+                [(ngModel)]='processJoSearchData.processJoParam["fromLocation"]' (handleSearch)="openFromLookup(processJoSearchData.processJoParam['fromLocType'],'from')">
+              </app-rcl-input-search>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input-search [required]="processJoSearchData.processJoParam.fromLocType == 'Port' || processJoSearchData.processJoParam.fromLocType == 'Haulage' || 
+              processJoSearchData.processJoParam.fromLocType == 'Terminal' || processJoSearchData.processJoParam.fromLocType == 'Depot'" [disabled]="!processJoSearchData.processJoParam['fromLocType'] ||processJoSearchData.processJoParam['fromLocType'] == 'Door'"
+                label="Trm/Dpt/H.Loc" klass="form-control" compid="PickUpLoc1" name="PickUpLoc1" placeholder="Trm/Dpt/H.Loc"
+                #rclinput2="ngModel" [(ngModel)]='processJoSearchData.processJoParam["fromTerminal"]' (handleSearch)="openFromLookup(processJoSearchData.processJoParam['fromLocType'],'from')">
+              </app-rcl-input-search>
+            </div>
+          </div>
+        </div>
+        <!--pick drop Chnage-->
+      </div>
+
+      <div class="row radio-select" style="margin-bottom: 0; color: #007bce;">
+        <div class="col-sm-72">
+          <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-70">
+              <label style="text-decoration: underline; margin-bottom: 0;"><b>Drop Off</b></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row search-row-last" style="margin-top: 0;">
+        <div class="col-sm-72">
+          <div class="row ">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-selectize [required]="processJoSearchData.processJoParam.processJoType == 'IT'" [disabled] = "(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                name="advanceDropLoc" [config]="processJoSelectConfig" [options]="processJoLocOptions" [(ngModel)]="processJoSearchData.processJoParam['toLocType']"
+                #advanceDropLoc="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Loc. Type" (onChangeValue)="dropOffDropDownChange($event)">
+              </app-rcl-selectize>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input-search [required]="processJoSearchData.processJoParam.toLocType == 'Haulage' || 
+              processJoSearchData.processJoParam.toLocType == 'Terminal' || processJoSearchData.processJoParam.toLocType == 'Depot' || processJoSearchData.processJoParam.toLocType == 'Door'" [disabled]="!processJoSearchData.processJoParam['toLocType'] || processJoSearchData.processJoParam['toLocType'] == 'Port'"
+                label="Location" klass="form-control" compid="DropOffLoc" name="DropOffLoc" placeholder="Location" #rclinput1="ngModel"
+                [(ngModel)]='processJoSearchData.processJoParam["toLocation"]' (handleSearch)="openToLookup(processJoSearchData.processJoParam['toLocType'] ,'to')">
+              </app-rcl-input-search>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input-search [required]="processJoSearchData.processJoParam.toLocType == 'Port' || processJoSearchData.processJoParam.toLocType == 'Haulage' || 
+              processJoSearchData.processJoParam.toLocType == 'Terminal' || processJoSearchData.processJoParam.toLocType == 'Depot'" [disabled]="!processJoSearchData.processJoParam['toLocType'] || processJoSearchData.processJoParam['toLocType'] == 'Door'"
+                label="Trm/Dpt/H.Loc" klass="form-control" compid="DropOffLoc1" name="DropOffLoc1" placeholder="Trm/Dpt/H.Loc"
+                #rclinput2="ngModel" [(ngModel)]='processJoSearchData.processJoParam["toTerminal"]' (handleSearch)="openToLookup(processJoSearchData.processJoParam['toLocType'],'to')">
+              </app-rcl-input-search>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-72">
+          <div class="row search-row-last">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-daterangepicker [readOnly]="true" [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                [single]="false" [time]="false" [time24H]="true" label="Start Date / End Date" placeholder="Select Session"
+                name="processJoSearchDate" [(ngModel)]="processJoSearchData.processJoParam.dateRange" #processJoSearchDatePicker="ngModel"
+                klass="form-control"></app-rcl-daterangepicker>
+            </div>
+            <!--<div class="col-sm-17">
+              <app-rcl-input [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                label="Port/Point, Trm/Dpt/H.Loc" klass="form-control search-box" compid="processJoPPTDH" name="processJoPPTDH"
+                placeholder="Port/Point, Trm/Dpt/H.Loc" #processJoBookingInput="ngModel" [(ngModel)]="processJoSearchData.processJoParam.pptdhVal"
+                (click)="openPickupDropoffPopUp($event)">
+              </app-rcl-input>
+            </div>-->
+            <div class="col-sm-17">
+              <app-rcl-selectize [disabled] = "(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                 name="processJoCOCTypeSelect" [config]="processJoSelectConfig" [options]="processJoCOCOptions" [(ngModel)]="processJoSearchData.processJoParam.processJoCOCType"
+                #criteriaSelectCustType="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="SOC/COC">
+              </app-rcl-selectize>
+            </div>
+            <div class="col-sm-17">
+              <!---->
+            </div>
+            <!--<div class="col-sm-17">
+              <button [disabled]="(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')"
+                type="button" id="find-button" class="btn btn-sm btn-info" (click)="searchProcessJoOrder($event.target)"><i class="fa fa-search"></i> <span class="find-text">&nbsp;FIND</span></button>
+            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="row validation-error control-bottom-error" [hidden]="!validationTextFlag">
+        <div class="col-sm-72">
+          <p>{{validationText}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-72">
+  <div *ngIf="processJoShowfilter" class="processJoSearchFilter">
+    <app-processjo-search-filter #processjoSearchFilter [contractshowfilter]="processJoShowfilter" [numberofColumndata]='filterData'
+      (showhideFilter)='showhideFilter($event)' (filterDataSelected)='filterDataSelected($event)'></app-processjo-search-filter>
+  </div>
+</div>
+
+
+
+
+
+
+<!--Pick drop modal interface-->
+<div id="ProcessJOPickDropModal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" (click)="resetPickDropModal($event)" uk-close></button>
+    <div class="main-content">
+      <p>Please insert Pick up and Drop off location.</p>
+      <div class="row">
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-72 text-center"><b>Pick Up</b></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-input label="Location" klass="form-control" compid="processJoPickUpLoc" name="PickUpLoc" placeholder="" #rclinput="ngModel"
+                [(ngModel)]="locationCodePickUp" (click)="openFromLookup(processJoLocPickupTpye,'from')">
+              </app-rcl-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-selectize required name="" [config]="processJoSelectConfig" [options]="processJoLocOptions" [(ngModel)]="processJoLocPickupTpye"
+                #processJoPickLoc="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Loc. Type">
+              </app-rcl-selectize>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12"><i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i></div>
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-72 text-center"><b>Drop off</b></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-input label="Location, Trm/Dpt/H.Loc" klass="form-control" compid="DropOffLoc" name="DropOffLoc" placeholder=""
+                #rclinput="ngModel" [(ngModel)]="locationCodeDropOff" (click)="openToLookup(processJoLocDropOffType,'to')">
+              </app-rcl-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-selectize required name="" [config]="processJoSelectConfig" [options]="processJoLocOptions" [(ngModel)]="processJoLocDropOffType"
+                #processJoDropLoc="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Loc. Type">
+              </app-rcl-selectize>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-27"></div>
+        <div class="col-sm-26"><button class="uk-button uk-button-primary" (click)="selectLocLookUpValue()">Select</button></div>
+      </div>
+      <div class="row" [hidden]="!showLocErrorText">
+        <div class="col-sm-72 control-bottom-error">
+          {{errorTextLookUp}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-door-lookup #processJoPPTDHLookup (rowSelected)="rowSelected($event)"></app-door-lookup>
+
+<div id="processjo-error-code-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5 class="word-wrap">Sorry!!!! {{errorCodetext}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button">Change Search</button>
+  </div>
+</div>
+<div class="container" [hidden]="errormessage" class="alert alert-danger" style="margin:0 15px">
+  <p><strong>*</strong>{{errorCodetext}}</p>
+</div>
+<div class="container" [hidden]="serverErrormessage" class="alert alert-danger" style="margin:0 15px">
+  <p><strong>*</strong>{{serverErrorCodetext}}</p>
+</div>
+
+ <div id="requiredFields-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" >
+    <h5>Fill all the required fields</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;">Close</button>
+  </div>
+</div> 

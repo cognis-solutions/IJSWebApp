@@ -1,0 +1,165 @@
+//for filter buttons at top
+.filter-button-wrapper {
+	display: inline-block;
+    float: right;
+    margin-top: -54px;
+    margin-right: 7rem;
+}
+.filter-button-wrapper > .filter-button {	
+    float: left;
+    margin-right: 1rem;
+}
+.filter-button-wrapper > .reset-button {	
+    float: right;
+}
+.filter-button .btn-secondary, .reset-button .btn-secondary {
+    border-radius: 5px;
+}
+.filter-button button.filterButtonClicked {
+     background-color: #232323;
+     color: #ffffff;
+}
+.radio-select .vehicle-tooltip-button {
+    background-color: #0f3c49;
+    color: #f6f6f6;
+    padding: .5rem 1rem;
+    margin-top: 2rem;
+    border-radius: 7px;
+    font-size: 1rem;
+}
+
+.btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+//searchdata container
+.ijs_searchdatafilter_wrapper {
+    width: 100%;
+    background-color: #ffffff;
+}
+.ijs_searchdatafilter_wrapper + .card.slidein-from-left {
+    width: 100%;
+    background-color: #eceeef;
+}
+.ijs_searchdatafilter_wrapper + .card.slidein-from-left > .card-block {
+    padding: 0;
+}
+.ijs_searchdatafilter_wrapper + .card.slidein-from-left > .card-block > .card{
+    background-color: #eceeef;
+}
+.ijs_searchdatafilter, .ijs_searchdatafilter1 {
+    margin: 0 auto;    
+    width: 85%;
+}
+.ijs_searchdatafilter {
+    padding-top: 2rem;
+    padding-bottom: .5rem;
+}
+.ijs_searchdatafilter1 > .row {
+    line-height: 3rem;
+}
+
+.filter-data-button {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    color: black;
+}
+.vehicle-button {
+    background-color: #0f3c49;
+    color: #f6f6f6;
+    padding: .5rem 1rem;
+    margin-top: 2rem;
+    border-radius: 7px;
+    font-size: 1rem;
+}
+.vendor-type-button {
+    background-color: #f0f0f0;
+    color: #000000;
+    padding: .5rem 1rem;
+    font-size: 1rem;  
+}
+.vendor-type-button sup {
+    color: #000000;
+}
+.vendor-type-button:empty {
+    display: none;
+}
+.search-items-text {
+    font-weight: 700;
+    color: #0275d8;
+    padding-right: 2rem;    
+}
+.radio-select {
+    margin: 1rem 2rem;
+}
+
+.radio-select button {
+    padding: .5rem 2.5rem;
+    margin-top: 2rem;
+}
+
+.main-content > .row > div .row {
+    margin-bottom: 10px;
+}
+.uk-modal-container .uk-modal-dialog {
+    width: 1001px;
+    height: 620px;
+}
+.uk-modal-container .uk-modal-dialog .uk-overflow-auto {
+    overflow: auto;
+    height: 370px;
+    margin-top: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.search-lookup-row {
+    margin-bottom: 20px;
+}
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}
+.validation-error {
+    height: 1.5em;
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0 3px 0 3px;
+    text-align: left;
+    border-radius: 2px;
+    margin-top: 3px;
+    margin-left: 15px;
+}
+.lookup-pagination {
+    margin-top: 5px;
+}
+.uk-table-hover tbody tr:hover, .uk-table-hover>tr:hover {
+    background: #bde8f5;
+}
+
+.control-bottom-error, .lookupErrorCodeShow {
+    height: 1.5em;
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0 3px 0 3px;
+    text-align: left;
+    border-radius: 2px;
+    margin-top: 3px;
+}
+.lookUpCheckBox {
+    top: 20px;
+    position: relative;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    // IE10+ CSS here
+    .validation-error {
+       width: 47.3%;
+    }
+}

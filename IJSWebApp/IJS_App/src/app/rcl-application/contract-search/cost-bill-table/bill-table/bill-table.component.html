@@ -1,0 +1,74 @@
+<!--<div class='row'>
+  <div class="col-md-42"></div>
+  <div class="col-md-21">
+    <div [hidden]="userType == 'readOnly'" class="float-right">
+    <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="!selectedRowData" class="rateTableButton" (click)="approveRowBillRate($event)"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>
+    <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="!selectedRowData" class="rateTableButton" (click)="deleteBillRecord($event)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+    <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="!selectedRowData" class="rateTableButton" (click)="rejectRowBillRate($event)"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+    <button type="button" class="rateTableButton" (click)="showAddBillRate($event)"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+    <button type="button" [disabled]="!selectedRowData" class="rateTableButton" (click)="showEditBillRate($event)">Edit</button>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <ng-template #popContent>
+      <div class="col-sm-72">
+        <ul class="list-inline">
+          <li *ngFor='let col of allColumns' let i=index class="list-inline-item col-sm-33">
+            <input class="magic-checkbox" type='checkbox' [id]="col.name" (click)='toggle(col)' [checked]='col.visible' />
+            <label class='small' [attr.for]="col.name">{{col.id}}</label>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+    <button type="button" class="btn btn-md btn-primary pull-right" placement="left" [ngbPopover]='popContent'><i class="fa fa-eye"> &nbsp;</i>Show</button>
+  </div>
+</div>-->
+<!--<ag-grid-angular [hidden]="!addEditBillRateComponentFlag" #agGrid style="width: 100%; height: 100%;" class="ag-material" 
+[gridOptions]="gridOptions" 
+[columnDefs]="columnDefs"
+[domLayout]="domLayout"
+(rowSelected)="onRowSelected($event)"></ag-grid-angular>-->
+
+<!-- <app-test-table *ngIf="agGridRateFlag" #billGrid [columnDefs]="columnDefs" [rowData]="billTableRowData" [eqTypeList]="eqTypeList" [termCodesList]='termCodesList' [selectedContarctRow]='contractSelectedRow'></app-test-table> -->
+
+<app-billing-table *ngIf="agGridRateFlag"  #billGrid [columnDefs]="columnDefs" [rowData]="billTableRowData" [exemptedBillFlag]="billExemptedFlag" [eqTypeList]="eqTypeList" [termCodesList]='termCodesList' [selectedContarctRow]='contractSelectedRow' (save)="saveBilldata($event)" (approveRow)='approveRowBillRate($event)' (deleteRow)='deleteRowBillRate($event)' (rejectRow)='rejectRowBillRate($event)' (addrowBillRate)="saveBilldata($event)" (newCLick)="hideAddEditBillRate($event)" (reFreshBillTable)="reFreshBillTable($event)"></app-billing-table>
+
+
+<app-add-edit-bill-rate #addeEditBillRate [hidden]="addEditBillRateComponentFlag" [termCodesList]="termCodesList" [eqTypeList]="eqTypeList" class="addEditBillRateComponent slidein-from-left"
+  (hideAddEditBillRate)="hideAddEditBillRate($event)" ></app-add-edit-bill-rate>
+
+  <div id="delete-bill-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <h5>{{deleteTextMsg}}</h5>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="deleteRowBillRate($event)">Yes</button>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click) ="closeWarning()">Close</button>
+  
+    </div>
+  </div>  
+  
+  
+  <div id="delete-warnings-modal2" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <h6> Bill rate </h6>
+      <ul>
+        <li *ngFor='let errRow of saveCostRateErrorMsg' >{{errRow}}</li>
+      </ul>
+     <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click) ="closedWarning()">Close</button>
+    </div>
+  </div>
+
+  
+
+  <div id="delete-result-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <h5>{{deleteTextMsg}}</h5>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click) ="closeErrorWarning()">Close</button>
+    </div>
+  </div>
+
+  <div id="priority-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{rateTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click)="closeWarning()">Close</button>
+  </div>
+</div>

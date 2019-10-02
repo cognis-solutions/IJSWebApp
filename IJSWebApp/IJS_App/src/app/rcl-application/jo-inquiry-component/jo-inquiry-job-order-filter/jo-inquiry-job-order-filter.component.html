@@ -1,0 +1,75 @@
+<div class="ijs_searchdatafilter slidein-from-left">
+  <div class="row">
+    <div class="col-sm-72" *ngIf="maintainJoSearchData.maintainJoParam.jobOrdTyp || maintainJoSearchData.maintainJoParam.jobOrdSts || maintainJoSearchData.maintainJoParam.jobOrdNo || maintainJoSearchData.maintainJoParam.findValue || maintainJoSearchData.maintainJoParam.countryCode">
+      
+      <span class="search-items-text">Search For </span>
+      
+      <span class="filter-select-button" *ngIf="maintainJoSearchData.maintainJoParam.jobOrdTyp">{{maintainJoSearchData.maintainJoParam.jobOrdTyp}}</span>
+      
+      <span class="filter-select-button" *ngIf="maintainJoSearchData.maintainJoParam.jobOrdSts">{{maintainJoSearchData.maintainJoParam.jobOrdSts}}</span>
+      
+      <span class="filter-select-button" *ngIf="maintainJoSearchData.maintainJoParam.jobOrdNo">{{maintainJoSearchData.maintainJoParam.jobOrdNo}}</span>
+      
+      <span class="filter-search-type-button" *ngIf="maintainJoSearchData.maintainJoParam.findValue">{{maintainJoSearchData.maintainJoParam.findValue}} <sup class="text-right"><span (click)="searchChnageJobData('processJoSearch', maintainJoSearchData.maintainJoParam.vendorCode, 'vendorCode')">&#x2715;</span></sup>
+      </span>
+      
+      <span class="filter-search-type-button" *ngIf="maintainJoSearchData.maintainJoParam.countryCode">{{maintainJoSearchData.maintainJoParam.countryCode}} <sup class="text-right"><span (click)="searchChnageJobData('processJoSearch', maintainJoSearchData.maintainJoParam.vendorCode, 'serviceVal')">&#x2715;</span></sup>
+      </span>
+      
+    </div>
+  </div>
+</div>
+<div class="card-primary slidein-from-left">
+  <div class="ijs_searchdatafilter1">
+    <div class="row text-white">
+      <div class="col-sm-8" *ngIf="maintainJoSearchData.maintainJoParam.dateRange">
+        <em>Period date</em>
+      </div>
+      <div class="col-sm-17" *ngIf="maintainJoSearchData.maintainJoParam.dateRange">
+        <b>{{maintainJoSearchData.maintainJoParam.dateRange}}</b>
+      </div>
+      <div class="col-sm-6" *ngIf="maintainJoSearchData.maintainJoParam.pptdhVal">
+        <em>Location</em>
+      </div>
+      <div class="col-sm-30" *ngIf="maintainJoSearchData.maintainJoParam.pptdhVal">
+        <b>{{maintainJoSearchData.maintainJoParam.pptdhVal}}</b>
+      </div>
+    </div>
+    <div class="row text-white">
+      <div class="col-sm-8">
+        <span *ngIf="filterDataSelectedComp['filterDataArr'].length > 0 || filterDataSelectedComp['sortIn'] || filterDataSelectedComp['orderBy']"><em>Filter list</em></span>
+      </div>
+      <div class="col-sm-13 small">
+        <div *ngFor="let filterObj of filterDataSelectedComp['filterDataArr']">
+          <div *ngIf="filterObj['Port Type']">
+            <b>Port Type</b>
+            <span class="filter-data-button"><i class="fa fa-times-circle-o" (click)="proceesjoRemoveFilter(filterObj)" aria-hidden="true"></i>{{filterObj['Port Type']}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-13 small">
+        <div *ngFor="let filterObj of filterDataSelectedComp['filterDataArr']">
+          <div *ngIf="filterObj['SOC/COC']">
+            <b>SOC/COC</b>
+            <span class="filter-data-button"><i class="fa fa-times-circle-o" (click)="proceesjoRemoveFilter(filterObj)" aria-hidden="true"></i>{{filterObj['SOC/COC']}}</span>
+          </div>
+        </div>
+      </div>
+       <div class="col-sm-13 small">
+        <div *ngIf="filterDataSelectedComp['sortIn']">
+          <em>Sort In</em>
+          <span class="filter-data-button"><i class="fa fa-times-circle-o" aria-hidden="true" (click)="proceesjoRemoveFilter(filterDataSelectedComp['sortIn'])"></i>{{filterDataSelectedComp['sortIn']}}</span>
+        </div>
+      </div>
+      <div class="col-sm-13 small">
+        <div *ngIf="filterDataSelectedComp['orderBy']">
+          <em>Order by</em>
+          <span class="filter-data-button"><i class="fa fa-times-circle-o" aria-hidden="true" (click)="proceesjoRemoveFilter(filterDataSelectedComp['orderBy'])"></i>{{filterDataSelectedComp['orderBy']}}</span>
+        </div>
+      </div>
+      <div class="col-sm-10 small">
+        <button type="button" class="btn btn-info" (click)="maintainjochangeFind($event)"><i class="fa fa-search" aria-hidden="true"></i><span><b>Change Find</b></span></button>
+      </div>
+    </div>
+  </div>
+</div>

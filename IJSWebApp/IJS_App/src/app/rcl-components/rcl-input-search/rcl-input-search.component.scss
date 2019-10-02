@@ -1,0 +1,15 @@
+.form-control-search {
+   position: absolute;
+   right: 20px;
+   bottom: 12px;
+   color: grey;
+}
+
+input.ng-invalid {
+    border-left: 5px solid #d9534f;
+    border: 1px solid #d9534f;
+}
+
+.form-control:disabled + .form-control-search {
+    cursor: not-allowed;
+}

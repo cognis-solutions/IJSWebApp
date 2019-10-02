@@ -1,0 +1,30 @@
+<div [hidden]="!uploadExcelFlag"> <!--//#NIIT CR1 >>>>BEGIN--> 
+<div class="row text-primary header-arrow-icon">
+  <div class="col-sm-60">
+    <p><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Intermodel and Job Order System &#x7c; <span><b>{{compName}}</b></span></p>
+  </div>
+  <!--<div class="col-sm-10" [hidden]="!maintainJoResultsFlag">
+    <button (click)="saveMaintainJo($event)" style="margin-top: 5px;" class="uk-button uk-button-secondary"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Save</button>
+  </div>-->
+</div>
+
+
+<div class="col-sm-72" [hidden]="maintainJoResultsFlag">
+  <app-jo-maintenance-search [componentType]="componentType" [filterData]="filterData" #joInquirySearch (searchDataJoInquiry)="searchJoInquiryOrder($event)"></app-jo-maintenance-search>
+</div>
+
+<div class="col-sm-72" *ngIf="maintainJoResultsFlag">
+
+  <app-jo-maintainence-job-order-filter [jobOrdTypeText]="jobOrdTypeText"  [jobOrdStsText]="jobOrdStsText" class="ijs_searchdatafilter_wrapper slide-in-left" [maintainJoSearchData]="maintainJoSearchData"
+    [filterDataSelectedComp]="filterDataSelectedComp" [filterData]='filterData' [tableDataMaintainJoSearch]="tableDataMaintainJoSearch"
+    (changeFind)="changeFind($event)" (refreshData)="refreshResultTable($event)" (refreshBackEndData)="getBackEndRefreshedTableData($event)"></app-jo-maintainence-job-order-filter>
+
+<!--//#NIIT CR1 >>>>BEGIN-->  
+  <app-jo-maintenanceresult-table [totalRecords]="totalRecords" [checkJobOrdStsText]="jobOrdStsText" [socCocType]="socCocType" [componentType]="componentType" [viewJoUrl]="viewJoUrl" #maintainResultTable [filterData]='filterData' [filterDataSelectedComp]="filterDataSelectedComp"
+    [maintainJoSearchData]="maintainJoSearchData" [tableDataMaintainJoSearch]="tableDataMaintainJoSearch" (refreshData)="refreshResultTable($event)" (changeFindforCancelledJo)="changeFind($event)" (checkStatusSelected)="getStatusChecked($event)" (uploadExcel)="uploadExcel($event)" [validContainerList]="validContainerList"></app-jo-maintenanceresult-table>
+</div>
+</div>
+
+
+<app-jo-maintenance-excel-upload *ngIf="!uploadExcelFlag" [addHocType]="addHocTypeName" [selectedRouteContract]="routeContractID" (closeFileUploader)="closeFileUpload($event)" (containerUpdateList)="getContainersList($event)" class="uploadFile slidein-from-left"></app-jo-maintenance-excel-upload>
+<!--//#NIIT CR1 >>>>END-->

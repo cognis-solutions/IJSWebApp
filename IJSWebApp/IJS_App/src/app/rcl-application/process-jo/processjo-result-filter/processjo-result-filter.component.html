@@ -1,0 +1,75 @@
+<div class="ijs_searchdatafilter slidein-from-left">
+  <div class="row">
+    <div class="col-sm-72" *ngIf="processJoSearchDataInput.processJoParam.transMode || processJoSearchDataInput.processJoParam.bookingType || processJoSearchDataInput.processJoParam.processJoType || processJoSearchDataInput.processJoParam.svvdVal || processJoSearchDataInput.processJoParam.findValue || processJoSearchDataInput.processJoParam['fromLocation'] || processJoSearchDataInput.processJoParam['toLocation'] || processJoSearchDataInput.processJoParam['fromTerminal'] || processJoSearchDataInput.processJoParam['toTerminal'] || 
+      processJoSearchDataInput.processJoParam['toLocType'] ||
+      processJoSearchDataInput.processJoParam['fromLocType']">
+      <span class="search-items-text">Search For </span>
+      <span class="filter-select-button" *ngIf="processJoSearchDataInput.processJoParam.transMode">{{processJoSearchDataInput.processJoParam.transMode}}</span>
+      <span class="filter-select-button" *ngIf="processJoSearchDataInput.processJoParam.bookingType">{{processJoSearchDataInput.processJoParam.bookingType}}</span>
+      <span class="filter-select-button" *ngIf="processJoSearchDataInput.processJoParam.processJoType">{{processJoSearchDataInput.processJoParam.processJoType}}</span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam.vendorCode">{{processJoSearchDataInput.processJoParam.vendorCode}} <sup class="text-right"><span (click)="searchChnageJobData('vendorCode')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam.bookingVal">{{processJoSearchDataInput.processJoParam.bookingVal}} <sup class="text-right"><span (click)="searchChnageJobData('bookingVal')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam.serviceVal">{{processJoSearchDataInput.processJoParam.serviceVal}} <sup class="text-right"><span (click)="searchChnageJobData('serviceVal')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam.vesselVal">{{processJoSearchDataInput.processJoParam.vesselVal}} <sup class="text-right"><span (click)="searchChnageJobData('vesselVal')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam.voyageVal">{{processJoSearchDataInput.processJoParam.voyageVal}} <sup class="text-right"><span (click)="searchChnageJobData('voyageVal')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam.processJoCOCType">{{processJoSearchDataInput.processJoParam.processJoCOCType}} <sup class="text-right"><span (click)="searchChnageJobData('processJoCOCType')">&#x2715;</span></sup>
+      </span>      
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam['fromLocType']">{{processJoSearchDataInput.processJoParam['fromLocType']}} <sup class="text-right"><span (click)="searchChnageJobData('fromLocType')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam['fromLocation']">{{processJoSearchDataInput.processJoParam['fromLocation']}} <sup class="text-right"><span (click)="searchChnageJobData('fromLocation')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam['toTerminal']">{{processJoSearchDataInput.processJoParam['toTerminal']}} <sup class="text-right"><span (click)="searchChnageJobData('toTerminal')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam['toLocType']">{{processJoSearchDataInput.processJoParam['toLocType']}} <sup class="text-right"><span (click)="searchChnageJobData('toLocType')">&#x2715;</span></sup>
+      </span>
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam['toLocation']">{{processJoSearchDataInput.processJoParam['toLocation']}} <sup class="text-right"><span (click)="searchChnageJobData('toLocation')">&#x2715;</span></sup>
+      </span>      
+      <span class="filter-search-type-button" *ngIf="processJoSearchDataInput.processJoParam['fromTerminal']">{{processJoSearchDataInput.processJoParam['fromTerminal']}} <sup class="text-right"><span (click)="searchChnageJobData('fromTerminal')">&#x2715;</span></sup>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="card-primary slidein-from-left">
+  <div class="ijs_searchdatafilter1">
+    <div class="row text-white">
+      <div class="col-sm-8" *ngIf="processJoSearchDataInput.processJoParam.dateRange">
+        <em>Period date</em>
+      </div>
+      <div class="col-sm-17" *ngIf="processJoSearchDataInput.processJoParam.dateRange">
+        <b>{{processJoSearchDataInput.processJoParam.dateRange}}</b>
+      </div>
+      <div class="col-sm-6" *ngIf="processJoSearchDataInput.processJoParam.pptdhVal">
+        <em>Location</em>
+      </div>
+      <div class="col-sm-10" *ngIf="processJoSearchDataInput.processJoParam.pptdhVal">
+        <b>{{processJoSearchDataInput.processJoParam.pptdhVal}}</b>
+      </div>
+    </div>
+    <div class="row text-white">
+      <div class="col-sm-8">
+        <span *ngIf="filterDataSelectedComp['sortIn'] || filterDataSelectedComp['orderBy']"><em>Filter list</em></span>
+      </div>
+      <div class="col-sm-13 small">
+        <div *ngIf="filterDataSelectedComp['sortIn']">
+          <b>Sort in</b>
+          <span class="filter-data-button"><i class="fa fa-times-circle-o" (click)="proceesjoRemoveFilter(filterDataSelectedComp['sortIn'])" aria-hidden="true"></i>{{filterDataSelectedComp['sortInName']}}</span>
+        </div>
+      </div>
+      <div class="col-sm-13 small">
+        <div *ngIf="filterDataSelectedComp['orderBy']">
+          <em>Order by</em>
+          <span class="filter-data-button"><i class="fa fa-times-circle-o" aria-hidden="true" (click)="proceesjoRemoveFilter(filterDataSelectedComp['orderBy'])"></i>{{filterDataSelectedComp['orderByName']}}</span>
+        </div>
+      </div>
+      <div class="col-sm-24"></div>
+      <div class="col-sm-10 small">
+        <button type="button" class="btn btn-info" (click)="proceesjochangeFind($event)"><i class="fa fa-search" aria-hidden="true"></i><span><b>Change Find</b></span></button>
+      </div>
+    </div>
+  </div>
+</div>

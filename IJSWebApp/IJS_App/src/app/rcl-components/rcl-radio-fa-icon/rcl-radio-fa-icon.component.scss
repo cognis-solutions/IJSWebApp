@@ -1,0 +1,104 @@
+
+.input-radios {
+    display: inline-block;
+    position: relative;
+    padding-left: 35px;
+    padding-right: 15px;
+}
+.input-radios span{
+  position: relative;
+  padding-left: 45px;
+}
+.input-radios span:after{
+    content: '';
+    width: 25px;
+    height: 25px;
+    border: 3px solid;
+    position: absolute;
+    left: -34px;
+    top: 15px;
+    border-radius: 100%;
+    border-color: #8a8686;
+    -ms-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.input-radios input[type="radio"]{
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    z-index: 1;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+.input-radios input[type="radio"]:checked + span{
+  color:#007bce;  
+}
+.input-radios input[type="radio"]:checked + span:before{
+    content: '';
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background: #007bce;
+    border-color: #007bce;
+    left: -29px;
+    top: 20px;
+    border-radius: 100%;
+    -ms-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+}
+.input-radios input[type="radio"]:checked + span:after{
+    border-color: #007bce;
+}
+
+
+label {
+    vertical-align: super;
+    padding-right: 2rem;
+    color: #007bce;
+}
+.icons-truck {
+  display: inline-block;
+  text-indent: -9999px;
+  width: 45px;
+  height: 40px;
+  background: url(../../../assets/custom-icon/trunk.svg);
+  background-size: 45px 45px;
+  background-repeat: no-repeat;
+}
+.icons-barge {
+  display: inline-block;
+  text-indent: -9999px;
+  width: 45px;
+  height: 40px;
+  background: url(../../../assets/custom-icon/barge.svg);
+  background-size: 45px 45px;
+  background-repeat: no-repeat;
+}
+.icons-feeder {
+  display: inline-block;
+  text-indent: -9999px;
+  width: 45px;
+  height: 40px;
+  background: url(../../../assets/custom-icon/vessel.svg);
+  background-size: 45px 40px;
+  background-repeat: no-repeat;
+}
+.icons-rail {
+  display: inline-block;
+  text-indent: -9999px;
+  width: 45px;
+  height: 42px;
+  background: url(../../../assets/custom-icon/rail.svg);
+  background-size: 45px 45px;
+  background-repeat: no-repeat;
+}

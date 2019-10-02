@@ -1,0 +1,196 @@
+<div class="row text-primary header-arrow-icon">
+  <div class="col-sm-55">
+    <p><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Intermodel and Job Order System &#x7c; <span>File Upload</span></p>
+  </div>
+  <div class="col-sm-17">
+     <button class="uk-button uk-button-primary download-template" (click)="downloadTemplateXls($event)"><i class="fa fa-file-o" style="font-size:24px"></i> Download Template</button>
+  </div>
+</div>
+
+<div id="dropZone" class="dropzone" (dragover)="fileOnDragOver($event)" (drop)="fileOnDrop($event)" (dragleave)="fileOndragLeave($event)"
+  (drag)="fileOnDrag($drag)">
+  <div class="text-wrapper">
+    <div class="centered">
+      <div>Drag and drop files onto this box.</div>
+      <div>
+        <span class="text-muted">or you can</span>
+        <div class="fileUpload btn btn-primary">
+          <span>Browse</span>
+          <input type="file" class="upload" (change)="fileOnSelect($event)" />
+        </div>
+        <span class="text-muted">to Upload</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="progressBarContainer slidein-from-left" [hidden]="!fileSelected.name">
+  <div class="progressBar">
+    <div class="row">
+      <div class="col-sm-72">
+        <div class="row">
+          <div class="col-sm-12" style="word-wrap: break-word">
+            <h6>{{fileSelected.name}}</h6></div>
+          <div class="col-sm-10 text-muted">{{this.fileSelected.size}} KB</div>
+          <div class="col-sm-44">
+            <ngb-progressbar type="info" [value]="progressValue" [striped]="true"></ngb-progressbar>
+          </div>
+          <div class="col-sm-4">
+            <div class="cross-icon" [hidden]="progressValue == 100">&#x274C;</div>
+            <div class="right-icon" [hidden]="progressValue != 100"><i class="fa fa-check" aria-hidden="true"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-72">
+        <button class="btn float-right btn-primary" (click)="uploadFile($event)">Upload Container</button>
+    </div>
+  </div>
+
+  <div [hidden]="!errorMsg" class="row errorMsg">
+    {{errorMsg}}
+  </div>
+
+   <div [hidden]="!successMsg" class="row successMsg">
+    {{successMsg}}
+  </div>
+  
+  <div class="row" [hidden]="!successMsg">
+    <div class="col-sm-72 ">
+      <div class="row save-file-container">
+        <div class="col-sm-60" style="word-wrap: break-word">
+          <h6>{{fileSelected.name}} Uploaded</h6>
+        </div>
+        <div class="col-sm-12">
+          <button class="btn float-right uk-button-secondary" (click)="saveUploadedFile($event)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+
+ <div class="row" [hidden]="!validateSuccessMsg">
+  <div class="col-sm-72 ">
+    <div class="row">
+        <div class="col-sm-12"></div>
+      <div class="col-sm-48 validate-success" style="word-wrap: break-word; background-color: #5cb85c;">
+        <h6 *ngFor="let tableRow of validContainerResult">
+            {{tableRow.eqpNum}} successfully validated
+        </h6>
+      </div>
+      <div class="col-sm-12" style="margin-left: 67.6%;margin-top: 10px;">
+        <button class="btn float-right uk-button-secondary" (click)="confirmContainer($event)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Confirm Container</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div  class="row" [hidden]="!validateErrorMsg">
+    <div class="col-sm-72 ">
+        <div class="col-sm-12"></div>
+        <div class="col-sm-48" class="errorMsg">
+            {{validateErrorMsgText}}
+        </div>
+        <div class="col-sm-12"></div>
+    </div>
+</div> -->
+<div class="row" [hidden]="!validateErrorMsg">
+    <div class="col-sm-72 ">
+      <div class="row">
+          <div class="col-sm-12"></div>
+        <div class="col-sm-48 errorMsg" style="word-wrap: break-word;">
+          <h6>
+              {{validateErrorMsgText}}
+          </h6>
+        </div>
+        <div class="col-sm-12"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+ <div class="row">
+    <button class="uk-button uk-button-link close-btn" (click)="closeFileUpload($event)"> Close Upload</button>
+  </div> 
+
+   <div id="modal-group-1" uk-modal bg-close="false">
+      <div class="uk-modal-dialog">
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+          <h2 class="uk-modal-title" style="font-size:20px">Successfull Equipments</h2>
+        </div>
+        <!--<div class="uk-modal-body" uk-overflow-auto style="float: left;width: 100%;overflow-y: auto;height: 150px;">
+          <ul class="list-inline" style="border-bottom: 1px solid #e8f8ff;background-color: #ffffff;box-sizing: border-box;">
+            <li *ngFor='let col of validContainerResult; let i=index'>
+              
+              <label class='small'>{{col.eqpNum}}</label>
+            </li>
+          </ul>
+        </div>-->
+        <div uk-overflow-auto  style="float: left;width: 100%;overflow-y: auto;height: 150px;">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr> 
+                    <th>#</th>                   
+                    <th style="width: 95%;">Equipment No</th>                                       
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let col of validContainerResult; let i=index"
+                    class="slidein-from-top">
+                    <td style="padding: 5px 5px 5px 10px;">{{i + 1}}</td>                   
+                    <td style="padding: 5px 5px 5px 10px;">{{col.eqpNum}}</td>                                       
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div uk-modal-footer uk-text-right>
+          <button class="uk-button uk-button-default uk-modal-close" type="button" style="width:100px;margin-left: 130px;margin-bottom: 20px;">Close</button>
+          <a href="javascript:void(0);" class="uk-button uk-button-primary" style="margin:1px;margin-bottom: 20px;" (click)="openFailedUploadedEquipments()">Failed Equipments</a>
+        </div>
+      </div>
+ </div>
+
+ <div id="modal-group-2" uk-modal bg-close="false" esc-close="false">
+      <div class="uk-modal-dialog">
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+          <h2 class="uk-modal-title" style="font-size:20px">Failed Equipments</h2>
+        </div>
+        <!--<div class="uk-modal-body" uk-overflow-auto style="float: left;width: 100%;overflow-y: auto;height: 150px;">
+          <ul class="list-inline" style="border-bottom: 1px solid #e8f8ff;background-color: #ffffff;box-sizing: border-box;">
+            <li *ngFor='let col of failedContainerResult; let i=index'>              
+              <label class='small'>{{col.eqpNum}} <span>-</span> {{col.errorMsg}}</label>
+            </li>
+          </ul>
+        </div>-->
+        <div uk-overflow-auto  style="float: left;width: 100%;overflow-y: auto;height: 150px;">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr> 
+                    <th style="width: 1px;">#</th>                   
+                    <th style="width: 130px;">Equipment No</th>
+                    <th>Reason</th>                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let col of failedContainerResult; let i=index"
+                    class="slidein-from-top">
+                    <td style="padding: 5px 5px 5px 10px;">{{i + 1}}</td>                   
+                    <td style="padding: 5px 5px 5px 10px;">{{col.eqpNum}}</td>
+                    <td style="padding: 5px 5px 5px 10px;">{{col.errorMsg}}</td>                    
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div uk-modal-footer uk-text-right>
+          <button class="uk-button uk-button-default uk-modal-close" type="button" style="width:100px;margin-left: 130px;margin-bottom: 20px;">Close</button>
+          <a href="javascript:void(0);" class="uk-button uk-button-primary" style="margin:1px;margin-bottom: 20px;" (click)="openSuccessfulUploadedEquipments()"> Successfull Equipments</a>
+        
+        </div>
+        
+      </div>
+    </div>

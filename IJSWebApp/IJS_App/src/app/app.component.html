@@ -1,0 +1,24 @@
+<!--Start - Side Menu-->
+<div id="mySidenav" class="sidenav">   
+  <a routerLink="contractsearch" (click)="closeNav()" [routerLinkActive]="'active-link'">Contract Search</a>
+  <a routerLink="processjo" (click)="closeNav()" [routerLinkActive]="'active-link'">Process JO</a>
+  <a routerLink="jomaintenance" (click)="closeNav()" [routerLinkActive]="'active-link'">JO Maintenance</a>
+  <a routerLink="joinquiry" (click)="closeNav()" [routerLinkActive]="'active-link'">JO Inquiry</a>
+</div> 
+<!--End - Side Menu-->
+
+<div *ngIf="showSpinner" class="loading">Loading&#8230;</div>
+ <div class="card">
+    <div class="card-header card-header-black">
+      <div class="row">
+        <div class="col-sm-2 rcl-menu-hamburger">
+          <fa name="bars" (click)="openNav()"></fa>
+        </div>
+        <div class="col-sm-48"></div>
+        <div class="col-sm-22 rcl-menu-hamburger">
+          <app-user></app-user>
+        </div>
+      </div>
+    </div>
+  </div>
+<router-outlet></router-outlet>

@@ -1,0 +1,281 @@
+<div class="col-sm-72" [hidden]="!fileUploadFlag" >
+  <div class="row">
+    <div class="col-sm-72 text-right">
+      <span class="close-icon" (click)="closeAddHocSideBar($event)"></span>
+    </div>
+  </div>
+  <div class="row addhoc-heading-row">
+    <div class="col-sm-72 text-center">
+      <h3><span class="addhoc-heading">AdHoc {{addHocTypeName}}</span></h3></div>
+  </div>
+  <div class="row addhoc-heading-row">
+    <div class="col-sm-72 text-center text-muted">
+      <h6>JOB ORDER ROUTING DETAIL</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-18">
+
+    </div>
+    <div class="col-sm-36" style="display: flex ; justify-content: flex-end">
+      <button class="uk-button uk-button-primary" (click)="insertLegshowRouteList($event)">Insert Leg</button>
+    </div>
+
+  </div>
+  <!--<div style="width: 685px;margin: 0 auto;" class="text-right">
+      <button class="uk-button uk-button-primary" (click)="insertLegshowRouteList($event)">Insert Leg</button>
+  </div>-->
+  <div *ngIf="selectedRowToUpdateRoute" class="row routing-details-row">
+    <div class="col-sm-18"></div>
+    <div class="col-sm-36">
+      <div class="row">
+        <div class="col-sm-36">
+          <div class="row">
+            <!-- <div class="col-sm-24">
+              <h6 class="text-muted">Routing #</h6>
+            </div>
+            <div class="col-sm-48">
+              <h6>{{selectedRowToUpdateRoute.routingId}}</h6>
+            </div> -->
+            <div class="col-sm-24">
+              <h6 class="text-muted">Contract #</h6>
+            </div>
+            <div class="col-sm-48">
+              <h6>{{selectedRowToUpdateRoute.contractId}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-24"><i class="fa fa-clock-o" aria-hidden="true"></i>
+              <h6 class="inline-block">{{selectedRowToUpdateRoute.hours}} hr</h6>
+            </div>
+            <div class="col-sm-48"><i class="fa fa-tachometer" aria-hidden="true"></i>
+              <h6 class="inline-block">{{selectedRowToUpdateRoute.distance}} {{selectedRowToUpdateRoute.uom}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-24">
+              <h6 class="text-muted">VENDOR</h6>
+            </div>
+            <div class="col-sm-48">
+              <h6>{{selectedRowToUpdateRoute.vendorCode}}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-36">
+          <div class="row">
+            <div class="col-sm-24">
+              <h5>{{selectedRowToUpdateRoute.fromLocation}}</h5>
+            </div>
+            <div class="col-sm-24">
+              <h6><span class="trans-mode-button">{{selectedRowToUpdateRoute.transMode}}</span></h6>
+            </div>
+            <div class="col-sm-24">
+              <h5>{{selectedRowToUpdateRoute.toLocation}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-24">
+              <h6>{{selectedRowToUpdateRoute.fromLocType}}</h6>
+            </div>
+            <div class="col-sm-24">
+            </div>
+            <div class="col-sm-24">
+              <h6>{{selectedRowToUpdateRoute.toLocType}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-24">
+              <h6>&#x25CF; {{selectedRowToUpdateRoute.fromTerminal}}</h6>
+            </div>
+            <div class="col-sm-24 arrow-block">
+            </div>
+            <div class="col-sm-24">
+              <h6>&#x25CF; {{selectedRowToUpdateRoute.toTerminal}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedRowToUpdateRoute" class="row ProcessJobItems_Center">
+    <div class="col-sm-18">
+
+    </div>
+	<!--#NIIT CR3 BEGIN-->
+  <div class="col-sm-36" style="display: flex;justify-content: flex-end;">
+    <div>
+      <button class="uk-button uk-button-primary" (click)="uploadExcelFile($event)" style="margin-right: 5px;">Upload Equipment</button>
+    </div>
+    <div>
+      <button class="uk-button uk-button-primary" (click)="addEquipmentBrowserModal($event)" style="margin-right: 5px;">Add Equipment</button>
+    </div>
+    <div>
+      <button class="uk-button uk-button-primary" (click)="openAddEmptyEquipmentsModal($event)">Add Unavailable Equipment</button>
+    </div>
+  </div>
+   
+	<!--#NIIT CR3 END-->
+  </div>
+
+  <div *ngIf="selectedRowToUpdateRoute && filteredEquipmentBrowserList.length > 0" class="row">
+    <div class="col-sm-18">
+
+    </div>
+      <div class="col-sm-36" style="margin-top: 25px">
+        <table class="TableHeightCalculate">    
+          <thead style="background-color:#C1ECFA">
+            <tr>
+              <th class="text-center text-muted" style="width: 215px;"><h6 style="text-align: left;padding-left: 30px;">Equip #</h6></th>
+              <th class="text-center text-muted" style="width: 350px;"><h6 style="text-align: left;padding-left: 20px;">Container Detail</h6></th>
+              <th class="text-center text-muted" style="width: 200px;"><h6>Special Handling</h6></th>            
+            </tr>
+          </thead> 
+          <tbody>
+          <tr *ngFor="let row of filteredEquipmentBrowserList; let i = index;" style="background-color:#C1ECFA">
+            <td  style="padding:0 10px;width:30%;vertical-align: top;">               
+              <div class="d-flex justify-content-start">
+                  <h6 class="text-center text-muted" style="padding-top: 3px;">{{i+1}}</h6>
+                  <p style="margin-bottom: 0;padding-left: 10px;">{{row.eqpNum}} </p>
+                  <h6 style="margin-left: auto;"><span class="coc-button">COC </span></h6>
+              </div>
+            </td>
+            <td  style="padding:0 20px;width:50%;vertical-align: top;"> 
+              <div class="ProcessJobItems_Center  d-flex justify-content-between">
+              <h5 class="text-muted">Size</h5>
+                <p>{{row.size}} </p>
+                <h5 class="text-muted">Type</h5>
+                <p>{{row.type}} </p>
+                <div [hidden]="(addHocTypeCode != 'ER')" >
+                  <h5 class="text-muted">
+                    <i class="fa fa-cube" aria-hidden="true" style="font-size: 30px;"></i></h5>
+                  <span class="percent-button">0 %</span>
+                </div>
+                <div [hidden]="(addHocTypeCode != 'LAH')">
+                    <h5 class="text-muted">
+                      <i class="fa fa-cube" aria-hidden="true" style="font-size: 30px;"></i></h5>
+                    <span class="percent-button">100 %</span>
+                </div>
+                <h5 class="text-muted">Weight</h5>
+                <p>{{row.weight}} </p>
+                </div>
+            </td> 
+            <td style="padding:0 10px;width:20%;">
+              <div class="d-flex justify-content-between align-items-center"></div>
+            </td>
+          </tr>
+          </tbody>        
+      </table>
+      </div>
+      
+    <!--<div *ngFor="let row of filteredEquipmentBrowserList; let i = index;" class="row equipment-details-row" style="height: 115px;">
+    <div class="col-sm-18"></div>
+    <div class="col-sm-36">
+      <div class="row">
+        <div class="col-sm-22">
+          <div class="row">
+            <div class="col-sm-72">
+              <h6 class="text-center text-muted">Equip #</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10">
+              <h6 class="text-center text-muted">{{i+1}}</h6>
+            </div>
+            <div class="col-sm-60">
+              <p>{{row.eqpNum}} </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-60">
+              <h6><span class="coc-button">COC </span></h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-28">
+          <div class="row">
+            <div class="col-sm-72">
+              <h6 class="text-center text-muted">Container Detail</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-15">
+              <h5 class="text-muted">Size</h5></div>
+            <div class="col-sm-10">
+              <p>{{row.size}} </p>
+            </div>
+            <div class="col-sm-22">
+              <h5 class="text-muted">Weight</h5></div>
+            <div class="col-sm-25 weight-col">
+              <p>{{row.weight}} </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-15">
+              <h5 class="text-muted">Type</h5></div>
+            <div class="col-sm-10">
+              <p>{{row.type}}</p>
+            </div>
+            
+            <div class="col-sm-22" [hidden]="(addHocTypeCode != 'ER')" >
+              <h5 class="text-muted">
+                <i class="fa fa-cube" aria-hidden="true" style="font-size: 30px;"></i></h5>
+              <span class="percent-button">0 %</span>
+            </div>
+
+            <div class="col-sm-22" [hidden]="(addHocTypeCode != 'LAH')">
+                <h5 class="text-muted">
+                  <i class="fa fa-cube" aria-hidden="true" style="font-size: 30px;"></i></h5>
+                <span class="percent-button">100 %</span>
+              </div>
+
+            <div class="col-sm-25">
+              <p>{{row.mtOrLaden}}</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-sm-22">
+          <div class="row">
+            <div class="col-sm-72">
+              <h6 class="text-center text-muted">Special Handling</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <h6 class="text-center text-muted">{{row.spclHandling}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>-->
+  </div>
+
+  <div class="row equipment-details-row" style="padding-bottom: 50px;" *ngIf="selectedRowToUpdateRoute && filteredEquipmentBrowserList.length > 0">
+    <div class="col-sm-18"></div>
+    <div class="col-sm-18 text-right">
+      <button class="uk-button uk-button-default" (click)="closeAddHocSideBar($event)">Close</button>
+    </div>
+    <div class="col-sm-18 text-left">
+      <button class="uk-button uk-button-primary" (click)="saveAdhocJoSummery($event)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<app-route-list-modal #prosessjoRouteList [vendorCode]="routeListInputValue" [inputSaleDateOrJobOrdDate]="routeListInputDate" [bookingType]="routeListBookingType" (selectUpdateRouteList)="updateRoute($event)"></app-route-list-modal>
+<!-- #NIIT CR3-->
+<app-equipment-browser-lookup #prosessjoEquipmentBrowser [addHocType]="addHocTypeName"  [routeListDtl]= "routeDetails" (selectUpdateEqList)="updateEqDetails($event)"  (equipmentBrowserArray)="removeFromfilteredEquipmentBrowserList($event)" (editAdhocList)="adhocListEdited($event)"></app-equipment-browser-lookup>
+
+<app-jo-container-upload *ngIf="!fileUploadFlag" [addHocType]="addHocTypeName" [selectedRouteContract]="routeContractID" (closeFileUploader)="closeFileUpload($event)" (containerUpdateList)="updateEqDetails($event)" class="uploadFile slidein-from-left"></app-jo-container-upload>
+
+
+<app-jo-summary-table style="margin-bottom: 100px; display: block" #joSummary2 [hidden]="!showHideflag" (changeFindSummery)="closeAddHocSideBar()" (hideJoSummery)="hideJoSummery($event)"></app-jo-summary-table>
+<!-- #NIIT CR3 BEGIN-->
+<div id="equipmentLimitExceedModal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5 class="word-wrap">{{errorCodetext}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button">Close</button>
+  </div>
+</div>
+<!-- #NIIT CR3 END-->

@@ -1,0 +1,68 @@
+{
+  "lookupSearchResult": {
+    "result": [
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N187",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N187",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N188",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N188",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N189",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N189",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N193",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "2W6",
+        "voyage": "N193",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "504",
+        "voyage": "1201",
+        "direction": "R"
+      },
+      {
+        "service": "AFS",
+        "vessel": "504",
+        "voyage": "1201",
+        "direction": "R"
+      }
+    ]
+  },
+  "totalRecords": 260024,
+  "action": "serviceVesselLookup"
+}

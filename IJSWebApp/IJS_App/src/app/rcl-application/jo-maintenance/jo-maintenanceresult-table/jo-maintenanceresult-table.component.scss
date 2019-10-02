@@ -1,0 +1,279 @@
+p {
+   margin: 0;
+}
+h5 {
+    margin: 0;
+}
+//pagination css
+.pagination-wrapper-top {
+    padding-top: 10px;
+}
+.pagination-wrapper-top .pageSelected, .pagination-wrapper-top p {
+    display: inline-block;
+}
+.pagination-wrapper-top .pageSelected select {
+    width: 100px;
+}
+
+.transport-contract-text {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #00b0ff
+}
+.booking-no, 
+.booking-type, 
+.from-loc, 
+.transpot-type,
+.to-loc,
+.transpot-details-container,
+.booking-details-container,
+.term-from-loc,
+.arrow-block,
+.term-to-loc
+ {
+    display: inline-block;
+}
+.booking-type, 
+.transpot-type {
+    padding: 1px 10px;
+    color: #fff;
+    background-color: grey;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+.transpot-type {
+   margin-right: 10px;
+}
+.booking-details-container {
+    width: 38%;
+    min-width: 210px;
+    margin-bottom: 15px;
+}
+.transpot-details-container {
+    width: 62%;
+    min-width: 300px;
+    margin-bottom: 15px;
+}
+
+.text1 {
+     color: #b2b5b7 !important;
+    margin: 0;
+    font-weight: 600;
+}
+.text2 {
+    margin: 0;
+    font-size: 12px;
+    color: #fff;
+}
+
+
+.percent-button {
+    display: inline-block;
+    top: -9px;
+    position: relative;
+    left: -9px;
+    background-color: #fff;
+    font-size: 8px;
+    padding: 0 4px;
+    border: 1px solid grey;
+}
+.percent-text{
+    display: inline-block;
+    top: -9px;
+    position: relative;
+    left: -9px;
+    font-size: 10px;
+    padding: 0 4px;
+    
+}
+.type-button {
+    padding: 3px 5px 3px 5px;
+    background-color: #000;
+    display: inline-block;
+    border-radius: 4px;
+    color: #fff;
+}
+
+
+.jo-maintinance-table-button {
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    font-size: 15px;
+    color: #5f5f5f;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.jo-maintain-table-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: #7b7a7a;
+}
+.jo-maintain-table-text-simple {
+    font-size: 12px;
+}
+.coc-button {
+    padding: 0px 10px 1px 10px;
+    background-color: #0f3c49;
+    display: inline-block;
+    border-radius: 4px;
+    color: #fff;
+}
+.trans-mode-button {
+    padding: 0 10px 2px 10px;
+    background-color: #999999;
+    display: inline-block;
+    border-radius: 4px;
+    color: #fff;
+}
+.arrow-block {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 91px;
+    height: 12px;
+    background: url(../../../../assets/custom-icon/processjo-arrow.png);
+    background-size: 91px 12px;
+    background-repeat: no-repeat;
+    top: 5px;
+}
+.date {
+    display: inline-block;
+    font-size: 11px;
+}
+.date-text {
+    display: inline-block;
+    width: 35px;
+    font-size: 10px;
+}
+.jo-maintain-header-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #7b7a7a;
+    margin-bottom: 0;
+}
+
+#amountDiv input {
+    width: 45px;
+    border: 1px solid #00b0ff;
+    border-radius: 5px;
+    font-size: 12px;
+    height: 20px;
+}
+
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}
+
+.filter-button {
+    background-color: #232323;
+    color: #ffffff;
+    padding: 3px 10px; 
+    border-radius: 5px;
+}
+
+.tool-tip-checkbox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.jo-maintinance-table-button:disabled, .jo-maintinance-save-button:disabled {
+    cursor: not-allowed;
+    background-color: #b5b5b5;
+    border: 1px solid #b5b5b5;
+}
+.text-overflow-dot {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.maintain-table-container {
+    max-height: 560px;
+    overflow: auto;
+}
+
+/*check box css*/ 
+/* Hide the browser's default checkbox */
+.check-container1 {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+     user-select: none;
+}
+
+.check-container1 input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #FFF;
+    border: 1px solid black;
+}
+
+/* On mouse-over, add a grey background color */
+.check-container1:hover input ~ .checkmark {
+    background-color: #FFF;
+}
+
+/* When the checkbox is checked, add a blue background */
+.check-container1 input:checked ~ .checkmark {
+    background-color: #007bce;
+    border: 1px solid #007bce;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.check-container1 input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.check-container1 .checkmark:after {
+    left: 4px;
+    top: 0;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+.vendor-changed {
+  background-color: #abf180;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.btnSize{
+    font-size: 14px;
+}

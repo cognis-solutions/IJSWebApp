@@ -1,0 +1,121 @@
+.header-arrow-icon {
+    margin-bottom: 0;
+    background-color: #f0f6f8;
+}
+.btn-clr { display: none;}
+.header-arrow-icon p{ 
+    padding: 0.75rem 1.25rem;
+    margin: 0;
+    background-color: #f0f6f8;
+}
+.header-arrow-icon p i {
+    font-size: 1.5rem;
+    vertical-align: bottom
+}
+.header-arrow-icon p span {
+    vertical-align: text-bottom;
+    font-weight: 800;
+}
+.new-contract {
+    background-color: #FFF;
+    padding-top: 20px;
+}
+.forLabel {
+ display: inline-block;
+}
+hr { 
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 3px;
+} 
+.newContractRow {
+    margin-bottom: 10px;
+}
+
+
+.uk-button-secondary {
+    background-color: #9e9b9b;
+    color: #fff;
+    border: 1px solid transparent;
+    width: 65%;
+}
+.uk-button-primary {
+    background-color: #0e6dcd;
+    color: #fff;
+    border: 1px solid transparent;
+    width: 65%;
+}
+.newContractUnderline {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 22px;
+}
+.mandatoryInput {
+    background-color: lightyellow;
+}
+.search-lookup-row {
+    margin-bottom: 20px;
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-calendar:before {
+    content: "\e109";
+}
+.clear-icon {
+    position: absolute;
+    top: 10px;
+    right: 31px;
+}
+.showError{
+    color: #fb0d2e;
+}
+.vandor-Contract-Info {    
+    width: 300px;
+    position: fixed;
+    top: 15%;
+    right: 2%;
+    background-color: #c9ccce;
+    z-index: 100;
+    font-size: 12px;
+}
+.vandor-Contract-Info > .col-sm-72 {
+    margin-top: 15px;
+}
+.vandor-Contract-Info > .col-sm-72 > .row {
+    line-height: 15px;
+    margin-bottom:  7px;
+}
+
+#success-modal .uk-modal-body {
+    border-radius: 30px;
+}
+#success-modal .uk-modal-body h5 {
+    margin-bottom: 30px;
+}
+
+#success-modal .uk-button-primary {
+    background-color: #0e6dcd;
+    color: #fff;
+    border: 1px solid transparent;
+    width: 35%;
+    max-width: 175px;
+    float: right;
+}
+.uk-button:disabled {
+    cursor: not-allowed;
+    opacity: .65;
+}

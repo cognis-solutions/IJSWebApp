@@ -1,0 +1,310 @@
+<div class="col-sm-72 main-container main-container slidein-from-left">
+  <div class="row">
+    <div class="col-sm-33 text-right"><span class="lookup-heading">{{addEditLabel}} Bill Rate Route Level</span></div>
+  </div>
+  <div class="container">
+    <form #addEditBillForm="ngForm" id="create-course-form">
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EFFECTIVE DATE</div>
+        <div class="col-sm-21">
+          <app-rcl-daterangepicker name="addEditBillRateObj.ijsRateVO.startDate" required [single]="true"  [time]="false" [time24H]="true" label="" placeholder="Select Date"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.startDate" #addEditBillRateStartDate="ngModel" klass="form-control">
+          </app-rcl-daterangepicker>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EXPIRY DATE</div>
+        <div class="col-sm-21">
+          <app-rcl-daterangepicker name="endDate" required [single]="true" [time]="false"  [time24H]="true" label="" placeholder="Select Date"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.endDate" #addEditBillRateEndtDate="ngModel" klass="form-control">
+          </app-rcl-daterangepicker>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">SERVICE</div>
+        <div class="col-sm-21">
+          <app-rcl-input label="" required klass="form-control" name="service" placeholder="Enter value" #addEditBillRateService="ngModel"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.service" (click)="showServiceLookUp($event)"></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">MT/LADEN</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="MtLaden" [config]="addEditSelectConfig" [options]="_billMappingData.mtLadenOptions" [(ngModel)]="addEditBillRateObj.ijsRateVO.mtOrLaden"
+            #addEditBillRateMtLaden klass="form-control" hasOptionsPlaceholder="Select one" label="">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE BASIS</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="rateBasis" (onChangeValue)="RateBasisChanged($event)" [config]="addEditSelectConfig" [options]="_billMappingData.rateBasisOptions"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.rateBasis" #addEditBillRateRateBasis klass="form-control" hasOptionsPlaceholder="Select one"
+            label="">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EQUIPMENT CATEGORY</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="eQCatg" [config]="addEditSelectConfig" [options]="_billMappingData.eQCatgOptions" [(ngModel)]="addEditBillRateObj.ijsRateVO.eqCatq"
+            #addEditBillRateEQCatg klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE STATUS</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="rateStatus" [config]="addEditSelectConfig" [options]="_billMappingData.rateStatusOptions"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.rateStatus" #addEditBillRateEQCatg klass="form-control inputMandatoryClass"
+            hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <!-- <div class="row newCostRow"> -->
+      <!-- <div class="col-sm-27 text-right">CHRG. CODE</div> -->
+      <div class="col-sm-21">
+        <app-rcl-input hidden disabled="true" label="" klass="form-control inputMandatoryClass" name="chrgCode" placeholder="Enter value"
+          [(ngModel)]="addEditBillRateObj.ijsRateVO.chargeCode" #addEditBillRateChrgCode></app-rcl-input>
+      </div>
+      <!-- </div> -->
+      <div hidden class="row newCostRow">
+        <div class="col-sm-27 text-right">TERM</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize name="term" [config]="addEditMultiSelectConfig" [options]="_billMappingData.termOptions" [(ngModel)]="addEditBillRateObj.ijsRateVO.term"
+            #addEditBillRateTerm klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">CALC. METHOD</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="calcMethod" [config]="addEditSelectConfig" [options]="_billMappingData.calcMethodOptions"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.calcMethod" #addEditCostCalcMethod klass="form-control inputMandatoryClass"
+            hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div> 
+      </div> -->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EQUIPMENT TYPE</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="calcMethod" [config]="addEditMultiSelectConfig" [options]="_billMappingData.eQTypeOptions"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.eqType" #addEditCostEQType klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">UPTO</div>
+        <div class="col-sm-21">
+          <app-rcl-input label="" klass="form-control inputMandatoryClass" name="upTo" placeholder="Enter value" [(ngModel)]="addEditBillRateObj.ijsRateVO.upto"
+            #addEditCostUpTo></app-rcl-input>
+        </div>
+        <div class="text-left">KILO</div>
+      </div>
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">UOM</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="uomOptions" [config]="addEditSelectConfig" [options]="_billMappingData.uomOptions" [(ngModel)]="addEditBillRateObj.ijsRateVO.uom"
+            #addEditCostUom klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div> -->
+      <div class="row newCostRow">
+        <!-- <div class="col-sm-27 text-right">IMP/EXP</div>
+        <div class="col-sm-21">
+        <app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="impOrExp" 
+        placeholder="" [(ngModel)]="addEditBillRateObj.ijsRateVO.impOrExp"
+        #addEditCostImpExp></app-rcl-input>
+        </div> -->
+        <!-- <div class="col-sm-21">
+          <app-rcl-selectize disabled name="impOrExp" [config]="addEditSelectConfig" [options]="_billMappingData.impExpOptions" 
+          [(ngModel)]="addEditBillRateObj.ijsRateVO.impOrExp"
+            #addEditCostImpExp klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize> 
+        </div>-->
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">SPECIAL HANDLING</div>
+        <div class="col-sm-21">
+          <!--<app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="splHandling" placeholder="" [(ngModel)]="addEditBillRateObj.ijsRateVO.splHandling"
+            #addEditCostsplHandling></app-rcl-input>-->
+          <app-rcl-selectize [disabled]="true" name="splHandling" [config]="addEditSelectConfig" [options]="_billMappingData.splHandlingOptions"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.splHandling" #addEditCostsplHandling klass="form-control inputMandatoryClass"
+            hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">CURRENCY</div>
+        <div class="col-sm-21">
+          <!--<app-rcl-input label="" klass="form-control inputMandatoryClass" name="currency" placeholder="Enter value" [(ngModel)]="addEditBillRateObj.ijsRateVO.currency"
+            #addEditCostCurrency></app-rcl-input>-->
+
+          <app-rcl-currency label="" placeholder="Currency" lookupName="Currency Lookup" helptext="What is code for Currency?" klass="form-control"
+            compid="contractCurrencyLookup" #contractCurrencyLookup [data]='currencyLookUpData' [(lookUpvalue)]="addEditBillRateObj.ijsRateVO.currency">
+          </app-rcl-currency>
+        </div>
+      </div>
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">PORT CLASS CODE</div>
+        <div class="col-sm-21">
+          <app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="portCode" placeholder="Enter value"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.portCode" #addEditCostPortClassCode></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">IMDG DETAIL</div>
+        <div class="col-sm-21">
+          <app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="imdgDetail" placeholder="Enter value" [(ngModel)]="addEditBillRateObj.ijsRateVO.imdgCode"
+            #addEditCostImdgDetail></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">OOG SETUP</div>
+        <div class="col-sm-21">
+          <app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="oogCode" placeholder="Enter value" [(ngModel)]="addEditBillRateObj.ijsRateVO.oogCode"
+            #addEditCostOogSetup></app-rcl-input>
+        </div>
+      </div>
+      <!--//#NIIT CR4 >>>>END-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">SPECIAL COST BY BL/BOOKING</div>
+        <div class="col-sm-25">
+          <div class="row">
+            <div class="col-sm-60">
+              <app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="splCostBL" placeholder="Enter value" [(ngModel)]="addEditBillRateObj.ijsRateVO.splCostByBlOrBooking"
+                #addEditCostSplCostBL></app-rcl-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">&nbsp;</div>
+        <div class="col-sm-21">
+          <app-rcl-checkbox label="Auto" disabled name="manualRate" [(ngModel)]="addEditBillRateObj.ijsRateVO.manualRate" klass="form-control form-control-sm">
+          </app-rcl-checkbox>
+        </div>
+      </div> -->
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right" style="font-weight: 900;">Billing Rate</div>
+      </div>
+      <!--//#NIIT CR4 >>>>END-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 20</div>
+        <div class="col-sm-21">
+          <app-rcl-input label="" [disabled]="addEditBillRateObj.ijsRateVO.rateBasis != 'S'" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass" name="rate20" placeholder="Enter value"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.rate20" #addEditBillRate20></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 40</div>
+        <div class="col-sm-21">
+          <app-rcl-input label="" [disabled]="(addEditBillRateObj.ijsRateVO.rateBasis != 'S') " type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass" name="rate40" placeholder="Enter value"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.rate40" #addEditBillRate40></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 45</div>
+        <div class="col-sm-21">
+          <app-rcl-input label="" [disabled]="addEditBillRateObj.ijsRateVO.rateBasis != 'S'" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass" name="rate45" placeholder="Enter value"
+            [(ngModel)]="addEditBillRateObj.ijsRateVO.rate45" #addEditBillRate45></app-rcl-input>
+        </div>
+      </div>
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right" style="font-weight: 900;">Cost Rate</div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 20</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="true" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="effectiveCostRate20"  [(ngModel)]="addEditBillRateObj.ijsRateVO.effectiveCostRate20" #addEditBillRate20></app-rcl-input>
+        </div>        
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 40</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="true" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="effectiveCostRate40"  [(ngModel)]="addEditBillRateObj.ijsRateVO.effectiveCostRate40" #addEditBillRate40></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 45</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="true" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="effectiveCostRate45" [(ngModel)]="addEditBillRateObj.ijsRateVO.effectiveCostRate45" #addEditBillRate45></app-rcl-input>
+        </div>
+      </div>
+      <!--//#NIIT CR4 >>>>END-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">LUMP SUM</div>
+        <div class="col-sm-21">
+          <app-rcl-input [disabled]="addEditBillRateObj.ijsRateVO.rateBasis == 'S'" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass" name="lumpSum" placeholder="Enter value" [(ngModel)]="addEditBillRateObj.ijsRateVO.lumpSum"
+            #addEditCostLumpSum></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row newCostRow">
+            <div class="col-sm-11"></div>
+            <div class="col-sm-25">
+              <div class="row newCostRow">
+                <button type="button" class="uk-button uk-button-secondary" (click)="closeAddEditBillTable(e)" >close</button>
+              </div>
+            </div>
+            <div class="col-sm-25">
+              <div class="row newCostRow">
+                <button [disabled]="!addEditBillForm.valid" type="button" class="uk-button uk-button-primary" (click)="sendDataToBackEnd()">save</button>
+              </div>
+            </div>
+            <div class="col-sm-11"></div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!--<app-service-lookup #BillServiceLookup (lookUpvalueChange)="serviceRowSelected($event)"></app-service-lookup>-->
+
+
+<!--<div id="add-edit-bill-success" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    
+    <div *ngIf="successtextFlag">
+      <p>{{successTextMsg}}</p>
+      <div class="uk-modal-footer uk-text-right">
+      
+        <button class="uk-button uk-button-primary uk-modal-close" type="button" (click)="closeAddEditBillRate($event)">Close</button>
+      </div>
+    </div>
+
+    <div *ngIf="!successtextFlag">
+      <p>{{successTextMsg}}</p>
+      <div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>-->
+
+<div id="date-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{warningTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeWarning()">Close</button>
+  </div>
+</div>
+
+<div id="error-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{successTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click)="closeAddEditCost($event)">Close</button>
+  </div>
+</div>
+<app-oog-dimention-setup [hidden]=true #OogDimentionSetup1 (oogSetDataList)="getValueOogSetup($event)"></app-oog-dimention-setup>

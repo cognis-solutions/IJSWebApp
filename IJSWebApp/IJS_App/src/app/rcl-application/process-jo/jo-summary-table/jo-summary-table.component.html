@@ -1,0 +1,329 @@
+<div *ngIf="joCreationSuccess" class="card slidein-from-top">
+  <div class="card-block">
+    <div class="card">
+      <div class="card-header card-default">
+        <div class="row pagination-wrapper-top">
+          <div class='col-md-15'>
+            <p class="transport-contract-text">JO Summary</p>
+          </div>
+          <!--<div class='col-md-20'>
+            <p><em>3 Total &nbsp;&nbsp;</em></p>
+            <div class="pageSelected">
+              <select (change)="onChangePageNumber($event)">
+                 <option >1</option>
+                </select>
+            </div>
+          </div>-->
+          <!--<div class='col-md-25'>
+            &nbsp;</div>-->
+          <div class='col-md-15'>
+            <p><em>Order by &nbsp;&nbsp;</em></p>
+            <div class="pageSelected">
+              <select (change)="onChangeOrderBy(filterDataSelectedComp.sortIn)">
+                 <option>Job Order</option>
+                 <option>Vendor</option>
+                 <option>Contract Number</option>
+                 <option>Job Order Date</option>
+                 <option>Container Detail</option>
+                 <option>Time</option>
+                 <option>Amount</option>
+                 <option>Currency</option>
+                 <option>Amount USD</option>
+                 <option>Payment FSC</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-md-41">
+            <div class="col-sm-72 text-right" style="padding-right: 0px;">
+              <button class="reset-button" (click)="resetJoSummeryTable($event)"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</button>
+
+                    <button class="process-job-order-button" (click)="insertShowRclRsnCd($event)">Process Job Order</button>
+               <!-- <button class="process-job-order-button" (click)="processJo($event)">Process Job Order</button>  -->
+
+              <button class="process-job-order-button" [disabled]="disableLumpSumbtn" (click)="deleteLumpSum($event)">Delete LumpSum</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row table-header-row">
+          <div class="col-sm-6 head-text" style="padding-left: 50px;white-space: nowrap;">Job Order</div>
+          <div class="col-sm-6 head-text">Vendor </div>
+          <div class="col-sm-5 head-text">Contract </div>
+          <div class="col-sm-7 head-text">Job Order Date </div>
+          <div class="col-sm-7 head-text">Container Detail </div>
+          <div class="col-sm-5 head-text">Time </div>
+          <div class="col-sm-9 head-text">Amount </div>
+          <div class="col-sm-5 head-text">Currency </div>
+          <div class="col-sm-6 head-text">Amount USD </div>
+          <div class="col-sm-5 head-text">Payment FSC</div>
+          <div class="col-sm-4 head-text">Priority</div>
+          <div class="col-sm-4 head-text" style="white-space: nowrap;">Delete LumpSum</div>
+        </div>
+
+        <div style="max-height: 330px; overflow-y: auto;">
+          <div *ngFor="let tableRow of joSummeryTableData; let i = index">
+            <div *ngFor="let row of tableRow['jobOrders']" class='card table-data-row'>
+              <div class="row" style="margin:0;">
+                <div class="col-sm-6 text-center">
+                  <span class="para-text">{{row.jobOrder}}</span>
+                </div>
+                <div class="col-sm-5" style="padding-top: 5px;">
+                  <div class="row"><span class="para-text">{{row.vendorCode}}</span></div>
+                  <div class="row"><span class="detail-text">{{row.vendorName}}</span></div>
+                </div>
+                <div class="col-sm-6">
+                  <span class="para-text">{{row.contractNumber}}</span>
+                </div>
+                <div class="col-sm-7">
+                  <span class="para-text">{{row.joDate}}</span>
+                </div>
+                <div class="col-sm-8">
+                  <div class="row" [hidden]="row.rateBasis=='B'||row.rateBasis=='S'"><p style="font-size: 14px;padding-left: 19px;">
+                    Lump Sum</p>
+                  </div>
+                  <div class="row" [hidden]="row.rateBasis=='S'||row.rateBasis=='L'"><p style="font-size: 14px;padding-left: 19px;">
+                    BKG/BL</p>
+                  </div>
+                  <div class="row" [hidden]="row.rateBasis=='B'||row.rateBasis=='L'">
+                    <div class="inline-block detail-text" style="width: 30px;">size</div>
+                    <div class="inline-block para-text" style="width: 20px;">{{row.size}}</div>
+                    <!--<div class="inline-block" style="width: 25px;"><i class="fa fa-cube" aria-hidden="true"></i></div>-->
+                    <div class="col-md4"><i class="fa fa-cube" aria-hidden="true"></i><sup style="font-size:10px;background: #FFF; color: #000;">{{row.percent}}</sup></div>
+                    <div class="inline-block para-text" style="margin-left: 5px;">{{row.mtOrLaden}}</div>
+                  </div>
+                  <div class="row" [hidden]="row.rateBasis=='B'||row.rateBasis=='L'">
+                    <div class="inline-block detail-text" style="width: 30px;">Type</div>
+                    <div class="inline-block para-text" style="width: 20px;">{{row.type}}</div>
+                    <div class="inline-block para-text"><span class="container-type">{{row.OOG}}</span></div>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="row">
+                    <span class="detail-text">Days &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span class="para-text">{{row.days}} &nbsp;&nbsp;</span>
+                  </div>
+                  <div class="row">
+                    <span class="detail-text">Hours &nbsp;&nbsp;</span>
+                    <span class="para-text">{{row.hours}}0 &nbsp;&nbsp;</span>
+                  </div>
+                </div>
+                <div class="col-sm-9" style="background-color: #b3b1b1;">
+                  <div class="row">
+                    <div class="col-sm-72 text-center para-text">{{row.amount}} </div>
+                  </div>
+                  <div class="row" style="border-top: 2px solid #fff;">
+                    <div class="col-sm-36" style="border-right: 1px solid #fff;">
+                      <div class="text-left detail-text" style="color: #b5b6b7;">Rate</div>
+                      <div class="text-right para-text">{{row.rate}} </div>
+                    </div>
+                    <div class="col-sm-36" style="border-left: 1px solid #fff;">
+                      <div class="text-left detail-text" style="color: #b5b6b7;">Quantity</div>
+                      <div class="text-right para-text">{{row.quantity}} </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <span class="para-text">{{row.currency}}</span>
+                </div>
+                <div class="col-sm-6">
+                  <span class="para-text">{{row.amountUsd}}</span>
+                </div>
+                <div class="col-sm-5">
+                  <span class="para-text">{{row.paymentFSC}}</span>
+                </div>
+                <div class="col-sm-5">
+                  <span class="para-text">{{row.priority}}</span>
+                </div>
+                <div class="col-sm-4" style="margin-top: 5px;">
+                  <span class="para-text" [hidden]="row.rateBasis=='B'||row.rateBasis=='S'">
+                    <!--(rclCheckChanged)="joSummaryCheckBoxSelected($event, currentRow)"-->
+                    <!--//#NIIT CR6 >>>>BEGIN-->
+                    <app-rcl-checkbox label="" name="customCheckbox{{i}}" #tableCheckbox compid="costCheckbox" klass="form-control form-control-sm"
+                    (rclCheckChanged)="joSummarySelected($event, row, row.lumpsumId )"> 
+                    </app-rcl-checkbox>
+                    <!--//#NIIT CR6 >>>>END-->
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="tableRow.joSummery.jobOrder!=undefined" class="card table-data-row1" style="background-color: #2c3e50;">
+              <div class='row text-white' style="margin:0">
+                <div class="col-sm-6 text-center" style="padding-left: 20px;">
+                  <span class="para-text">{{tableRow.joSummery.jobOrder}}</span>
+                </div>
+                <div class="col-sm-5">
+                  <div class="row"><span style="padding-top: 4px;" class="para-text text-white">{{tableRow.joSummery.vendorCode}}</span></div>
+                  <div class="row"><span class="detail-text text-white">{{tableRow.joSummery.vendorName}}</span></div>
+                </div>
+                <div class="col-sm-5">
+                  <span class="para-text">{{tableRow.joSummery.contractNumber}}</span>
+                </div>
+                <div class="col-sm-7 jo-summery-date-picker" style="color: black;">
+                  <app-rcl-daterangepicker [readOnly]="true" [single]="true" [time]="false" [time24H]="false" label="" placeholder="" name="summaryJoSearchDate"
+                    [(ngModel)]="tableRow.joSummery.joDate" #summaryJoSearchDatePicker="ngModel" klass="form-control">
+                  </app-rcl-daterangepicker>
+                </div>
+                <div class="col-sm-14">
+                  <app-rcl-input label="" klass="form-control search-box local-search" compid="summaryJoRemark" name="summaryJoRemark" placeholder="Remark"
+                    #summaryJoRemark="ngModel" [(ngModel)]="tableRow.joSummery.remark">
+                  </app-rcl-input>
+                </div>
+                <div class="col-sm-9">
+                  <app-rcl-input [disabled]="true" label="" klass="form-control search-box" compid="summaryJoAmount" name="summaryJoAmount"
+                    placeholder="" #summaryJoRemark="ngModel" [(ngModel)]="tableRow.joSummery.amount">
+                  </app-rcl-input>
+                </div>
+                <div class="col-sm-5">
+                  <span class="para-text">{{tableRow.joSummery.currency}}</span>
+                </div>
+                <div class="col-sm-6">
+                  <span class="para-text">{{tableRow.joSummery.amountUsd}}</span>
+                </div>
+                <div class="col-sm-6">
+                  <app-rcl-fsc-look-up class="josummery-fsc" placeholder="" lookupName="FSC Lookup" helptext="What is code for FSC?" klass="form-control"
+                    compid="summaryJofsclookup1" #fscValuelookupSummaryJo [data]='fscLookUpData' [(lookUpvalue)]="tableRow.joSummery.paymentFSC">
+                  </app-rcl-fsc-look-up>
+                </div>
+                <div class="col-sm-3">
+                  <span class="para-text">{{tableRow.joSummery.priority}}</span>
+                </div>                
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--START : Remark  modal interface-->
+<!--<div id="summaryJORemarkModal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" (click)="resetPickDropModal($event)" uk-close></button>
+    <div class="main-content">
+      <p><span class="lookup-heading">Edit JO Order Detail</span></p>
+      <div class="row">
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-20 text-center"><b>VENDOR</b></div>
+            <div class="col-sm-10">
+              <div class="col-sm-10"></div>
+            </div>
+            <div class="col-sm-41 text-center">OCEGLS5001 PT. OCEAN GLOBAL SHIPPING</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-20 text-center"><b>Remark</b></div>
+            <div class="col-sm-10"></div>
+            <div class="col-sm-40">
+              <app-rcl-input klass="form-control" compid="Remark" name="Remark" placeholder="" #rclinput="ngModel" [(ngModel)]="Remark">
+              </app-rcl-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-30"></div>
+        <div class="col-sm-20"><button class="uk-button uk-button-default" (click)="hideRemarkPopUp($event)">Cancel</button></div>
+        <div class="col-sm-20"><button class="uk-button uk-button-primary" (click)="setRemarkValue($event)">Update</button></div>
+      </div>
+      <div class="row" [hidden]="!showLocErrorText">
+        <div class="col-sm-72 control-bottom-error">
+          {{errorTextLookUp}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+<!-- <app-rcl-rsn-cd-modal #rclReasonCode (selectUpdateReasonCodeList)="updateResonCode($event)" (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-rsn-cd-modal> -->
+<app-rcl-rsn-cd-modal #rclReasonCode (saveReasonCodeList)="updateResonCode($event)" (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-rsn-cd-modal>
+<!--END : Remark  modal interface-->
+
+
+<div id="successfull-Job-Order-modal-sections" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog">
+    <!--<button class="uk-modal-close-default" type="button" uk-close></button>-->
+    <div class="uk-modal-header">
+      <h3 class="uk-modal-title">Job Orders</h3>
+    </div>
+    <div class="uk-modal-body" *ngIf="errorText">
+      <p *ngFor="let joborder of successfullJobOrder">{{joborder}} Successfully created.</p>
+    </div>
+    <div class="uk-modal-body" *ngIf="!errorText">
+      <p *ngFor="let joborder of successfullJobOrder">{{joborder}} Successfully created.</p>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button style="color: #fff;" class="uk-button uk-modal-close uk-button-primary" type="button" (click)="changeFind($event)"><i class="fa fa-search" aria-hidden="true"></i> Change Find</button>
+    </div>
+  </div>
+</div>
+
+<div id="process-jo-summery-error-modal" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog" >
+    <!--<button class="uk-modal-close-default" type="button" uk-close></button>-->
+    <!-- <div class="uk-modal-header">
+      <h3 class="uk-modal-title">Job Orders</h3>
+    </div> -->
+ 
+    <div class="uk-modal-body" *ngIf="errorCodetext">
+      <p>{{errorCodetext}}</p>
+    </div>
+
+    <div class="uk-modal-footer uk-text-right">
+      <button style="color: #fff;" class="uk-button uk-modal-close uk-button-primary" type="button" (click)="closeErrModal($event)"><i class="fa fa-search" aria-hidden="true"></i> OK</button>
+    </div>    
+
+  </div>
+</div>
+
+<!--//#NIIT CR6 >>>>BEGIN-->
+<!-- popup to ask user whether to delete records or not-->
+<div id="delete-lumpsum-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>Do you want to delete the LumpSum?</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="deleteLumpSumConfirm(row, $event)">Yes</button>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click)="closeWarning($event)">No</button>
+  </div>
+</div>
+
+<!-- popup to ask user to create jo even after the jo contains lump sum record-->
+<div id="create-jo-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>Job Order(s) have lumpSum, do you still want to create JO?</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="processJoSummeryBlorBK($event)">Yes</button>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;">No</button>
+  </div>
+</div>
+
+<!-- popup to show user that lump sum record have been successfully deleted-->
+<div id="delete-lumpsum-success-process-jo-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false" style="z-index: 9999">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>LumpSum records successfully deleted</h5>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click)="refreshJoSummary()">OK</button>
+  </div>
+</div>
+
+<!-- popup to ask user to create jo even after the jo contains lump sum record for ad-hoc -->
+<div id="create-adhoc-jo-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>Job Order(s) have lumpSum, do you still want to create JO?</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="processJoSummeryForAdoc($event)">Yes</button>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click)="closeWarningForJoAdhoc($event)">No</button>
+  </div>
+</div>
+
+<div id="no-rate-available-process-jo-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false" style="z-index: 9999">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <p>{{errorCodetext}}</p>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click)="resetJoSummary()">OK</button>
+  </div>
+</div>
+<!--//#NIIT CR6 >>>>END-->

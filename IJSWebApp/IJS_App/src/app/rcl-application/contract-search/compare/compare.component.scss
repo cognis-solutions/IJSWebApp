@@ -1,0 +1,157 @@
+
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}
+.uk-modal-container .uk-modal-dialog {
+    width: 875px;
+    height: 710px;
+}
+.search-lookup-row {
+    margin-bottom: 20px;
+}
+.uk-table-hover tbody tr:hover, .uk-table-hover>tr:hover {
+    background: #bde8f5;
+}
+.uk-modal-container .uk-modal-dialog .uk-overflow-auto {
+    overflow: auto;
+    height: 370px;
+    margin-top: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sortableContainer {
+    width: 688px;   
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: -moz-inline-box;
+    overflow-x: auto;
+    background-color: #FFF;
+    height: 630px;
+}
+
+.contractSlide {
+    width: 200px;
+    border: 1px solid lightgrey;
+    background-color: #e5e5e5;
+    margin: 10px 20px 0 10px;   
+    padding-bottom: 10px;
+    display: table; 
+}
+.uk-card-body {
+    padding: 0;
+}
+.contractSlideTitles {
+    width: 95px;
+    float: left;
+    margin-top: 150px;
+    margin-right: 15px;
+}
+.contractSlideTitles .title, .info2 .title {
+    // margin-bottom: 10px;
+}
+.contractSlideTitles .title p, .info1 p, .info2 p  {
+    margin: 0;
+    font-size: 12px;
+    padding: 2px 0;
+}
+.info1 p, .info2 p {
+    color: #2c3e50;
+    font-weight: 600;
+}
+.contractSlideTitles .title p {
+    font-weight: 700;
+    color: #666;
+    padding: 2px 0;
+}
+.transmode-Truck{
+  display: block;
+  text-indent: -9999px;
+  width: 39px;
+  height: 44px;
+  background: url(../../../../assets/custom-icon/trunk.svg);
+  background-size: 39px 44px;
+  background-repeat: no-repeat;
+}
+.transmode-Rail{
+  display: block;
+  text-indent: -9999px;
+  width: 39px;
+  height: 44px;
+  background: url(../../../../assets/custom-icon/rail.svg);
+  background-size: 39px 44px;
+  background-repeat: no-repeat;
+}
+.transmode-Barge{
+  display: block;
+  text-indent: -9999px;
+  width: 39px;
+  height: 44px;
+  background: url(../../../../assets/custom-icon/barge.svg);
+  background-size: 39px 44px;
+  background-repeat: no-repeat;
+}
+.transmode-Feeder{
+  display: block;
+  text-indent: -9999px;
+  width: 39px;
+  height: 44px;
+  background: url(../../../../assets/custom-icon/vessel.svg);
+  background-size: 39px 44px;
+  background-repeat: no-repeat;
+}
+
+.arrow {
+    font-size: 35px;
+    line-height: 0;
+}
+.transmode {
+  margin-top: -20px;
+}
+.info1 {
+    background-color: #fff;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    height: 140px;
+}
+.info1 > .row {
+    margin-right: 0px;
+    margin-left: 0;
+}
+.info1 > p {
+    margin-bottom: 2px;
+}
+
+.info2  {
+    background-color: #e5e5e5;
+}
+.priority {
+    background-color: #2c3e50;
+    color: #fff; 
+}
+.priority  p { margin: 0 0 2px !important;}
+
+.validation-error {
+    height: 1.5em;
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0 3px 0 3px;
+    text-align: left;
+    border-radius: 2px;
+    margin-top: 3px;
+    margin-left: 15px;
+}
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}
+
+// .text-overflow-dot {
+//     text-overflow: ellipsis;
+//     overflow: hidden;
+//     white-space: nowrap;
+// }

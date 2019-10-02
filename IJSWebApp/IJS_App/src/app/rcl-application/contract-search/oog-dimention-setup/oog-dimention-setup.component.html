@@ -1,0 +1,164 @@
+<div id="oog-setup-modal">
+  <div>
+    <!--<button type="button"></button>-->
+    <!--<p><span class="lookup-heading">OOG Dimention Setup</span></p>-->
+
+    <div class="col-sm-72">
+      <form class="oogClassTable"  #oogSetUpForm="ngForm" style="overflow-y: auto;width: 100%;float: left;height: 150px;">
+      <table style="width:90%">
+        <thead>
+          <tr>
+            <th rowspan="2" style="width:120px; text-align:center">Oog Type</th>
+            <th colspan="2">Overheight</th>
+            <th colspan="2">Overlength</th>
+            <th colspan="2">Overwidth</th>
+          </tr>
+          <tr>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Min</th>
+            <th>Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rowData of getOogList(); let i = index">
+            <!--//#NIIT CR4 >>>>BEGIN-->
+            <td>
+              <app-rcl-input [disabled]="rowData.usedByContract" (change)="oogDataEdited(rowData)"  class="oogType" required name="oogSetup{{i + 'selectize'}}"  placeholder="oog type" pattern="^([A-Za-z0-9])+$" [(ngModel)]="rowData.oogSetupCode"
+                klass="form-control" label="">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-input (change)="oogDataEdited(rowData)" [disabled]="rowData.usedByContract" required style="width:70px" label="" pattern="(^[*]$|^(?:\d+|\d{1,3}(?:)+))(?:(\.\d{1,2}))?$" klass="form-control form-control-sm" compid="oogSetupMinHeight{{i}}" name="oogSetupMinHeight{{i}}" placeholder="min" [(ngModel)]="rowData.minOverHeight">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-input (change)="oogDataEdited(rowData)" [disabled]="rowData.usedByContract" required style="width:70px" label="" pattern="(^[*]$|^(?:\d+|\d{1,3}(?:)+))(?:(\.\d{1,2}))?$" klass="form-control form-control-sm" compid="oogSetupMaxHeight{{i}}" name="oogSetupMaxHeight{{i}}" placeholder="max"  [(ngModel)]="rowData.maxOverHeight">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-input (change)="oogDataEdited(rowData)" [disabled]="rowData.usedByContract" required style="width:70px" label="" pattern="(^[*]$|^(?:\d+|\d{1,3}(?:)+))(?:(\.\d{1,2}))?$" klass="form-control form-control-sm" compid="oogSetupMinLength{{i}}" name="oogSetupMinLength{{i}}" placeholder="min"  [(ngModel)]="rowData.minOverLength">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-input (change)="oogDataEdited(rowData)" [disabled]="rowData.usedByContract" required style="width:70px" label="" pattern="(^[*]$|^(?:\d+|\d{1,3}(?:)+))(?:(\.\d{1,2}))?$" klass="form-control form-control-sm" compid="oogSetupMaxLength{{i}}" name="oogSetupMaxLength{{i}}" placeholder="max" [(ngModel)]="rowData.maxOverLength">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-input (change)="oogDataEdited(rowData)" [disabled]="rowData.usedByContract" required style="width:70px" label="" pattern="(^[*]$|^(?:\d+|\d{1,3}(?:)+))(?:(\.\d{1,2}))?$" klass="form-control form-control-sm" compid="oogSetupMinWidth{{i}}" name="oogSetupMinWidth{{i}}" placeholder="min"  [(ngModel)]="rowData.minOverWidth">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-input (change)="oogDataEdited(rowData)" [disabled]="rowData.usedByContract" required style="width:70px" label="" pattern="(^[*]$|^(?:\d+|\d{1,3}(?:)+))(?:(\.\d{1,2}))?$" klass="form-control form-control-sm" compid="oogSetupMaxWidth{{i}}" name="oogSetupMaxWidth{{i}}" placeholder="max" [(ngModel)]="rowData.maxOverWidth">
+              </app-rcl-input>
+            </td>
+            <td>
+              <app-rcl-checkbox [disabled]="rowData.usedByContract" label="" compid="oogRowCheck_{{i}}" name="oogRowCheck" #oogRowCheck klass="form-control form-control-sm"
+                (rclCheckChanged)="checkSelectedRow($event, rowData, i)">
+              </app-rcl-checkbox>
+            </td>
+            <!--//#NIIT CR4 >>>>END-->
+          </tr>
+        </tbody>
+      </table>
+      </form>
+      <div class="" [hidden]="!errorText">{{errorText}}</div>
+
+      <!--<div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-default" type="button" (click)="addRow()">Add</button>
+        <button class="uk-button uk-button-default" type="button" (click)="deleteRow()">Delete</button>
+        <button [disabled]="!oogSetUpForm.valid"  class="uk-button uk-button-primary uk-modal-close" type="button" (click)="saveRow()">Save</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<!--<div id="duplicate-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>Record already existed</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click)="openOogModal()">Close</button>
+  </div>
+</div>-->
+
+<div class="AlertModel" *ngIf="showAlertPopup">
+  <div class="modelBody">
+    <p style="">Duplicate Record Exist</p>
+      <div class="text-right">
+        <button (click)="showAlertPopup=!showAlertPopup" type="button">OK</button>
+      </div>
+  </div>
+</div>
+
+<div class="AlertModel" *ngIf="showMandatoryFieldPopup">
+  <div class="modelBody">
+    <p style="">Please fill mandatory fields</p>
+      <div class="text-right">
+        <button (click)="showMandatoryFieldPopup=!showMandatoryFieldPopup" type="button">OK</button>
+      </div>
+  </div>
+</div>
+
+<div class="AlertModel" *ngIf="showValidValuesError">
+  <div class="modelBody">
+    <p style="">Please input correct values</p>
+      <div class="text-right">
+        <button (click)="showValidValuesError=!showValidValuesError" type="button">OK</button>
+      </div>
+  </div>
+</div>
+<!--//#NIIT CR4 >>>>BEGIN-->
+<div class="AlertModel" *ngIf="deleteRowValidation">
+  <div class="modelBody">
+    <p style="">Please select a row to delete</p>
+      <div class="text-right">        
+        <button (click)="deleteRowValidation=!deleteRowValidation" type="button">OK</button>
+      </div>
+  </div>
+</div>
+
+<div class="AlertModel" *ngIf="confirmDeleteValidation">
+  <div class="modelBody">
+    <p style="">Do you want to delete?</p>
+      <div class="text-right">
+        <button (click)="deleteOogList($event)" type="button">Yes</button>
+        <button (click)="confirmDeleteValidation=!confirmDeleteValidation" type="button">No</button>
+      </div>
+  </div>
+</div>
+
+<div class="AlertModel" *ngIf="saveRowValidation">
+  <div class="modelBody">
+    <p style="">Please add or edit a row to save</p>
+      <div class="text-right">
+        <button (click)="saveRowValidation=!saveRowValidation" type="button">OK</button>
+      </div>
+  </div>
+</div>
+
+<div class="AlertModel" *ngIf="minMaxValidationPopup">
+  <div class="modelBody">
+    <p style="">Max must be greater than min</p>
+      <div class="text-right">
+        <button (click)="minMaxValidationPopup=!minMaxValidationPopup" type="button">OK</button>
+      </div>
+  </div>
+</div>
+
+<div id="oog-success-modal" style="z-index:9999" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+	  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"  style="width: 438px; margin-top: 40px !important;">
+		<h5>Record(s) saved successfully</h5>
+		<button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;">Close</button>
+	  </div>
+</div>
+
+<div class="AlertModel" *ngIf="alertRecordsDeleted">
+  <div class="modelBody">
+    <p style="">Record(s) deleted successfully</p>
+      <div class="text-right">
+        <button (click)="alertRecordsDeleted=!alertRecordsDeleted" type="button">OK</button>
+      </div>
+  </div>  
+</div>
+<!--//#NIIT CR4 >>>>END  -->

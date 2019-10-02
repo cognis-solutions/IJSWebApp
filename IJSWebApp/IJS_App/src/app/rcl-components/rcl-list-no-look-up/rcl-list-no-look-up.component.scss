@@ -1,0 +1,102 @@
+@import "../../../assets/bootstrap-sass/_variables.scss";
+.lookup-wrapper { position: relative !important;} 
+input.ng-valid {
+    border-left: 5px solid $green; 
+}
+input.invalid {
+    border-left: 5px solid $red; 
+}
+input:focus{
+    border-left: 5px solid $blue;
+}
+input.ng-invalid {
+    border-left: 5px solid #d9534f;
+    border: 1px solid #d9534f;
+}
+
+.lookup-container {
+    padding: 1rem;
+    background-color: lightgray;
+    position: absolute;
+    width: 89.7%;
+    z-index: 5;
+}
+
+.lookup_btn {
+    background-color: #4d4d4d;
+    border: 1px solid #4d4d4d;
+    color: #FFF;
+}
+.uk-modal-container .uk-modal-dialog {
+    width: 1001px;
+    height: 620px;
+}
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}
+.search-lookup-row {
+    margin-bottom: 20px;
+}
+.uk-table-hover tbody tr:hover, .uk-table-hover>tr:hover {
+    background: #bde8f5;
+}
+.uk-modal-container .uk-modal-dialog .uk-overflow-auto {
+    overflow: auto;
+    height: 370px;
+    margin-top: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+.btn-clr {
+	border: 0px solid transparent;
+    background-color: transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.btn-clr:after {
+    content: "X";
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    z-index: 1;
+    right: 25px;
+    bottom: 15px;
+    margin: auto;
+    padding: 2px;
+    border-radius: 50%;
+    text-align: center;
+    color: #000;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.lookUpCheckBox {
+    top: 20px;
+    position: relative;
+}
+.lookupErrorCodeShow {
+    height: 1.5em;
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0 3px 0 3px;
+    text-align: left;
+    border-radius: 2px;
+    margin-top: 3px;
+    margin-left: 15px;
+}
+
+//make white background of read only properties
+.form-control:disabled, .form-control[readonly] {
+    background-color: white;
+    opacity: 1;
+}

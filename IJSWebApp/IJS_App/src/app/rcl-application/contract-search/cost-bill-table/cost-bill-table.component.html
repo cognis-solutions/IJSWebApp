@@ -1,0 +1,159 @@
+<ngb-tabset (tabChange)="costBillTabChange($event)">
+  <ngb-tab id="tab-costRate" title="Cost Rate">
+    <ng-template ngbTabContent>
+      <!--<div class='row'>
+        <div class="col-md-42"></div>
+        <div class="col-md-21" >
+          <div [hidden]="userType == 'readOnly'" class="float-right">
+          <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="!rowSelectedFlag" class="rateTableButton" (click)="approveRow($event)"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>
+          <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="!rowSelectedFlag" class="rateTableButton" (click)="deleteContractRecord(row, $event)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+          <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="!rowSelectedFlag" class="rateTableButton" (click)="rejectRow($event)"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+          <button type="button" class="rateTableButton" (click)="showAddCostRate($event)"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+          <button type="button" [disabled]="!rowSelectedFlag" class="rateTableButton" (click)="showEditCostRate($event)">Edit</button>
+          <button type="button" class="rateTableButton" (click)="addNewRow($event)"><i class="fa fa-plus" aria-hidden="true"></i> Add Row</button>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <ng-template #popContent>
+            <div class="col-sm-72">
+              <ul class="list-inline">
+                <li *ngFor='let col of allColumns; let i=index' class="list-inline-item col-sm-33">
+                  <input class="magic-checkbox" type='checkbox' [id]="col.name" (click)='toggle(col)' [checked]='col.visible' />
+                  <label class='small' [attr.for]="col.name">{{col.id}}</label>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+
+
+          <button type="button" class="btn btn-md btn-primary pull-right" placement="left" [ngbPopover]='popContent'><i class="fa fa-eye"> &nbsp;</i>Show</button>
+        </div>
+      </div>-->
+      <!--<ag-grid-angular [hidden]="agGridRateFlag" #agGrid 
+      style="width: 100%; height: 100%;" 
+      class="ag-material" 
+      this.rowData
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [domLayout]="domLayout"
+      (rowSelected)="onRowSelected($event)"
+      [enableColResize]="true"
+      [defaultColDef]="defaultColDef"
+      
+      >
+      </ag-grid-angular>-->
+
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <app-test-table *ngIf="agGridCostFlag" #costGrid [columnDefs]="columnDefs" [rowData]="costRowData" [termCodesList]="termCodesList"
+        [eqTypeList]="eqTypeList" [selectedContarctRow]='contractSelectedRow' [userType]="userType" (save)="saveCostRate($event)" [contractExemptedFlag] = "exemptedFlag"
+        (approveRow)='approveRow($event)' (deleteRow)='deleteRow($event)' (rejectRow)='rejectRow($event)' (costTableRows)='getAllCostTableRows($event)'   (costBillTable)='showAllCostTableRows($event)' (saveOogData)='saveOogDataList($event)' (savePortImdgClassData)='savePortImdgDataList($event)'
+        [oogCodeListData]="oogCodeList" [portCodeListData]="portCodeList"  [imdgCodeListData]="imdgCodeList" (refreshTableData)="refreshTableData($event)" [userSelectedRowOnClick]='selectedRowOnClick'></app-test-table>
+        <!--//#NIIT CR4 >>>>-->
+
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab id="tab-billRate" title="Billing Rate">
+    <ng-template ngbTabContent>
+      <app-bill-table #billTable [contractSelectedRow]="contractSelectedRow" [billTableRowData]="billRowData" [eqTypeList]="eqTypeList"
+        [userType]="userType" (billclick)="myfunc($event)"  [billExemptedFlag]="exemptedFlag"></app-bill-table>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+
+<div id="delete-cost-warnings-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{deleteTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="deleteRow($event)">Yes</button>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeWarning()">Close</button>
+  </div>
+</div>
+<!--
+<app-cost-table-extd></app-cost-table-extd>-->
+
+
+<div id="delete-warnings-modal1" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <ul *ngIf="saveCostRateErrorMsg.length > 0">
+      <li *ngFor='let errRow of saveCostRateErrorMsg'>{{errRow}}</li>
+    </ul>
+
+    <!--<h6 *ngIf="saveCostRateErrorMsg.length == 0">
+      Something went wrong
+    </h6>-->
+
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeWarning()">Close</button>
+  </div>
+</div>
+
+<div id="delete-result-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{deleteTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeErrorWarning()">Close</button>
+  </div>
+</div>
+
+
+<div id="priority-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{rateTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click)="closedWarning()">Close</button>
+  </div>
+</div>
+
+<div id="vessel-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+	  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" >
+		<h5>{{rateTextMsg}}</h5>
+		<button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:30%;margin: 8px;" (click) ="closeVesselValidationWarning()">Close</button>
+	  </div>
+</div>
+
+<!--//#NIIT CR4 >>>>BEGIN-->
+
+ <!-- Exchnage Rate error for cost-->
+<!--<div id="cost-tab-exchange-error" uk-modal bg-close="false">
+      <div class="uk-modal-dialog">
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+          <h2 class="uk-modal-title" style="font-size:18px">Exchange Rate Error</h2>
+        </div>        
+        <div uk-overflow-auto  style="float: left;width: 100%;overflow-y: auto;height: 150px;">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">               
+                <tbody>
+                  <tr *ngFor="let col of costExchangeRateError; let i=index"
+                    class="slidein-from-top">
+                    <td style="padding: 5px 5px 5px 10px; color: red">*</td>                   
+                    <td style="padding: 5px 5px 5px 10px;font-size: 13px;">{{col.currencyError}}</td>                                       
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div uk-modal-footer uk-text-right>
+          <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:100px;margin-left: 78%;margin-bottom: 20px;">Close</button>         
+        </div>
+      </div>
+ </div>-->
+
+ <!-- Exchnage Rate error for bill-->
+ <!--<div id="bill-tab-exchange-error" uk-modal bg-close="false">
+      <div class="uk-modal-dialog">
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+          <h2 class="uk-modal-title" style="font-size:18px">Exchange Rate Error</h2>
+        </div>        
+        <div uk-overflow-auto  style="float: left;width: 100%;overflow-y: auto;height: 150px;">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">                
+                <tbody>
+                  <tr *ngFor="let col of billExchangeRateError; let i=index"
+                    class="slidein-from-top">
+                    <td style="padding: 5px 5px 5px 10px; color: red">*</td>                   
+                    <td style="padding: 5px 5px 5px 10px;font-size: 13px;">{{col.currencyError}}</td>                                       
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div uk-modal-footer uk-text-right>
+          <button class="uk-button uk-button-primary uk-modal-close" type="button" style="width:100px;margin-left: 78%;margin-bottom: 20px;">Close</button>         
+        </div>
+      </div>
+ </div>-->
+ <!--//#NIIT CR4 >>>>END-->

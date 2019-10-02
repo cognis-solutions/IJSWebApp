@@ -1,0 +1,20 @@
+<div style="position: relative;">
+<label *ngIf="label" [attr.for]="identifier" class="medium">{{label}}</label>
+<input
+       [class] = "klass"
+       [placeholder]="placeholder"
+       [(ngModel)]="value"
+       [ngClass]="{invalid: (invalid | async)}"
+       [id]="compid?compid:identifier"
+       (blur)="onTouched()" 
+       autocomplete="off"
+       [disabled]="disabled"
+       type="search" 
+       [maxlength]="maxlength"
+       [required]="required"
+/>
+<!--<span *ngIf="value" class="btn-clr" (click)="value = undefined"></span>-->
+<span class="fa fa-search form-control-search" (click)="handleSearchClick($event)"></span>
+</div>
+<app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+</app-rcl-validation-result>

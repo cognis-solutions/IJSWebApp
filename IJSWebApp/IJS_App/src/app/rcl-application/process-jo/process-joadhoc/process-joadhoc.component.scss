@@ -1,0 +1,114 @@
+.addhoc-heading-row, .routing-details-row {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.addhoc-heading {
+    font-weight: 300;
+    border-bottom: #0275d8 solid 2px;
+    padding-bottom: 5px;
+}
+.routing-details-row > .col-sm-36 { 
+    background-color: #f5f5f5;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+.inline-block {
+    display: inline-block;
+}
+
+.arrow-block {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 101px;
+    height: 15px;
+    background: url(../../../../assets/custom-icon/processjo-arrow.png);
+    background-size: 101px 15px;
+    background-repeat: no-repeat;
+}
+.trans-mode-button {
+    padding: 3px 10px 5px 10px;
+    background-color: #999999;
+    display: inline-block;
+    border-radius: 4px;
+    color: #fff;
+}
+.equipment-details-row {
+    margin-top: 5px;
+}
+.equipment-details-row > .col-sm-36 {
+    background-color: #d5eef9;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+.coc-button {
+    padding: 3px 10px 5px 10px;
+    background-color: #000;
+    display: inline-block;
+    border-radius: 4px;
+    color: #fff;
+}
+.weight-col {
+    padding-right: 0;
+}
+.percent-button {
+    display: inline-block;
+    top: -40px;
+    position: relative;
+    left: 20px;
+    background-color: #fff;
+    font-size: 10px;
+    padding: 0 4px;
+    border: 1px solid grey;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.uploadFile {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 210;
+    background-color: #e6e6e6;
+    width: 100%;
+    min-height: 100%;
+    display: block;
+}
+
+.close-icon {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    width: 32px;
+    height: 32px;
+    z-index: 1;
+    display: inline-block;
+}
+.close-icon:before, .close-icon:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close-icon:before {
+  transform: rotate(45deg);
+}
+.close-icon:after {
+  transform: rotate(-45deg);
+}

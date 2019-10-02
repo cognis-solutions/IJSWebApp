@@ -1,0 +1,120 @@
+.ijs_processjo_container {
+    margin: 1rem auto;
+    background: #ffffff;
+    width: 100%;
+    box-shadow: 1px 1px 1px 2px grey;
+}
+
+#search-tab-button {
+    color: #fff;
+    cursor: default;
+    background-color: #0275d8;
+    padding: 8px 16px;
+    display: inline-block;
+}
+.search-row1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.search-row-last {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.filter-button {
+   display: inline-block;
+   margin-right: 10px;
+}
+.reset-button {
+    display: inline-block;
+}
+.filter-button .btn-secondary, .reset-button .btn-secondary {
+    border-radius: 5px;
+}
+.filter-button button.filterButtonClicked {
+     background-color: #232323;
+     color: #ffffff;
+}
+.processJoSearchFilter {
+    margin: 0 auto;
+    width: 100%;
+    background-color: #232323;
+    color: #666666;
+}
+
+.tooltip-button {
+    background-color: #0f3c49;
+    color: #f6f6f6;
+    padding: .5rem 1rem;
+    border-radius: 7px;
+    font-size: 1rem;
+}
+.tooltip-inner {
+    width: 425px;
+    max-width: 425px;
+    background-color: #e6e6e6;
+    display: inline-block;
+}
+
+// #find-button {
+//     //padding: 9px 50px;
+//     //margin-top: 32px;
+// }
+
+.search-for-text {
+    color: #007bce;
+    font-size: 16px;
+    font-weight: 800; 
+}
+.validation-error {
+    height: 1.5em;
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0 3px 0 3px;
+    text-align: left;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 15px;
+}
+
+//making similar to contract search screen
+.filter-button-wrapper {
+	display: inline-block;
+    float: right;
+    margin-top: -47px;
+}
+.filter-button-wrapper > .filter-button {	
+    float: left;
+    margin-right: 1rem;
+}
+.filter-button-wrapper > .reset-button {	
+    float: right;
+}
+
+.btn-new {  background: #e7eaeb; 
+    -webkit-border-radius: 4;
+    -moz-border-radius: 4;
+    border-radius: 4px;
+    font-family: Arial;
+    color: rgb(3, 100, 138);
+    font-size: 14px;
+    padding: 9px 20px 9px 20px;
+    text-decoration: none;
+    border: 1px solid #FFF;
+    cursor: pointer;
+}
+
+.btn-new:hover  {  
+         background: #2eb4f1 ;   
+        text-decoration: none; color: #FFFF;  border: 1px solid #eef5f7;
+}
+
+.job-order-type {
+    background-color: #0f3c49;
+    color: #f6f6f6;
+    padding: .5rem 1rem;
+    border-radius: 7px;
+    font-size: 1rem;
+    display: inline-block;
+    margin-left: 20px;
+}

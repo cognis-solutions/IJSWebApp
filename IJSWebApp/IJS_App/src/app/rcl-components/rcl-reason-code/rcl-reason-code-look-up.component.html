@@ -1,0 +1,129 @@
+<div class="lookup-wrapper" click-outside (clickOutside)="onClickOutside($event)">
+  <label *ngIf="label" for="{{compid}}" class="medium">{{label}}</label>  
+  <!-- <input [disabled]="disabled" [required]="required" [class]="klass" [placeholder]="placeholder" [ngClass]="{invalid: (invalid | async)}" [id]="compid"
+    (blur)="onTouched()" [ngModel]="lookUpvalue" (click)="active=!active" autocomplete="on" (ngModelChange)="change($event)" /> -->
+    <app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+    </app-rcl-validation-result>
+    
+    
+    
+    <span *ngIf="lookUpvalue" class="btn-clr" (click)="change((lookUpvalue = undefined))"></span>
+    
+  <div *ngIf="active" class="lookup-container">
+    <div *ngFor="let option of data" class="look-up">
+      <input type="text" [(ngModel)]="_value" name={{option.value}} [placeholder]="option.label" [class]="klass" hidden>
+      <p (click)="onLookupShowHide($event, option.label)" class="text-center">{{option.label}}</p>
+    </div>
+    <div class="text-center"><em><small>{{helptext}}</small></em></div>
+    <button class="lookup_btn" type="button" style="width: 100%;" (click)="openLookUpModal($event, selectedDropDown)">Lookup</button>
+  </div>
+</div>
+
+
+<div *ngIf="openModal" id="lookup-popup-input">
+  <div id="reason-code-lookup-modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <button class="uk-modal-close-default" type="button" uk-close (click)="resetPickDropModal(e)"></button>
+
+        <p><span class="lookup-heading">Reason Code Lookup</span></p>
+        <div class="col-sm-72">
+          <form name="lookupForm1" #lookupForm1="ngForm">
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="rsnCodeLookUpData" placeholder="Select one" [(ngModel)]="selectedDropDown"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input required [ngModelOptions]="{standalone: true}" label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..." [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">         
+              <app-rcl-checkbox class="lookUpCheckBox" label="Wild Card" name="lookUpCheckBox" [(ngModel)]="WildCard" #lookUpCheckBox="ngModel" ></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12">
+              <button type="button" class="uk-button uk-button-primary" (click)="getRsnLookUpData( $event, selectedDropDown, _value, WildCard)" [disabled]="!lookupForm1.valid">FIND</button>
+            </div>
+          </div>
+          </form>
+        <div [hidden]="showlookuptable">
+            <div class="row search-lookup-row">
+              <div class="col-sm-12">Total {{locLookUptableData.length}} items</div>
+              <div class="col-sm-16">
+                <select [(ngModel)]="resultsPerPage">
+                  <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                  </select> Results Per Page
+              </div>
+              <div class="col-sm-25"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                  <option *ngFor="let pageresult of vendorSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+              </div>
+              <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                  <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>#</th>
+                    <th>Reason Code</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (dblclick)="selectRowData($event); $event.stopPropagation()" *ngFor="let tableRow of locLookUptableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupCountry'}; let i = index"
+                    class="slidein-from-top">
+
+                    <td>
+                      <app-rcl-checkbox class="lookUpCheckBox tableCheckBox" label="" name="lookUpCheckBox" #reasonCodelookUpCheckBox (rclCheckChanged)="selectTableRowCheckBoxes($event, tableRow)" (click)="$event.stopPropagation()" ></app-rcl-checkbox>
+                    </td>
+                    <td>{{i+1}}</td>
+                    <td>{{tableRow.ReasonCode}}</td>
+                    <td>{{tableRow.Description}}</td>
+                    <td>{{tableRow.Status}}</td>                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="pc = $event" id="lookupCountry"></pagination-controls>
+          </div>
+          
+          <div [hidden]="showlookuptable" class="col-sm-72"> 
+            <div class="uk-modal-footer uk-text-center">
+              <button class="uk-button uk-button-default uk-modal-close" type="button" (click)="hideReasonCode($event)" 
+                style="background-color:grey;color: black;">Close</button>
+              <button class="uk-button uk-button-primary" type="button" (click)="selectReasonCode($event)">Select</button>
+            </div>
+            <!--<div class="col-sm-30" style="display: inline-block;text-align: right;">
+                <button type="button" id="closeButton" class="btn btn-secondary " placement="bottom"
+                (click)="hideReasonCode($event)" style="background-color:grey;color: black;"><span>Close</span></button>
+            </div>-->
+            <!--<div class="col-sm-30" style="display: inline-block;text-align: left;">
+                <button type="button" id="removeButton" class="btn btn-secondary " placement="bottom" 
+                (click)="selectReasonCode($event)" style="background-color: #e74c3c;color: white;"><span>Select</span></button>
+            </div>-->
+          </div> 
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- modal to ask user to select a reason code-->
+<div id="reason-code-select-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>Please select a reason code to create the job order.</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="processJoSummeryForAdoc($event)">Yes</button>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click)="closeWarningForJoAdhoc($event)">No</button>
+  </div>
+</div>

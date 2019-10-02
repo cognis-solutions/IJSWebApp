@@ -1,0 +1,20 @@
+<label *ngIf="label" [attr.for]="identifier" class="medium">{{label}}</label>
+<input 
+       [class] = "klass"
+       [placeholder]="placeholder"
+       [(ngModel)]="value"
+       [ngClass]="{invalid: (invalid | async)}"
+       [id]="compid?compid:identifier"
+       (blur)="onTouched()" 
+       autocomplete="off"
+       [disabled]="disabled"
+       [type]="type" 
+       [maxlength]="maxlength"
+       [min]="min"
+       [max]="max"
+       [readOnly]="readOnly"
+       [pattern] = "pattern"
+/>
+<app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+</app-rcl-validation-result>
+<span *ngIf="value" class="btn-clr" (click)="value = undefined"></span>

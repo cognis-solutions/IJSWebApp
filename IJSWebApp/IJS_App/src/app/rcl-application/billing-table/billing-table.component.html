@@ -1,0 +1,325 @@
+<form #costBillRateForm='ngForm'>
+  <div class="table-container" style="padding:20px 0 0 0;">
+    <div id="resp-table">
+      <div id="resp-table-caption">
+        <div class="table-caption-button">
+          <button class="action-row-btn" style="float-right" [hidden]="userType=='readOnly'" [disabled]="exemptedBillFlag == true" (click)="addRow($event)">Add</button>
+          <button class="action-row-btn" [hidden]="userType=='readOnly'" [disabled]="checkedSelectedRows.length < 1" style="float-right" (click)="editSelectedRow($event)">Edit</button>
+          <button class="action-row-btn" style="float-right" [hidden]="userType=='readOnly'" [disabled]="checkedSelectedRows.length < 1 || checkedSelectedRows.length > 1 || exemptedBillFlag == true"  (click)="copyRow($event)">Copy</button>
+
+          <button [hidden]="userType=='readOnly'" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn" style="float-right" (click)="saveRows($event)">Save</button>
+          <button [hidden]="userType == 'modifyOnly' || userType=='readOnly'" type="button" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn"
+          (click)="approveSelectedRows()"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>
+        <button  type="button" [hidden]="userType=='readOnly'" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn"
+          (click)="deleteBillRecord()"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+        <button [hidden]="userType == 'modifyOnly' || userType=='readOnly'" type="button" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn"
+          (click)="rejectSelectedRows()"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+          <button type="button"  [hidden]="userType=='readOnly'" [disabled]="exemptedBillFlag == true" class="action-row-btn"
+          (click)="showAddBillRate()"><i class="fa fa-times"  aria-hidden="true"></i> Add Billing Rate</button>
+          <button type="button" [hidden]="userType=='readOnly'" [disabled]="checkedSelectedRows.length < 1 || checkedSelectedRows.length > 1 || addFormFlag==true" class="action-row-btn" class="action-row-btn"
+          (click)="showEditBillRate()"><i class="fa fa-times" aria-hidden="true"></i> Edit Billing Rate</button>
+        
+          <button placement="right" container="body" type="button" class="action-row-btn" (click)="showPopUp(popContent)"><i class="fa fa-eye"> &nbsp;</i>Show</button>
+
+       
+       
+          <!-- <button class="action-row-btn" style="float-right" (click)="addRow($event)">Add </button>
+          <button class="action-row-btn" [disabled]="checkedSelectedRows.length < 1" style="float-right" (click)="editSelectedRow($event)">Edit </button>
+          <button class="action-row-btn" [disabled]="checkedSelectedRows.length > 1" style="float-right" (click)="copyRow($event)">Copy </button>
+          <button [disabled]="!costBillForm.valid || checkedSelectedRows.length < 1" class="action-row-btn" style="float-right" (click)="saveRows($event)">Save </button>
+
+
+          <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn"
+            (click)="approveSelectedRows()"><i class="fa fa-check" aria-hidden="true"></i> Approve</button>
+          <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn"
+            (click)="deleteSelectedRows()"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+          <button [hidden]="userType == 'modifyOnly'" type="button" [disabled]="checkedSelectedRows.length < 1" class="action-row-btn"
+            (click)="rejectSelectedRows()"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+
+
+
+          <button placement="right" container="body" type="button" class="action-row-btn" [ngbPopover]='popContent'><i class="fa fa-eye"> &nbsp;</i>Show</button> -->
+        </div>
+      </div>
+      <div id="resp-table-header">
+        <div class="table-header-cell" style="width:30px">#</div>
+        <div class="table-header-cell" *ngFor="let coln of columnDefs; let i = index" [ngStyle]='coln.colCellCss' let i=index;>
+           <!-- //#NIIT CR4 >>>>BEGIN -->
+           <span *ngIf= 'coln.checkRate20'>
+              <span class="top-heading">Rate 20</span>
+               <span class="left-heading">Billing</span> 
+              <span class="right-heading">Cost</span>               
+            </span>
+            <span *ngIf= 'coln.checkRate40'>
+              <span class="top-heading">Rate 40</span>
+               <span class="left-heading">Billing</span> 
+              <span class="right-heading">Cost</span>               
+            </span>
+            <span *ngIf= 'coln.checkRate45'>
+              <span class="top-heading">Rate 45</span>
+               <span class="left-heading">Billing</span> 
+              <span class="right-heading">Cost</span>               
+            </span>
+
+            <span *ngIf= '!coln.checkRate20 && !coln.checkRate40 && !coln.checkRate45'>
+              {{coln.columnName}} 
+            </span>
+            <!-- //#NIIT CR4 >>>>BEGIN -->
+
+        </div>
+      </div>
+      <div id="resp-table-body">
+        <div class="resp-table-row" *ngFor="let currentRow of rowData; let i = index;">
+          <div class="table-body-cell">
+            <app-rcl-checkbox style="top: -18px;position: relative;" label="" name="customCheckbox{{i}}" [(ngModel)]="currentRow.selectedFlag"
+              #tableCheckbox compid="costCheckbox" klass="form-control form-control-sm" (rclCheckChanged)="costSelectTableRowCheckBox($event, currentRow)"></app-rcl-checkbox>
+          </div>
+          <div class="table-body-cell" *ngFor="let coln of columnDefs; let p = index;">
+            <div *ngFor="let key of colmDataEntries(currentRow);">
+              <div *ngIf="coln.columnId == key">
+
+
+                <div *ngIf="!currentRow.editRow" (dblclick)="$event.stopPropagation()" class="data-field" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"  placement="top" 
+                     >
+
+                <!--//#NIIT CR4 >>>>BEGIN-->
+                <span *ngIf= 'coln.checkRate20'>
+                  <span class="left-text">{{currentRow.rate20}}</span>
+                  <span class="right-text">{{currentRow.effectiveCostRate20}}</span>                  
+                </span>
+                <span *ngIf= 'coln.checkRate40'>                  
+                  <span class="left-text">{{currentRow.rate40}}</span> 
+                  <span class="right-text">{{currentRow.effectiveCostRate40}}</span>               
+                </span>
+                <span *ngIf= 'coln.checkRate45'>                
+                  <span class="left-text">{{currentRow.rate45}}</span> 
+                  <span class="right-text">{{currentRow.effectiveCostRate45}}</span>               
+                </span>
+                
+                <span *ngIf= '!coln.checkRate20 && !coln.checkRate40 && !coln.checkRate45'>
+                  {{currentRow[key]}}   
+                </span>
+                <!--//#NIIT CR4 >>>>END-->                     
+                     
+                </div>
+
+                <div *ngIf="currentRow.editRow" [ngSwitch]="key">
+                  <div class="input-field" *ngSwitchCase="'startDate'">
+                    <app-rcl-daterangepicker compid="addEditCostRateStartDate11" name="startDate{{i}}" required [single]="true" [time]="false"
+                      [time24H]="true" label="" placeholder="Start Date" [(ngModel)]="currentRow['startDate']" #addEditCostRateStartDate11="ngModel"
+                      klass="form-control">
+                    </app-rcl-daterangepicker>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'endDate'">
+                    <app-rcl-daterangepicker name="endDate{{i}}" compid="addEditCostRateEndtDate" required [single]="true" [time]="false" [time24H]="true"
+                      label="" placeholder="End Date" [(ngModel)]="currentRow['endDate']" #addEditCostRateEndtDate="ngModel"
+                      klass="form-control">
+                    </app-rcl-daterangepicker>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'service'" >
+                    <app-service-lookup label="" placeholder="Service" lookupName="Service Lookup" helptext="What is code for Service?" klass="form-control"
+                      compid="contractServiceLookup" #contractServiceLookup [data]='serviceLookUpData' [(lookUpvalue)]="currentRow['service']">
+                    </app-service-lookup>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'vesselCodes'" >
+                    <app-vessel-lookup label="" placeholder="Vessel" lookupName="Vessel Lookup" helptext="What is code for Vessel?" klass="form-control"
+                      compid="contractVesselLookup" #contractVesselLookup [data]='vesselLookUpData' [(lookUpvalue)]="currentRow[key]">
+                    </app-vessel-lookup>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'mtOrLaden'">
+                    <app-rcl-selectize required name="mtOrLaden{{i}}" [config]="addEditSelectConfig" [options]="mtLadenOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostRateMtLaden klass="form-control" hasOptionsPlaceholder="Mt Laden" label="">
+                    </app-rcl-selectize>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'rateBasis'">
+                    <app-rcl-selectize required name="rateBasis{{i}}" [config]="addEditSelectConfig" [options]="rateBasisOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostRateRateBasis klass="form-control" hasOptionsPlaceholder="Rate Basis" label="" (onChangeValue)="RateBasisChanged($event)">
+                    </app-rcl-selectize>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'eqCatq'">
+                    <app-rcl-selectize required name="eqCatq{{i}}" [config]="addEditSelectConfig" [options]="eQCatgOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostRateEQCatg klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Eq Catq">
+                    </app-rcl-selectize>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'rateStatus'">
+                    <app-rcl-selectize required name="rateStatus{{i}}" [config]="addEditSelectConfig" [options]="rateStatusOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostRateRateStatus klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Rate Status">
+                    </app-rcl-selectize>
+                  </div>
+                  <!--<div class="input-field" *ngSwitchCase="'term'">
+                    <app-rcl-selectize name="term{{i}}" [config]="addEditMultiSelectConfig" [options]="termOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostRateTerm klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Term">
+                    </app-rcl-selectize>
+                  </div>-->
+                  <div class="input-field" *ngSwitchCase="'eqType'">
+                    <app-rcl-selectize required name="eqType{{i}}" [config]="addEditMultiSelectConfig" [options]="_mappingData.eQTypeOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostEQType klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Eq Type">
+                    </app-rcl-selectize>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'upto'">
+                    <app-rcl-input type="number" label="" klass="form-control inputMandatoryClass" name="upto{{i}}" placeholder="Up To" [(ngModel)]="currentRow[key]"
+                      #addEditCostUpTo></app-rcl-input>
+                  </div>
+                  <!--//#NIIT CR4 >>>>BEGIN--> 
+                  <!--<div class="input-field" *ngSwitchCase="'splHandling'">
+                    <app-rcl-selectize name="splHandling{{i}}" [config]="addEditSelectConfig" [options]="splHandlingOptions" [(ngModel)]="currentRow[key]"
+                      #addEditCostsplHandling klass="form-control inputMandatoryClass" [disabled]="true"  hasOptionsPlaceholder="Spl Handling"
+                      (onChangeValue)="clearField($event)">
+                    </app-rcl-selectize>
+                  </div>-->
+                  <!--//#NIIT CR4 >>>>END--> 
+                  <div class="input-field" *ngSwitchCase="'currency'">
+                    <app-rcl-currency label="" placeholder="Currency" lookupName="Currency Lookup" helptext="What is code for Currency?" klass="form-control"
+                      compid="contractCurrencyLookup" #contractCurrencyLookup [data]='currencyLookUpData' [(lookUpvalue)]="currentRow[key]">
+                    </app-rcl-currency>
+                  </div>
+                  <!--//#NIIT CR4 >>>>BEGIN--> 
+                  <!--<div class="input-field" *ngSwitchCase="'portCode'">
+                    <app-rcl-input [disabled]="!((currentRow.splHandling=='D1') || (currentRow.splHandling=='RDG') || (currentRow.splHandling=='ODG')) || currentRow.imdgCode"
+                      readOnly="true" label="" klass="form-control inputMandatoryClass" name="portCode{{i}}" placeholder="Port Class Code"
+                      [(ngModel)]="currentRow[key]" #addEditCostPortClassCode (click)="showPortClassModal($event, portClassList)"></app-rcl-input>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'imdgCode'">
+                    <app-rcl-input [disabled]="!((currentRow.splHandling=='D1') || (currentRow.splHandling=='RDG') || (currentRow.splHandling=='ODG')) || currentRow.portCode"
+                      readOnly="true" label="" klass="form-control inputMandatoryClass" name="imdgCode{{i}}" placeholder="Imdg Details"
+                      [(ngModel)]="currentRow[key]" #addEditCostImdgDetail (click)="showimDgModal($event, imDgList)"></app-rcl-input>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'oogSetup'">
+                    <app-rcl-input [disabled]="!((currentRow.splHandling=='0G') || (currentRow.splHandling=='ODG'))" readOnly="true" label=""
+                      klass="form-control inputMandatoryClass" name="oogSetup{{i}}" placeholder="Oog Setup" [(ngModel)]="currentRow[key]"
+                      #addEditCostOogSetup (click)="showOOGModal($event, oogSetUpList)"></app-rcl-input>
+                  </div>-->
+                  <!--//#NIIT CR4 >>>>END--> 
+
+                  <!-- //#NIIT CR4 >>>>BEGIN -->
+                  <div class="input-field" *ngSwitchCase="'rate20'" style="display: flex">
+                    <app-rcl-input style="margin-right: 5px;width: 49%" [disabled]="currentRow.rateBasis != 'S'" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass" name="rate20{{i}}"
+                      placeholder="Rate 20" [(ngModel)]="currentRow[key]" #addEditCostRate20></app-rcl-input>
+                      <app-rcl-input style="margin-left: 5px;width: 49%" [disabled]="true" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass" name="effectiveCostRate20{{i}}"
+                      [(ngModel)]="currentRow.effectiveCostRate20" #addEditCostRate20></app-rcl-input>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'rate40'" style="display: flex">
+                    <app-rcl-input style="margin-right: 5px;width: 49%" [disabled]="currentRow.rateBasis != 'S'" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" label="" klass="form-control inputMandatoryClass" name="rate40{{i}}"
+                      placeholder="Rate 40" [(ngModel)]="currentRow[key]" #addEditCostRate40></app-rcl-input>
+                      <app-rcl-input style="margin-left: 5px;width: 49%" [disabled]="true" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" label="" klass="form-control inputMandatoryClass" name="effectiveCostRate40{{i}}"
+                      [(ngModel)]="currentRow.effectiveCostRate40" #addEditCostRate40></app-rcl-input>
+                  </div>
+                  <div class="input-field" *ngSwitchCase="'rate45'" style="display: flex">
+                    <app-rcl-input style="margin-right: 5px;width: 49%" [disabled]="currentRow.rateBasis != 'S'" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" label="" klass="form-control inputMandatoryClass" name="rate45{{i}}"
+                      placeholder="Rate 45" [(ngModel)]="currentRow[key]" #addEditCostRate40></app-rcl-input>
+                      <app-rcl-input style="margin-left: 5px;width: 49%" [disabled]="true" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" label="" klass="form-control inputMandatoryClass" name="effectiveCostRate45{{i}}"
+                      [(ngModel)]="currentRow.effectiveCostRate45" #addEditCostRate40></app-rcl-input>
+                  </div>
+                  <!-- //#NIIT CR4 >>>>END -->
+                  <!--//#NIIT CR4 >>>>BEGIN--> 
+                  <!--<div class="input-field" *ngSwitchCase="'lumpSum'">
+                    <app-rcl-input type="number" [disabled]="currentRow.rateBasis == 'S'" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" label="" klass="form-control inputMandatoryClass" name="lumpSum{{i}}"
+                      placeholder="Enter value" [(ngModel)]="currentRow[key]" #addEditCostLumpSum></app-rcl-input>
+                  </div>-->
+                  <!--//#NIIT CR4 >>>>END--> 
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<div [hidden]="showpopdiv" #popContent style="width:450px; height:320px; position:absolute; right:4px; padding:5px 0 0 0; bottom:80px;background:#fff; box-shadow:#333 0 0 3px;">
+  <div class="col-sm-72">
+    <button class="close" (click)="closePopup()">X</button><!--//#NIIT CR4 >>>>-->
+    <ul class="list-inline">
+      <li *ngFor='let coln of columnDefs; let i = index' class="list-inline-item col-sm-33">
+        <input type="checkbox" name="something{{i}}" [checked]='!coln.visible' (click)=" hideHeader(i+1)" />
+        <label class='small'>{{coln.columnName}}  </label>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- 
+<div id="add-edit-bill-container" class="uk-modal-container" uk-modal bg-close="false" esc-close="false" >
+
+  
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="width:70%; margin:0 auto;">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+
+    <app-add-edit-bill-rate #addeEditBillRate [termCodesList]="termCodesList" [eqTypeList]="eqTypeList"  class="addEditBillRateComponent slidein-from-left" (hideAddNewBillRate)="hideAddNewBillRate($event)" (successMsg)="printSuccessMsg($event)"></app-add-edit-bill-rate>
+   
+  </div>
+  </div> -->
+
+
+<div id="maincontainer" style="width:100%; height:1230px; position:absolute; z-index:1000; top:-109px; left:0; background: #f3f3f3;" [hidden]="addEditBillRateComponentFlag">
+  <app-add-edit-bill-rate #addeEditBillRate [termCodesList]="termCodesList" [hidden]="addEditBillRateComponentFlag" [eqTypeList]="eqTypeList" [userTypeforBill]="userType" class="addEditBillRateComponent slidein-from-left" (hideAddNewBillRate)="hideAddNewBillRate($event)" (reFreshBillTable)="reFreshBillTableFunc($event)" (successMsg)="printSuccessMsg($event)"></app-add-edit-bill-rate>
+</div>
+
+  <div id="date-warning-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <h5>{{successMsgs}}</h5>
+        <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" >Close</button>
+      </div>
+    </div>
+  <!-- <div id="add-edit-bill-success" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div *ngIf="successtextFlag">
+          <p>{{successMsgs}}</p>
+          <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary" type="button" (click)="closeAddEditCostRate($event)">Close</button>
+          </div>
+        </div>
+    
+        <div *ngIf="!successtextFlag">
+          <p>{{successMsgs}}</p>
+          <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
+          </div>
+        </div>
+    
+      </div>  
+    </div>  -->
+    
+  
+
+    <div id="delete-bill-warnings-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <h5>{{deleteTextMsg}}</h5>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="deleteSelectedRows()">Yes</button>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeWarning()">Close</button>
+    </div>
+  </div>
+  <div id="reject-warnings-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <h5>Please save the Row first </h5>
+
+        <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeWarning()">Close</button>
+      </div>
+    </div>
+
+<div id="add-edit-bill" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <!--button class="uk-modal-close-default" type="button" uk-close></button-->
+    <div *ngIf="successtextFlag">
+      <p>{{successTextMsg}}</p>
+      <div class="uk-modal-footer uk-text-right">
+        <!--<button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>-->
+        <button class="uk-button uk-button-primary uk-modal-close" type="button" (click)="closeAddEditBillRate($event)">Close</button>
+      </div>
+    </div>
+
+    <div *ngIf="!successtextFlag">
+      <p>{{successTextMsg}}</p>
+      <div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-primary uk-modal-close" type="button">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>    

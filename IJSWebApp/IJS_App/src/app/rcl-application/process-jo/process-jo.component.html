@@ -1,0 +1,22 @@
+<div class="row text-primary header-arrow-icon">
+  <div class="col-sm-72">
+    <p><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Intermodel and Job Order System &#x7c; <span>Process JO</span></p>
+  </div>
+</div>
+
+<div class="col-sm-72" [hidden]="processJoAdhocFlag || processJoResultsFlag">
+   <app-processjo-search [filterData]="filterData" #processJoSearch (searchDataProcessJo)="searchProcessJoOrder($event)" (showAddHocComp)="showjoAddHoc($event)"></app-processjo-search>
+</div>
+<div class="col-sm-72" *ngIf="processJoResultsFlag">
+  
+  
+  <app-processjo-result-filter class="ijs_searchdatafilter_wrapper slidein-from-left" [processJoSearchDataInput]="processJoSearchData" [tableDataProcessJoSearch]="tableDataProcessJoSearch" [filterDataSelectedComp]="filterDataSelectedComp" (changeFind)="changeFind($event)" (refreshData)="removeFilterBackEnd($event)"></app-processjo-result-filter>
+  
+  
+  <app-processjo-result-table  [processJoSearchData]="processJoSearchData" [filteredTableDataProcessJoSearch]="filteredTableDataProcessJoSearch" [filterDataSelectedComp]="filterDataSelectedComp" [filterData]="filterData" (showJoSummeryTable)="showJoSummeryTable($event)" (refreshData)="refreshResultTable($event)" (changeFindforChangeVendor)="changeFindforChangeVendor($event)" #processJoTable></app-processjo-result-table>  
+  
+  <!--<app-jo-summary-table style="margin-bottom: 200px; display: block;" #joSummary [hidden]="showHideJoSummeryFlag" (hideJoSummery)="resetJoSummery($event)" (enableButtons)="enableButtonsWhileError($event)" (changeFindSummery)="changeFind()"></app-jo-summary-table>-->
+  <app-jo-summary-table style="display: block;" #joSummary [hidden]="showHideJoSummeryFlag" (hideJoSummery)="resetJoSummery($event)" (enableButtons)="enableButtonsWhileError($event)" (changeFindSummery)="changeFind()"></app-jo-summary-table> 
+</div>
+<!--#NIIT CR3-->
+<app-process-joadhoc [addHocTypeName]='addHocTypeName' [addHocTypeCode]='addHocTypeCode' [uploadListLimit]="uploadListLimit" [routeListInputValue]="routeListInputValue" class="processjo-addhoc slidein-from-right" #processjoAddHoc *ngIf="processJoAdhocFlag" (closeAddHoc)="hideJoAddHoc($event)"></app-process-joadhoc>

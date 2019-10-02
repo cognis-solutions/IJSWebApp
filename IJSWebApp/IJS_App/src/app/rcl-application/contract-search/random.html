@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="myFunction()">Try it</button>
+<button onclick="getRandomFunc(10,11)">Random No</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    document.getElementById("demo").innerHTML = Math.floor(Math.random()*11);
+}
+function getRandomFunc(min,max){
+document.getElementById("demo").innerHTML =Math.floor(Math.random()*(max-min+1));
+}
+</script>
+
+</body>
+</html>

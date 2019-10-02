@@ -1,0 +1,55 @@
+
+
+<div *ngIf="openModal" id="lookup-popup-input">
+  <div id="jo-log-lookup-modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <button class="uk-modal-close-default" type="button" uk-close (click)="resetPickDropModal(e)"></button>
+
+        <!-- <p><span class="lookup-heading">{{lookupName}}</span></p> -->
+        <p><span class="lookup-heading">Job Order # {{joNumber}}</span></p>
+
+        <div class="col-sm-19" style="display: inline-block;"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+          <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+            <option *ngFor="let pageresult of joLogSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+            </select>
+        </div>
+        <div class="col-sm-19" style="display: inline-block;"><span><em>Order by</em> &nbsp;&nbsp;</span>
+          <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+            <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+            </select>
+        </div>                
+        <div class="col-sm-72">
+
+        <div [hidden]="showlookuptable">
+
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>SR</th>
+                    <th>Activity</th>
+                    <th>Date</th>
+                    <th>User</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tableRow of locLookUptableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupJoLog'}; let i = index"
+                    class="slidein-from-top">
+                    <td>{{tableRow.SR}}</td>
+                    <td>{{tableRow.Activity}}</td>
+                    <td>{{tableRow.Date}}</td>
+                    <td>{{tableRow.User}}</td>                
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="pc = $event" id="lookupJoLog"></pagination-controls>
+          </div>
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>          
+        </div>
+      
+    </div>
+  </div>
+</div>

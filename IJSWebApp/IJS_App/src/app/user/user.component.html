@@ -1,0 +1,12 @@
+
+<div class="uk-inline uk-width-large" boundary-align='true' offset=0>
+        <i class="fa fa-question-circle" aria-hidden="true" ></i>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    <i class="fa fa-user-circle-o" aria-hidden="true" ></i>
+    <div uk-dropdown *ngIf="userInfo">
+        <p>({{userInfo.userId}})- {{userInfo.fscCode}} - {{userInfo.fscLvl1}}/{{userInfo.fscLvl2}}/{{userInfo.fscLvl3}}</p>
+    </div>
+    <div style="float:right; font-size:14px">
+        <p style="margin-bottom:8px">IJS_Web_App_JBOSS_BUILD_001_02_20190624</p>
+    </div>
+</div>

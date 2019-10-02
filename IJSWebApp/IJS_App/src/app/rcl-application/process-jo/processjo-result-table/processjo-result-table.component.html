@@ -1,0 +1,267 @@
+<div class="card slidein-from-left">
+  <div class="card-block">
+    <div class="card">
+      <div class="card-header card-default">
+        <div class="row pagination-wrapper-top">
+          <div class='col-md-12'>
+            <p class="transport-contract-text">Booking/BL List</p>
+          </div>
+          <div class='col-md-13'>
+            <p><em>{{filteredTableDataProcessJoSearch.length}} Total &nbsp;&nbsp;</em></p>
+            <div class="pageSelected">
+              <select [disabled]="showJoSummeryFlag" [(ngModel)]="resultsPerPage">
+                 <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                </select>
+            </div>
+          </div>
+          <!--<div class='col-md-11'></div>-->
+
+          <div class='col-md-12'>
+            <p><em>Sort in &nbsp;&nbsp;</em></p>
+            <div class="pageSelected">
+              <select [disabled]="showJoSummeryFlag" (change)="onChangeSortIn(filterDataSelectedComp.sortIn)" [(ngModel)]="filterDataSelectedComp['sortIn']">
+                 <option *ngFor="let pageresult of filterData[0].data; let i = index" [value]= "pageresult.id" [selected]="filterDataSelectedComp.sortIn == pageresult.id">{{pageresult.text}}</option>
+                </select>
+            </div>
+          </div>
+          <div class='col-md-13'>
+            <p><em>Order by &nbsp;&nbsp;</em></p>
+            <div class="pageSelected">
+              <select [disabled]="showJoSummeryFlag" (change)="onChangeOrderBy(filterDataSelectedComp.orderBy)" [(ngModel)]="filterDataSelectedComp.orderBy">
+                 <option *ngFor="let pageresult of filterData[1].data; let i = index" [value]= "pageresult.id" [selected]="filterDataSelectedComp.orderBy == pageresult.id">{{pageresult.text}}</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-sm-22 text-right">
+            <button [disabled]="checkedSelectedRows.length != 1 || showJoSummeryFlag" class="change-routing-button" (click)="showRouteListModalFrom($event)"><i class="fa fa-exchange" aria-hidden="true"></i> Change Vendor</button>
+
+            <button [disabled]="(checkedSelectedRows.length < 1 || showJoSummeryFlag)" class="save-all-button" (click)="showJoSummery($event)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save All select</button>
+          </div>
+        </div>
+        <!--<div class="row">
+          <div class="col-sm-72 text-right">
+
+          </div>
+        </div>-->
+        <div class='row text-muted' style="margin-top: 10px;">
+          <div class='col-md-4' style="font-size: 0.7rem;">
+            <app-rcl-checkbox id="selectAllContractinProcessJo" #selectAllTableCheckbox [disabled]="showJoSummeryFlag" label="" (rclCheckChanged)="processjoselectTableRowCheckBoxAll($event)"></app-rcl-checkbox>
+          </div>
+          <div class='col-md-14 text-center' style="font-size: 0.7rem;">
+            <span><b>Booking/BL #</b></span>
+          </div>
+          <div class='col-md-20 text-center' style="font-size: 0.7rem;">
+            <span><b>Transport Detail</b></span>
+          </div>
+          <div class='col-md-14 text-right' style="font-size: 0.7rem;">
+            <span><b>Container Details</b></span>
+          </div>
+          <div class='col-md-8 text-left' style="font-size: 0.7rem;">
+            <span><b>Laden Containers</b></span>
+          </div>
+          <div class='col-md-8 text-left' style="font-size: 0.7rem;">
+            <span><b>Empty Containers</b></span>
+          </div>
+          <div class='col-md-3 text-right' style="font-size: 0.7rem;">
+            <span><b>Action</b></span>
+          </div>
+        </div>
+      </div>
+      <div id="processjo-table-container" class="card-block data-card-block-container">
+        <ng-container>
+          <div class="card slidein-from-top" *ngFor="let row of filteredTableDataProcessJoSearch | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'prossessJoResultPagination'}; let i = index;"
+            style="margin-bottom: 10px;">
+            <div class='row processjo-result-row'>
+              <div class="col-sm-3 card-block">
+                <app-rcl-checkbox [disabled]="showJoSummeryFlag" [(ngModel)]="row['checked']" label="" (rclCheckChanged)="processjoselectTableRowCheckBoxes($event, row)"
+                  (click)="$event.stopPropagation()"></app-rcl-checkbox>
+              </div>
+              <div class="col-sm-41 card-block">
+                <div class="row">
+                  <div class="booking-details-container">
+                    <div class="booking-no">
+                      <h5>{{row.bkgOrBLNumber}}</h5></div>
+                    <div class="booking-type">{{row.bkgOrBLType}}</div>
+                    <div><span class="vendor-type {{row.vendorChanged}}">{{row.vendorCode}}</span></div>
+                    <div class="date-range">
+                      <h6>{{row.startDate}} - {{row.endDate}}</h6></div>
+                  </div>
+                  <div class="transpot-details-container">
+                    <div class="row row col-sm-55" style="height:20px;font-size: 12px;">
+                      <div class="from-locType">
+                        <h5>{{row.fromLocationTyp}}</h5>
+                      </div>                    
+                      <div class="to-locType" style="padding-left:31%">
+                        <h5>{{row.toLocationTyp}}</h5>
+                      </div>
+                    </div>
+                    <div class="from-loc">
+                      <h5>{{row.fromLocation}}</h5>
+                    </div>
+                    <div class="transpot-type">{{row.transportMode}}</div>
+                    <div class="to-loc">
+                      <h5>{{row.toLocation}}</h5>
+                    </div>
+                    <div class="closed" title="{{row.bookingStatus}}">
+                      <span class="fa fa-check"></span>
+                      <h6>{{row.bookingStatus}}</h6>
+                    </div>
+                    <div class="term-loc-container">
+                      <div class="term-from-loc">
+                        &#x25CF; {{row.fromTerminal}}
+                      </div>
+                      <div class="arrow-block">
+                        &#x27F6;
+                      </div>
+                      <div class="term-to-loc">
+                        &#x25CF; {{row.toTerminal}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="svvd-tile">
+                    <p>Service</p>
+                    <p class="text-right">{{row.service}}</p>
+                  </div>
+                  <div class="svvd-tile">
+                    <p>Vessel</p>
+                    <p class="text-right">{{row.vessel}}</p>
+                  </div>
+                  <div class="svvd-tile">
+                    <p>Voyage</p>
+                    <p class="text-right">{{row.voyage}}</p>
+                  </div>
+                  <div class="svvd-tile">
+                    <p>Direction</p>
+                    <p class="text-right">{{row.direction}}</p>
+                  </div>
+                  <div class="svvd-tile">
+                    <p>Priority</p>
+                    <p class="text-right">{{row.priority}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-25 container-wrapper">
+                <div class="row">
+                  <div class="col-sm-24">
+                    <div class="row">
+                      <div class="col-sm-24" style="padding-left: 5px;"><i class="fa fa-cube" style="color:#b2b5b7; font-size:25px; margin-top: 9px;" aria-hidden="true"></i></div>
+                      <div class="col-sm-24" style="padding:0">
+                        <h6 class="text1">Size</h6>
+                        <p class="text2">{{row.cntSize}}</p>
+                      </div>
+                      <div class="col-sm-24" style="padding:0">
+                        <h6 class="text1">Type</h6>
+                        <p class="text2">{{row.cntType}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-72">
+                        <p style="color: #b2b5b7; margin-top: 20px; font-size: 13px; font-weight: 600;">Special Handing</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-72">
+                        <p style="color: #b2b5b7; font-size: 13px; font-weight: 600; display: inline-block;">{{row.cntSplHandling}} &nbsp;</p>
+                        <p style="color: #29abe2; font-size: 13px; font-weight: 600; display: inline-block; padding: 1px 5px; background-color: black; border-radius: 5px; text-decoration: underline;"
+                          (click)="insertShowDGIMDG($event, row)">{{row.cntSplHandCount}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-48">
+                    <div class="row">
+                      <div class="col-sm-30 container-type-block">
+                        <div class="container-type-child-block1">
+                          <p class="" style="color: #b2b5b7; font-size: 13px; font-weight: 600; margin:0">Total Laden</p>
+                          <p class="available-text" (click)="insertshowContList($event, 'L','T', row.bkgOrBLNumber, row.cntSize, row.specialHandlingCode, row.ladenCntTotal,row,i)">{{row.ladenCntTotal}}</p>
+                        </div>
+                        <div class="container-type-child-block2">
+                          <div style="width: 50%; display: inline-block; border-right: 1px solid #fff; height: 48px;">
+                            <p style="color: #b2b5b7; font-size: 11px; font-weight: 600; margin:0">Available</p>
+                            <p class="available-text" (click)="insertshowContList($event, 'L','AV', row.bkgOrBLNumber, row.cntSize, row.specialHandlingCode, row.ladenCntAvailable, row, ((pc-1) *resultsPerPage + i) )">{{row.ladenCntAvailable}}</p>
+                          </div>
+                          <div style="width: 40%; display: inline-block;">
+                            <p style="color: #b2b5b7; font-size: 12px; font-weight: 600; margin:0     ; text-align: center;">In Jo</p>
+                            <p class="available-text" (click)="insertshowContList($event, 'L','IN', row.bkgOrBLNumber, row.cntSize, row.specialHandlingCode, row.ladenCntInJO, row,i)">{{row.ladenCntInJO}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-30 container-type-block">
+                        <div class="container-type-child-block1">
+                          <p style="color: #b2b5b7; font-size: 13px; font-weight: 600; margin:0">Total Empty</p>
+                          <p class="available-text" (click)="insertshowContList($event, 'E','T', row.bkgOrBLNumber, row.cntSize, row.specialHandlingCode, row.emptyCntTotal, row,i)">{{row.emptyCntTotal}}</p>
+                        </div>
+                        <div class="container-type-child-block2">
+                          <div style="width: 50%; display: inline-block; border-right: 1px solid #fff; height: 48px;">
+                            <p style="color: #b2b5b7; font-size: 11px; font-weight: 600; margin:0">Available</p>
+                            <p class="available-text" (click)="insertshowContList($event, 'E','AV', row.bkgOrBLNumber, row.cntSize, row.specialHandlingCode, row.emptyCntAvailable, row, ((pc-1) *resultsPerPage + i) )">{{row.emptyCntAvailable}}</p>
+                          </div>
+                          <div style="width: 40%; display: inline-block;">
+                            <p style="color: #b2b5b7; font-size: 11px; font-weight: 600; margin:0; text-align: center;">In Jo</p>
+                            <p class="available-text" (click)="insertshowContList($event, 'E','IN', row.bkgOrBLNumber, row.cntSize, row.specialHandlingCode, row.emptyCntInJO, row,i)">{{row.emptyCntInJO}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 text-center">
+                <div style="margin-top: 8px; font-size: 24px;">
+                  <button class="save-change-vendor" [disabled]="!row.vendorChanged || showJoSummeryFlag" type="button" (click)="saveChangeVendor($event, row);"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                </div>
+                <div style="margin-top: 20px; font-size: 22px;">
+                  <button class="save-change-vendor" [disabled]="showJoSummeryFlag" type="button" (click)="showRouteListModal($event, row)">
+                     <i class="fa fa-pencil-square-o" aria-hidden="true" ></i>
+                     </button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-72">
+          <pagination-controls (pageChange)="processJoPageChange($event)" id="prossessJoResultPagination"></pagination-controls>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-route-list-modal #prosessjoRouteListBLBooking [bookingType]="routeListBookingType" (selectUpdateRouteList)="updateRoute($event)"></app-route-list-modal>
+
+<app-rcl-dg-imdg-modal #rclDGIMDG [searchCriteria]="processJoSearchData" (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-dg-imdg-modal>
+
+<app-rcl-container-modal #rclContainer [searchCriteria]="processJoSearchData"></app-rcl-container-modal>
+
+<div id="create-jo-summery-error-modal" uk-modal>
+  <div class="uk-modal-dialog">
+    <!--<button class="uk-modal-close-default" type="button" uk-close></button>-->
+    <!-- <div class="uk-modal-header">
+      <h3 class="uk-modal-title">Job Orders</h3>
+    </div> -->
+
+    <div class="uk-modal-body" *ngIf="errorCodetext">
+      <p>{{errorCodetext}}</p>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button style="color: #fff;" class="uk-button uk-modal-close uk-button-primary" type="button" (click)="changeFind($event)"><i class="fa fa-search" aria-hidden="true"></i> Change Find</button>
+    </div>
+  </div>
+</div>
+
+<!-- modal to ask user to first save and then click Save All Select -->
+<div id="create-jo-summery-save-error" uk-modal>
+  <div class="uk-modal-dialog">  
+    <div class="uk-modal-body" *ngIf="saveErrorText">
+      <p>{{saveErrorText}}</p>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button style="color: #fff;" class="uk-button uk-modal-close uk-button-primary" type="button" (click)="clickSave($event)"><i class="fa fa-search" aria-hidden="true"></i> Ok</button>
+    </div>
+  </div>
+</div>

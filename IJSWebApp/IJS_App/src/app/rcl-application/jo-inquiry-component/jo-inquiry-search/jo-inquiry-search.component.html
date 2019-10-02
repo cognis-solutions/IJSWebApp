@@ -1,0 +1,399 @@
+<div class="ijs_maintainjo_container slidein-from-left">
+  <div class="row">
+    <div class="col-sm-72">
+      <div class="row search-row1">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-26">
+          <div class="search-button">
+            <button type="button" id="tabSimpleButton" class="btn btn-sm btn-info" placement="bottom"><i class="fa fa-search">&nbsp;&nbsp;</i><span style="font-size:1.10rem;padding: 0 0 ;">Simple Search</span></button>
+          </div>
+        </div>
+        <div class="col-sm-26"></div>
+        <div class="col-sm-7">
+          <div class="filter-button">
+            <button type="button" id="filterButton" class="btn btn-secondary" placement="bottom" (click)=showhideFilter($event)><i class="fa fa-filter">&nbsp;&nbsp;</i><span>Filter</span></button>
+          </div>
+        </div>
+        <div class="col-sm-7">
+          <div class="reset-button">
+            <button type="button" class="btn btn-secondary" (click)="resetSearch()"><i class="fa fa-refresh">&nbsp;&nbsp;</i><span>Reset</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-72">
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-7 search-for-text">Search For</div>
+            <!--<div class="col-sm-10">
+                        <button [disabled]
+                          type="button" triggers="manual" class="btn btn-sm tooltip-button" placement="right" #maintainJoJobOrdTypTip="ngbTooltip"
+                          [ngbTooltip]="maintainJobTypTipContent" (click)="showHideJobOrdTypeToolTip()">{{maintainJoSearchData.maintainJoParam.jobOrdTyp}}</button>
+          
+                          <ng-template #maintainJobTypTipContent>
+                            <div class="row vehicle-tooltip-Content" (click)="maintainJoJobOrdTypTip.close()">
+                              <div class="col-sm-72">
+                                <app-rcl-radio-fa-icon #maintainJoVehicleRadio="ngModel" [data]='[{id:"Truck",text:"truck"},{id:"Barge",text:"barge"},{id:"Feeder",text:"vessel"} ,{id:"Rail",text:"rail"}]'
+                                  label="" labelclass="medium trans-type-label" name="rclAdvanceContractVehicle" [(ngModel)]="maintainJoSearchData.maintainJoParam.jobOrdTyp"
+                                  (click)="setJobOrdTypOptions(maintainJoSearchData.maintainJoParam.jobOrdTyp)">
+                                </app-rcl-radio-fa-icon>
+                              </div>
+                            </div>
+                          </ng-template>
+                      </div>-->
+            <div class="col-sm-10 text-tool-tip">
+              <button type="button" triggers="manual" class="btn btn-sm tooltip-button" placement="right" #maintainJoJobOrdTypTip="ngbTooltip"
+                [ngbTooltip]="maintainJobTypTipContent" (click)="showHideJobOrdTypeToolTip()">{{maintainJoSearchData.maintainJoParam.jobOrdTyp}}</button>
+              <ng-template #maintainJobTypTipContent>
+                <div class="row vehicle-tooltip-Content" (click)="maintainJoJobOrdTypTip.close()">
+                  <div class="col-sm-72" id="jobOrdTyp">
+                    <app-text-group-radio #maintainJoVehicleRadio="ngModel" [data]='[{id:"Sealeg",text:"Sealeg"},{id:"ExportRail",text:"Export/Truck Rail"},{id:"ImportRail",text:"Import/Truck Rail"},{id:"InterTerminal",text:"Inter Terminal"},{id:"Empty Repo",text:"Empty Repo"}]'
+                      label="" labelclass="medium trans-type-label" name="rclAdvanceContractVehicle" [(ngModel)]="maintainJoSearchData.maintainJoParam.jobOrdTyp">
+                    </app-text-group-radio>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-10 text-tool-tip">
+              <button type="button" triggers="manual" class="btn btn-sm tooltip-button" placement="right" #maintainJoJobOrdStsTip="ngbTooltip"
+                [ngbTooltip]="maintainJobStsTipContent" (click)="showHideJobOrdStsToolTip()">{{maintainJoSearchData.maintainJoParam.jobOrdSts}}</button>
+              <ng-template #maintainJobStsTipContent>
+                <div class="row vehicle-tooltip-Content" (click)="maintainJoJobOrdStsTip.close()">
+                  <div class="col-sm-72" id="jobOrdSts">
+                    <app-text-group-radio #maintainJoVehicleRadio="ngModel" [data]='[{id:"E",text:"Entry"},{id:"I",text:"Issued"},{id:"M",text:"Completed"},{id:"C",text:"Cancelled"},{id:"D",text:"Waitlisted"}]'
+                      label="" labelclass="medium trans-type-label" name="rclAdvanceContractVehicle" [(ngModel)]="maintainJoSearchData.maintainJoParam.jobOrdSts">
+                    </app-text-group-radio>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+
+          </div>
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-input label="Job Order #" klass="form-control search-box" compid="maintainJoBooking" name="maintainJoBooking" placeholder="Job Order #"
+                #maintainJoJobOrderNo="ngModel" [(ngModel)]="maintainJoSearchData.maintainJoParam.jobOrdNo">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input-look-up label="Vendor # or Vendor Name" placeholder="Vendor # or Vendor Name" lookupName="Vendor Lookup" klass="form-control"
+                compid="maintainJoVendorlookup1" #maintainJoVendorlookup [data]='maintainJoVendorLookUpData' [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.findValue">
+              </app-rcl-input-look-up>
+            </div>
+            <div class="col-sm-17">
+              <!--<app-rcl-input-look-up label="Location,Terminal,Country" placeholder="Location,Terminal,Country" lookupName="Location,Country,Terminal Lookup" klass="form-control"
+                          compid="maintainJoLocCntryLookup1" #maintainJoLocCntryLookup [data]='maintainJoLocCntryLookupData' [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.findValue">
+                        </app-rcl-input-look-up>-->
+              <app-rcl-input-look-up label="Country" lookupName="Country Lookup" placeholder="Country" helptext="What is code for location?"
+                klass="form-control" compid="inputlookup2" #inputlookup_2 [data]='countryLookUpData' [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.countryCode"></app-rcl-input-look-up>
+            </div>
+            <div class="col-sm-17">
+              <button (click)="searchJoInquiry($event)" type="button" id="find-button-inquiryJo" class="btn btn-sm btn-info"><i class="fa fa-search"></i> <span class="find-text">&nbsp;FIND</span></button>
+            </div>
+          </div>
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-checkbox style="top: 54px;" label="Period Date" #periodDateCheckbox [(ngModel)]="checkBoxValue">
+              </app-rcl-checkbox>
+
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-checkbox style="top: 54px;" label="Pick up and Drop off Location" #pickDropCheckbox [(ngModel)]="checkBoxValue1">
+              </app-rcl-checkbox>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-checkbox style="top: 54px;" label="Other" #StartExpireDateCheckbox [(ngModel)]="checkBoxValue2">
+              </app-rcl-checkbox>
+            </div>
+          </div>
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <app-rcl-daterangepicker [readOnly]="true" [hidden]="!checkBoxValue" [single]="false" [time]="false" [time24H]="true" label="Start Date / End Date"
+                placeholder="Select Session" name="maintainJoSearchDate" [(ngModel)]="maintainJoSearchData.maintainJoParam.dateRange"
+                #sessionDatePicker="ngModel" klass="form-control"></app-rcl-daterangepicker>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-input [hidden]="!checkBoxValue1" label="Location, Trm/Dpt/H.Loc" klass="form-control search-box" compid="maintainJoPPTDH"
+                name="maintainJoPPTDH" placeholder="Location, Trm/Dpt/H.Loc" #maintainJoBookingInput="ngModel" [(ngModel)]="maintainJoSearchData.maintainJoParam.pptdhVal"
+                (click)="openPickupDropoffPopUp($event)">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-17">
+              <app-rcl-list-no-look-up [hidden]="!checkBoxValue2" label="Keyword" klass="form-control" placeholder="Keyword" #maintainJoKeywordlookup
+                [data]='maintainJoKeywordlookupData'>
+              </app-rcl-list-no-look-up>
+            </div>
+
+
+          </div>
+          <div class="row search-row1">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-17">
+              <button class="uk-button uk-button-link advanceLink" (click)="hideshowAdvanceDiv($event)">Advanced Search</button>
+            </div>
+          </div>
+
+          <!-- START : Advance Search -->
+          <div id="advanceDiv" [hidden]="!showHideflag">
+            <div class="row search-row1">
+              <div class="col-sm-1"></div>
+              <!--<div class="col-sm-17">
+                                <app-rcl-input 
+                                label="POL POD" klass="form-control search-box" compid="maintainJoPOLPOD" name="maintainJoPOLPOD"
+                                placeholder="POL POD" #maintainJoPOLPOD="ngModel" [(ngModel)]="maintainJoSearchData.maintainJoParam.polPod"
+                                (click)="openPOLPODPopUp($event)">
+                              </app-rcl-input>
+                            </div>-->
+
+              <div class="col-sm-17">
+                <app-rcl-input label="Booking/BL #" klass="form-control search-box" compid="maintainJoBooking" name="maintainJoBooking" placeholder="Booking/BL #"
+                  #maintainJoBookingInput="ngModel" [(ngModel)]="maintainJoSearchData.maintainJoParam.bookingVal">
+                </app-rcl-input>
+              </div>
+              <div class="col-sm-17">
+                <app-rcl-list-no-look-up label="Routing ,Contract, Container" klass="form-control" placeholder="Routing ,Contract, Container"
+                  #maintainJoRoutinglookup [data]='maintainJoRoutinglookupData'>
+                </app-rcl-list-no-look-up>
+              </div>
+              <div class="col-sm-17">
+                <app-rcl-list-no-look-up label="JO Cost From - To" klass="form-control" placeholder="JO Cost From - To" #maintainJoCostlookup
+                  [data]='maintainJoCostlookupData'>
+                </app-rcl-list-no-look-up>
+              </div>
+            </div>
+            <div class="row search-row1">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-17">
+                <app-service-vessel-voyage-lookup valToSelect="service" label="Service" placeholder="Service" lookupName="Service/Vessel/Voyage Lookup"
+                  helptext="" klass="form-control" compid="maintainJoServicelookup1" #maintainJoserviceVesselVoyagelookup [data]='maintainJoserviceVesselVoyagelookupData'
+                  [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.serviceVal"></app-service-vessel-voyage-lookup>
+              </div>
+              <div class="col-sm-17">
+                <app-service-vessel-voyage-lookup valToSelect="vessel" label="Vessel" placeholder="Vessel" lookupName="Service/Vessel/Voyage Lookup"
+                  helptext="" klass="form-control" compid="maintainJoVesselookup1" #maintainJoserviceVesselVoyagelookup [data]='maintainJoserviceVesselVoyagelookupData'
+                  [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.vesselVal"></app-service-vessel-voyage-lookup>
+              </div>
+              <div class="col-sm-17">
+                <app-service-vessel-voyage-lookup valToSelect="voyage" label="Voyage" placeholder="Voyage" lookupName="Service/Vessel/Voyage Lookup"
+                  helptext="" klass="form-control" compid="maintainJoVoyagelookup1" #maintainJoserviceVesselVoyagelookup [data]='maintainJoserviceVesselVoyagelookupData'
+                  [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.voyageVal"></app-service-vessel-voyage-lookup>
+              </div>
+            </div>
+            <div class="row search-row1">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-17">
+                <app-rcl-selectize name="maintainJoTypeSelect" [config]="maintainJoSelectConfig" [options]="maintainJoLegTypeSelectAllOptions"
+                  [(ngModel)]="maintainJoSearchData.maintainJoParam.maintainJoLegType" #criteriaSelectCustType="ngModel" klass="form-control"
+                  hasOptionsPlaceholder="Select one" label="Leg Type">
+                </app-rcl-selectize>
+              </div>
+              <div class="col-sm-17">
+                <!-- <app-rcl-input-look-up label="Payment FSC" placeholder="Payment FSC" lookupName="Vendor Lookup" klass="form-control"
+                                    compid="maintainJoPaymentFSC" #maintainJoPaymentFSC [data]='maintainJoVendorLookUpData' [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.findValue">
+                                  </app-rcl-input-look-up> -->
+                <app-rcl-fsc-look-up label="Payment FSC" placeholder="Payment FSC" lookupName="FSC Lookup" helptext="What is code for FSC?"
+                  klass="form-control" compid="maintainJofsclookup1" #fscValuelookup [data]='fscLookUpData' [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.fsc">
+                </app-rcl-fsc-look-up>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- END : Advance Search -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="col-sm-72">
+  <div *ngIf="maintainJoShowfilter" class="maintainJoSearchFilter">
+    <app-rcl-searchfilter #maintainJoSearchFilter [contractshowfilter]="maintainJoShowfilter" [numberofColumndata]='filterData'
+      (showhideFilter)=showhideFilter($event) (click)=filterDataSelected($event)></app-rcl-searchfilter>
+  </div>
+</div>
+
+
+<!--START : Pick drop modal interface-->
+<div id="maintainJOPickDropModal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" (click)="resetPickDropModal($event)" uk-close></button>
+    <div class="main-content">
+      <p>Please insert Pick up and Drop off location.</p>
+      <div class="row">
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-72 text-center"><b>Pick Up</b></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-input label="Location" klass="form-control" compid="maintainJoPickUpLoc" name="PickUpLoc" placeholder="" #rclinput="ngModel"
+                [(ngModel)]="locationCodePickUp" (click)="openFromLookup(maintainJoLocPickupTpye,'from')">
+              </app-rcl-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-selectize required name="" [config]="maintainJoSelectConfig" [options]="maintainJoLocOptions" [(ngModel)]="maintainJoLocPickupTpye"
+                #maintainJoPickLoc="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Loc. Type">
+              </app-rcl-selectize>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12"><i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i></div>
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-72 text-center"><b>Drop off</b></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-input label="Location, Trm/Dpt/H.Loc" klass="form-control" compid="DropOffLoc" name="DropOffLoc" placeholder=""
+                #rclinput="ngModel" [(ngModel)]="locationCodeDropOff" (click)="openToLookup(maintainJoLocDropOffType,'to')">
+              </app-rcl-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-selectize required name="" [config]="maintainJoSelectConfig" [options]="maintainJoLocOptions" [(ngModel)]="maintainJoLocDropOffType"
+                #maintainJoDropLoc="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="Loc. Type">
+              </app-rcl-selectize>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-27"></div>
+        <div class="col-sm-26"><button class="uk-button uk-button-primary" (click)="selectLocLookUpValue()">Select</button></div>
+      </div>
+      <div class="row" [hidden]="!showLocErrorText">
+        <div class="col-sm-72 control-bottom-error">
+          {{errorTextLookUp}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END : Pick drop modal interface-->
+
+<!--START : POL POD  modal interface-->
+<div id="maintainJOPOLPODModal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" (click)="resetPickDropModal($event)" uk-close></button>
+    <div class="main-content">
+      <p>Please insert POL POD.</p>
+      <div class="row">
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-72 text-center"><b>POL</b></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-input label="POL" klass="form-control" compid="processJoPOL" name="processJoPOL" placeholder="POL" #rclinput1 [(ngModel)]="processJoPOL"
+                (click)="openFromPOLPODLookup('Port','from')">
+              </app-rcl-input>
+              <!-- <app-rcl-selectize required name="" [config]="maintainJoSelectConfig" [options]="maintainJoPOLOptions" [(ngModel)]="processJoPOL"
+                  #maintainJoPOL="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="POL">
+                </app-rcl-selectize> -->
+            </div>
+          </div>
+
+        </div>
+        <div class="col-sm-12"><i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i></div>
+        <div class="col-sm-30">
+          <div class="row">
+            <div class="col-sm-72 text-center"><b>POD</b></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-72">
+              <app-rcl-input label="POD" klass="form-control" compid="processJoPOD" name="processJoPOD" placeholder="POD" #rclinput2 [(ngModel)]="processJoPOD"
+                (click)="openToPOLPODLookup('Port','to')">
+              </app-rcl-input>
+              <!-- <app-rcl-selectize required name="" [config]="maintainJoSelectConfig" [options]="maintainJoPODOptions" [(ngModel)]="processJoPOD"
+                  #maintainJoPOD="ngModel" klass="form-control" hasOptionsPlaceholder="Select one" label="POL">
+                </app-rcl-selectize> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-27"></div>
+        <div class="col-sm-26"><button class="uk-button uk-button-primary" (click)="selectPOLPODLookUpValue()">Select</button></div>
+      </div>
+      <div class="row" [hidden]="!showLocErrorText">
+        <div class="col-sm-72 control-bottom-error">
+          {{errorTextLookUp}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END : POL POD  modal interface-->
+
+<div class="row">
+  <!-- <div class="col-sm-72">
+      <div class="row search-row1">
+
+        <div class="col-sm-24 text-left">
+          <button class="uk-button uk-button-primary" (click)="insertLegshowRouteList($event)">RCL Container</button>
+        </div>
+
+        <app-rcl-container-modal #rclContainer [vendorCode]="vendorCode" (selectUpdateRouteList)="updateRoute($event)"></app-rcl-container-modal>
+
+        <div class="col-sm-24 text-left">
+          <button class="uk-button uk-button-primary" (click)="insertShowRclJoLog($event)">Jo Log</button>
+        </div>
+
+        <app-rcl-jo-log-modal #rclJoLog (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-jo-log-modal>
+      </div>
+
+      <div class="col-sm-24 text-left">
+          <button class="uk-button uk-button-primary" (click)="insertShowRclRsnCd($event)">Reason Code</button>
+      </div>
+
+        <app-rcl-rsn-cd-modal #rclReasonCode (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-rsn-cd-modal>
+    </div>       -->
+
+
+  <!-- <div class="col-sm-17">
+        <app-rcl-fsc-look-up label="Payment FSC" placeholder="Payment FSC" lookupName="FSC Lookup" helptext="What is code for FSC?" klass="form-control"
+          compid="maintainJoFSClookup1" #fscValuelookup [data]='fscLookUpData' [(lookUpvalue)]="maintainJoSearchData.maintainJoParam.fsc">
+        </app-rcl-fsc-look-up>
+    </div>     -->
+
+  <!-- <div class="col-sm-24 text-left">
+      <button class="uk-button uk-button-primary" (click)="insertShowBookingBL($event)">Booking BL</button>
+    </div>
+
+    <app-rcl-booking-bl-modal #rclBookingBL (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-booking-bl-modal>    
+
+
+    <div class="col-sm-24 text-left">
+      <button class="uk-button uk-button-primary" (click)="insertShowDGIMDG($event)">DG IMDG</button>
+    </div>
+
+    <app-rcl-dg-imdg-modal #rclDGIMDG (selectUpdateRouteList)="openLookUpModal($event)"></app-rcl-dg-imdg-modal>       -->
+
+</div>
+
+<app-door-lookup #maintainJoPPTDHLookup (rowSelected)="rowSelected($event)"></app-door-lookup>
+
+<app-door-lookup #maintainJoPOLPODLookup (rowSelected)="rowSelectedPOLPOD($event)"></app-door-lookup>
+
+
+<div id="maintainjo-error-code-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5 class="word-wrap">Sorry!!!! {{errorCodetext}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button">Change Search</button>
+  </div>
+</div>

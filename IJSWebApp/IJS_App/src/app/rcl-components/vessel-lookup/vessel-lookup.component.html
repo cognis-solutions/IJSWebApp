@@ -1,0 +1,110 @@
+<div class="lookup-wrapper" click-outside (clickOutside)="onClickOutside($event)">
+  <label *ngIf="label" for="{{compid}}" class="medium">{{label}}</label>
+  <input [readOnly]="readOnly" [disabled]="disabled" [required]="required" [class]="klass" [placeholder]="placeholder" [ngClass]="{invalid: (invalid | async)}"
+    [id]="compid" (blur)="onTouched()" [ngModel]="lookUpvalue" (click)="active=!active" autocomplete="on" (ngModelChange)="change($event)"
+  />
+  <app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+  </app-rcl-validation-result>
+
+
+
+  <span *ngIf="lookUpvalue" class="btn-clr" (click)="change((lookUpvalue = undefined))"></span>
+
+  <div *ngIf="active" class="lookup-container">
+    <div *ngFor="let option of data" class="look-up">
+      <input type="text" [(ngModel)]="_value" name={{option.value}} [placeholder]="option.label" [class]="klass" hidden>
+      <p (click)="onLookupShowHide($event, option.label)" class="text-center">{{option.label}}</p>
+    </div>
+    <div class="text-center"><em><small>{{helptext}}</small></em></div>
+    <button class="lookup_btn" type="button" style="width: 100%;" (click)="openLookUpModal($event, selectedDropDown)">Lookup</button>
+  </div>
+</div>
+
+<div *ngIf="openModal" id="lookup-popup-input">
+  <div id="vessel-lookup-modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <button class="uk-modal-close-default" type="button" uk-close (click)="resetPickDropModal(e)"></button>
+
+      <p><span class="lookup-heading">Vessel Lookup</span></p>
+      <div class="col-sm-72">
+        <form name="vesselLookupForm" #vesselLookupForm="ngForm">
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize #vesselLookupSelect required [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="data[0].dropDownData"
+                placeholder="Select one" [(ngModel)]="selectedDropDown"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input #vesselLookupInput required [ngModelOptions]="{standalone: true}" label="" klass="form-control" [name]="selectedDropDown"
+                placeholder="Enter value..." [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">
+              <app-rcl-checkbox class="lookUpCheckBox" label="Wild Card" name="lookUpCheckBox" [(ngModel)]="vendorWildCard" #vesselLookUpCheckBox></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12">
+              <button type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData('vesselLookup', selectedDropDown, $event, _value, vendorWildCard)"
+                [disabled]="!(selectedDropDown && _value)">FIND</button>
+            </div>
+          </div>
+        </form>
+        <div [hidden]="showlookuptable">
+          <div class="row search-lookup-row">
+            <div class="col-sm-14">Total {{locLookUptableData.length}} items</div>
+            <div class="col-sm-20">
+              <select [(ngModel)]="resultsPerPage">
+                  <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                  </select> Results Per Page
+            </div>
+            <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+              <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                  <option *ngFor="let pageresult of vesselSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+            </div>
+            <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+              <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                  <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+            </div>
+          </div>
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vessel Code</th>
+                  <th>Vessel Code</th>
+                  <th>Operator Code</th>
+                  <th>Select</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tableRow of locLookUptableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupCountry'}; let i = index"
+                  class="slidein-from-top">
+                  <td>{{(pc-1) *resultsPerPage + i + 1  }}</td>
+                  <td>{{tableRow.vesselCode}}</td>
+                  <td>{{tableRow.vesselName}}</td>
+                  <td>{{tableRow.operatorCode}}</td>
+                  <td>
+                    <app-rcl-checkbox style="top: 5px; position: relative;" label="" name="vesselListCheck" #vesselListCheck
+                      (rclCheckChanged)="getRowData($event, tableRow, i )"></app-rcl-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div [hidden]="showlookuptable" class="lookup-pagination">
+          <pagination-controls (pageChange)="pc = $event" id="lookupCountry"></pagination-controls>
+        </div>
+        <div [hidden]="showlookuptable" class="uk-modal-footer uk-text-center">
+          <button class="uk-button uk-button-default uk-modal-close" type="button" (click)="resetPickDropModal($event)">Close</button>
+          <button class="uk-button uk-button-primary" type="button" (click)="updateRoute()">Update Vessel</button>
+        </div>
+        <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+      </div>
+    </div>
+  </div>
+</div>

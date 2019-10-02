@@ -1,0 +1,55 @@
+@import "../../../assets/bootstrap-sass/_variables.scss";
+
+input[type=text]::-ms-clear {
+  color: red; /* This sets the cross color as red. */
+  /* The cross can be hidden by setting the display attribute as "none" */
+}
+
+input.ng-valid {
+    border-left: 5px solid $green; 
+}
+
+input.invalid {
+    border-left: 5px solid $red; 
+}
+
+input:focus{
+    border-left: 5px solid $blue;
+}
+.btn-clr {
+	border: 0px solid transparent;
+    background-color: transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.btn-clr:after {
+    content: "X";
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    z-index: 1;
+    right: 31px;
+    bottom: 15px;
+    margin: auto;
+    padding: 2px;
+    border-radius: 50%;
+    text-align: center;
+    color: #000;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: pointer;
+}
+.form-control:disabled ~ .btn-clr:after {
+   display: none;
+}
+.form-control[readonly].inputMandatoryClass {
+    background-color: #f8f8f8;
+    opacity: 1;
+}

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Application context definition for RCL Web Application.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+	<!-- 
+            Simple local DataSource that works in any environment.
+            This uses the JDBC DriverManager to obtain connections, and does NOT perform connection
+            pooling. Connection pooling is essential to all real-world applications.
+            This definition is good for testing in local machine, as it introduces no dependencies beyond
+            the JDK, but DriverManagerDataSource is not intended for production usage.
+        -->
+        <!-- home port:1521, company port:1522 -->
+        <!-- 
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+            <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
+            <property name="username" value="hr"/>
+            <property name="password" value="hr"/>
+        </bean>
+        -->
+        
+	<!-- JNDI DataSource for J2EE environments -->
+    <!--  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="java:comp/env/jdbc/RCLJNDI"/>
+	</bean>
+        
+        <bean id="dataSourceTsi" class="org.springframework.jndi.JndiObjectFactoryBean">
+            <property name="jndiName" value="java:comp/env/jdbc/vasconn"/>
+	</bean> -->
+	
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/RCLJNDI"/>
+	</bean>
+        
+	<bean id="dataSourceTsi" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/VASJNDI"/>
+	</bean>
+        
+	<!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+        
+	<!-- Transaction manager for a single JDBC DataSource (alternative to JTA) -->
+        <bean id="transactionManager2" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        
+	
+        <!--IJS -->
+         <bean id="contractSearchDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsContractSearchJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+         <bean id="contractLookupDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsContractLookupJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="contractRateDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsContractRateJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="userDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsUserJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean> 
+        <bean id="joLookupDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsJOLookupJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="ProcessJOBkgBLSearchDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsProcessJOBkgBLSearchJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="maintainJOSearchDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsMaintainJOSearchJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="joEnquiryDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsJoEnquiryJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="joExemptedCustJdbcDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsJoExemptedCustJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+         <bean id="commonDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsCommonJdbcDao">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+        <bean id="containerUpdateDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IJSResultContainerUpdateDaoImpl">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean>
+         
+        
+        
+        
+        <!--END -->
+	<!-- Transactional advice, and AOP config for making transaction for all business objects. -->
+        <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+            <tx:attributes>
+                <tx:method name="find*" read-only="true"/>
+                <tx:method name="*" propagation="REQUIRED" rollback-for="Throwable"/>
+            </tx:attributes>
+        </tx:advice>
+        <aop:config>
+            <aop:advisor pointcut="execution(public * com.rclgroup.dolphin.web.dao.*.*Dao.*(..))" advice-ref="transactionAdvice"/>
+        </aop:config>
+        
+        <tx:advice id="transactionAdvice2" transaction-manager="transactionManager2">
+            <tx:attributes>
+                <tx:method name="find*" read-only="true"/>
+                <tx:method name="*" propagation="REQUIRED" rollback-for="Throwable"/>
+            </tx:attributes>
+        </tx:advice>
+        <aop:config>
+            <aop:advisor pointcut="execution(public * com.rclgroup.dolphin.web.dao.*.*Dao.*(..))" advice-ref="transactionAdvice2"/>
+        </aop:config>        
+       
+</beans>

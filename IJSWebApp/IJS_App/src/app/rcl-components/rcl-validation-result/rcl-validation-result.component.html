@@ -1,0 +1,11 @@
+<div>
+  <div [hidden]="messages.length<1 || !touched" class="alert-danger control-bottom-error" data-toggle="tooltip" title={{messages[0]}}>{{messages[0]}}</div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+
+

@@ -1,0 +1,108 @@
+/* Start - Global Animations */
+/* Start - SLIDE INS */
+.slidein-from-left{
+    -webkit-animation: slideInLeft 0.5s forwards;
+    -moz-animation: slideInLeft 0.5s forwards;
+    animation: slideInLeft 0.5s forwards;
+}
+@-webkit-keyframes slideInLeft {
+  0% {
+    transform: translateX(-900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes slideInLeft {
+  0% {
+    transform: translateX(-900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slidein-from-right{
+    -webkit-animation: slideInRight 0.5s forwards;
+    -moz-animation: slideInRight 0.5s forwards;
+    animation: slideInRight 0.5s forwards;
+}
+@-webkit-keyframes slideInRight {
+  0% {
+    transform: translateX(900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes slideInRight {
+  0% {
+    transform: translateX(900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideInRight {
+  0% {
+    transform: translateX(900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slidein-from-top{
+    -webkit-animation: slideInTop 0.5s forwards;
+    -moz-animation: slideInTop 0.5s forwards;
+    animation: slideInTop 0.5s forwards;
+}
+@-webkit-keyframes slideInTop {
+  0% {
+    transform: translateY(-900px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@-moz-keyframes slideInTop {
+  0% {
+    transform: translateY(-900px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-900px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* END - SLIDE INS */
+.scale-up-on-hover:hover {
+    /*box-shadow: 0px 0px 150px #000000;
+    z-index: 2;*/
+    /*background-color: lightblue;*/
+    background-color: lightgoldenrodyellow;
+    -webkit-transition: all 120ms ease-in;
+    /*-webkit-transform: scale(1.5);*/
+    -ms-transition: all 120ms ease-in;
+    /*-ms-transform: scale(1.5);   */
+    -moz-transition: all 120ms ease-in;
+    /*-moz-transform: scale(1.5);*/
+    transition: all 120ms ease-in;
+    /*transform: scale(1.5);*/
+}
+/* End - Global Animations*/

@@ -1,0 +1,98 @@
+<div *ngIf="openModal" id="lookup-popup-input">
+  <div id="route-list-modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <button class="uk-modal-close-default" type="button" uk-close (click)="resetRouteListModal($event)"></button>
+
+      <p><span class="lookup-heading">Route List</span></p>
+      <div class="col-sm-72">
+        <div [hidden]="showlookuptable">
+          <div class="row search-lookup-row">
+            <div class="col-sm-14">Total {{routeListTableData.length}} items</div>
+             <div class="col-sm-20">
+                <select [(ngModel)]="resultsPerPage">
+                  <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                  </select> Results Per Page
+              </div>
+            <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+              <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                  <option *ngFor="let pageresult of routeListSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+            </div>
+            <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+              <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                  <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                  </select>
+            </div>
+          </div>
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Contract</th>
+                  <th>Priority</th>
+                  <th>Location</th>
+                  <th>Currency</th>
+                  <th>Leg Type</th>
+                  <th>Select</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tableRow of routeListTableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupRouteList'}; let i = index">
+                  <td><span style="top: 5px; position: relative;">{{i+1}}</span></td>
+                  <td>
+                    <span style="display:block;line-height: 30px;"> 
+                    <span style="display:inline-block;display: inline-block; font-size: 13px; font-weight: 600; color: #999;">Contract #</span>
+                    <span style="display:inline-block;width:10px;"></span>
+                    <span style="display:inline-block; font-weight: 700;">{{tableRow.contractId}}</span>
+                    </span>
+                    <span style="display:block; line-height: 30px;"> 
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span style="font-weight: 500;">{{tableRow.days}} D {{tableRow.hours}} hr</span>
+                    <span style="display:inline-block;width:10px;"></span>
+                    <i class="fa fa-tachometer" aria-hidden="true"></i> <span style="font-weight: 500;">{{tableRow.distance}} {{tableRow.uom}}</span>
+                    </span>
+                    <span style="inline-block; font-size: 13px; font-weight: 600; color: #999;">VENDOR</span><span style="display:inline-block;width:10px;"></span>
+                     <span style="display:inline-block; font-weight: 600;">{{tableRow.vendorCode}}</span>
+                  </td>
+                  <td><span style="padding: 3px 9px; background-color: #807f7f; border-radius: 15px; border: 1px solid #807F7F; color: white; font-weight: 600; top: 11px; position: relative;">{{tableRow.priority}}</span></td>
+                  <td>
+                    <span style="display:block;"> 
+                      <span style="display:inline-block;font-weight:600;font-size: 20px;">{{tableRow.fromLocation}}</span>
+                    <span style="display:inline-block;width:50px;"></span>
+                    <span style="display:inline-block;font-weight:600; font-size: 20px;">{{tableRow.toLocation}}</span>
+                    </span>
+                    <span style="display:block;"> 
+                      <span style="display:inline-block;font-size: 13px;">{{tableRow.fromLocType}}</span>
+                    <span style="display:inline-block;width:50px;"></span>
+                    <span style="display:inline-block;font-size: 13px;">{{tableRow.toLocType}}</span>
+                    </span>
+                    <span style="display:block;"> 
+                      <span style="display:inline-block;font-size: 13px;">&#x25CF; {{tableRow.fromTerminal}}</span>
+                    <span class="arrow-block"></span>
+                    <span style="display:inline-block;font-size: 13px;">&#x25CF; {{tableRow.toTerminal}}</span>
+                    </span>
+                  </td>
+                  <td>{{tableRow.currency}}</td>
+                  <td>{{tableRow.legType}}</td>
+                  <td>
+                    <app-rcl-checkbox style="top: 5px; position: relative;" label="" [(ngModel)]="tableRow['checked']" [checked]="tableRow.selected" name="processJoRouteListCheck" #processJoRouteListCheck
+                      (rclCheckChanged)="getRowData($event, tableRow, i )"></app-rcl-checkbox>
+                  </td>
+                </tr>                
+              </tbody>
+            </table>
+          </div>          
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="pc = $event" id="lookupRouteList"></pagination-controls>
+          </div>
+          <div class="uk-modal-footer uk-text-center">
+            <button class="uk-button uk-button-default uk-modal-close" type="button" (click)="resetRouteListModal($event)">Close</button>
+            <button class="uk-button uk-button-primary" type="button" (click)="updateRoute()">Update Route</button>
+          </div>
+        </div>
+        <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+      </div>
+
+    </div>
+  </div>
+</div>

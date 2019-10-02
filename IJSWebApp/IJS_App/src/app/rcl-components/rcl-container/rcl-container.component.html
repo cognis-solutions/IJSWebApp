@@ -1,0 +1,166 @@
+<div *ngIf="openModal" id="lookup-popup-input">
+  <div id="rcl-container-lookup-modal-center" class="ngx-container">
+    <div class="ngx-dialog-modal">
+      <!--<button  type="button" (click)="resetRouteListModal($event)"></button>-->
+
+      <!--<p><span class="lookup-heading">Please Select Container</span></p>-->
+      <div class="col-sm-12" style="max-width: 100%;">
+        <div [hidden]="showlookuptable">
+          <div class="ngx-overflow-auto">
+            <div class="CommonModel">
+
+              <!--for Value only -->
+
+              <!--  <div class='row'>
+                  <div class='col-md-70'>
+                    <h6><span class="id-text">Container Number </span></h6>
+                      <div class="onlySpanValue" [hidden]="showContainers" *ngFor="let tableRow of  getCntrListData(); let i = index">
+                          <span>{{tableRow.container}}</span>
+                        </div>
+                 </div>
+              </div> -->
+              <!--SAI // for AV searchtype-->
+              <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-divider slidein-from-top">
+                  <thead>
+                    <tr>
+                      <th [hidden]="!showContainers">Container Number</th>
+                      <th [hidden]="!showContainers">Container Weight</th>
+                      <th [hidden]="!showContainers">Actual Container Weight</th>
+                    </tr>
+                  </thead>
+                  <tbody [hidden]="showContainers">
+                    <tr>
+
+                      <td *ngIf="multipleSelect">
+                        <div class="onlySpanValue" [hidden]="showContainers"
+                          *ngFor="let tableRow of  getCntrListData(); let i = index">
+                          <span>{{tableRow.container}}</span>
+                        </div>
+                      </td>
+                      <ng-container *ngIf="!showContainers">
+                        <td>
+                          <div class="onlySpanValue" [hidden]="!showContainers"
+                            *ngFor="let tableRow of  getCntrListData(); let i = index">
+                            <span>{{tableRow.container}}</span>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container>
+                        <td *ngIf="!showContainers">
+                          <div class="onlySpanValue" [hidden]="!showContainers"
+                            *ngFor="let tableRow of  getCntrListData(); let i = index">
+                            <span><input type="text"></span>
+                          </div>
+                        </td>
+                      </ng-container>
+
+
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <td [hidden]="!showContainers">
+                        <div class="CustomCheckBoxModel" *ngFor="let tableRow of  getCntrListData(); let i = index">
+
+                          <div *ngIf="noContainerFlag">
+                            <span>{{tableRow.container}}</span>
+                          </div>
+
+
+                          <div *ngIf="!noContainerFlag">
+                            <label>{{tableRow.container}}</label>
+                          </div>
+
+                        </div>
+                      </td>
+                      <td [hidden]="!showContainers">
+                        <div class="CustomCheckBoxModel" *ngFor="let tableRow of  getCntrListData(); let i = index">
+
+                          <div *ngIf="noContainerFlag">
+                            <span>{{tableRow.container}}</span>
+                          </div>
+
+                          <div *ngIf="!noContainerFlag">
+                            <label>{{tableRow.containerWeight}}</label>
+
+                          </div>
+
+
+                        </div>
+                      </td>
+                      <td [hidden]="!showContainers">
+                        <div class="CustomCheckBoxModel" *ngFor="let tableRow of  getCntrListData(); let i = index">
+                          <label>
+                            <input type="number" [(ngModel)] = "tableRow.actualContainerWeight" [attr.disabled] = "inputTag ? true: null"/>
+                          </label>
+                        </div>
+                      </td>
+                      <td style="padding-bottom: 6%">
+                        <div class="CustomCheckBoxModel" *ngFor="let tableRow of  getCntrListData(); let i = index">
+
+                          <div *ngIf="!noContainerFlag">
+                            <label>
+                              <app-rcl-checkbox *ngIf="multipleSelect" style="top: 5px; position: relative;"
+                                name="processJoRouteListCheck{{i}}" #processJoRouteListCheck
+                                (rclCheckChanged)="getRowData($event, tableRow, i )" [hidden]="showCheckBox"
+                                [(ngModel)]="tableRow.selectedFlag">
+                              </app-rcl-checkbox>
+
+
+                              <app-rcl-checkbox *ngIf="!multipleSelect" style="top: 5px; position: relative;"
+                                name="processJoRouteListCheck{{i}}" #processJoRouteListCheck
+                                (rclCheckChanged)="getSelectedData($event, tableRow, i )" [hidden]="!showCheckBox"
+                                [(ngModel)]="tableRow['checked']" [checked]="tableRow.selected">
+                              </app-rcl-checkbox>
+                            </label>
+                          </div>
+
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+
+              <!--for Value with checkbox-->
+               <!--<div class="CustomCheckBoxModel" *ngFor="let tableRow of  getCntrListData(); let i = index">
+
+                <div *ngIf="noContainerFlag">
+                  <span>{{tableRow.container}}</span>
+                </div>
+
+
+                <div *ngIf="!noContainerFlag">
+                  <!-- for multiple select checkbox
+                  <app-rcl-checkbox *ngIf="multipleSelect" style="top: 5px; position: relative;"
+                    label="{{tableRow.container}}" name="processJoRouteListCheck{{i}}" #processJoRouteListCheck
+                    (rclCheckChanged)="getRowData($event, tableRow, i )" [hidden]="showCheckBox"
+                    [(ngModel)]="tableRow.selectedFlag">
+                  </app-rcl-checkbox>
+                  
+
+                  <!-- for single select checkbox
+                  <app-rcl-checkbox *ngIf="!multipleSelect" style="top: 5px; position: relative;"
+                    label="{{tableRow.container}}" name="processJoRouteListCheck{{i}}" #processJoRouteListCheck
+                    (rclCheckChanged)="getSelectedData($event, tableRow, i )" [hidden]="showCheckBox"
+                    [(ngModel)]="tableRow['checked']" [checked]="tableRow.selected">
+                  </app-rcl-checkbox>
+                </div>
+
+              </div>-->
+            </div>
+          </div>
+          <!--<div class="text-center">
+            <button type="button" class="btn btn-default whiteBg" (click)="resetRouteListModal($event)">Close</button>
+            <button type="button" class="btn btn-primary" (click)="updateRoute()" [hidden]="showCheckBox">Select</button>
+          </div>
+        </div>-->
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
