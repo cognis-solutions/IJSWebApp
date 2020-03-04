@@ -16,9 +16,30 @@ public class IjsSearchParamVO<T> {
     private String startDate;
     private String endDate;
     private String userId;
+    private String sortIn;
+    private String orderBy;
+    
     private T searchScreenParam;
 
-    public void setTransMode(String transMode) {
+    
+    
+    public String getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
+
+	public String getSortIn() {
+		return sortIn;
+	}
+
+	public void setSortIn(String sortIn) {
+		this.sortIn = sortIn;
+	}
+
+	public void setTransMode(String transMode) {
         this.transMode = transMode;
     }
 

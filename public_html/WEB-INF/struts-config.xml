@@ -16,6 +16,7 @@
 			type="com.rclgroup.dolphin.ijs.web.ui.IjsContractExcelUploadForm"/>
         <form-bean name="exemptCustForm"
 			type="com.rclgroup.dolphin.ijs.web.ui.IjsJoExemptedCustUIM"/>
+			
   </form-beans>
 
 
@@ -51,11 +52,24 @@
 	    
     </action>
     <action
+    	path="/processJOGetCostAdhocCal"
+    	type="com.rclgroup.dolphin.ijs.web.action.IjsProcessJOBkgBLSearchAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+    </action>
+    <action
     	path="/resultTableSearchBL"
     	type="com.rclgroup.dolphin.ijs.web.action.ResultTableAction" >
 	    <forward name="valid" path="/index.html" />
 	    
     </action>
+       <action
+    	path="/lookupSearchNewJOAll"
+    	type="com.rclgroup.dolphin.ijs.web.action.ProcessJONewSaveAction" >
+	    <forward name="valid" path="/index.html" />
+	    
+     </action> 
+   
     <action
     	path="/maintainJOSearch"
     	type="com.rclgroup.dolphin.ijs.web.action.IjsMaintainJOSearchAction" >
@@ -100,6 +114,7 @@
     	type="com.rclgroup.dolphin.ijs.web.action.IJSSessionErrorAction" >
 	    <forward name="valid" path="/index.jsp" />
     </action>
+    
   </action-mappings>
   <controller>
          <set-property property="processorClass" value="com.rclgroup.dolphin.ijs.web.processor.IjsRequestProcessor" />

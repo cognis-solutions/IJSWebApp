@@ -5,15 +5,19 @@ import com.rclgroup.dolphin.ijs.web.common.IjsJOLookupResult;
 import com.rclgroup.dolphin.ijs.web.common.IjsPaginationInfo;
 import com.rclgroup.dolphin.ijs.web.common.IjsPaginationUtil;
 import com.rclgroup.dolphin.ijs.web.constants.IjsActionMethod;
+import com.rclgroup.dolphin.ijs.web.constants.IjsErrorCode;
 import com.rclgroup.dolphin.ijs.web.dao.IjsContractLookupDao;
 import com.rclgroup.dolphin.ijs.web.dao.IjsJOLookupDao;
 import com.rclgroup.dolphin.ijs.web.exception.IJSException;
 //import com.rclgroup.dolphin.ijs.web.ui.IjsContractLookupUIM;
 import com.rclgroup.dolphin.ijs.web.ui.IjsJOLookupUIM;
+import com.rclgroup.dolphin.ijs.web.vo.IjsJORoutingLookUpVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsLookupParamVO;
 
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,7 +43,16 @@ public class IjsJOLookupSvc {
             ) {
             return transform(joLookupDao.getLookupList(lookupName, 
                                                              userInfo, 
-                                                        ijsLookupParamVO));
+                                                        ijsLookupParamVO),
+            		                          ijsLookupParamVO.getFindForLoc(),
+            	                         	ijsLookupParamVO.getFindForLocType(),
+            	                       	 ijsLookupParamVO.getFindForTerminal(),
+            	                       	ijsLookupParamVO.getFindForVendorCode(),
+            	                       	ijsLookupParamVO.getJoType(),
+            	                       	ijsLookupParamVO.getFindIn(),
+            	                       	ijsLookupParamVO.getTransMode()
+            		
+            		);
         }
         else if(IjsActionMethod.SEARCH_EQUIPMENT.getAction().equals(lookupName))
         {
@@ -85,15 +98,82 @@ public class IjsJOLookupSvc {
         }
     }
   
+    
+    private <T> IjsJOLookupUIM transform(List<?> list
+   		) {
+       IjsJOLookupUIM ijsJOLookupUIM = new IjsJOLookupUIM();
+       IjsJOLookupResult<?> searchResult = 
+           new IjsJOLookupResult<T>();
+       searchResult.setResult(list);
+       ijsJOLookupUIM.setLookupSearchResult(searchResult);
+       //ijsContractLookupUIM.setTotalRecords(totalRecords);
+       return ijsJOLookupUIM;
+   }
+    
 
-    private <T> IjsJOLookupUIM transform(List<?> list) {
-        IjsJOLookupUIM ijsJOLookupUIM = new IjsJOLookupUIM();
-        IjsJOLookupResult<?> searchResult = 
-            new IjsJOLookupResult<T>();
-        searchResult.setResult(list);
-        ijsJOLookupUIM.setLookupSearchResult(searchResult);
-        //ijsContractLookupUIM.setTotalRecords(totalRecords);
-        return ijsJOLookupUIM;
+    private <T> IjsJOLookupUIM transform(List<?> list,
+    		  String findForLoc,
+              String findForLocType,
+        	  String findForTerminal,
+        	  String indForVendorCode,
+        	  String joType,
+        	  String findIn,
+        	  String tranportMode) {
+    	//nikash
+    	IjsJOLookupUIM ijsJOLookupUIM = new IjsJOLookupUIM();
+    	
+    	if(findIn.equalsIgnoreCase("adhoc")) 
+    	{
+    		
+    		
+    	String[] forLoc = findForLoc.split("/");
+    	
+    	String fromLoc = forLoc[0];
+    	String toLoc = forLoc[1];
+    	
+    	String[] forLocType = findForLocType.split("/");
+    	
+    	String fromLocType = forLocType[0];
+    	String toLocType = forLocType[1];
+    	
+    	String[] forTerminal = findForTerminal.split("/");
+    	//System.out.println(findForTerminal);
+    	String fromTerminal = forTerminal[0];
+    	String toTerminal = forTerminal[1];
+    	
+    	IjsJOLookupResult<?> searchResultAdHoc = new IjsJOLookupResult<T>();
+    	
+    	List returnList = new ArrayList();
+        IjsJOLookupResult<?> searchResult = new IjsJOLookupResult<T>();
+    	for(int i =0;i<list.size();i++)
+    	{
+    	  IjsJORoutingLookUpVO indexValues =   (IjsJORoutingLookUpVO) list.get(i);
+    		
+       if(fromLoc.equalsIgnoreCase(indexValues.getFromLocation())
+    		   && toLoc.equalsIgnoreCase(indexValues.getToLocation()) &&
+    		   fromTerminal.equalsIgnoreCase(indexValues.getFromTerminal())
+    		   && toTerminal.equalsIgnoreCase(indexValues.getToTerminal())
+    		   && tranportMode.equalsIgnoreCase(indexValues.getTransMode()))
+    	{     
+    	    	returnList.add(indexValues);
+    	    	
+    		 
+        }
+    	  
+    	}
+			
+	     System.out.println("returnList"+returnList);
+    	 searchResultAdHoc.setResult(returnList);
+ 		 ijsJOLookupUIM.setLookupSearchResult(searchResultAdHoc);
+ 		 //return ijsJOLookupUIM;
+    	}else {
+          IjsJOLookupResult<?> searchResult = new IjsJOLookupResult<T>();
+         searchResult.setResult(list);
+         ijsJOLookupUIM.setLookupSearchResult(searchResult);
+         //ijsContractLookupUIM.setTotalRecords(totalRecords);
+        // return ijsJOLookupUIM;
+    	}
+    	return ijsJOLookupUIM;
     }
 
     private IjsJOLookupUIM getLookUpResults(IjsLookupParamVO ijsLookupParamVO, 

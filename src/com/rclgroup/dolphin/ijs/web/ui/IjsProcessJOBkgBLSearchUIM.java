@@ -32,7 +32,7 @@ public class IjsProcessJOBkgBLSearchUIM extends IjsBaseActionForm implements Ijs
     private List<IjsJOSummaryParamVO> lstJOSummaryParam; //##02
     private String processJoType = null;
     private String reasonCode = null;
-    private List<IjsProcessJOSumDtlVO> joSummaryList;
+    private List<IjsProcessJOSumDtlVO> joSummaryList;   
     private IjsRoutingListParamVO routingList;
     String [] filesTobeDownload=new String[2];
     private IjsContainerUploadVO uploadVO;
@@ -56,32 +56,39 @@ public class IjsProcessJOBkgBLSearchUIM extends IjsBaseActionForm implements Ijs
     private String contractId;
     private int maxEquipLimit;
     private List<String> equipList;
-
-    private String container;
-    private String actualContainerWeight;
+    private List contractsID;
+    private String vendorCodeAssociated;
     
-    
-    
-    public String getContainer() {
-		return container;
-	}
-
-	public void setContainer(String container) {
-		this.container = container;
-	}
-
-	public String getActualContainerWeight() {
-		return actualContainerWeight;
-	}
-
-	public void setActualContainerWeight(String actualContainerWeight) {
-		this.actualContainerWeight = actualContainerWeight;
-	}
-
-	public IjsProcessJOBkgBLSearchUIM() {
+    public IjsProcessJOBkgBLSearchUIM() {
     }
 
-    public void setBookingBL(IjsProcessJOBkgBLSearchVO bookingBL) {
+    
+    
+    public String getVendorCodeAssociated() {
+		return vendorCodeAssociated;
+	}
+
+
+
+	public void setVendorCodeAssociated(String vendorCodeAssociated) {
+		this.vendorCodeAssociated = vendorCodeAssociated;
+	}
+
+
+
+	public List getContractsID() {
+		return contractsID;
+	}
+
+
+
+	public void setContractsID(List contractsID) {
+		this.contractsID = contractsID;
+	}
+
+
+
+	public void setBookingBL(IjsProcessJOBkgBLSearchVO bookingBL) {
         this.bookingBL = bookingBL;
     }
 

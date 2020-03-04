@@ -1,6 +1,8 @@
 package com.rclgroup.dolphin.ijs.web.dao.impl;
 
 import com.rclgroup.dolphin.ijs.web.dao.IjsBaseDao;
+
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +16,9 @@ public class IJSResultContainerUpdateDaoImpl extends IjsBaseDao{
 	private static final String trial = "update vasapps.bkp009 cnt set cnt.met_weight = ? "
 			+ "where cnt.bictrn = ?"
 			+ " and cnt.met_weight = ?";
+	
+	private static final String COUNT_BOOKING_CONT_NUMBER = "select count(*) from vasapps.bkp009 cntr "
+			+ "where cntr.bictrn = ? ";
 	
 	private static final String  BOOKING_UPDATE_QUERY = " UPDATE vasapps.bkp009 cnt" + 
 			" SET" + 
@@ -43,8 +48,14 @@ public class IJSResultContainerUpdateDaoImpl extends IjsBaseDao{
 			"            AND sd.eq_size = ? " + 
 			"            AND sd.eq_type = ? " + 
 			"            AND sd.special_handling = ? " + 
-			"            AND sd.booking_no = ? " + 
-			"    );";
+			"            AND sd.booking_no = ? ";
+	
+	private static final String NULL_BICTRN = " AND cnt.bicsze" + 
+			"            || cnt.bicntp" + 
+			"            || cnt.supplier_sqno" + 
+			"            || cnt.biseqn = ? )";
+	
+	private static final String NOT_NULL_BICTRN = " AND CNT.bictrn = ? )";
 	
 	private static final String  BL_UPDATE_QUERY = "update vasapps.idp055 cntr "
 			+ " set cntr.NET_WEIGHT_METRIC = ? " + 
@@ -60,7 +71,24 @@ public class IJSResultContainerUpdateDaoImpl extends IjsBaseDao{
 			" AND SUP.special_handling = ? " + 
 			" AND SUP.BSEQSZ = ? " + 
 			" AND SUP.BSEQTP = ? " + 
-			" AND SUP.BSBLNO = ? ); ";
+			" AND SUP.BSBLNO = ? " + 
+			" AND cntr.eyeqno = ? ) ";
+	
+	
+	
+	public int comparePortVender(Map outMap)
+	{
+		String vendorCode = (String) outMap.get("vendorCode");
+		String fromLocation = (String) outMap.get("fromLocation");
+		String toLocation = (String) outMap.get("toLocation");
+		
+		
+	int count=	getJdbcTemplate().queryForInt(
+				" select count(*) as count from IJS_PORTPAIR_VENDORCODE where FROM_LOCATION=? and TO_LOCATION = ? and VENDOR_CODE =?",
+				new Object[] { fromLocation,toLocation, vendorCode });
+	
+		return count;
+	}
 	
 	
 			 
@@ -85,20 +113,29 @@ public class IJSResultContainerUpdateDaoImpl extends IjsBaseDao{
 			System.out.println("inside bl");
 			getJdbcTemplate().update(BL_UPDATE_QUERY, 
 					new Object[] { newContainerWeight,specialHandling,containerSize,
-							containerType, bookingOrBLNumber });
+							containerType, bookingOrBLNumber, ContainerNO });
 			
 			System.out.println("DONE");
 		}
 		else if("Booking".equals(bookingOrBLType.trim())) {
 			System.out.println("inside booking");
-			//getJdbcTemplate().update(trial, new Object[] {newContainerWeight, ContainerNO,
-				//	oldContainerWeight});
 			
-			int[] types = {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
-			Types.VARCHAR}; 
-			getJdbcTemplate().update(BL_UPDATE_QUERY, new Object[] {
-			newContainerWeight,specialHandling,containerSize, containerType,
-			bookingOrBLNumber });
+			int val = getJdbcTemplate().queryForInt(COUNT_BOOKING_CONT_NUMBER, 
+					new Object[] {ContainerNO});
+			
+			System.out.println(val);
+			
+			if(val == 0) {
+				getJdbcTemplate().update(BOOKING_UPDATE_QUERY + NULL_BICTRN, new Object[] {
+						newContainerWeight,containerSize, containerType, specialHandling,
+						bookingOrBLNumber, ContainerNO });
+			}
+			else {
+				getJdbcTemplate().update(BOOKING_UPDATE_QUERY + NOT_NULL_BICTRN, new Object[] {
+						newContainerWeight,containerSize, containerType, specialHandling,
+						bookingOrBLNumber, ContainerNO });
+			}
+			
 			 
 			
 			
@@ -107,11 +144,6 @@ public class IJSResultContainerUpdateDaoImpl extends IjsBaseDao{
 			//getJdbcTemplate().update(sql, args, argTypes)
 			
 		}
-		
-		System.out.println(BOOKING_UPDATE_QUERY);
-		getJdbcTemplate().update(BOOKING_UPDATE_QUERY, new Object[] { newContainerWeight,ContainerNO,oldContainerWeight});
-		//getJdbcTemplate().query(QUERY_SELECT_NET_WEIGHT, new Object[] {  });
-		System.out.println("DONE");
 	}
 	
 	private class IJSContainerUpdateRowMapper implements RowMapper {

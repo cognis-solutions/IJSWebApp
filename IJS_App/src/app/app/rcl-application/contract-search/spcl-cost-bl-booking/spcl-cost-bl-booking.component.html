@@ -1,0 +1,61 @@
+<div id="spcl-cost-bl-booking" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" (click)='resetSplbooking()' type="button" uk-close></button>
+    <p><span class="lookup-heading">Spl. Cost by BL/Booking</span></p>
+
+    <div class="col-sm-72">
+      <form #splCostBlorBookingForm="ngForm">
+        <div class="row">
+          <div class="col-sm-20">
+            <app-rcl-selectize [ngModelOptions]="{standalone: true}" [config]="lookUpConfig" [options]="blBookingOptions" placeholder="Select one"
+              [(ngModel)]="blBookingValue"></app-rcl-selectize>
+          </div>
+          <div class="col-sm-20">
+            <app-charge-code-lookup label="" placeholder="Charge Code" helptext="What is code for Charge/surcharge ?" klass="form-control"
+              compid="splInputlookup1" #inputlookup_1 [data]='chargeCodeLookUpData' [(lookUpvalue)]="spclChargeCode">
+            </app-charge-code-lookup>
+          </div>
+          <div class="col-sm-20">
+            <button [disabled]="!(blBookingValue && spclChargeCode)" class="uk-button uk-button-primary" type="button" (click)="addRow()">Add</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="uk-overflow-auto" *ngIf="spclBlBookingList.length > 0">
+        <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+          <thead>
+            <tr>
+              <th></th>
+              <th># BL / Booking</th>
+              <th>Charge / Surcharge</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tableRow of spclBlBookingList ; let i = index" class="slidein-from-top">
+              <td>{{i+1}}</td>
+              <td>{{tableRow.bkgBlNum}}</td>
+              <td>{{tableRow.charge}}</td>
+              <td (click)="checkSelectedRow($event, rowData, i)">X</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="uk-modal-footer uk-text-right">
+        <button *ngIf="spclBlBookingList.length > 0" class="uk-button uk-button-primary" type="button" (click)="saveRow()">Save</button>
+      </div>
+      
+      <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">Sorry! you cannot add duplicate row. please change atleast one input field.</div>
+      
+    </div>
+  </div>
+</div>
+
+<!--
+<div id="duplicate-modal" uk-modal>
+    <div class="uk-modal-dialog">
+        <div class="uk-modal-body">
+            <p></p>
+        </div>
+    </div>
+</div>-->

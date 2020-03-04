@@ -20,9 +20,28 @@ public class IjsJORoutingLookUpVO {
     private String vendorCode;
     private String transMode;
     private String sameVendorInSearch;
+    //Nikash
+    private String bargeValue;
+    private String purchaseTerm;
 
 
-    public void setRoutingId(String routingId) {
+    public String getPurchaseTerm() {
+		return purchaseTerm;
+	}
+
+	public void setPurchaseTerm(String purchaseTerm) {
+		this.purchaseTerm = purchaseTerm;
+	}
+
+	public String getBargeValue() {
+		return bargeValue;
+	}
+
+	public void setBargeValue(String bargeValue) {
+		this.bargeValue = bargeValue;
+	}
+
+	public void setRoutingId(String routingId) {
         this.routingId = routingId;
     }
 
@@ -164,6 +183,17 @@ public class IjsJORoutingLookUpVO {
 
 	public void setSameVendorInSearch(String sameVendorInSearch) {
 		this.sameVendorInSearch = sameVendorInSearch;
+	}
+
+	@Override
+	public String toString() {
+		return "IjsJORoutingLookUpVO [routingId=" + routingId + ", contractId=" + contractId + ", days=" + days
+				+ ", hours=" + hours + ", distance=" + distance + ", uom=" + uom + ", fromLocation=" + fromLocation
+				+ ", toLocation=" + toLocation + ", fromLocType=" + fromLocType + ", toLocType=" + toLocType
+				+ ", fromTerminal=" + fromTerminal + ", toTerminal=" + toTerminal + ", currency=" + currency
+				+ ", legType=" + legType + ", priority=" + priority + ", vendorCode=" + vendorCode + ", transMode="
+				+ transMode + ", sameVendorInSearch=" + sameVendorInSearch + ", bargeValue=" + bargeValue
+				+ ", purchaseTerm=" + purchaseTerm + "]";
 	}
     
 }

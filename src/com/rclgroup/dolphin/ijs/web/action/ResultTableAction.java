@@ -14,6 +14,7 @@ import com.rclgroup.dolphin.ijs.web.service.IJSContainerUpdateSvc;
 import com.rclgroup.dolphin.ijs.web.service.IjsCommonSvc;
 import com.rclgroup.dolphin.ijs.web.service.IjsJOUploadSvc;
 import com.rclgroup.dolphin.ijs.web.service.IjsProcessJOBkgBLSearchSvc;
+import com.rclgroup.dolphin.ijs.web.ui.IJSProcessJONewSaveUIM;
 import com.rclgroup.dolphin.ijs.web.ui.IJSResultTableContainerUpdateUIM;
 import com.rclgroup.dolphin.ijs.web.ui.IjsJoEnquiryUIM;
 import com.rclgroup.dolphin.ijs.web.ui.IjsProcessJOBkgBLSearchUIM;
@@ -50,6 +51,7 @@ public class ResultTableAction extends IjsBaseAction {
     //## O1 BEGIN
     List<IjsProcessJOBkgBLSearchUIM> resultList;
 
+    int count;
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
                                  HttpServletRequest request, 
@@ -86,7 +88,7 @@ public class ResultTableAction extends IjsBaseAction {
             
             setServletContext(request);
             IJSContainerUpdateSvc contUpdate = new IJSContainerUpdateSvc((IJSResultContainerUpdateDaoImpl)getDao("containerUpdateDao"));
-            contUpdate.getContainerUpdateJson(resultTablecontainerUpdateUIM);
+            count =contUpdate.getContainerUpdateJson(resultTablecontainerUpdateUIM);
 			/*
 			 * IjsProcessJOBkgBLSearchUIM a = new IjsProcessJOBkgBLSearchUIM();
 			 * a.setContainer(ijsSearchJson);
@@ -116,6 +118,14 @@ public class ResultTableAction extends IjsBaseAction {
 	public void marshalJavaToJson(HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println();
+		
+		
+		IJSResultTableContainerUpdateUIM actionForm = new IJSResultTableContainerUpdateUIM();
+	            actionForm.setCount(count);
+	String jsonStr = new Gson().toJson(actionForm);
+	response.getWriter().write(jsonStr);
+	//System.out.println("RESPONCE>>>>" + jsonStr);
+	System.out.println("JSON data  : " + jsonStr);
 		
 	}
 

@@ -124,16 +124,32 @@ public class IjsCommonJdbcDao extends IjsBaseDao implements IjsCommonDao {
             compile();
         	}
 
-            private List<String> getValidEquipmentList(List<String> equipLst, String adhocType,String contractId) {
+            private List<String> getValidEquipmentList(List<String> equipLst, String adhocType,String contractId,List contractsID) {
 
             Map outMap = new HashMap();
             Map inParameters = new HashMap();
+            List<String> returnList = new ArrayList<String>();
+            if(contractsID!=null) {
+            for(int i =0;i<contractsID.size();i++) {
+            	  inParameters.put("p_i_v_equip_ids", RutDatabase.stringToDb(StringUtils.collectionToCommaDelimitedString(equipLst)).toUpperCase());
+                  inParameters.put("p_i_v_empty_laden", RutDatabase.stringToDb(adhocType).toUpperCase());
+                  inParameters.put("p_i_v_contract_id", RutDatabase.stringToDb(contractsID.get(i).toString()).toUpperCase());
+                
+                  outMap = execute(inParameters);
+                  returnList.addAll((List<String>)outMap.get("p_o_v_ijs_equip_valid"));
+            	
+            }
+            return returnList ;
+            }else {
             inParameters.put("p_i_v_equip_ids", RutDatabase.stringToDb(StringUtils.collectionToCommaDelimitedString(equipLst)).toUpperCase());
             inParameters.put("p_i_v_empty_laden", RutDatabase.stringToDb(adhocType).toUpperCase());
             inParameters.put("p_i_v_contract_id", RutDatabase.stringToDb(contractId).toUpperCase());
+          
             outMap = execute(inParameters);
             return (List<String>)outMap.get("p_o_v_ijs_equip_valid");
         }
+             
+    }
     }
     protected class IjsValidateEquipReverseLocProcedure extends StoredProcedure {
         private static final String SQL_IJS_VAL_LOC_OF_EQUIP_REVERSE = "PCR_IJS_CNTR_COMMON.PRR_IJS_VAL_LOC_OF_EQUIP_REVERSE";
@@ -254,7 +270,7 @@ public class IjsCommonJdbcDao extends IjsBaseDao implements IjsCommonDao {
 	//##CR 03 START
 		@Override
 		public List<String> validateEquipment(
-			  List<String> excelUploadTemplateList, String adhocType,String contractId,String validate) {
+			  List<String> excelUploadTemplateList, String adhocType,String contractId,String validate,List contractsID) {
 			  List<String> validEquip=new ArrayList<>();
 			  List<String> inValidEquip=new ArrayList<>();
 			  switch(validate){
@@ -262,7 +278,7 @@ public class IjsCommonJdbcDao extends IjsBaseDao implements IjsCommonDao {
 				  validEquip=ijsValidateEquipExistance.getValidEquipmentList(excelUploadTemplateList, adhocType);
 				  break;
 			  case EQUIP_LOC: 
-				  validEquip=ijsValidateEquipLocProcedure.getValidEquipmentList(excelUploadTemplateList, adhocType,contractId);
+				  validEquip=ijsValidateEquipLocProcedure.getValidEquipmentList(excelUploadTemplateList, adhocType,contractId, contractsID);
 				  break;
 			  case EQUIP_WITH_LOC_REVERSE: 
 				  validEquip=ijsValidateEquipReverseLocProcedure.getValidEquipmentList(excelUploadTemplateList, adhocType,contractId);

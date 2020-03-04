@@ -37,7 +37,7 @@ public class IjsJOUploadSvc {
      * @return
      * @throws IJSException
      */
-    public IjsContainerUploadVO uploadContainer(String adhocType,String contractId,String folderPath,String fileName) throws IJSException {
+    public IjsContainerUploadVO uploadContainer(String adhocType,String contractId,String folderPath,String fileName,List contractsID) throws IJSException {
             List<String> excelEquipmentList = new ArrayList<String>();
             List<String> equipLocValidated=null;
             List<String> equipLocReverseValidated=null;
@@ -46,19 +46,19 @@ public class IjsJOUploadSvc {
             List<String> excelEquipmentOrigList ;
             excelEquipmentList = getContainerUploadRecord(folderPath,fileName);
             excelEquipmentOrigList=new ArrayList<>(excelEquipmentList);
-            List<String> equipNotExistInDB=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_IN_DB);
+            List<String> equipNotExistInDB=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_IN_DB,contractsID);
             excelEquipmentOrigList.removeAll(equipNotExistInDB);
             excelEquipmentList=new ArrayList<>(excelEquipmentOrigList);
             if(!excelEquipmentList.isEmpty()){
-            	 equipLocValidated=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_LOC);
+            	 equipLocValidated=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_LOC,contractsID);
             	 excelEquipmentOrigList.removeAll(equipLocValidated);
             	 excelEquipmentList=new ArrayList<>(excelEquipmentOrigList);
                  if(!excelEquipmentList.isEmpty()){
-                	 equipLocReverseValidated=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_WITH_LOC_REVERSE);
+                	 equipLocReverseValidated=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_WITH_LOC_REVERSE,contractsID);
                 	 excelEquipmentOrigList.removeAll(equipLocReverseValidated); 
                 	 excelEquipmentList=new ArrayList<>(excelEquipmentOrigList);
                      if(!excelEquipmentList.isEmpty()){
-                    	 equipLocInJOValidated=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_EXIST_IN_JO);
+                    	 equipLocInJOValidated=commonDao.validateEquipment(excelEquipmentList, adhocType,contractId,EQUIP_EXIST_IN_JO,contractsID);
                     	 excelEquipmentOrigList.removeAll(equipLocInJOValidated); 
                         
                      }

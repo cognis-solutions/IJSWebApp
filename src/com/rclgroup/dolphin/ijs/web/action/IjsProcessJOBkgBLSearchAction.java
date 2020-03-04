@@ -68,12 +68,6 @@ public class IjsProcessJOBkgBLSearchAction extends IjsBaseAction {
             
             setActionForm(new IjsProcessJOBkgBLSearchUIM());
             
-			/*
-			 * IjsProcessJOBkgBLSearchUIM a = new IjsProcessJOBkgBLSearchUIM();
-			 * a.setContainer(ijsSearchJson);
-			 */
-            
-            
             IjsProcessJOBkgBLSearchUIM searchUim = 
                 new Gson().fromJson(ijsSearchJson, IjsProcessJOBkgBLSearchUIM.class);
             
@@ -83,7 +77,7 @@ public class IjsProcessJOBkgBLSearchAction extends IjsBaseAction {
                 setActionForm(new IjsProcessJOBkgBLSearchUIM());
             }
         } catch (Exception e) {
-           throw e;
+            throw e;
         }
     }
 
@@ -102,7 +96,6 @@ public class IjsProcessJOBkgBLSearchAction extends IjsBaseAction {
                 actionForm.getSearchResult().getResult() != null) {
                 jsonStr = 
                         new Gson().toJson(actionForm.getSearchResult().getResult());
-                System.out.println(jsonStr);
             } else if (actionForm.getErrorCode() != null) {
                 jsonStr = new Gson().toJson(actionForm);
             }
@@ -417,7 +410,7 @@ public class IjsProcessJOBkgBLSearchAction extends IjsBaseAction {
                                                         actionForm.getReasonCode(),
                                                         actionForm.getTransMode(),
                                                         actionForm.getProcessJoType(),
-                                                     lstrSessionId,
+                                                     lstrSessionId,actionForm.getRoutingId(),
                                                      userInfo != null ? 
                                                      userInfo.getUserId() : 
                                                      "");
@@ -432,7 +425,7 @@ public class IjsProcessJOBkgBLSearchAction extends IjsBaseAction {
                     bkgBLSearchSvc.createJob(actionForm.getProcessjoFieldList(), actionForm.getTransMode(),
                                                         actionForm.getReasonCode(),
                                                          actionForm.getProcessJoType(),
-                                                     lstrSessionId,
+                                                     lstrSessionId,actionForm.getRoutingId(),
                                                      userInfo != null ? 
                                                      userInfo.getUserId() : 
                                                      "");
@@ -488,7 +481,7 @@ public class IjsProcessJOBkgBLSearchAction extends IjsBaseAction {
                 String path = getServlet().getServletContext().getRealPath("/") + "/UPLOAD";
                 actionForm.getUploadVO().setFolderPath(path);
                 setActionForm(bkgBLSearchSvc.uploadContainer(actionForm, userInfo!=null?userInfo.getUserId():"",actionForm.getUploadVO().getAddhocType(),
-                actionForm.getUploadVO().getFolderPath(),actionForm.getUploadVO().getFileName(),actionForm.getUploadVO().getContractId()));
+                actionForm.getUploadVO().getFolderPath(),actionForm.getUploadVO().getFileName(),actionForm.getUploadVO().getContractId(), actionForm.getUploadVO().getContractsID()));
             }
             // 03 END
 

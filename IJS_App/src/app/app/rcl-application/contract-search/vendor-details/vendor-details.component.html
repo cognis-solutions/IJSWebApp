@@ -1,0 +1,93 @@
+<div id="modal-center-vendor-details" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <p><span class="lookup-heading">Transport Vendor</span></p>
+    
+    
+    <div [hidden]="showVendorDetailsFlag" class="col-sm-72 vendor-main-details">
+      <div class="row">
+        <div class="col-sm-55">
+        <div class="row">          
+          <div class="col-sm-5"><i class="fa fa-address-book" aria-hidden="true"></i></div>
+          <div class="col-sm-60"><h4>{{vendorRecivedData.vendorName}}</h4>
+          <p>Vendor # {{vendorRecivedData.vendor}}</p>
+          </div>
+        </div>
+        <div class="row"> 
+          <div class="col-sm-23"><h5>Vendor Type</h5><p>{{vendorRecivedData.vendorType}}</p></div>
+          <div class="col-sm-23"><h5>Address</h5><p>{{vendorRecivedData.address.add1}}, {{vendorRecivedData.address.add2}}, {{vendorRecivedData.address.add3}}, {{vendorRecivedData.address.add4}}</p></div>
+          <div class="col-sm-23"><h5>Currency</h5><p>{{vendorRecivedData.currency}}</p></div>
+        </div>
+        </div>
+        <div class="col-sm-15">
+          <h5>Contact</h5>
+          <p><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{vendorRecivedData.contact.phone1}}</p>
+          <p><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{vendorRecivedData.contact.phone2}}</p>
+           <p><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{vendorRecivedData.contact.email}}</p>
+        </div>  
+      </div>
+    </div>
+    <div [hidden]="showVendorDetailsFlag" class="col-sm-72 vendor-sub-details">
+      <div class="row">
+        <div class="col-sm-36 vendor-sub-container1">
+          <div class="row">
+            <div class="col-sm-36">
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Name2</h6><p class="text-border-bottom">{{vendorRecivedData.name2}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Main Contact</h6><p class="text-border-bottom">{{vendorRecivedData.mainContact}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Title</h6><p class="text-border-bottom">{{vendorRecivedData.title}}&nbsp;</p></div></div> 
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">SCAC Code</h6><p class="text-border-bottom">{{vendorRecivedData.sCACCode}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Vendor Pay to Number</h6><p class="text-border-bottom">{{vendorRecivedData.vendorPayToNumber}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Purchase Order Required</h6><p class="text-border-bottom">{{vendorRecivedData.purchaseOrderRequired}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Credit Days</h6><p class="text-border-bottom">{{vendorRecivedData.creditDays}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Vendor EDI Code</h6><p class="text-border-bottom">{{vendorRecivedData.vendorEdiCode}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Headquaters Code</h6><p class="text-border-bottom">{{vendorRecivedData.headquatersCode}}&nbsp;</p></div></div>
+            </div>
+            <div class="col-sm-36">
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Country</h6><p class="text-border-bottom">{{vendorRecivedData.country}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">State</h6><p class="text-border-bottom">{{vendorRecivedData.state}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">City</h6><p class="text-border-bottom">{{vendorRecivedData.city}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Zip</h6><p class="text-border-bottom">{{vendorRecivedData.zip}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Responsible FSC </h6><p class="text-border-bottom">{{vendorRecivedData.responsibleFSC}}&nbsp;</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">Online User</h6><p class="text-border-bottom">&nbsp;{{vendorRecivedData.onlineUser}}</p></div></div>
+              <div class="row"><div class="col-sm-72"><h6 class="text-muted">VAT Registration</h6><p class="text-border-bottom">{{vendorRecivedData.vatRegistration}}&nbsp;</p></div></div>
+            </div>
+          </div>          
+        </div>
+        <div class="col-sm-30 vendor-sub-container2">
+          <div class="row">
+            <div class="col-sm-40"><h6 class="text-muted">Finance Interface Vendor</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.financeInterVndr}}&nbsp;</p></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-40"><h6 class="text-muted">Finance Interface Vendor code</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.financeInterVndrCode}}&nbsp;</p></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-40"><h6 class="text-muted">Abbreviation</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.abbreviation}}&nbsp;</p></div>
+          </div>
+          <div class="row text-border-bottom1">
+            <div class="col-sm-40"><h6 class="text-muted">Operator Code</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.operatorCode}}&nbsp;</p></div>
+          </div>
+          <div class="row text-border-bottom1">
+            <div class="col-sm-40"><h6 class="text-muted">Net Off AR/ AP</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.netOff_AROrAP}}&nbsp;</p></div>
+          </div>
+          <div class="row text-border-bottom1">
+            <div class="col-sm-40"><h6 class="text-muted">Mode of Payment</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.modeOfPayment}}&nbsp;</p></div>
+          </div>
+          <div class="row text-border-bottom1">
+            <div class="col-sm-40"><h6 class="text-muted">Advance Payment</h6></div>
+            <div class="col-sm-22"><p>{{vendorRecivedData.advancePayment}}&nbsp;</p></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div [hidden]="!showVendorDetailsFlag">
+      <p class="validation-error text-center">{{errorText}}</p>
+    </div>     
+  </div>
+</div>

@@ -38,17 +38,17 @@ public class IjsContractSearchDTO extends IjsBaseDTO {
     private String uom;
     private String remarks;
     private boolean exempted;
-    private List<String> term = new ArrayList<String>();
+    private String term ;
     
+    private Float sumOfCostLaden;
+    
+    private Float sumOfCostmT;
 	
 	 //for purchase term 
 	 private String purchaseTerm;
-	 
-	 //for filterby
-	//private String filterBy; 
-	 
-	
-
+	 //nikash
+	 private String domInn;
+   
 	private String rate20;
     private String rate40;
     private String rate45;
@@ -62,19 +62,150 @@ public class IjsContractSearchDTO extends IjsBaseDTO {
     List<IjsRateVO> lstBillRate;
     
     
-	
-	
-	 
+    private String laden;
+    private String laden20;
+    private String laden40;
+    private String laden45;
+    
+    private String mT;
+    private String mt20;
+    private String mT40;
+    private String mT45;
+    private String costPriority;
+    private String costPriority20;
+    private String costPriority40;
+    private String costPriority45;
+    
+    
+
     //purchase Term getters and setters
 
-	/*
-	 * public String getFilterBy() { return filterBy; }
-	 * 
-	 * public void setFilterBy(String filterBy) { this.filterBy = filterBy; }
-	 */
+    //nikash
+    
+    
+    
+	public String getLaden() {
+		return laden;
+	}
+
+	public String getCostPriority20() {
+		return costPriority20;
+	}
+
+	public void setCostPriority20(String costPriority20) {
+		this.costPriority20 = costPriority20;
+	}
+
+	public String getCostPriority40() {
+		return costPriority40;
+	}
+
+	public void setCostPriority40(String costPriority40) {
+		this.costPriority40 = costPriority40;
+	}
+
+	public String getCostPriority45() {
+		return costPriority45;
+	}
+
+	public void setCostPriority45(String costPriority45) {
+		this.costPriority45 = costPriority45;
+	}
+
+	public String getCostPriority() {
+		return costPriority;
+	}
+
+	public void setCostPriority(String costPriority) {
+		this.costPriority = costPriority;
+	}
+
+	public Float getSumOfCostLaden() {
+		return sumOfCostLaden;
+	}
+
+	public void setSumOfCostLaden(Float sumOfCostLaden) {
+		this.sumOfCostLaden = sumOfCostLaden;
+	}
+
+	public Float getSumOfCostmT() {
+		return sumOfCostmT;
+	}
+
+	public void setSumOfCostmT(Float sumOfCostmT) {
+		this.sumOfCostmT = sumOfCostmT;
+	}
+
+	public void setLaden(String laden) {
+		this.laden = laden;
+	}
+
+	public String getLaden20() {
+		return laden20;
+	}
+
+	public void setLaden20(String laden20) {
+		this.laden20 = laden20;
+	}
+
+	public String getLaden40() {
+		return laden40;
+	}
+
+	public void setLaden40(String laden40) {
+		this.laden40 = laden40;
+	}
+
+	public String getLaden45() {
+		return laden45;
+	}
+
+	public void setLaden45(String laden45) {
+		this.laden45 = laden45;
+	}
+
+	public String getmT() {
+		return mT;
+	}
+
+	public void setmT(String mT) {
+		this.mT = mT;
+	}
+
+	public String getMt20() {
+		return mt20;
+	}
+
+	public void setMt20(String mt20) {
+		this.mt20 = mt20;
+	}
+
+	public String getmT40() {
+		return mT40;
+	}
+
+	public void setmT40(String mT40) {
+		this.mT40 = mT40;
+	}
+
+	public String getmT45() {
+		return mT45;
+	}
+
+	public void setmT45(String mT45) {
+		this.mT45 = mT45;
+	}
 
 	public String getPurchaseTerm() {
 		return purchaseTerm;
+	}
+
+	public String getDomInn() {
+		return domInn;
+	}
+
+	public void setDomInn(String domInn) {
+		this.domInn = domInn;
 	}
 
 	public void setPurchaseTerm(String purchaseTerm) {
@@ -284,11 +415,11 @@ public class IjsContractSearchDTO extends IjsBaseDTO {
     }
 
 
-    public void setTerm(List<String> term) {
+    public void setTerm(String term) {
         this.term = term;
     }
 
-    public List<String> getTerm() {
+    public String getTerm() {
         return term;
     }
 

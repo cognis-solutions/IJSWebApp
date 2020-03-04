@@ -1,0 +1,5 @@
+<label *ngIf="label" class="medium">{{label}}</label>
+<div *ngFor="let option of data; let indx = index">
+  <input type="radio" [(ngModel)]="value" [value]="option.id" (click)="onChange(option.id)">{{option.text}}<br>
+</div>
+Value Inside: {{value}}

@@ -1,0 +1,27 @@
+<div class="search-filter-">
+  <div class="col-sm-72">
+    <div class="filterby-row">
+    <div class="row">
+      <div class="col-sm-57">
+        <div><em>Filter by</em></div>
+      </div>
+      <div class="col-sm-15">
+        <button id="closeFilter" class="btn" type="buton" (click)="hideFilter($event)" ><i class="fa fa-minus-square-o fa-2x" aria-hidden="true"></i> <span>Hide Filter</span></button>
+      </div>
+    
+    </div>
+    </div>
+    <div class="row radio-button-row">
+      <div *ngFor="let option of numberofColumndata; let i = index" class="col-sm-18">
+        <div class="labelText">
+          <label *ngIf="option.name" class="text-white">{{option.name}}</label>
+        </div>
+        <div class="filter-radios">
+          <app-rcl-radio [data]='option.data' label="" [name]="option.name"  (onChangeValue)="filterResults($event)">
+          </app-rcl-radio>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

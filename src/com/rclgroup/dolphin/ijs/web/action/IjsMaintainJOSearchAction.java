@@ -169,7 +169,7 @@ public class IjsMaintainJOSearchAction extends IjsBaseAction {
             userInfo = loadUserData(request,response);
             session.setAttribute("userInfo", userInfo);
         }
-
+        String lstrSessionId = session.getId();
         try {
             if (IjsActionMethod.LOAD.getAction().equals(actionForm.getAction())) {
                 actionForm.setUserInfo(loadUserData(request,response));
@@ -235,6 +235,14 @@ public class IjsMaintainJOSearchAction extends IjsBaseAction {
                                                                      userInfo.getUserId() : 
                                                                      "", 
                                                                      actionForm.getAction()));
+               }
+               if(actionForm.getJoSaveListAll().getJoNewCntrList()!=null && actionForm.getJoSaveListAll().getJoNewCntrList().size() > 0) {
+                   setActionForm(ijsMaintainJOSearchSvc.saveNewAddedROw(actionForm.getJoSaveListAll().getJoNewCntrList(), 
+                                                                     userInfo != 
+                                                                     null ? 
+                                                                     userInfo.getUserId() : 
+                                                                     "", 
+                                                                     actionForm.getAction(),lstrSessionId,actionForm.getJoSaveListAll().getRowDataObj()));
                }
                 
            } else if(IjsActionMethod.MAINTAIN_JO_JO_DOWNLOAD_LIMIT.getAction().equals(actionForm.getAction())) {

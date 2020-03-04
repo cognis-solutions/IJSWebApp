@@ -1,0 +1,6 @@
+<label *ngIf="label" [attr.for]="identifier" class="{{labelclass}}"><b>{{label}}</b></label>
+
+
+<div *ngFor="let option of data; let indx = index" class="input-radios">
+  <input name="tranVehicle" type="radio" [(ngModel)]="value" [value]="option.id" (click)="onChange(option.text)" ><span class="label-text">{{option.text}}</span>
+ </div> 

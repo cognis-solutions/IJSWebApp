@@ -11,6 +11,7 @@ Author NIIT 24/08/17
 package com.rclgroup.dolphin.ijs.web.action;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 
 import javax.servlet.ServletContext;
@@ -42,9 +43,9 @@ public abstract class IjsBaseAction extends Action{
    private IjsBaseActionForm actionForm;
    private ServletContext servletContext;
    private File downLoadFile;
-   public ActionForward execute(ActionMapping mapping, 
-			                     ActionForm form,
-			                     HttpServletRequest request, 
+            public ActionForward execute(ActionMapping       mapping, 
+			                     ActionForm          form,
+			                     HttpServletRequest  request, 
 			                     HttpServletResponse response) throws Exception {
         
         try{
@@ -141,7 +142,7 @@ public abstract class IjsBaseAction extends Action{
 	    
 	    System.out.println("ddddddddddddde");
 	    IjsUserSvc userSvc=new IjsUserSvc((IjsUserDao)getDao("userDao"));
-       userName="NIIT01";
+       userName="IJSHQUSR";
 	   user=userSvc.findUserInfo(userName);
 	    return user;
 	}

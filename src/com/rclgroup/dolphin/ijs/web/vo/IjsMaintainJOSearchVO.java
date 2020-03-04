@@ -35,12 +35,24 @@ public class IjsMaintainJOSearchVO {
     private String user_type;
     private String SOCorCOC;
     private String priority;
+    private String equiptState;
+    private String eqNumber;
+    private String BkgOrBLNo;
+    private String contPercent;
+    private String contWeight;
+    private String amountBkgBl;
+    private String amountLumpsum;
     private List<IjsMaintainJOSearchContDetailVO> contDetailJO;
     private List<IjsMaintainJOSearchVO> joSaveFscList;
     private List<IjsMaintainJOSearchVO> joRemoveCntrList;
     private List<IjsMaintainJOSearchVO> joReplaceCntrList;
     private List<IjsMaintainJOSearchVO> joChangeVendorList;
-    //For Save
+    
+    private List<IjsMaintainJOSearchVO> joNewCntrList;
+    private IjsMaintainSaveVO rowDataObj;
+    
+
+	//For Save
     private String contNoToDelete;
     private String oldContainerNo;
     private String oldContNoReplace;
@@ -49,9 +61,27 @@ public class IjsMaintainJOSearchVO {
     private String fsc;
     private Integer contSize;
     private String contType;
+    //nikash
+    private String barge;
 
 
-    public void setJoNumber(String joNumber) {
+    public IjsMaintainSaveVO getRowDataObj() {
+		return rowDataObj;
+	}
+
+	public void setRowDataObj(IjsMaintainSaveVO rowDataObj) {
+		this.rowDataObj = rowDataObj;
+	}
+
+	public String getBarge() {
+		return barge;
+	}
+
+	public void setBarge(String barge) {
+		this.barge = barge;
+	}
+
+	public void setJoNumber(String joNumber) {
         this.JoNumber = joNumber;
     }
 
@@ -413,6 +443,70 @@ public class IjsMaintainJOSearchVO {
 
 	public void setOldContainerNo(String oldContainerNo) {
 		this.oldContainerNo = oldContainerNo;
+	}
+
+	public List<IjsMaintainJOSearchVO> getJoNewCntrList() {
+		return joNewCntrList;
+	}
+
+	public void setJoNewCntrList(List<IjsMaintainJOSearchVO> joNewCntrList) {
+		this.joNewCntrList = joNewCntrList;
+	}
+
+	public String getEquiptState() {
+		return equiptState;
+	}
+
+	public void setEquiptState(String equiptState) {
+		this.equiptState = equiptState;
+	}
+
+	public String getEqNumber() {
+		return eqNumber;
+	}
+
+	public void setEqNumber(String eqNumber) {
+		this.eqNumber = eqNumber;
+	}
+
+	public String getBkgOrBLNo() {
+		return BkgOrBLNo;
+	}
+
+	public void setBkgOrBLNo(String bkgOrBLNo) {
+		BkgOrBLNo = bkgOrBLNo;
+	}
+
+	public String getContPercent() {
+		return contPercent;
+	}
+
+	public void setContPercent(String contPercent) {
+		this.contPercent = contPercent;
+	}
+
+	public String getContWeight() {
+		return contWeight;
+	}
+
+	public void setContWeight(String contWeight) {
+		this.contWeight = contWeight;
+	}
+
+	public String getAmountBkgBl() {
+		return amountBkgBl;
+	}
+
+	public void setAmountBkgBl(String amountBkgBl) {
+		this.amountBkgBl = amountBkgBl;
+	}
+
+	public String getAmountLumpsum() {
+		return amountLumpsum;
+	}
+
+	public void setAmountLumpsum(String amountLumpsum) {
+		this.amountLumpsum = amountLumpsum;
 	}
 	
     

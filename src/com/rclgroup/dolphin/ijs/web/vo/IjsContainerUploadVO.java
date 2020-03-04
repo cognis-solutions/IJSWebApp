@@ -16,8 +16,29 @@ public class IjsContainerUploadVO {
     private  List<IjsBaseMessageVO<String>> msgVOs;
     private IjsSearchResult<IjsEquipmetLookUpVO> searchResult;
     private String errorCode;
+    private List<String> contractsID;
 
-    public IjsContainerUploadVO() {
+    
+    
+    
+    
+    public boolean isFailed() {
+		return isFailed;
+	}
+
+	public void setFailed(boolean isFailed) {
+		this.isFailed = isFailed;
+	}
+
+	public List<String> getContractsID() {
+		return contractsID;
+	}
+
+	public void setContractsID(List<String> contractsID) {
+		this.contractsID = contractsID;
+	}
+
+	public IjsContainerUploadVO() {
     }
 
     public void setResultMessage(String resultMessage) {

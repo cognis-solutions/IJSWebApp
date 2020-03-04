@@ -30,10 +30,19 @@ public class IjsProcessJOSummarySearchVO {
     private String size;
     private String slNumber;
     private String rateBasis;
-    
+    //nikash
+    private String hasBundle;
 
 
-    public void setBkgOrBLNumber(String bkgOrBLNumber) {
+    public String getHasBundle() {
+		return hasBundle;
+	}
+
+	public void setHasBundle(String hasBundle) {
+		this.hasBundle = hasBundle;
+	}
+
+	public void setBkgOrBLNumber(String bkgOrBLNumber) {
         this.bkgOrBLNumber = bkgOrBLNumber;
     }
 

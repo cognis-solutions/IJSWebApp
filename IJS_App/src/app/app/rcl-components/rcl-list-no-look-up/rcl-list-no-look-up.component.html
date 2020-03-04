@@ -1,0 +1,22 @@
+<div class="lookup-wrapper" click-outside (clickOutside)="onClickOutside($event)">
+    <label *ngIf="label" for="{{compid}}" class="medium">{{label}}</label>  
+    <input [disabled]="disabled" [required]="required" [class]="klass" [placeholder]="placeholder" [readOnly]="readOnly" [ngClass]="{invalid: (invalid | async)}" [id]="compid"
+      (blur)="onTouched()" [(ngModel)]="_value" (click)="active=!active" autocomplete="on" (ngModelChange)="changeInputValue(_value)" />
+      <app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+      </app-rcl-validation-result>
+      
+      
+      
+      <span *ngIf="lookUpvalue" class="btn-clr" (click)="change((lookUpvalue = undefined))"></span>
+      
+    <div *ngIf="active" class="lookup-container">
+      <div *ngFor="let option of data" class="look-up">
+        <input (change)=changeInputValue(_value) type="text" [(ngModel)]="_value" name={{option.value}} [placeholder]="option.label" [class]="klass" hidden>
+        <p (click)="onLookupShowHide($event, option.label)" class="text-center">{{option.label}}</p>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+ 

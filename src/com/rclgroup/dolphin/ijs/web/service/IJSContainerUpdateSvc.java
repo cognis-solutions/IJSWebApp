@@ -23,7 +23,7 @@ public class IJSContainerUpdateSvc {
 	{
 		this.daoImpl=daoImpl;
 	}
-	public void getContainerUpdateJson(IJSResultTableContainerUpdateUIM objForm) throws ParseException {
+	public int getContainerUpdateJson(IJSResultTableContainerUpdateUIM objForm) throws ParseException {
 		
 		org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 		JSONArray vararry = (org.json.simple.JSONArray) parser.parse(objForm.getContainerJson());
@@ -37,12 +37,21 @@ public class IJSContainerUpdateSvc {
 			System.out.println(contObject);
 			System.out.println();
 			Map<String, String> mapToDao  = getListOfContainerData(contObject);
-			daoImpl.updateContainerWeight(mapToDao);
+			
+			if(!mapToDao.get("compairflag").equalsIgnoreCase("compare"))
+			{
+				daoImpl.updateContainerWeight(mapToDao);
+			}
+			else 
+			{
+				return daoImpl.comparePortVender(mapToDao);
+			}
+			
 			
 			
 		}
 		
-		
+		return 0;
 	}
 	
 	
@@ -62,6 +71,8 @@ public class IJSContainerUpdateSvc {
 		containerMap.put("toLocation", String.valueOf(obj.get("toLocation")));
 		containerMap.put("toTerminal", String.valueOf(obj.get("toTerminal")));
 		containerMap.put("vendorCode", String.valueOf(obj.get("vendorCode")));
+		containerMap.put("compairflag", String.valueOf(obj.get("compairflag")));
+		//mapToDao.get("compairflag")
 
 		return containerMap;
 	}

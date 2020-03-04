@@ -35,8 +35,22 @@ public class IjsMaintainJOSearchParamVO {
     private boolean requestChanged;
     private String orderBy;
     private String orderType;
+    //nikash
+    private boolean checkBoxJoCreation;
+    
+    
 
-    public void setJobOrdTyp(String jobOrdTyp) {
+  
+
+	public boolean isCheckBoxJoCreation() {
+		return checkBoxJoCreation;
+	}
+
+	public void setCheckBoxJoCreation(boolean checkBoxJoCreation) {
+		this.checkBoxJoCreation = checkBoxJoCreation;
+	}
+
+	public void setJobOrdTyp(String jobOrdTyp) {
         this.jobOrdTyp = jobOrdTyp;
     }
 
@@ -302,5 +316,26 @@ public class IjsMaintainJOSearchParamVO {
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "IjsMaintainJOSearchParamVO [componentType=" + componentType + ", jobOrdTyp=" + jobOrdTyp
+				+ ", jobOrdSts=" + jobOrdSts + ", jobOrdNo=" + jobOrdNo + ", vendorCode=" + vendorCode
+				+ ", countryCode=" + countryCode + ", dateRange=" + dateRange + ", toLocType=" + toLocType
+				+ ", toLocation=" + toLocation + ", toTerminal=" + toTerminal + ", fromLocType=" + fromLocType
+				+ ", fromLocation=" + fromLocation + ", fromTerminal=" + fromTerminal + ", bookingOrBlType="
+				+ bookingOrBlType + ", bookingOrBlValue=" + bookingOrBlValue + ", routContractOrContType="
+				+ routContractOrContType + ", routContractOrContValue=" + routContractOrContValue + ", joCostTyp="
+				+ joCostTyp + ", joCostValue=" + joCostValue + ", serviceVal=" + serviceVal + ", vesselVal=" + vesselVal
+				+ ", voyageVal=" + voyageVal + ", legType=" + legType + ", paymentFSC=" + paymentFSC + ", SocOrCoc="
+				+ SocOrCoc + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd + ", totalCount=" + totalCount
+				+ ", pageNo=" + pageNo + ", noOfRecPerPage=" + noOfRecPerPage + ", requestChanged=" + requestChanged
+				+ ", orderBy=" + orderBy + ", orderType=" + orderType + ", checkBoxJoCreation=" + checkBoxJoCreation
+				+ "]";
+	}
+
+
+  
+	
+	
 }

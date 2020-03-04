@@ -54,7 +54,7 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
   private actualContainerWeight: string;
   private showContainers = true; //to show only conatiner values in modal
   multipleSelect:boolean = true; //flag to allow user to multiple checkboxes based on user
-  
+  processJoFlag:boolean;
 
   constructor(private _spinner: SpinnerServiceService, private _lookupData: LookUpdataServiceService, public _serverErrorCode: ServerErrorcodeService, public _sortTable: SortSearchTableService, private _http: Http,private clService:ContainerListService,private _sessionTimeOutService:SessionTimeOutService, private _httpService: ProcessjoSearchService) {
     // this.actionButtons = [     
@@ -90,6 +90,7 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
    // console.log('open lookup'+ JSON.stringify(ladenContainer));
    // console.log("seleceted row for Laden"+ JSON.stringify(selectedRowLaden));
    // console.log("seleceted row for empty "+ JSON.stringify(selectedRowEmpty));
+   //debugger;
     this.contType = contType;
     this.rowIndex = index;
     this.searchType = searchType;
@@ -107,7 +108,8 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
     
     if(row.callingComponent == "joMaintainenance"){
       this.checkComponent = row.callingComponent;
-      this.multipleSelect = false;
+       this.multipleSelect = false;
+     // this.showCheckBox = true;
       this.joContainerDetails = row;
     } else{
       this.multipleSelect = true;
@@ -164,12 +166,17 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
 
     obj = { "key": "cntType","value": row.cntType};
     this.seachValueList.push(obj);
-
-    if(this._httpService.processJoSearchData.processJoParam.vendorCode == null || this._httpService.processJoSearchData.processJoParam.fromLocation == null || this._httpService.processJoSearchData.processJoParam.toLocation == null ||this._httpService.processJoSearchData.processJoParam.fromTerminal == null ||this._httpService.processJoSearchData.processJoParam.toTerminal == null) {
+    //debugger;
+    if(this._httpService.processJoSearchData!=null){
+      this.processJoFlag=true;
+    if(this._httpService.containerCount== 0 ) {
+      
       this.inputTag = true;
-    } 
+    }else{
+      this.inputTag=false;
+    }
 
-    obj = { "key": "searchvendorCode","value": this._httpService.processJoSearchData.processJoParam.vendorCode};
+ obj = { "key": "searchvendorCode","value": this._httpService.processJoSearchData.processJoParam.vendorCode};
     this.seachValueList.push(obj);
 
     
@@ -184,6 +191,7 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
 
     obj = { "key": "searchtoTerminal","value": this._httpService.processJoSearchData.processJoParam.toTerminal};
     this.seachValueList.push(obj);
+    }
     obj = { "key": "routingNumber","value": row.routingNumber};
     this.seachValueList.push(obj);
 
@@ -225,6 +233,9 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
         this.lookupErrorCodeShow = false;
           if(contType== "L"){
             this.clService.cntrlistData = ladenContainer;
+            if((contType== "L" && ladenContainer != undefined && searchType == "AV")) {
+              this.getLocLookUpData('getJOContainer','','',this.seachValueList,'',ladenContainer,'');
+            }
           } else{
             this.clService.cntrlistData = emptyContainer;
           } 
@@ -242,9 +253,11 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
   cntrlistData = [];
   noContainerFlag:boolean = false;
   getLocLookUpData(lookupTpye, type, eve, inpuvaluevalue, wildCard ,containerList,componentType) {     
-   //this.clService.cntrlistData = containerList; 
+   //this.clService.cntrlistData = containerList;
+  // debugger; 
+  // alert('2222222')
    this._spinner.showSpinner();    
-   var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard,'',componentType);
+   var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard,'',componentType,'','','');
    backendData.subscribe(
      (data) => {    
        if(data == "userSessionExpired"){
@@ -293,7 +306,8 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
 
   
     //select Check box
-   selectedFlag:boolean = true; 
+    selectedFlag:boolean;
+  // selectedFlag:boolean = true; 
 
   private getRowData(e, rowData, i) {        
     if (e.target.checked == true) {
@@ -347,7 +361,7 @@ export class RCLContainerModalComponent implements OnInit,IModalDialog  {
       this.lookupErrorCodeShow = false;
       this.lookupErrorCodetext = '';
       this.selectedRow = [];     
-      this.openModal = false;   
+      this.openModal = false;    
       this.clService.cntrlistData = []; 
       return true;   
   }

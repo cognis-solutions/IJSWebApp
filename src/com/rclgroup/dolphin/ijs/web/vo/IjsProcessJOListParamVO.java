@@ -13,9 +13,30 @@ public class IjsProcessJOListParamVO {
     private String jobOrdType;
     private String jobOrder;
     private String slNumber;
+    private String checked;
+    //private String remark;
+    private String status;
+    
+    
+    
 
+    public String getStatus() {
+		return status;
+	}
 
-    public void setVendorCode(String vendorCode) {
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
+	public void setVendorCode(String vendorCode) {
         this.vendorCode = vendorCode;
     }
 

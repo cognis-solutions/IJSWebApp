@@ -23,6 +23,7 @@ import com.rclgroup.dolphin.ijs.web.util.RutFormatting;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchContDetailVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchParamVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchVO;
+import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainSaveVO;
 
 
 public class IjsMaintainJOSearchSvc {
@@ -51,7 +52,7 @@ public class IjsMaintainJOSearchSvc {
             throw new IJSException("Invalid Page Number");
         }
         
-        return getSearchResults(mainatainJoParam, session, resultCountForJobOrders.intValue(), userInfo);
+         return getSearchResults(mainatainJoParam, session, resultCountForJobOrders.intValue(), userInfo);
         
     }
     
@@ -125,6 +126,8 @@ public class IjsMaintainJOSearchSvc {
                 maintainJoSearchVO.setUser_type(maintainJo.getUser_type());
                 maintainJoSearchVO.setSOCorCOC(maintainJo.getSOCorCOC());
                 maintainJoSearchVO.setPriority(maintainJo.getPriority());
+               //nikash
+                maintainJoSearchVO.setBarge(maintainJo.getBarge());
                 IjsMaintainJOSearchContDetailVO contDataObj;
                 List<IjsMaintainJOSearchContDetailVO> lstContData = new ArrayList<IjsMaintainJOSearchContDetailVO>();
                 for(int i=0;i<maintainJo.getContDetailJO().size();i++) {
@@ -246,6 +249,13 @@ public class IjsMaintainJOSearchSvc {
         String lsterrorCd = 
             ijsMaintainJOSearchDao.replaceEquipmentJO(ijsMaintainJOSearchVO,userInfo, action);
         return transform(lsterrorCd,action);
+    }
+    public IjsMaintainJOSearchUIM saveNewAddedROw(List<IjsMaintainJOSearchVO> ijsMaintainJOSearchVO, 
+    		String userInfo, 
+    		String action,String session,IjsMaintainSaveVO ijsMaintainSaveVO) throws IJSException {
+    	String lsterrorCd = 
+    			ijsMaintainJOSearchDao.saveNewAddedRow(ijsMaintainJOSearchVO,userInfo, action,session,ijsMaintainSaveVO);
+    	return transform(lsterrorCd,action);
     }
     
     public IjsMaintainJOSearchUIM changeVendor(List<IjsMaintainJOSearchVO> ijsMaintainJOSearchVO, 

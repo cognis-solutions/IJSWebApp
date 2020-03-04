@@ -128,7 +128,7 @@
               (click)="insertLegshowRouteList($event)"><i class="fa fa-exchange" aria-hidden="true"></i> Change Vendor</button>
             <!--//#NIIT CR6 >>>>BEGIN-->
             <button [hidden]="(componentType == 'joinquiry')" [disabled]="checkedSelectedRows.length < 1 || tableDataMaintainJoSearch[0].user_type == 'Loc'"
-              class="jo-maintinance-table-button btnSize" (click)="approveJobOrderList($event)"><i class="fa fa-check" aria-hidden="true" ></i> Approve</button>
+              class="jo-maintinance-table-button btnSize" (click)="approveJobOrderList($event,row)"><i class="fa fa-check" aria-hidden="true" ></i> Approve</button>
             <!--//#NIIT CR6 >>>>END-->
             <button [hidden]="(componentType == 'joinquiry')" [disabled]="checkedSelectedRows.length < 1 || tableDataMaintainJoSearch[0].user_type == 'Loc'"
               class="jo-maintinance-table-button btnSize" (click)="rejectJobOrder($event)"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
@@ -136,8 +136,8 @@
             <button [hidden]="(componentType == 'joinquiry')" [disabled]="checkedSelectedRows.length < 1" class="jo-maintinance-table-button btnSize"
               (click)="deleteLumpSum($event)"><i class="fa fa-times" aria-hidden="true"></i>Delete Lumpsum</button>
             <!--//#NIIT CR6 >>>>END-->
-            <button [disabled]="checkedSelectedRows.length != 1" (click)="openPdfLink($event)" class="jo-maintinance-table-button btnSize"><i class="fa fa-search" aria-hidden="true"></i> View Job Order</button>
-            <button [hidden]="(componentType == 'joinquiry')" class="jo-maintinance-table-button jo-maintinance-save-button btnSize" [disabled]="joChangeVendorList.length < 1 && joSaveFscList.length < 1 && joRemoveCntrList.length < 1 &&joReplaceCntrList .length < 1"
+			<button [disabled]="checkedSelectedRows.length != 1" (click)="openPdfLink($event)" class="jo-maintinance-table-button btnSize"><i class="fa fa-search" aria-hidden="true"></i> View Job Order</button>
+            <button [hidden]="(componentType == 'joinquiry')"  class="jo-maintinance-table-button jo-maintinance-save-button btnSize"  [disabled]="checkedSelectedRows.length < 1"
               (click)="saveJobOrder($event); $event.stopPropagation();"><i class="fa fa-floppy-o" aria-hidden="true" ></i> Save</button>
           </div>
         </div>
@@ -178,9 +178,12 @@
         </div>
         <div class="maintain-table-container">
           <div *ngFor="let row of tableDataMaintainJoSearch | paginate: { itemsPerPage: resultsPerPage, currentPage: p, totalItems: totalRecords } ; let p = index" 
-          class="card-block slidein-from-top" style='margin-bottom: 5px; padding:0; overflow: auto; background-color: #eceeef;'
+          class="card-block slidein-from-top"  style='margin-bottom: 5px; padding:0; overflow: auto;' 
           [hidden]="row.visiable">
-            <div (click)='showCollapsedTable($event,p)' class="card collapse-button-row" style='margin-bottom: 0;'>
+              {{row|json}}
+            <div  (click)='showCollapsedTable($event,p)' class="card collapse-button-row" id="{{p}}_{{p}}" style='margin-bottom: 0;'>
+           
+              {{myDiveColorChange(row,p)}}
               <div class="card-block" style='padding-top:5px; padding-bottom:5px; padding-left:5px;'>
                 <div class='row'>
                   <div class='col-md-1'>
@@ -237,7 +240,7 @@
                       {{row.transMode}}
                       </span>
                       </div>
-                      <div class="col-sm-24">
+                  <div class="col-sm-24">
                         <span class="jo-maintain-table-text-simple">{{row.toLocType}}</span>
                       </div>
                     </div>
@@ -247,8 +250,12 @@
                       </div>
                       <div class="col-sm-24 arrow-block">
                       </div>
-                      <div class="col-sm-24">
+                      
+                     <div class="col-sm-24">
                         <h5>{{row.toLocation}}</h5>
+                      </div>
+                      <div class="col-sm-24">
+                        <span class="jo-maintain-table-text-intnational">{{row.barge}}</span>
                       </div>
                     </div>
                     <div class="row">
@@ -257,6 +264,8 @@
                       </div>
                       <div class="col-sm-24">
                       </div>
+                        <!-- Nikash todo -->
+                
                       <div class="col-sm-24">
                         <span class="jo-maintain-table-text-simple">&#x25CF; {{row.toTerminal}}</span>
                       </div>
@@ -331,19 +340,23 @@
                   <div class="card">
                     <div *ngIf="row.contDetailJO" class="card-block" style="background-color: #516066;">
                       <ag-grid-angular style="width: 100%; height: 100%" class="ag-dark" [columnDefs]="columnDefs2" (cellClicked)="agGridCellClicked($event, row)"
-                        [rowData]="row.contDetailJO" rowSelection="multiple" (rowSelected)="onRowSelected($event, row)" [gridOptions]="{rowHeight: 50}"
-                        [domLayout]="'autoHeight'"  [enableColResize]="true">
+                        [rowData]="row.contDetailJO"  rowSelection="multiple" (rowSelected)="onRowSelected($event, row)" [gridOptions]="{rowHeight: 50}"
+                        [domLayout]="'autoHeight'"  [enableColResize]="true"  (gridReady)="onGridReady($event,p)">   
                       </ag-grid-angular>
-                      <div class="ag-grid-bottom row" style="width: 100%; padding: 1 0 5 0;">
-                        <div class="col-sm-40"></div>
-                        <div class="col-sm-30" [hidden]="(componentType == 'joinquiry')">
+                      <div class="ag-grid-bottom row" style="width: 100%; padding: 1 0 7 0;">
+                        <div class="col-sm-32"></div>
+                        <div class="col-sm-35" [hidden]="(componentType == 'joinquiry')">
                           <!--//#NIIT CR1 >>>>-->
                           <button [hidden]="(componentType == 'joinquiry')" [disabled]="!adHocFlag"  class="jo-maintinance-table-button jo-maintinance-save-button"  (click)="uploadExcelFile($event); $event.stopPropagation();"><i class="fa fa-floppy-o" aria-hidden="true" ></i> Upload Excel</button>
                           <button [hidden]="(componentType == 'joinquiry')" [disabled]="!selectedRowData" (click)="addEquipmentBrowserModal(e, row)"
                             class="jo-maintinance-table-button"><i class="fa fa-exchange" aria-hidden="true"></i> Replace Equipment</button>
                           <button [hidden]="(componentType == 'joinquiry')" [disabled]="!selectedRowData" class="jo-maintinance-table-button" (click)="removeEquipment($event, row)"><i class="fa fa-times" aria-hidden="true"></i> Remove Equipment</button>
+                        <!--nikash-->
+                          <button  [hidden]="(componentType == 'joinquiry')" [disabled]= "checkedSelectedRows.length != 1 || _userTypeService['appUserType']=='modifyOnly' || (row.jobOrdType!='Ad-Hoc Laden' && row.jobOrdType!='Ad-Hoc Empty' ) "  (click)="equipmentBrowserModal(e, row,p)"
+                          class="jo-maintinance-table-button"><i class="fa fa-check" aria-hidden="true"></i> Add Equipment</button>
+                          <!-- <button class="uk-button uk-button-primary" (click)="openAddEmptyEquipmentsModal($event)">Add Unavailable Equipment</button> -->
                         </div>
-                      </div>
+                     </div>
                     </div>
                   </div>
                 </div>
@@ -356,21 +369,29 @@
                   <div class="card">
                     <div *ngIf="row.contDetailJO" class="card-block" style="background-color: #516066;">
                       <ag-grid-angular style="width: 100%; height: 100%" class="ag-dark" [columnDefs]="columnDefs2" (cellClicked)="agGridCellClicked($event, row)"
-                        [rowData]="row.contDetailJO" rowSelection="multiple" (rowSelected)="onRowSelected($event, row)" [gridOptions]="{rowHeight: 50}"
+                        [rowData]="row.contDetailJO" rowSelection="multiple" (rowSelected)="onRowSelected($event, row)" [gridOptions]="{rowHeight: 50}" (gridReady)="onGridReady($event,p)"
                         [domLayout]="'autoHeight'"  [enableColResize]="true">
                       </ag-grid-angular>
-                      <div class="ag-grid-bottom row" style="width: 100%; padding: 1 0 5 0;">
-                        <div class="col-sm-40"></div>
-                        <div class="col-sm-30" [hidden]="(componentType == 'joinquiry')">
+                      <div class="ag-grid-bottom row" style="width: 100%; padding: 1 0 70 0;">
+                        <div class="col-sm-32"></div>
+                        <div class="col-sm-35" [hidden]="(componentType == 'joinquiry')">
                           <!--//#NIIT CR1 >>>>-->
                           <button [hidden]="(componentType == 'joinquiry')" [disabled]="!adHocFlag"  class="jo-maintinance-table-button jo-maintinance-save-button"  (click)="uploadExcelFile($event); $event.stopPropagation();"><i class="fa fa-floppy-o" aria-hidden="true" ></i> Upload Excel</button>
+              
                           <button [hidden]="(componentType == 'joinquiry')" [disabled]="!selectedRowData" (click)="addEquipmentBrowserModal(e, row)"
                             class="jo-maintinance-table-button"><i class="fa fa-exchange" aria-hidden="true"></i> Replace Equipment</button>
-                          <button [hidden]="(componentType == 'joinquiry')" [disabled]="!selectedRowData" class="jo-maintinance-table-button" (click)="removeEquipment($event, row)"><i class="fa fa-times" aria-hidden="true"></i> Remove Equipment</button>
+                         
+                            <button [hidden]="(componentType == 'joinquiry')" [disabled]="!selectedRowData" class="jo-maintinance-table-button" (click)="removeEquipment($event, row)"><i class="fa fa-times" aria-hidden="true"></i> Remove Equipment</button>
+                           <!--//#for addEquipment-nikash >>>>-->
+                           <!-- [required]="processJoSearchData.processJoParam.processJoType == 'IT'" -->
+
+                          <button   [hidden]="(componentType == 'joinquiry')"  [disabled]= "checkedSelectedRows.length != 1 || _userTypeService['appUserType']=='modifyOnly' || (row.jobOrdType!='Ad-Hoc Laden' && row.jobOrdType!='Ad-Hoc Empty' )" (click)="equipmentBrowserModal(e, row,p)" 
+                          class="jo-maintinance-table-button"><i class="fa fa-check" aria-hidden="true"></i> Add Equipment</button>
+                        
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
                 </div>
               </div>
             </div>
@@ -490,6 +511,14 @@
     <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;">No</button>
   </div>
 </div>
+<!-- popup to ask users if they still want to approve the job orders not containing highest priority-->
+<div id="approve-job-order-priority" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <h5>This job order doesn't contain highest Priority,do you still want to approve</h5>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="approvePopUp($event)">Yes</button>
+      <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;">No</button>
+    </div>
+  </div>
 
 <!-- show modal to user when dowload limit exceeds the specified limit-->
 <div id="download-error-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">

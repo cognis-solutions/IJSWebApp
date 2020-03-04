@@ -35,9 +35,29 @@ public class IjsMaintainJOSearchDTO extends IjsBaseDTO {
     private String SOCorCOC;
     private String priority;
     private List<IjsMaintainJOSearchContDetailDTO> contDetailJO;
+   //nikash
+    private String barge;
+    private String dummyContainerCount;
+    
 
 
-    public void setJoNumber(String joNumber) {
+    public String getDummyContainerCount() {
+		return dummyContainerCount;
+	}
+
+	public void setDummyContainerCount(String dummyContainerCount) {
+		this.dummyContainerCount = dummyContainerCount;
+	}
+
+	public String getBarge() {
+		return barge;
+	}
+
+	public void setBarge(String barge) {
+		this.barge = barge;
+	}
+
+	public void setJoNumber(String joNumber) {
         this.JoNumber = joNumber;
     }
 

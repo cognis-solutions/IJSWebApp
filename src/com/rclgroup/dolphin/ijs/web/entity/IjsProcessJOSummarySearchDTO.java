@@ -35,8 +35,20 @@ public class IjsProcessJOSummarySearchDTO {
     private String lumpsumId;
     //CR#06 END 
 
+    //nikash
+    private String hasBundle;
+    
+    
 
-    public void setBkgOrBLNumber(String bkgOrBLNumber) {
+    public String getHasBundle() {
+		return hasBundle;
+	}
+
+	public void setHasBundle(String hasBundle) {
+		this.hasBundle = hasBundle;
+	}
+
+	public void setBkgOrBLNumber(String bkgOrBLNumber) {
         this.bkgOrBLNumber = bkgOrBLNumber;
     }
 
@@ -236,5 +248,18 @@ public class IjsProcessJOSummarySearchDTO {
 	public void setLumpsumId(String lumpsumId) {
 		this.lumpsumId = lumpsumId;
 	}
+
+	@Override
+	public String toString() {
+		return "IjsProcessJOSummarySearchDTO [bkgOrBLNumber=" + bkgOrBLNumber + ", bkgOrBLType=" + bkgOrBLType
+				+ ", jobOrder=" + jobOrder + ", vendorCode=" + vendorCode + ", vendorName=" + vendorName
+				+ ", contractNumber=" + contractNumber + ", joDate=" + joDate + ", mtOrLaden=" + mtOrLaden + ", type="
+				+ type + ", OOG=" + OOG + ", days=" + days + ", hours=" + hours + ", amount=" + amount + ", rate="
+				+ rate + ", quantity=" + quantity + ", currency=" + currency + ", amountUsd=" + amountUsd
+				+ ", paymentFSC=" + paymentFSC + ", priority=" + priority + ", routingId=" + routingId + ", size="
+				+ size + ", slNumber=" + slNumber + ", rateBasis=" + rateBasis + ", errorCode=" + errorCode
+				+ ", lumpsumId=" + lumpsumId + ", hasBundle=" + hasBundle + "]";
+	}
     
+	
 }

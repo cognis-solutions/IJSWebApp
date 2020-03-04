@@ -1,0 +1,45 @@
+.vendor-main-details {
+    background-color: #f0f6f8;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+}
+
+.vendor-main-details .fa-address-book {
+    color: #2980b9;
+    font-size: 50px;
+}
+.vendor-main-details h4, .vendor-main-details .fa-phone {
+    color: #2980b9;
+}
+.vendor-sub-container1 {
+    border-right: 1px solid black;
+}
+.text-border-bottom {
+    margin-bottom: 5px;
+    border-bottom: 1px solid lightgrey;
+}
+.text-border-bottom1 {    
+    border-bottom: 1px solid lightgrey;
+}
+.text-border-bottom p {
+    margin: 0;
+}
+.vendor-sub-container2 {
+    margin-left: 50px;
+}
+.vendor-sub-container2 > .row{
+    margin-bottom: 15px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.vendor-sub-container2 > .row > .col-sm-40 {
+    padding-left: 0;
+    padding-right: 0; 
+}
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}

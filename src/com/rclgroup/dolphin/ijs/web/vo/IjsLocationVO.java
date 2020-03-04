@@ -12,11 +12,23 @@ public class IjsLocationVO implements Cloneable{
         private String toLocType;
         private String toLocation;
         private String toTerminal;
-        private Integer priority;
+        private int priority;
         private String currency;
         private String paymentFsc;
+        private String bargeValue;
+        
+        
+        
 
-    public void setFromLocType(String fromLocType) {
+    public String getBargeValue() {
+			return bargeValue;
+		}
+
+		public void setBargeValue(String bargeValue) {
+			this.bargeValue = bargeValue;
+		}
+
+	public void setFromLocType(String fromLocType) {
         this.fromLocType = fromLocType;
     }
 

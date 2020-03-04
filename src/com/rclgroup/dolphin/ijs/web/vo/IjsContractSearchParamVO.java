@@ -26,11 +26,42 @@ public class IjsContractSearchParamVO {
     private String status;      //purchase term
     private String priority;    //Roomy
     private String purchaseTerm;	//purchase Term
-   private String filterBy;		//for filter of empty rate and laden rate
+    private String filterBy;		//for filter of empty rate and laden rate
+    private String domInn;
+    private String sortIn;
+    private String orderBy;
+   // private String bargeValue;
+    
 
     
 	
-    public String getFilterBy() { return filterBy; }
+  
+
+	public String getDomInn() {
+		return domInn;
+	}
+
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
+
+	public String getSortIn() {
+		return sortIn;
+	}
+
+	public void setSortIn(String sortIn) {
+		this.sortIn = sortIn;
+	}
+
+	public void setDomInn(String domInn) {
+		this.domInn = domInn;
+	}
+
+	public String getFilterBy() { return filterBy; }
 
 	 public void setFilterBy(String filterBy) { this.filterBy = filterBy; }
 	 
@@ -164,4 +195,16 @@ public class IjsContractSearchParamVO {
     public String getPriority() {
         return priority;
     }
+
+	@Override
+	public String toString() {
+		return "IjsContractSearchParamVO [findIn=" + findIn + ", findValue=" + findValue + ", vendorCode=" + vendorCode
+				+ ", location=" + location + ", contractNumber=" + contractNumber + ", fromLocType=" + fromLocType
+				+ ", fromLocation=" + fromLocation + ", fromTerminal=" + fromTerminal + ", toLocType=" + toLocType
+				+ ", toLocation=" + toLocation + ", toTerminal=" + toTerminal + ", countryCode=" + countryCode
+				+ ", status=" + status + ", priority=" + priority + ", purchaseTerm=" + purchaseTerm + ", filterBy="
+				+ filterBy + ", domInn=" + domInn + "]";
+	}
+    
+    
 }

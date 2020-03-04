@@ -1,0 +1,33 @@
+.header-arrow-icon {
+    margin-bottom: 0;
+    background-color: #f0f6f8;
+}
+.header-arrow-icon p{ 
+    padding: 0.75rem 1.25rem;
+    margin: 0;
+    background-color: #f0f6f8;
+}
+.header-arrow-icon p i {
+    font-size: 1.5rem;
+    vertical-align: bottom
+}
+.header-arrow-icon p span {
+    vertical-align: text-bottom;
+    font-weight: 800;
+}
+.ijs_searchdatafilter_wrapper {
+    width: 100%;
+    background-color: #ffffff;
+    display: block;
+}
+.processjo-addhoc {
+    width: 100%;
+    background-color: #fff;
+    display: block;
+    position: fixed;
+    top: 52px;
+    right: 0;
+    height: 100%;
+    z-index: 1;
+    overflow-y: auto;
+}

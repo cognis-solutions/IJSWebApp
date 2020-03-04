@@ -36,18 +36,100 @@ public class IjsLookupParamVO {
     private String joType;
     private String sameVendorInSearch;
     private String componentType;
+   //nikash
+    private String bargeValue;
+    private String fromLoc;
+    private String toLoc;
+    private String trans;
+    private String portDepo;
+    private String termiPoint;
     
     private List<IjsLookupParamFilterVO> findForList;
     private List<IjsLookupFeildVO> findList;
     
     private List<IjsBkGBlLookUpVO> deleteFor;
     private List<String> joLumpsumIds;
+    private List raoutingId;
     
-    public IjsLookupParamVO() {
+    
+    
+    
+    
+    public List getRaoutingId() {
+		return raoutingId;
+	}
+
+
+	public void setRaoutingId(List raoutingId) {
+		this.raoutingId = raoutingId;
+	}
+
+
+	public String getPortDepo() {
+		return portDepo;
+	}
+
+
+	public void setPortDepo(String portDepo) {
+		this.portDepo = portDepo;
+	}
+
+
+	public String getTermiPoint() {
+		return termiPoint;
+	}
+
+
+	public void setTermiPoint(String termiPoint) {
+		this.termiPoint = termiPoint;
+	}
+
+
+	public String getFromLoc() {
+		return fromLoc;
+	}
+
+
+	public void setFromLoc(String fromLoc) {
+		this.fromLoc = fromLoc;
+	}
+
+
+	public String getToLoc() {
+		return toLoc;
+	}
+
+
+	public void setToLoc(String toLoc) {
+		this.toLoc = toLoc;
+	}
+
+
+	public String getTrans() {
+		return trans;
+	}
+
+
+	public void setTrans(String trans) {
+		this.trans = trans;
+	}
+
+
+	public IjsLookupParamVO() {
     }
 
 
-    public void setFindIn(String findIn) {
+    public String getBargeValue() {
+		return bargeValue;
+	}
+
+
+	public void setBargeValue(String bargeValue) {
+		this.bargeValue = bargeValue;
+	}
+
+
+	public void setFindIn(String findIn) {
         this.findIn = findIn;
     }
 
@@ -258,6 +340,21 @@ public class IjsLookupParamVO {
 
 	public void setJoLumpsumIds(List<String> joLumpsumIds) {
 		this.joLumpsumIds = joLumpsumIds;
+	}
+
+
+	@Override
+	public String toString() {
+		return "IjsLookupParamVO [findIn=" + findIn + ", findFor=" + findFor + ", findForLoc=" + findForLoc
+				+ ", findForTerminal=" + findForTerminal + ", findForLocType=" + findForLocType
+				+ ", findForSaleDateOrJobOrdDate=" + findForSaleDateOrJobOrdDate + ", findForVendorCode="
+				+ findForVendorCode + ", sortBy=" + sortBy + ", orderBy=" + orderBy + ", wildCard=" + wildCard
+				+ ", rowStart=" + rowStart + ", rowEnd=" + rowEnd + ", totalCount=" + totalCount + ", pageNo=" + pageNo
+				+ ", requestChanged=" + requestChanged + ", noOfRecPerPage=" + noOfRecPerPage + ", contractId="
+				+ contractId + ", transMode=" + transMode + ", joType=" + joType + ", sameVendorInSearch="
+				+ sameVendorInSearch + ", componentType=" + componentType + ", bargeValue=" + bargeValue + ", fromLoc="
+				+ fromLoc + ", toLoc=" + toLoc + ", trans=" + trans + ", findForList=" + findForList + ", findList="
+				+ findList + ", deleteFor=" + deleteFor + ", joLumpsumIds=" + joLumpsumIds + "]";
 	}
 	
     

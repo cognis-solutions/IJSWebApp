@@ -1,0 +1,7 @@
+<label *ngIf="label" [attr.for]="identifier" class="medium">{{label}}</label>
+<select [value]="_value" [(ngModel)]="_value" 
+  [class]="klass" #selectizeInput 
+  [id]="compid?compid:identifier"
+></select>
+<app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+</app-rcl-validation-result>

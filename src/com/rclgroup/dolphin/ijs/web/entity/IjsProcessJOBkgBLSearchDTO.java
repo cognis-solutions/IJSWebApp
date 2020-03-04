@@ -34,11 +34,11 @@ public class IjsProcessJOBkgBLSearchDTO extends IjsBaseDTO {
     private String fromLocationTyp;
     private String toLocationTyp;
     private String specialHandlingCode;
-    
     private String priority ;
     private int dgCount;
     private int oogCount;
-
+    //chandu
+    private String numContainer;
 
     //List<IjsRateVO> lstCostRate;
     //List<IjsRateVO> lstBillRate;
@@ -298,5 +298,32 @@ public class IjsProcessJOBkgBLSearchDTO extends IjsBaseDTO {
 	public void setOogCount(int oogCount) {
 		this.oogCount = oogCount;
 	}
+
+	public String getNumContainer() {
+		return numContainer;
+	}
+
+	public void setNumContainer(String numContainer) {
+		this.numContainer = numContainer;
+	}
+
+	@Override
+	public String toString() {
+		return "IjsProcessJOBkgBLSearchDTO [bkgOrBLNumber=" + bkgOrBLNumber + ", bkgOrBLType=" + bkgOrBLType
+				+ ", transportMode=" + transportMode + ", bookingStatus=" + bookingStatus + ", fromTerminal="
+				+ fromTerminal + ", toTerminal=" + toTerminal + ", fromLocation=" + fromLocation + ", toLocation="
+				+ toLocation + ", service=" + service + ", vessel=" + vessel + ", voyage=" + voyage + ", direction="
+				+ direction + ", startDate=" + startDate + ", endDate=" + endDate + ", cntSize=" + cntSize
+				+ ", cntType=" + cntType + ", cntSplHandling=" + cntSplHandling + ", cntSplHandCount=" + cntSplHandCount
+				+ ", ladenCntTotal=" + ladenCntTotal + ", ladenCntAvailable=" + ladenCntAvailable + ", ladenCntInJO="
+				+ ladenCntInJO + ", emptyCntTotal=" + emptyCntTotal + ", emptyCntAvailable=" + emptyCntAvailable
+				+ ", emptyCntInJO=" + emptyCntInJO + ", routingNumber=" + routingNumber + ", vendorCode=" + vendorCode
+				+ ", fromLocationTyp=" + fromLocationTyp + ", toLocationTyp=" + toLocationTyp + ", specialHandlingCode="
+				+ specialHandlingCode + ", priority=" + priority + ", dgCount=" + dgCount + ", oogCount=" + oogCount
+				+ ", numContainer=" + numContainer + "]";
+	}
+
+	
+
     
 }

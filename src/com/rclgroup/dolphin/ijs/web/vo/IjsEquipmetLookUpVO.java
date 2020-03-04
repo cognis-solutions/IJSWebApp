@@ -8,7 +8,7 @@ public class IjsEquipmetLookUpVO {
     private String point;
     private String activity;
     private String activityDate;
-    //for activity time
+    //for activity time-nikash
     private String activityTime;
     
     private String terminal;

@@ -51,7 +51,8 @@ public interface IjsProcessJOBkgBLSearchDao {
                                                     String astrSessionId,
                                                     String reasonCode,
                                                     String transMode,
-                                                    String processJoType) throws IJSException;                                                     
+                                                    String processJoType
+                                                  ) throws IJSException;                                                     
                                                     
     public void resetJO(String userInfo,String astrSessionId) throws IJSException;
 

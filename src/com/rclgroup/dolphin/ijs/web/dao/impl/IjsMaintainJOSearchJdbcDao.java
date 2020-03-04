@@ -9,8 +9,11 @@ import com.rclgroup.dolphin.ijs.web.entity.IjsMaintainJOSearchContDetailDTO;
 import com.rclgroup.dolphin.ijs.web.entity.IjsMaintainJOSearchDTO;
 import com.rclgroup.dolphin.ijs.web.entity.IjsMaintainJoDownloadDTO;
 import com.rclgroup.dolphin.ijs.web.exception.IJSException;
+import com.rclgroup.dolphin.ijs.web.vo.IjsEQDetailVO;
+import com.rclgroup.dolphin.ijs.web.vo.IjsJORoutingLookUpVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchParamVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchVO;
+import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainSaveVO;
 import com.rclgroup.dolphin.ijs.web.util.RutDatabase;
 
 import java.math.BigDecimal;
@@ -22,6 +25,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import oracle.jdbc.OracleTypes;
 
@@ -46,6 +51,9 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
     private GetIjsSearchCountStoredProcedure getIjsSearchCountStoredProcedure;
     private IjsDeleteLumpsumStoredProcedure ijsDeleteLumpsumStoredProcedure;
     private GetIjsMaintainDownloadStoredProcedure ijsMaintainDownloadCountStoredProcedure;//##05
+    
+    private IjsMaintainJOSearchJdbcDao.IjsSaveAddedRowEqJOStoredProcedure ijsSaveAddedRowEqJOStoredProcedure;
+    
     private static final String ERROR_CD="ERROR_CD" ;
     private static final String DOWNLOAD_LIMIT="DOWNLOAD_LIMIT" ;
     private static final String DOWNLOAD_CONTAINER="DOWNLOAD_CONTAINER" ;
@@ -79,6 +87,11 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
         ijsReplaceEqJOStoredProcedure = 
                  new IjsMaintainJOSearchJdbcDao.IjsReplaceEqJOStoredProcedure(getJdbcTemplate(),
                                            new IjsMaintainJOSearchJdbcDao.IjsMaintainJOSearchRowMapper()); //##03 
+        
+        ijsSaveAddedRowEqJOStoredProcedure = 
+                 new IjsMaintainJOSearchJdbcDao.IjsSaveAddedRowEqJOStoredProcedure(getJdbcTemplate(),
+                                          new IjsMaintainJOSearchJdbcDao.IjsMaintainJOSearchRowMapper()); //##03 
+        
                                            
         ijsChangeVendorStoredProcedure = 
                  new IjsMaintainJOSearchJdbcDao.IjsChangeVendorStoredProcedure(getJdbcTemplate(),
@@ -314,6 +327,25 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
         }
         return errorCode;
     }
+    public String saveNewAddedRow(List<IjsMaintainJOSearchVO> searchVo,String userId,String action,String session,IjsMaintainSaveVO ijsMaintainSaveVO) throws IJSException {
+        String errorCode =
+        		ijsSaveAddedRowEqJOStoredProcedure.saveAddedNewEQ(searchVo,userId,action,session, ijsMaintainSaveVO);
+        
+        
+        System.out.println(errorCode);
+        //String errorCode = (String)outMap.get("p_o_v_err_cd");
+         if (errorCode != null && errorCode.contains("DB_IJS_CNTR_EX_10006")) {
+            
+            throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10006.getErrorCode());
+        } else if (errorCode != null && 
+                   errorCode.contains("DB_IJS_CNTR_EX_10007")) {
+            throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10007.getErrorCode());
+        } else if (errorCode != null && 
+                   errorCode.contains("DB_IJS_CNTR_EX_10008")) {
+            throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10008.getErrorCode());
+        }
+         return errorCode;
+    }
 
     public int getTotalResultCountForJO(String userInfo, 
                                         IjsMaintainJOSearchParamVO mainatainJoParam) {
@@ -406,6 +438,10 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
                     rowMapper));
             declareParameter(new SqlInOutParameter("p_i_v_order_type", OracleTypes.VARCHAR, 
                     rowMapper));
+			
+		    declareParameter(new SqlInOutParameter("p_i_v_job_order_checked", Types.VARCHAR, 
+		    		rowMapper));
+			 
             compile();
 
         }
@@ -416,6 +452,8 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
             Map inParameters = new HashMap();
             System.out.println("inside getIjsContractSearchList:");
             String lSocCoc=searchParam.getSocOrCoc();
+            System.out.println("+++++++++++++getIjsJoMaintenaceSearchList"+searchParam);
+            System.out.println("JobOrderCheckBox========"+ searchParam.isCheckBoxJoCreation());
              inParameters.put("p_i_v_job_ord_typ", RutDatabase.stringToDb(searchParam.getJobOrdTyp() != null ? searchParam.getJobOrdTyp().toUpperCase() : ""));
              inParameters.put("p_i_v_job_ord_sts", RutDatabase.stringToDb(searchParam.getJobOrdSts() != null ? searchParam.getJobOrdSts().toUpperCase() : ""));
              inParameters.put("p_i_v_job_ord_no", RutDatabase.stringToDb(searchParam.getJobOrdNo() != null ? searchParam.getJobOrdNo().toUpperCase() : ""));
@@ -448,7 +486,9 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
              inParameters.put("p_i_v_row_end", searchParam.getRowEnd());
              inParameters.put("p_i_v_order_by", searchParam.getOrderBy());
              inParameters.put("p_i_v_order_type", searchParam.getOrderType());
+             inParameters.put("p_i_v_job_order_checked", searchParam.isCheckBoxJoCreation() ==true ? String.valueOf(searchParam.isCheckBoxJoCreation()):false);
              outMap = execute(inParameters);
+         
              return (List<IjsMaintainJOSearchDTO>)outMap.get("p_o_v_ijs_mapping_list");
         }
     }
@@ -490,6 +530,7 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
             declareParameter(new SqlInOutParameter("p_i_v_soc_coc", Types.VARCHAR));
             declareParameter(new SqlInOutParameter("p_i_v_component_type", Types.VARCHAR));
             declareParameter(new SqlInOutParameter("p_i_v_user_id", Types.VARCHAR));
+            declareParameter(new SqlInOutParameter("p_i_v_job_order_checked", Types.VARCHAR));
             declareParameter(new SqlOutParameter("p_io_v_err_cd", Types.VARCHAR));
             declareParameter(new SqlOutParameter("p_o_v_user_type", Types.VARCHAR));//used for user authorisation
             declareParameter(new SqlOutParameter("p_o_v_ijs_search_count", Types.NUMERIC));
@@ -501,6 +542,8 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
             Map outMap = new HashMap();
             Map inParameters = new HashMap();
             String lSocCoc=searchParam.getSocOrCoc();
+            System.out.println("+++++++++++++getIjsJoMaintenanceSearchCount"+searchParam);
+            System.out.println("JobOrderCheckBoxCount========"+ searchParam.isCheckBoxJoCreation());
              inParameters.put("p_i_v_job_ord_typ", RutDatabase.stringToDb(searchParam.getJobOrdTyp() != null ? searchParam.getJobOrdTyp().toUpperCase() : ""));
              inParameters.put("p_i_v_job_ord_sts", RutDatabase.stringToDb(searchParam.getJobOrdSts() != null ? searchParam.getJobOrdSts().toUpperCase() : ""));
              inParameters.put("p_i_v_job_ord_no", RutDatabase.stringToDb(searchParam.getJobOrdNo() != null ? searchParam.getJobOrdNo().toUpperCase() : ""));
@@ -530,10 +573,12 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
              inParameters.put("p_i_v_component_type", RutDatabase.stringToDb(searchParam.getComponentType()!= null ?searchParam.getComponentType().toUpperCase():""));
 
              inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userId).toUpperCase());
-
+             
+             inParameters.put("p_i_v_job_order_checked", (searchParam.isCheckBoxJoCreation() ==true ? String.valueOf(searchParam.isCheckBoxJoCreation()):false));
              outMap = execute(inParameters);
              
-             
+             //System.out.println(   "activeTime1  "+          outMap);
+            // System.out.println("activeTime1  "+inParameters);
             BigDecimal count = (BigDecimal)outMap.get("p_o_v_ijs_search_count");
             System.out.print("COUNT of Records------------------->"+count);
             
@@ -615,6 +660,10 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
                         rowMapper));
             declareParameter(new SqlOutParameter("p_o_v_ijs_mapping_list", OracleTypes.CURSOR, 
                         rowMapper));
+            declareParameter(new SqlInOutParameter("p_i_v_order_type", Types.VARCHAR, 
+                    rowMapper));            
+            declareParameter(new SqlInOutParameter("p_i_v_job_order_checked", Types.VARCHAR,
+                       rowMapper));
             compile();
 
         }
@@ -652,6 +701,8 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
 		declareParameter(new SqlOutParameter("p_o_v_download_limit", Types.INTEGER));
 		declareParameter(new SqlOutParameter("p_o_v_download_count", Types.INTEGER));
 		declareParameter(new SqlOutParameter("p_o_v_error_cd", Types.VARCHAR));
+		declareParameter(new SqlInOutParameter("p_i_v_order_type", Types.VARCHAR));            
+		declareParameter(new SqlInOutParameter("p_i_v_job_order_checked", Types.VARCHAR));
 		compile();
 		
 		} 
@@ -688,6 +739,8 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
 		inParameters.put("p_i_v_soc_coc", RutDatabase.stringToDb(searchParam.getSocOrCoc()));
 		inParameters.put("p_i_v_component_type", RutDatabase.stringToDb(searchParam.getComponentType()).toUpperCase());
 		inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userId).toUpperCase());
+		inParameters.put("p_i_v_order_type", RutDatabase.stringToDb(null));
+        inParameters.put("p_i_v_job_order_checked", RutDatabase.stringToDb(null));
 		
 		outMap = execute(inParameters);
 		resultMap.put(ERROR_CD, (String)outMap.get("p_o_v_error_cd"));
@@ -729,7 +782,11 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
              inParameters.put("p_i_v_soc_coc", RutDatabase.stringToDb(searchParam.getSocOrCoc()));
              inParameters.put("p_i_v_component_type", RutDatabase.stringToDb(searchParam.getComponentType()).toUpperCase());
              inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userId).toUpperCase());
-
+            
+             inParameters.put("p_i_v_order_type", RutDatabase.stringToDb(null));
+             inParameters.put("p_i_v_job_order_checked", RutDatabase.stringToDb(null));
+             
+             
              outMap = execute(inParameters);
              return (List<IjsMaintainJoDownloadDTO>)outMap.get("p_o_v_ijs_mapping_list");
         }
@@ -908,6 +965,23 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
                 ijsMaintainJOSearchDTO.setBk_bl_ad(resultSet.getString("bk_bl_ad"));
                 ijsMaintainJOSearchDTO.setSOCorCOC(resultSet.getString("soc_coc"));
                 ijsMaintainJOSearchDTO.setPriority(resultSet.getString("priority"));
+               //nikash
+               // ijsMaintainJOSearchDTO.setBarge(resultSet.getString("DOM_INTER"));
+               // ijsMaintainJOSearchDTO.setDummyContainerCount(resultSet.getString("NUM_CONTAINER"));
+                
+                if(resultSet.getString("DOM_INTER")!=null && resultSet.getString("DOM_INTER").equalsIgnoreCase("I"))
+                {
+                	ijsMaintainJOSearchDTO.setBarge("International");
+                	System.out.println(resultSet.getString("DOM_INTER")+"   Dom/In From I");
+                }
+                else if(resultSet.getString("DOM_INTER")!=null && resultSet.getString("DOM_INTER").equalsIgnoreCase("D")){
+                	ijsMaintainJOSearchDTO.setBarge("Domestic");
+                	System.out.println(resultSet.getString("DOM_INTER")+"   Dom/In From D");
+                }
+                else
+                {
+                	ijsMaintainJOSearchDTO.setBarge("");
+                }
                 
                 String usertyp;
                 if(resultSet.getString("user_type").equalsIgnoreCase("HQ")) {
@@ -1255,8 +1329,8 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
                 inParameters.put("p_i_v_job_ord_no", RutDatabase.stringToDb(searchVo.get(i).getJoNumber()));
                 inParameters.put("p_i_v_cont_no_old", RutDatabase.stringToDb(searchVo.get(i).getOldContNoReplace()));
                 inParameters.put("p_i_v_cont_no_new", RutDatabase.stringToDb(searchVo.get(i).getNewContNoReplace()));
-                 inParameters.put("p_i_v_cont_size", RutDatabase.stringToDb(searchVo.get(i).getContSize() != null ? searchVo.get(i).getContSize().toString() : ""));//TODO
-                  inParameters.put("p_i_v_cont_type", RutDatabase.stringToDb(searchVo.get(i).getContType()));
+                inParameters.put("p_i_v_cont_size", RutDatabase.stringToDb(searchVo.get(i).getContSize() != null ? searchVo.get(i).getContSize().toString() : ""));//TODO
+                inParameters.put("p_i_v_cont_type", RutDatabase.stringToDb(searchVo.get(i).getContType()));
                 inParameters.put("p_i_v_adhoc_empty_laden", RutDatabase.stringToDb(searchVo.get(i).getContEmptyOrLaden()));
                 
                 //on the basis of action param perform action
@@ -1271,7 +1345,275 @@ public class IjsMaintainJOSearchJdbcDao extends IjsBaseDao implements IjsMaintai
         }
     }
     
-    
+    //sid
+    protected class IjsSaveAddedRowEqJOStoredProcedure extends StoredProcedure {
+    	
+    	
+    	
+    	
+    	
+    	
+    	 private static final String PRR_IJS_CNTR_SAVE = 
+    	            "PCR_IJS_MAINTAIN_JO_ALL.PRR_IJS_SAVE_NEW_ADDED_ROW_CNTR";
+
+    	        IjsSaveAddedRowEqJOStoredProcedure(JdbcTemplate jdbcTemplate, 
+    	                                    RowMapper rowMapper) {
+    	            super(jdbcTemplate, PRR_IJS_CNTR_SAVE);
+    	            
+    	            
+    	            declareParameter(new SqlInOutParameter("p_i_v_routingId", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_contract_no", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_fromLocation", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_toLocation", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_fromLocType", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_toLocType", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_fromTerminal", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_toTerminal", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_currency", Types.VARCHAR, rowMapper));
+                    declareParameter(new SqlInOutParameter("p_i_v_legType", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_priority", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_processJOType", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_eqList", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_eq_detail", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlInOutParameter("p_i_v_transMode", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlOutParameter("p_o_v_failed_bkg_bl", Types.VARCHAR, rowMapper));
+    				declareParameter(new SqlOutParameter("p_o_v_ijs_mapping_list", OracleTypes.CURSOR, rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_job_ord_no", Types.VARCHAR, 
+    	                        rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_cont_no", Types.VARCHAR, 
+    	                        rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_cont_size", Types.VARCHAR, 
+    	                        rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_cont_type", Types.VARCHAR, 
+    	                        rowMapper));
+    	            
+    	            declareParameter(new SqlInOutParameter("p_i_v_vander_code", Types.VARCHAR, rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_soc_coc", Types.VARCHAR, 
+    	                    rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_booking_bl_no", Types.VARCHAR, 
+    	                    rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_is_adhoc", Types.VARCHAR, 
+    	                    rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_action", Types.VARCHAR, 
+    	                        rowMapper));
+    	            declareParameter(new SqlInOutParameter("p_i_v_user_id", Types.VARCHAR, 
+    	                        rowMapper));
+    	            declareParameter(new SqlOutParameter("p_o_v_err_cd", Types.VARCHAR));
+    	            
+    	            declareParameter(new SqlOutParameter("p_o_v_user_type", Types.VARCHAR));
+    	            declareParameter(new SqlInOutParameter("p_i_v_session_id", Types.VARCHAR, 
+	                        rowMapper));
+    	            
+    	            compile();
+
+    	        }
+
+    	        private String saveAddedNewEQ(List<IjsMaintainJOSearchVO> searchVo,String userInfo,String action,String session,IjsMaintainSaveVO ijsMaintainSaveVO) {
+    	            Map outMap = new HashMap();
+    	            Map inParameters = new HashMap();
+    	            String tempAdhoc="";
+    	            String tempsosorcoc="";
+    				String lstrProcessJOType = null;
+    				String lstrTransportMode = null;
+    	            String lstrEqList = null;
+    				StringBuffer lsbEqList = new StringBuffer();
+    	            for (int i = 0; i < searchVo.size(); i++) {
+    					lstrEqList = (String) searchVo.get(i).getEqNumber();
+    					lsbEqList.append(lstrEqList);
+    					lsbEqList.append(",");
+
+    				}
+
+    				StringBuilder strEqDetail = new StringBuilder();
+    				for (int i = 0; i < searchVo.size(); i++) {
+    					strEqDetail = strEqDetail.append((String) searchVo.get(i).getEqNumber()).append(":").append((String) searchVo.get(i).getContType())
+    							.append(":").append(searchVo.get(i).getContSize().toString());
+    					strEqDetail = strEqDetail.append(",");
+    				}
+    				int lastIndex = strEqDetail.lastIndexOf(",");
+    				strEqDetail.substring(0, lastIndex);
+    	           
+    				if ("Truck".equals(ijsMaintainSaveVO.getTransMode())) {
+    					lstrTransportMode = "T";
+    				} else if ("Barge".equals(ijsMaintainSaveVO.getTransMode())) {
+    					lstrTransportMode = "B";
+    				} else if ("Feeder".equals(ijsMaintainSaveVO.getTransMode())) {
+    					lstrTransportMode = "F";
+    				} else {
+    					lstrTransportMode = "R";
+    				}	 
+    				
+    	            
+    	            
+    	            
+    	            for (int i = 0; i < searchVo.size() ; i++) {
+    	                if((searchVo.get(i).getContEmptyOrLaden()).equals("Empty"))
+    	                {
+    	                	tempAdhoc="E";
+    	                	lstrProcessJOType="A";
+    	                }
+    	                else if((searchVo.get(i).getContEmptyOrLaden()).equals("Laden"))
+    	                {
+    	                	tempAdhoc="L";
+    	                	lstrProcessJOType="L";
+    	                }
+    	                if((searchVo.get(i).getSOCorCOC()).equals("") || (searchVo.get(i).getSOCorCOC())==null)
+    	                {
+    	                	tempsosorcoc="";
+    	                }
+    	                
+    	                
+    	                inParameters.put("p_i_v_routingId", RutDatabase.stringToDb(ijsMaintainSaveVO.getRoutingId()));
+        				inParameters.put("p_i_v_contract_no", RutDatabase.stringToDb(ijsMaintainSaveVO.getContractId()));
+        				
+        				inParameters.put("p_i_v_fromLocation", RutDatabase.stringToDb(ijsMaintainSaveVO.getFromLoaction()));
+        				inParameters.put("p_i_v_toLocation", RutDatabase.stringToDb(ijsMaintainSaveVO.getToLocation()));
+        				inParameters.put("p_i_v_fromLocType", RutDatabase.stringToDb(ijsMaintainSaveVO.getFromLocType()));
+        				inParameters.put("p_i_v_toLocType", RutDatabase.stringToDb(ijsMaintainSaveVO.getToLocType()));
+        				inParameters.put("p_i_v_fromTerminal", RutDatabase.stringToDb(ijsMaintainSaveVO.getFromTerminal()));
+        				inParameters.put("p_i_v_toTerminal", RutDatabase.stringToDb(ijsMaintainSaveVO.getToTerminal()));
+        				inParameters.put("p_i_v_currency", RutDatabase.stringToDb(ijsMaintainSaveVO.getCurrency()));
+        				inParameters.put("p_i_v_legType", RutDatabase.stringToDb(ijsMaintainSaveVO.getTransMode()));
+        				inParameters.put("p_i_v_priority",
+        						RutDatabase.stringToDb((ijsMaintainSaveVO.getPriority())));
+        				
+        				inParameters.put("p_i_v_processJOType", RutDatabase.stringToDb(lstrProcessJOType));
+        				inParameters.put("p_i_v_eqList", RutDatabase.stringToDb(lsbEqList.toString()));
+        				inParameters.put("p_i_v_eq_detail", RutDatabase.stringToDb(strEqDetail.toString()));
+        				inParameters.put("p_i_v_transMode", RutDatabase.stringToDb(lstrTransportMode));
+        				inParameters.put("p_i_v_session_id", RutDatabase.stringToDb(session));
+        				
+        			    inParameters.put("p_i_v_job_ord_no", RutDatabase.stringToDb(ijsMaintainSaveVO.getJoNumber()));
+    	                inParameters.put("p_i_v_cont_no", RutDatabase.stringToDb(searchVo.get(i).getEqNumber()));
+    	                inParameters.put("p_i_v_cont_size", RutDatabase.stringToDb(searchVo.get(i).getContSize() != null ? searchVo.get(i).getContSize().toString() : ""));//TODO
+    	                inParameters.put("p_i_v_cont_type", RutDatabase.stringToDb(searchVo.get(i).getContType()));
+    	              
+    	                inParameters.put("p_i_v_vander_code", RutDatabase.stringToDb(searchVo.get(i).getVendorID()));
+    	                inParameters.put("p_i_v_soc_coc", RutDatabase.stringToDb(ijsMaintainSaveVO.getSOCorCOC()));//TODO
+    	                inParameters.put("p_i_v_booking_bl_no", RutDatabase.stringToDb(searchVo.get(i).getBkgOrBLNo()));
+    	                inParameters.put("p_i_v_is_adhoc", RutDatabase.stringToDb(tempAdhoc));//TODOcontEmptyOrLaden
+    	                
+    	                //on the basis of action param perform action
+    	                inParameters.put("p_i_v_action", RutDatabase.stringToDb(action).toUpperCase());
+    	                
+    	                inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userInfo).toUpperCase());
+    	                
+    	                outMap = execute(inParameters);
+    	                System.out.println("1387 done");
+    	            }
+    	            
+    	            return (String)outMap.get("p_o_v_err_cd") == null ? "MSG" : (String)outMap.get("p_o_v_err_cd");
+    	        }
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+        /**Stored Procedure name
+         */
+    	/*private static final String SQL_PROCESS_JO_BKGBL_INSERT = "PCR_IJS_PRCC_JO_BKG_BL_SRCH.PRR_IJS_INSERT_ADHOC_DETAIL";
+
+    	IjsSaveAddedRowEqJOStoredProcedure(JdbcTemplate jdbcTemplate, RowMapper rowMapper) {
+			super(jdbcTemplate, SQL_PROCESS_JO_BKGBL_INSERT);
+
+			declareParameter(new SqlInOutParameter("p_i_v_routingId", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_contractId", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_days", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_hours", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_fromLocation", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_toLocation", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_fromLocType", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_toLocType", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_fromTerminal", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_toTerminal", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_currency", Types.VARCHAR, rowMapper));
+
+			declareParameter(new SqlInOutParameter("p_i_v_legType", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_priority", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_vendorCode", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_processJOType", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_eqList", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_eq_detail", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_transMode", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_session_id", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlInOutParameter("p_i_v_user_id", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlOutParameter("p_o_v_err_cd", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlOutParameter("p_o_v_failed_bkg_bl", Types.VARCHAR, rowMapper));
+			declareParameter(new SqlOutParameter("p_o_v_ijs_mapping_list", OracleTypes.CURSOR, rowMapper));
+			compile();
+		}
+
+        private String saveAddedNewEQ(List<IjsMaintainJOSearchVO> searchVo,String userInfo,String action,String session) {
+            Map outMap = new HashMap();
+            Map inParameters = new HashMap();
+            //HttpSession session = request.getSession(); 
+            String lstrEqList = null;
+			StringBuffer lsbEqList = new StringBuffer();
+            for (int i = 0; i < searchVo.size(); i++) {
+				lstrEqList = (String) searchVo.get(i).getEqNumber();
+				lsbEqList.append(lstrEqList);
+				lsbEqList.append(",");
+
+			}
+
+			StringBuilder strEqDetail = new StringBuilder();
+			for (int i = 0; i < searchVo.size(); i++) {
+				strEqDetail = strEqDetail.append((String) searchVo.get(i).getEqNumber()).append(":").append((String) searchVo.get(i).getContType())
+						.append(":").append(searchVo.get(i).getContSize().toString());
+				strEqDetail = strEqDetail.append(",");
+			}
+			int lastIndex = strEqDetail.lastIndexOf(",");
+			strEqDetail.substring(0, lastIndex);
+            for(int i = 0; i < searchVo.size(); i++) {
+            
+            	searchVo.get(i).setRoutingId("14704");
+            	searchVo.get(i).setTransMode("T");
+            	searchVo.get(i).setToLocation("THBKK");
+            	searchVo.get(i).setFromLoaction("THLCH");
+            	
+            	searchVo.get(i).setToLocType("Depot");
+            	searchVo.get(i).setFromLocType("Depot");
+            	
+            	searchVo.get(i).setFromTerminal("TH99D");
+            	searchVo.get(i).setToTerminal("THRCL");
+            	 
+			inParameters.put("p_i_v_routingId", RutDatabase.stringToDb(searchVo.get(i).getRoutingId()));
+			inParameters.put("p_i_v_contractId", RutDatabase.stringToDb(searchVo.get(i).getContractId()));
+			inParameters.put("p_i_v_days", RutDatabase.stringToDb("1"));
+			inParameters.put("p_i_v_hours", RutDatabase.stringToDb("0"));
+			inParameters.put("p_i_v_fromLocation", RutDatabase.stringToDb(searchVo.get(i).getFromLoaction()));
+			inParameters.put("p_i_v_toLocation", RutDatabase.stringToDb(searchVo.get(i).getToLocation()));
+			inParameters.put("p_i_v_fromLocType", RutDatabase.stringToDb(searchVo.get(i).getFromLocType()));
+			inParameters.put("p_i_v_toLocType", RutDatabase.stringToDb(searchVo.get(i).getToLocType()));
+			inParameters.put("p_i_v_fromTerminal", RutDatabase.stringToDb(searchVo.get(i).getFromTerminal()));
+			inParameters.put("p_i_v_toTerminal", RutDatabase.stringToDb(searchVo.get(i).getToTerminal()));
+			inParameters.put("p_i_v_currency", RutDatabase.stringToDb(searchVo.get(i).getCurrency()));
+			inParameters.put("p_i_v_legType", RutDatabase.stringToDb("Truck"));
+			inParameters.put("p_i_v_priority",
+					RutDatabase.stringToDb((searchVo.get(i).getPriority())));
+			inParameters.put("p_i_v_vendorCode", RutDatabase.stringToDb(searchVo.get(i).getVendorID()));
+			inParameters.put("p_i_v_processJOType", RutDatabase.stringToDb("A"));
+			inParameters.put("p_i_v_eqList", RutDatabase.stringToDb(lsbEqList.toString()));
+			inParameters.put("p_i_v_eq_detail", RutDatabase.stringToDb(strEqDetail.toString()));
+			inParameters.put("p_i_v_transMode", RutDatabase.stringToDb(searchVo.get(i).getTransMode()));
+			inParameters.put("p_i_v_session_id", RutDatabase.stringToDb(session));
+			inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userInfo).toUpperCase());
+			
+			
+            
+                outMap = execute(inParameters);
+                System.out.println("1387 done");
+            } 
+            
+            return (String)outMap.get("p_o_v_err_cd") == null ? "MSG" : (String)outMap.get("p_o_v_err_cd");
+        }*/
+    }
+
     //##03 END
     
     protected class IjsChangeVendorStoredProcedure extends StoredProcedure {

@@ -1,0 +1,127 @@
+<div id="modal-center-compare" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <p><span class="lookup-heading">Compare {{rowObj.contractId}}</span></p>
+    <div [hidden]="showCompareFlag" class="compareContainer">
+      <div class="contractSlideTitles text-right">
+        <div class="title" >
+          <p>Priority</p>
+        </div>
+        <div class="title" style="padding:5px 0 0 0;">
+          <p>Contract</p>
+          <!--<p>Routing</p>-->
+        </div>
+        <div class="title">
+          <p>Effective Date</p>
+          <p>Expiry Date</p>
+          <p>Transport Mode</p>
+        </div>
+        <div class="title">
+          <p>Status</p>
+          <p>Payment FSC</p>
+          <p>Currency</p>
+        </div>
+        <div class="title">
+          <p>Days</p>
+          <p>Hour</p>
+          <p>Distance</p>
+          <p>UOM</p>
+          <p>Remarks</p>
+          <!--//#NIIT CR4 >>>>BEGIN-->
+          <p style="color: black;font-weight: 900;">Cost Rate</p>         
+          <p>Rate20</p>
+          <p>Rate40</p>
+          <p>Rate45</p>
+          <p style="color: black;font-weight: 900;">Billing Rate</p>         
+          <p>Rate20</p>
+          <p>Rate40</p>
+          <p>Rate45</p>
+          <!--//#NIIT CR4 >>>>END-->
+        </div>
+      </div>
+      <div class="sortableContainer" uk-sortable>
+        <div *ngFor="let tiledata of vendorCompareData" class="contractSlide uk-card uk-card-default uk-card-body">
+          <div class="info1">
+            <h6 class="text-center">{{tiledata.vendorCode}}&nbsp;</h6>
+            <p class="text-center text-overflow-dot" title="{{tiledata.vendorName}}">{{tiledata.vendorName}}&nbsp;</p>
+            <div class="row">
+              <div class='col-md-24'>
+                <div class='row'>
+                  <div class='col-md-65'>
+                    <p><b>{{tiledata.fromLocation}}&nbsp;</b> </p>
+                  </div>
+                  <div class='col-md-65 small'>
+                    <p>{{tiledata.fromLocType}}&nbsp;</p>
+                  </div>
+                  <div class='col-md-65 small'>
+                    <p>{{tiledata.fromTerminal}}&nbsp;</p>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-24'>
+                <div class='row transmode'>
+                  <div class='col-md-65'>
+                    <span class="transmode-{{tiledata.transMode}}"></span>
+                    <span class="arrow">&#x27F6;</span>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-24'>
+                <div class='row'>
+                  <div class='col-md-65'>
+                    <p><b>{{tiledata.toLocation}}&nbsp;</b></p>
+                  </div>
+                  <div class='small col-md-65'>
+                    <p>{{tiledata.toLocType}}&nbsp;</p>
+                  </div>
+                  <div class='small text-muted col-md-65'>
+                    <p>{{tiledata.toTerminal}}&nbsp;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="priority text-center">
+           <p>{{tiledata.priority}}&nbsp;</p>
+          </div>
+          <div class="info2 text-center">
+            <div class="title">
+              <p>{{tiledata.contractId}}&nbsp;</p>
+              <!--<p>{{tiledata.routingId}}&nbsp;</p>-->
+            </div>
+            <div class="title">
+              <p>{{tiledata.startDate}}&nbsp;</p>
+              <p>{{tiledata.endDate}}&nbsp;</p>
+              <p>{{tiledata.transMode}}&nbsp;</p>
+            </div>
+            <div class="title">
+              <p>{{tiledata.status}}&nbsp;</p>
+              <p>{{tiledata.paymentFsc}}&nbsp;</p>
+              <p>{{tiledata.currency}}&nbsp;</p>
+            </div>
+            <div class="title">
+              <p>{{tiledata.days}}&nbsp;</p>
+              <p>{{tiledata.hours}}&nbsp;</p>
+              <p>{{tiledata.distance}}&nbsp;</p>
+              <p>{{tiledata.uom}}&nbsp;</p>
+              <p>{{tiledata.remarks}}&nbsp;</p> 
+              <!--//#NIIT CR4 >>>>BEGIN-->
+              <p style="visibility: hidden;">cost</p>
+              <p>{{tiledata.rate20}}&nbsp;<span *ngIf="tiledata.rate20">({{tiledata.costCurrency}})</span></p>
+              <p>{{tiledata.rate40}}&nbsp;<span *ngIf="tiledata.rate40">({{tiledata.costCurrency}})</span></p>
+              <p>{{tiledata.rate45}}&nbsp;<span *ngIf="tiledata.rate45">({{tiledata.costCurrency}})</span></p>
+              <p style="visibility: hidden;">bill</p>
+              <p>{{tiledata.billingRate20}}&nbsp;<span *ngIf="tiledata.billingRate20">({{tiledata.billingCurrency}})</span></p>
+              <p>{{tiledata.billingRate40}}&nbsp;<span *ngIf="tiledata.billingRate40">({{tiledata.billingCurrency}})</span></p>
+              <p>{{tiledata.billingRate45}}&nbsp;<span *ngIf="tiledata.billingRate45">({{tiledata.billingCurrency}})</span></p>
+              <!--//#NIIT CR4 >>>>END-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [hidden]="!showCompareFlag">
+      <p class="validation-error text-center">{{errorText}}</p>
+    </div>
+  </div>
+</div>

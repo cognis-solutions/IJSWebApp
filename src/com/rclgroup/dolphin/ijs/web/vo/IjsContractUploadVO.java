@@ -25,11 +25,20 @@ public class IjsContractUploadVO {
     private List<String> newContracts;
     private List<String> partialSuccessful;
     private Map<String,String> errorMap;
+    private List contractsID;
     
     
     
     
-    public IjsContractUploadVO() {
+    public List getContractsID() {
+		return contractsID;
+	}
+
+	public void setContractsID(List contractsID) {
+		this.contractsID = contractsID;
+	}
+
+	public IjsContractUploadVO() {
     }
 
     public void setResultMessage(String resultMessage) {

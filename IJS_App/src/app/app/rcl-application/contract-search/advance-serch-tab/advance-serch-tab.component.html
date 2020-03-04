@@ -1,0 +1,66 @@
+<div class="filter-button-wrapper">
+  <div class="filter-button">
+    <button type="button" id="filterButton" class="btn btn-secondary" placement="bottom" (click)=showhideFilter($event)><i class="fa fa-filter">&nbsp;&nbsp;</i><span>Filter</span></button>
+  </div>
+  <div class="reset-button">
+    <button type="button" class="btn btn-secondary" (click)="resetAdvanceSearch()"><i class="fa fa-refresh">&nbsp;&nbsp;</i><span>Reset</span></button>
+  </div>
+</div>
+<div class="radio-select row">
+  <div class="col-sm-12">
+    <button type="button" triggers="manual" class="btn btn-sm vehicle-tooltip-button" placement="right" #vehicleTip="ngbTooltip"
+      [ngbTooltip]="vehicleTipContent" (click)="showHideToolTip()">{{advanceSearchData.contractParam.transMode}}</button>
+      
+    <ng-template #vehicleTipContent>
+      <div class="row vehicle-tooltip-Content" (click)="vehicleTip.close()">
+        <div class="col-sm-72">
+          <app-rcl-radio-fa-icon #rclAdvanceContractRadio="ngModel" [data]='[{id:"Truck",text:"truck"},{id:"Barge",text:"barge"},{id:"Feeder",text:"vessel"} ,{id:"Rail",text:"rail"}]'
+            label="" labelclass="medium trans-type-label" name="rclAdvanceContractVehicle" [(ngModel)]="advanceSearchData.contractParam.transMode">
+          </app-rcl-radio-fa-icon>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-sm-18">
+    <app-rcl-input-look-up label="Vendor" placeholder="Vendor ID" lookupName="Vendor Lookup" helptext="What is code for Vendor?"
+      klass="form-control" compid="inputlookup1" #inputlookup_1 [data]='vendorLookUpData' [(lookUpvalue)] = "advanceSearchData.contractParam.searchScreenParam.vendorCode">
+    </app-rcl-input-look-up>
+  </div>
+  <div class="col-sm-18">
+    <app-rcl-input-look-up label="Country" lookupName="Country Lookup" placeholder="Country" helptext="What is code for location?" klass="form-control" compid="inputlookup2" #inputlookup_2 [data]='countryLookUpData' [(lookUpvalue)] = "advanceSearchData.contractParam.searchScreenParam.countryCode"></app-rcl-input-look-up>
+  </div>
+  <div class="col-sm-18">
+    <app-rcl-input label="Contract, Routing" klass="form-control" compid="contractRouting" name="contractRouting" placeholder="Contract, Routing"
+      #contractRouting="ngModel" [(ngModel)]="advanceSearchData.contractParam.searchScreenParam.contractRouting">
+    </app-rcl-input>
+  </div>
+</div>
+<div class="row radio-select">
+  <div class="col-sm-20">
+    <app-rcl-daterangepicker [readOnly]="true" [single]="false" [time]="false" [time24H]="true" label="Period Date" placeholder="Select Session"
+      name="custom4" [(ngModel)]="advanceSearchData.contractParam.dateRange" #rcldaterangepicker="ngModel" klass="form-control">
+    </app-rcl-daterangepicker>
+  </div>
+  <div class="col-sm-30">
+    <app-rcl-input label="Pick up and Drop off Location" klass="form-control" compid="custom1" name="custom1" placeholder="Pick up/Drop off"
+      #rclinput="ngModel" [(ngModel)]="locationPickUpAndDropOff" (click)="openPickupDropoffPopUp()">
+    </app-rcl-input>
+  </div>
+  <div class="col-sm-20">
+    <button type="button" class="btn btn-info" (click)="advanceSearchBackendData($event)"><i class="fa fa-search">&nbsp;</i><span>Find</span></button>
+  </div>
+  <div class="row validation-error control-bottom-error" [hidden]="!advancevalidationTextFlag">
+    <div class="col-sm-72">
+      <p>{{advanceValidationText}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-72" *ngIf="contractshowfilter">
+  <div *ngIf="contractshowfilter" class="contractSearchFilter">
+    <app-rcl-searchfilter #contarctSearchFilter [contractshowfilter]="contractshowfilter" [numberofColumndata]='filterData' (showhideFilter)=showhideFilter($event)
+      (click)=filterDataSelected($event)></app-rcl-searchfilter>
+  </div>
+</div>
+
+

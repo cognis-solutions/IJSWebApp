@@ -94,14 +94,13 @@ public class IjsContractSearchAction extends IjsBaseAction {
         try{
             //System.out.println("[IjsContractSearchAction] unmarshalJsonRequestToJava:");
             String ijsSearchJson=getJSONDataFromRequest(request);
-            System.out.println("input data for search ---->" + ijsSearchJson);
+           // System.out.println("input data for search ---->" + ijsSearchJson);
             setActionForm(new IjsContractSearchUIM());
             IjsContractSearchUIM uim =  new IjsContractSearchUIM();
             //IjsContractSearchUIM actionForm=(IjsContractSearchUIM)getActionForm();
           // String jsonStr = new Gson().toJson(actionForm);
           // System.out.println("jsonStr in unmarshalling:" +jsonStr);
             IjsContractSearchUIM searchUim= new Gson().fromJson(ijsSearchJson,IjsContractSearchUIM.class);
-            //System.out.println(searchUim.toString());
  //IjsContractSearchUIM searchUim= getMockContractSave();
             if(searchUim!=null){
                 setActionForm(searchUim);
@@ -131,8 +130,7 @@ public class IjsContractSearchAction extends IjsBaseAction {
             //## 02 START
             else if(IjsActionMethod.SEARCH.getAction().equals(actionForm.getAction())){
                 if(actionForm.getSearchResult()!=null && actionForm.getSearchResult().getResult()!=null){
-                    jsonStr = new Gson().toJson(actionForm.getSearchResult().getResult()); 
-                    System.out.println(jsonStr);
+                    jsonStr = new Gson().toJson(actionForm.getSearchResult().getResult());  
                 }else if(actionForm.getErrorCode()!=null){
                     jsonStr = new Gson().toJson(actionForm); 
                 }
@@ -218,8 +216,6 @@ public class IjsContractSearchAction extends IjsBaseAction {
              else if (IjsActionMethod.GET_TERM_DATA.getAction().equals(actionForm.getAction())) {
                 if (actionForm != null) {
                     jsonStr = new Gson().toJson(actionForm); 
-                    System.out.println(IjsActionMethod.GET_TERM_DATA.getAction());
-                    System.out.println(jsonStr);
                     response.getWriter().write(jsonStr);
                 }
              } 
@@ -422,7 +418,7 @@ public class IjsContractSearchAction extends IjsBaseAction {
             // 02 START
             else if(IjsActionMethod.SEARCH.getAction().equals(actionForm.getAction())){
                 System.out.println("[IjsContractSearchAction] SEARCH:");
-                IjsContractSearchUIM newActionForm= contractSearchSvc.searchContract(actionForm.getContractParam(),userInfo!=null?userInfo.getUserId():"");
+                 IjsContractSearchUIM newActionForm= contractSearchSvc.searchContract(actionForm.getContractParam(),userInfo!=null?userInfo.getUserId():"");
                  newActionForm.setAction("search");
                  setActionForm(newActionForm);
 

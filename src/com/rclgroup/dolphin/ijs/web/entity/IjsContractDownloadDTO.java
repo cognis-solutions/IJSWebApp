@@ -69,9 +69,27 @@ public class IjsContractDownloadDTO {
      private List<IjsContractOogSetupVO> oogSetUpList;//##03
      private String detailSeqNum;
      private String spCustomers;
+     private String pTerm;
+     private String filterBy;
 
 
-    public void setVendorCode(String vendorCode) {
+    public String getpTerm() {
+		return pTerm;
+	}
+
+	public void setpTerm(String pTerm) {
+		this.pTerm = pTerm;
+	}
+
+	public String getFilterBy() {
+		return filterBy;
+	}
+
+	public void setFilterBy(String filterBy) {
+		this.filterBy = filterBy;
+	}
+
+	public void setVendorCode(String vendorCode) {
         this.vendorCode = vendorCode;
     }
 

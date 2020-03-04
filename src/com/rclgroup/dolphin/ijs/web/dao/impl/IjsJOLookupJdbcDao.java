@@ -5,6 +5,7 @@ import com.rclgroup.dolphin.ijs.web.constants.IjsActionMethod;
 import com.rclgroup.dolphin.ijs.web.constants.IjsErrorCode;
 import com.rclgroup.dolphin.ijs.web.dao.IjsBaseDao;
 import com.rclgroup.dolphin.ijs.web.dao.IjsJOLookupDao;
+import com.rclgroup.dolphin.ijs.web.entity.IjsProcessJOSumDtlDTO;
 import com.rclgroup.dolphin.ijs.web.exception.IJSException;
 //import com.rclgroup.dolphin.ijs.web.vo.IjsContractVendorLookUpVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsBkGBlLookUpVO;
@@ -18,6 +19,7 @@ import com.rclgroup.dolphin.ijs.web.vo.IjsLookupFeildVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsLookupParamFilterVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsLookupParamVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchVO;
+import com.rclgroup.dolphin.ijs.web.vo.IjsRautingIdsVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsReasonCodeLookUpVO;
 import com.rclgroup.dolphin.ijs.web.util.RutDatabase;
 import com.rclgroup.dolphin.ijs.web.util.RutFormatting;
@@ -54,8 +56,34 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
     private IjsJOLookupJdbcDao.IjsJOFSCLookUpProcedure ijsJOFSCLookUpProcedure;
     private IjsJOLookupJdbcDao.IjsDeleteBkgBlStoredProcedure ijsDeleteBkgBlStoredProcedure; 
     private IjsDeleteLumpsumStoredProcedure ijsDeleteLumpsumStoredProcedure;
-    
-    
+    public String search_type_temp="";
+    private static final String  GET_INJO_CON =" SELECT\r\n" + 
+    		"    CASE\r\n" + 
+    		"        WHEN cnt.bictrn IS NULL THEN\r\n" + 
+    		"            cnt.bicsze\r\n" + 
+    		"            || cnt.bicntp\r\n" + 
+    		"            || cnt.supplier_sqno\r\n" + 
+    		"            || cnt.biseqn\r\n" + 
+    		"        ELSE\r\n" + 
+    		"            cnt.bictrn\r\n" + 
+    		"    END AS container_no,\r\n" + 
+    		"    cnt.met_weight AS net_weight\r\n" + 
+    		"FROM\r\n" + 
+    		"    booking_supplier_detail   sd,\r\n" + 
+    		"    vasapps.bkp009            cnt\r\n" + 
+    		"WHERE\r\n" + 
+    		"    sd.booking_no = cnt.bibkno\r\n" + 
+    		"    AND sd.supplier_sqno = cnt.supplier_sqno\r\n" + 
+    		"    AND sd.special_handling = cnt.special_handling\r\n" + 
+    		"    AND sd.eq_size = cnt.bicsze\r\n" + 
+    		"    AND sd.eq_type = cnt.bicntp\r\n" + 
+    		"    AND sd.full_qty > 0\r\n" + 
+    		"    AND sd.eq_size = ?\r\n" + 
+    		"    AND sd.eq_type = ?\r\n" + 
+    		"    AND sd.special_handling = ?\r\n" + 
+    		"    AND sd.booking_no = ?";
+    		
+
 
     public void initDao() throws Exception {
         //##01 BEGIN
@@ -114,7 +142,8 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
     public List<?> getLookupList(String lookupName, String userInfo, 
                                  IjsLookupParamVO ijsLookupParamVO) throws IJSException {
         if (IjsActionMethod.SEARCH_EQUIPMENT.getAction().equals(lookupName)) {
-            List<IjsEquipmetLookUpVO> list = ijsEquipmentLookUpProcedure.getEquipmentList(ijsLookupParamVO.getFindForList(), ijsLookupParamVO.getFindIn(),ijsLookupParamVO.getContractId());
+            List<IjsEquipmetLookUpVO> list = ijsEquipmentLookUpProcedure.getEquipmentList(ijsLookupParamVO.getRaoutingId(),ijsLookupParamVO.getFindForList(), ijsLookupParamVO.getFindIn(),ijsLookupParamVO.getContractId());
+            //System.out.println(">>>>>>>>>"+list);
             String errorCode = null;
             if (list == null || list.isEmpty()) {
                 errorCode = IjsErrorCode.DB_IJS_COMM_EX_10001.getErrorCode();
@@ -134,7 +163,9 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
                                                           IjsHelper.getTransCode(ijsLookupParamVO.getTransMode()) ,
                                                            ijsLookupParamVO.getJoType(),
                                                            ijsLookupParamVO.getSameVendorInSearch(),
-                                                           ijsLookupParamVO.getWildCard(), 
+                                                           ijsLookupParamVO.getWildCard(),
+                                                        
+                                                           
                                                            userInfo);
             String errorCode = null;
             if (list == null || list.isEmpty()) {
@@ -257,16 +288,21 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
             declareParameter(new SqlInOutParameter("p_i_v_find_in", Types.VARCHAR, rowMapper));
             declareParameter(new SqlInOutParameter("p_i_v_find_for", Types.VARCHAR, rowMapper));
             declareParameter(new SqlInOutParameter("p_i_v_contract_id", Types.VARCHAR, rowMapper));
+            declareParameter(new SqlInOutParameter("p_i_v_portPoint", Types.VARCHAR, rowMapper));
+            declareParameter(new SqlInOutParameter("p_i_v_termDepo", Types.VARCHAR, rowMapper));
             declareParameter(new SqlOutParameter("p_o_v_ijs_equip_mapping_list", OracleTypes.CURSOR, rowMapper));
             compile();
         }
 
-            private List<IjsEquipmetLookUpVO> getEquipmentList(List<IjsLookupParamFilterVO> findForList, String findIn,String contractId) {
+            private List<IjsEquipmetLookUpVO> getEquipmentList( List raoutingId,List<IjsLookupParamFilterVO> findForList, String findIn,String contractId) {
 
+            	
+            	List<IjsEquipmetLookUpVO> outputList= new ArrayList<IjsEquipmetLookUpVO>();
+            
             String findFor = "";
             Map outMap = new HashMap();
             Map inParameters = new HashMap();
-            inParameters.put("p_i_v_find_in", RutDatabase.stringToDb(findIn).toUpperCase());
+           
             
             for(IjsLookupParamFilterVO ijsLookupParamFilterVO : findForList){
                 findFor = findFor + ijsLookupParamFilterVO.toString();
@@ -277,17 +313,41 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
             System.out.println(findFor);
             System.out.println(RutDatabase.stringToDb(findFor).toUpperCase());
             }
+            if("E".equalsIgnoreCase(findIn)||"L".equalsIgnoreCase(findIn)) {
+            	 
+            	for(int i=0;i<raoutingId.size();i++) {
+            		
+            		inParameters.put("p_i_v_find_in", RutDatabase.stringToDb(findIn).toUpperCase());
+            	 inParameters.put("p_i_v_find_for", RutDatabase.stringToDb(findFor).toUpperCase()); 
+                 inParameters.put("p_i_v_contract_id", RutDatabase.stringToDb( raoutingId.get(i).toString()).toUpperCase());
+            	// inParameters.put("p_i_v_contract_id", RutDatabase.stringToDb("WINSHZ500222804"));
+                 inParameters.put("p_i_v_portPoint", "");
+                 inParameters.put("p_i_v_termDepo", "");
+                 outMap = execute(inParameters);
+            	
+              outputList.addAll((List<IjsEquipmetLookUpVO>)outMap.get("p_o_v_ijs_equip_mapping_list"));
+           
+            	}
+            	return  outputList;
             
-            
+            	
+            }else {
+            inParameters.put("p_i_v_find_in", RutDatabase.stringToDb(findIn).toUpperCase());
+            	
             inParameters.put("p_i_v_find_for", RutDatabase.stringToDb(findFor).toUpperCase());
             inParameters.put("p_i_v_contract_id", RutDatabase.stringToDb(contractId).toUpperCase());
+            inParameters.put("p_i_v_portPoint", "");
+            inParameters.put("p_i_v_termDepo", "");
             
 //            inParameters.put("p_i_v_wild_card", RutDatabase.stringToDb(wildCard).toUpperCase());
 //            inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userInfo).toUpperCase());
             outMap = execute(inParameters);
-
-            return (List<IjsEquipmetLookUpVO>)outMap.get("p_o_v_ijs_equip_mapping_list");
-        }
+          
+      return (List<IjsEquipmetLookUpVO>)outMap.get("p_o_v_ijs_equip_mapping_list");
+        
+            }
+            
+    }
     }
 
     private class IjsEquipmentLookUpRowMapper implements RowMapper {
@@ -317,7 +377,7 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
                 vendorModel.setOwner(resultSet.getString("OWNER"));
                 vendorModel.setBooking(resultSet.getString("BOOKING"));
                 vendorModel.setBl(resultSet.getString("BL"));
-              System.out.println(">>>>>>>>>>"+vendorModel);
+              //System.out.println(">>>>>>>>>>"+vendorModel);
             } catch (SQLException e) {
                 //TO-DO                
                 e.printStackTrace();
@@ -404,6 +464,9 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
                      rowMapper));
              declareParameter(new SqlInOutParameter("p_i_v_same_vendor_in_search", Types.VARCHAR, 
                      rowMapper));
+             //nikash
+           //  declareParameter(new SqlInOutParameter("p_i_v_bargeValue", Types.VARCHAR, rowMapper));
+             //declareParameter(new SqlInOutParameter("p_i_v_same_purchaseTerm", Types.VARCHAR,rowMapper));
              declareParameter(new SqlInOutParameter("p_i_v_user_id", Types.VARCHAR, rowMapper));
              declareParameter(new SqlOutParameter("p_o_v_ijs_vendor_mapping_list", OracleTypes.CURSOR, 
                          rowMapper));
@@ -419,7 +482,8 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
                                                                 String transMode,
                                                                 String joType,
                                                                 String sameVendorInSearch,
-                                                                String wildCard, 
+                                                                String wildCard,
+                                                              
                                                                 String userInfo) {
              Map outMap = new HashMap();
              Map inParameters = new HashMap();
@@ -432,6 +496,8 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
              inParameters.put("p_i_v_trans_mode", RutDatabase.stringToDb(transMode));
              inParameters.put("p_i_v_jo_type", RutDatabase.stringToDb(joType));
              inParameters.put("p_i_v_same_vendor_in_search", RutDatabase.stringToDb(sameVendorInSearch));
+             //nikash
+             //inParameters.put("p_i_v_bargeValue", RutDatabase.stringToDb(bargeValue));
              inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userInfo));
 //             inParameters.put("p_i_v_wild_card", RutDatabase.stringToDb(wildCard).toUpperCase());
 //             inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userInfo).toUpperCase());
@@ -466,6 +532,25 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
                     routingModel.setPriority("".equals(priority)?0:Integer.parseInt(priority));
                     routingModel.setVendorCode(resultSet.getString("vendorCode"));
                     routingModel.setTransMode(IjsHelper.getTransMode(resultSet.getString("transMode")));
+                    //nikash
+                    //routingModel.setBargeValue(resultSet.getString("bargeValue"));
+                    if(resultSet.getString("bargeValue")!=null && resultSet.getString("bargeValue").equalsIgnoreCase("I"))
+                    {
+                    	routingModel.setBargeValue("International");
+                    	System.out.println(resultSet.getString("bargeValue")+"   Dom/In From I");
+                    }
+                    else if(resultSet.getString("bargeValue")!=null && resultSet.getString("bargeValue").equalsIgnoreCase("D")){
+                    	routingModel.setBargeValue("Domestic");
+                    	System.out.println(resultSet.getString("bargeValue")+"   Dom/In From D");
+                    }
+                    else
+                    {
+                    	routingModel.setBargeValue("");
+                    }
+                    
+                    routingModel.setPurchaseTerm(resultSet.getString("purchaseTerm"));
+                    
+                    
                   
                 } catch (SQLException e) {
                     //TO-DO                
@@ -546,7 +631,6 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
      protected class IjsJOContainerLookUpProcedure extends StoredProcedure {
          private static final String SQL_RLTD_IJS_CONTAINER_LOOK_UP = 
              "PCR_IJS_CNTR_COMMON.PRR_IJS_CONTAINER_LOOKUP";
-         
 
          IjsJOContainerLookUpProcedure(JdbcTemplate jdbcTemplate, 
                                           RowMapper rowMapper) {
@@ -575,6 +659,9 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
    private List<IjsContainerLookUpVO> getContainerList(String componentType,List<IjsLookupFeildVO> ijsLookupParamVO) {
              Map outMap = new HashMap();
              Map inParameters = new HashMap();
+             search_type_temp="";
+             search_type_temp=RutDatabase.getValue(ijsLookupParamVO,"searchType");
+             System.out.println("......>."+RutDatabase.getValue(ijsLookupParamVO,"searchType"));
              String joType=RutDatabase.getValue(ijsLookupParamVO,"jobType");
              if("SEALEG".equals(joType)){
             	 joType = "S";
@@ -585,7 +672,6 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
              }else if("IT".equals(joType)){
             	 joType = "T";
              }
-            // getContainerListValidation(ijsLookupParamVO);
              inParameters.put("p_i_v_bookBl_no", RutDatabase.stringToDb( RutDatabase.getValue(ijsLookupParamVO,"bkgBlNumber")) .toUpperCase());
              inParameters.put("p_i_v_bkg_bl_type", RutDatabase.stringToDb(RutDatabase.getValue(ijsLookupParamVO,"bookType")).toUpperCase());
              inParameters.put("p_i_v_job_type", RutDatabase.stringToDb(RutDatabase.getValue(ijsLookupParamVO,"jobType")).toUpperCase());
@@ -604,63 +690,51 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
              inParameters.put("p_i_v_component_type",  RutDatabase.stringToDb(componentType).toUpperCase());
              
              outMap = execute(inParameters);
-             
 
-             return (List<IjsContainerLookUpVO>)outMap.get("p_o_v_ijs_cntr_mapping_list");
+             String p_i_v_search_type_temp=(RutDatabase.getValue(ijsLookupParamVO,"searchType")).toUpperCase();
+             if(p_i_v_search_type_temp.equalsIgnoreCase("AV")) {
+             String p_i_v_cntType_temp =(RutDatabase.getValue(ijsLookupParamVO,"cntType")).toUpperCase(); 
+             String p_i_v_cont_size_temp=(RutDatabase.getValue(ijsLookupParamVO,"cntSize")).toUpperCase();
+             String p_i_v_cont_sp_handle_temp=(RutDatabase.getValue(ijsLookupParamVO,"cntSplHandling")).toUpperCase();
+             String p_i_v_bookBl_no_temp=(RutDatabase.getValue(ijsLookupParamVO,"bkgBlNumber")) .toUpperCase();
+             String p_i_v_cont_frm_mode_temp=(IjsHelper.getLocationCode(RutDatabase.getValue(ijsLookupParamVO,"fromMode"))).toUpperCase();
+             String p_i_v_cont_frm_loc_temp=(RutDatabase.getValue(ijsLookupParamVO,"fromLocation")).toUpperCase();
+             String p_i_v_cont_frm_trm_temp=(RutDatabase.getValue(ijsLookupParamVO,"fromTerminal")).toUpperCase();
+             String p_i_v_cont_to_mode_temp=(IjsHelper.getLocationCode(RutDatabase.getValue(ijsLookupParamVO,"toMode"))).toUpperCase();
+             String p_i_v_cont_to_loc_temp=(RutDatabase.getValue(ijsLookupParamVO,"toLocation")).toUpperCase();
+             String p_i_v_cont_to_trm_temp=(RutDatabase.getValue(ijsLookupParamVO,"toTerminal")).toUpperCase();
+             
+            final Map<String,String> jobOrderNum1 = new HashMap<String, String>();
+             
+               getJdbcTemplate().query( GET_INJO_CON, new Object[] {
+            		 p_i_v_cont_size_temp,p_i_v_cntType_temp, p_i_v_cont_sp_handle_temp, p_i_v_bookBl_no_temp
+            		 },new RowMapper() {
+            	 @Override
+            	public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+            		 jobOrderNum1.put(rs.getString("container_no"),RutFormatting.getStringToDecimalFormat(rs.getString("NET_WEIGHT"), null));
+            		 return rs.getString("container_no");
+            	}
+             });
+             
+             List<IjsContainerLookUpVO> list = (List<IjsContainerLookUpVO>)outMap.get("p_o_v_ijs_cntr_mapping_list");
+             if(list!=null) {
+             for(int i=0;i<list.size();i++) {
+                 
+                 if(jobOrderNum1.get(list.get(i).getContainer())!=null)
+                 {
+                	 list.get(i).setContainerWeight(jobOrderNum1.get(list.get(i).getContainer()));
+                 }
+             }
+            }
+             
+             return list;
+             }else{
+            	 return (List<IjsContainerLookUpVO>)outMap.get("p_o_v_ijs_cntr_mapping_list");
+             }
          }
-		/*
-		 * private static final String SELECT_VALIDATION_QUERY = " SELECT " +
-		 * "   CASE  WHEN count(*)  =0 THEN  'false' else 'true' end as found" +
-		 * "  FROM vasapps.booking_voyage_routing_dtl where " +
-		 * "interchange_carrier = ? AND load_port= ? AND " +
-		 * "discharge_port= ? AND from_terminal= ? " + "AND to_terminal= ? ;";
-		 * 
-		 * private List<IjsContainerLookUpVO>
-		 * getContainerListValidation(List<IjsLookupFeildVO> ijsLookupParamVO) {
-		 * 
-		 * Map outMap = new HashMap(); Map inParameters = new HashMap();
-		 * 
-		 * inParameters.put("searchvendorCode", RutDatabase.stringToDb(
-		 * RutDatabase.getValue(ijsLookupParamVO,"searchvendorCode")) .toUpperCase());
-		 * inParameters.put("searchfromLocation", RutDatabase.stringToDb(
-		 * RutDatabase.getValue(ijsLookupParamVO,"searchfromLocation")) .toUpperCase());
-		 * inParameters.put("searchtoLocation", RutDatabase.stringToDb(
-		 * RutDatabase.getValue(ijsLookupParamVO,"searchtoLocation")) .toUpperCase());
-		 * inParameters.put("searchfromTerminal", RutDatabase.stringToDb(
-		 * RutDatabase.getValue(ijsLookupParamVO,"searchfromTerminal")) .toUpperCase());
-		 * inParameters.put("searchtoTerminal", RutDatabase.stringToDb(
-		 * RutDatabase.getValue(ijsLookupParamVO,"searchtoTerminal")) .toUpperCase());
-		 * String searchvendorCode = (String) inParameters.get("searchvendorCode");
-		 * String searchfromLocation = (String) inParameters.get("searchfromLocation");
-		 * String searchtoLocation = (String) inParameters.get("searchtoLocation");
-		 * String searchfromTerminal = (String) inParameters.get("searchfromTerminal");
-		 * String searchtoTerminal = (String) inParameters.get("searchtoTerminal");
-		 * 
-		 * 
-		 * getJdbcTemplate().query(SELECT_VALIDATION_QUERY, new Object[] {
-		 * searchvendorCode, searchfromLocation, searchtoLocation, searchfromTerminal,
-		 * searchtoTerminal}, new IJSRowMapper());
-		 * 
-		 * System.out.println("...");
-		 * 
-		 * 
-		 * return null;
-		 * 
-		 * }
-		 */
-   
- }
-     
-	/*
-	 * private class IJSRowMapper implements RowMapper {
-	 * 
-	 * @Override public Object mapRow(ResultSet arg0, int arg1) throws SQLException
-	 * { // TODO Auto-generated method stub return null; }
-	 * 
-	 * }
-	 */
-     
-     
+         
+        
+     }
      
     private class IjsJOContainerLookUpRowMapper implements RowMapper {
 
@@ -668,9 +742,15 @@ public class IjsJOLookupJdbcDao extends IjsBaseDao implements IjsJOLookupDao {
                 IjsContainerLookUpVO containerVO = 
                     new IjsContainerLookUpVO();
                 try {
+                	System.out.println(search_type_temp);
+                	if(search_type_temp.equalsIgnoreCase("AV")) {
                     containerVO.setContainer(resultSet.getString("CONTAINER_NO"));
-                   containerVO.setContainerWeight(resultSet.getString("NET_WEIGHT"));
-                   //containerVO.setContainerWeight("Hello");
+                    containerVO.setContainerWeight(RutFormatting.getStringToDecimalFormat(resultSet.getString("NET_WEIGHT"), null));
+                	}else if (search_type_temp.equalsIgnoreCase("T")) {
+                		containerVO.setContainer(resultSet.getString("CONTAINER_NO"));
+					}else {
+						containerVO.setContainer(resultSet.getString("CONTAINER_NO"));
+					}
                 } catch (SQLException e) {
                     //TO-DO                
                     e.printStackTrace();

@@ -35,7 +35,8 @@ public class IjsProcessJOBkgBLSearchVO {
     private String priority ;
     private int dgCount;
     private int oogCount;
-
+    //chandu
+    private int numContainer;
 
     public void setFromLocation(String fromLocation) {
         this.fromLocation = fromLocation;
@@ -291,6 +292,14 @@ public class IjsProcessJOBkgBLSearchVO {
 
 	public void setOogCount(int oogCount) {
 		this.oogCount = oogCount;
+	}
+
+	public int getNumContainer() {
+		return numContainer;
+	}
+
+	public void setNumContainer(int numContainer) {
+		this.numContainer = numContainer;
 	}
     
 }

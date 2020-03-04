@@ -1,0 +1,34 @@
+.uk-modal-container .uk-modal-dialog {
+    width: 1001px;
+    height: 620px;
+}
+.uk-modal-container .uk-modal-dialog .uk-overflow-auto {
+    overflow: auto;
+    height: 370px;
+    margin-top: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.search-lookup-row {
+    margin-bottom: 20px;
+}
+.lookup-heading {
+    padding-bottom: 2px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    border-bottom: 1px #79c1ff solid;
+}
+
+.lookupErrorCodeShow {
+    height: 1.5em;
+    background-color: #d9534f;
+    color: #fff;
+    padding: 0 3px 0 3px;
+    text-align: left;
+    border-radius: 2px;
+    margin-top: 3px;
+}
+.lookUpCheckBox {
+    top: 20px;
+    position: relative;
+}

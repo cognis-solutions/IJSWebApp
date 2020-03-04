@@ -1,0 +1,10 @@
+
+<div class="calender-wrapper">
+<label *ngIf="label" [attr.for]="identifier" class="medium">{{label}}</label>
+<input [readOnly]="readOnly" [disabled]="disabled" required #input [class]="klass" [(ngModel)]="value" [id]="compid" [ngClass]="{invalid: (invalid | async)}" [placeholder]="placeholder" pattern="\d{1,2}/\d{1,2}/\d{4}" (change)="changeDate($event)">
+<i class="fa fa-calendar calendar-icon" aria-hidden="true"></i>
+</div>
+
+<app-rcl-validation-result [touched]="touchedFlag" *ngIf="invalid | async" [messages]="failures | async">
+</app-rcl-validation-result>
+<div class="control-bottom-error" *ngIf="showFormatError">Please provide format in dd/mm/yyyy.</div>

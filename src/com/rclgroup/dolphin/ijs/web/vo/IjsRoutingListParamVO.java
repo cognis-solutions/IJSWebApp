@@ -18,11 +18,88 @@ public class IjsRoutingListParamVO {
     private String priority;
     private String vendorCode;
     private String transMode;
-    
+    private String contSize;
+    private String contrType;
+    private String contrNum;
+    private List<IjsJORoutingLookUpVO> list;
+	private List<String> eqpList;
+    private List<IjsEQDetailVO> eqDetails;
+    private IjsProcessNewSaveVO vendors;
+    List<IjsJOSummaryParamVO> lstJOSummaryParam;
     
 
 
-    public void setRoutingId(String routingId) {
+ 
+
+
+
+
+
+	public List<IjsJOSummaryParamVO> getLstJOSummaryParam() {
+		return lstJOSummaryParam;
+	}
+
+	public void setLstJOSummaryParam(List<IjsJOSummaryParamVO> lstJOSummaryParam) {
+		this.lstJOSummaryParam = lstJOSummaryParam;
+	}
+
+	public IjsProcessNewSaveVO getVendors() {
+		return vendors;
+	}
+
+	public void setVendors(IjsProcessNewSaveVO vendors) {
+		this.vendors = vendors;
+	}
+
+	public List<String> getEqpList() {
+		return eqpList;
+	}
+
+	public void setEqpList(List<String> eqpList) {
+		this.eqpList = eqpList;
+	}
+
+	public List<IjsEQDetailVO> getEqDetails() {
+		return eqDetails;
+	}
+
+	public void setEqDetails(List<IjsEQDetailVO> eqDetails) {
+		this.eqDetails = eqDetails;
+	}
+
+	public List<IjsJORoutingLookUpVO> getList() {
+		return list;
+	}
+
+	public void setList(List<IjsJORoutingLookUpVO> list) {
+		this.list = list;
+	}
+
+	public String getContSize() {
+		return contSize;
+	}
+
+	public void setContSize(String contSize) {
+		this.contSize = contSize;
+	}
+
+	public String getContrType() {
+		return contrType;
+	}
+
+	public void setContrType(String contrType) {
+		this.contrType = contrType;
+	}
+
+	public String getContrNum() {
+		return contrNum;
+	}
+
+	public void setContrNum(String contrNum) {
+		this.contrNum = contrNum;
+	}
+
+	public void setRoutingId(String routingId) {
         this.routingId = routingId;
     }
 
@@ -141,6 +218,19 @@ public class IjsRoutingListParamVO {
     public String getTransMode() {
         return transMode;
     }
+
+	@Override
+	public String toString() {
+		return "IjsRoutingListParamVO [routingId=" + routingId + ", contractId=" + contractId + ", days=" + days
+				+ ", hours=" + hours + ", fromLocation=" + fromLocation + ", toLocation=" + toLocation
+				+ ", fromLocType=" + fromLocType + ", toLocType=" + toLocType + ", fromTerminal=" + fromTerminal
+				+ ", toTerminal=" + toTerminal + ", currency=" + currency + ", legType=" + legType + ", priority="
+				+ priority + ", vendorCode=" + vendorCode + ", transMode=" + transMode + ", contSize=" + contSize
+				+ ", contrType=" + contrType + ", contrNum=" + contrNum + ", list=" + list + ", eqpList=" + eqpList
+				+ ", eqDetails=" + eqDetails + "]";
+	}
+
+
 
 
 }

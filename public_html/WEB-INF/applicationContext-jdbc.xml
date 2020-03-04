@@ -89,13 +89,13 @@
         </bean>
          <bean id="commonDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IjsCommonJdbcDao">
             <property name="dataSource" ref="dataSourceTsi"/>
-        </bean>
-        <bean id="containerUpdateDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IJSResultContainerUpdateDaoImpl">
+        </bean> 
+         <bean id="containerUpdateDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IJSResultContainerUpdateDaoImpl">
             <property name="dataSource" ref="dataSourceTsi"/>
-        </bean>
-         
-        
-        
+        </bean> 
+          <bean id="processJONewSaveDao" class="com.rclgroup.dolphin.ijs.web.dao.impl.IJSProcessJONewSaveDaoImpl">
+            <property name="dataSource" ref="dataSourceTsi"/>
+        </bean> 
         
         <!--END -->
 	<!-- Transactional advice, and AOP config for making transaction for all business objects. -->

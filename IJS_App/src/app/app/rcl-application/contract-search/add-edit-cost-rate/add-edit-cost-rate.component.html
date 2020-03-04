@@ -1,0 +1,370 @@
+<div [hidden]="showExemptedCustomer" class="col-sm-72 main-container slidein-from-left">
+  <div class="row">
+    <div class="col-sm-33 text-right"><span class="lookup-heading">{{addEditLabel}} Cost Rate Route Level</span></div>
+  </div>
+  <div class="container">
+    <form #addEditCostForm="ngForm">
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EFFECTIVE DATE</div>
+        <div class="col-sm-21">
+          <app-rcl-daterangepicker name="startDate" required [single]="true" [time]="false" [time24H]="true" label="" placeholder="Select Date"
+            [(ngModel)]="addEditCostRateObj.ijsRateVO.startDate" #addEditCostRateStartDate="ngModel" klass="form-control">
+          </app-rcl-daterangepicker>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EXPIRY DATE</div>
+        <div class="col-sm-21">
+          <app-rcl-daterangepicker name="endDate" required [single]="true" [time]="false" [time24H]="true" label="" placeholder="Select Date"
+            [(ngModel)]="addEditCostRateObj.ijsRateVO.endDate" #addEditCostRateEndtDate="ngModel" klass="form-control">
+          </app-rcl-daterangepicker>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">SERVICE</div>
+        <div class="col-sm-21">
+          <!--<app-rcl-input label="" required klass="form-control" name="service" placeholder="Enter value" #addEditCostRateService="ngModel"
+            [(ngModel)]="addEditCostRateObj.ijsRateVO.service" (click)="showServiceLookUp($event)"></app-rcl-input>-->
+             <app-service-lookup label="" placeholder="Service" [disabled]= "((addEditCostRateObj.ijsRateVO.rateBasis == 'B') || (addEditCostRateObj.ijsRateVO.rateBasis == 'L'))" lookupName="Service Lookup" helptext="What is code for Service?" klass="form-control"
+                compid="contractServiceLookup" #contractServiceLookup [data]='serviceLookUpData' [(lookUpvalue)]="addEditCostRateObj.ijsRateVO.service">
+              </app-service-lookup>   
+        </div>
+      </div>
+
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">VESSEL</div>
+        <div class="col-sm-21">
+          <!--<app-rcl-input label="" required klass="form-control" name="service" placeholder="Enter value" #addEditCostRateService="ngModel"
+            [(ngModel)]="addEditCostRateObj.ijsRateVO.service" (click)="showServiceLookUp($event)"></app-rcl-input>-->
+        
+           <app-vessel-lookup label="" placeholder="Vessel" [disabled]= "((addEditCostRateObj.ijsRateVO.rateBasis == 'B') || (addEditCostRateObj.ijsRateVO.rateBasis == 'L'))" lookupName="Vessel Lookup" helptext="What is code for Vessel?" klass="form-control"
+                compid="contractVesselLookup" #contractVesselLookup [data]='vesselLookUpData' [(lookUpvalue)]="addEditCostRateObj.ijsRateVO.vesselCodes">
+              </app-vessel-lookup>
+        </div>
+        
+        
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">MT/LADEN</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize [required]="(addEditCostRateObj.ijsRateVO.rateBasis=='S')" [disabled]= "((addEditCostRateObj.ijsRateVO.rateBasis == 'B') || (addEditCostRateObj.ijsRateVO.rateBasis == 'L'))" name="MtLaden" [config]="addEditSelectConfig" [options]="_mappingData.mtLadenOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.mtOrLaden"
+            #addEditCostRateMtLaden klass="form-control" hasOptionsPlaceholder="Select one" label="">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE BASIS</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="rateBasis" (onChangeValue)="RateBasisChanged($event)"  [config]="addEditSelectConfig" [options]="_mappingData.rateBasisOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.rateBasis"
+            #addEditCostRateRateBasis klass="form-control" hasOptionsPlaceholder="Select one" label="" >
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EQUIPMENT CATEGORY</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize [required]="(addEditCostRateObj.ijsRateVO.rateBasis=='S')" [disabled]= "((addEditCostRateObj.ijsRateVO.rateBasis == 'B') || (addEditCostRateObj.ijsRateVO.rateBasis == 'L'))" name="eqCatq" [config]="addEditSelectConfig" [options]="_mappingData.eQCatgOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.eqCatq"
+            #addEditCostRateEQCatg klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE STATUS</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="rateStatus" [config]="addEditSelectConfig" [options]="_mappingData.rateStatusOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.rateStatus"
+            #addEditCostRateRateStatus klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <!-- <div class="row newCostRow"> -->
+      <!-- <div class="col-sm-27 text-right">CHRG. CODE</div> -->
+      <div class="col-sm-21">
+        <app-rcl-input hidden disabled="true" label="" klass="form-control inputMandatoryClass" name="chrgCode" placeholder="Enter value"
+          [(ngModel)]="addEditCostRateObj.ijsRateVO.chargeCode" #addEditCostRateChrgCode></app-rcl-input>
+      </div>
+      <!-- </div> -->
+      <div hidden class="row newCostRow">
+        <div class="col-sm-27 text-right">TERM</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize name="term" [config]="addEditMultiSelectConfig" [options]="_mappingData.termOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.term"
+            #addEditCostRateTerm klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">CALC. METHOD</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="calcMethod" [config]="addEditSelectConfig" [options]="_mappingData.calcMethodOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.calcMethod"
+            #addEditCostCalcMethod klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div> -->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">EQUIPMENT TYPE</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize [required]="(addEditCostRateObj.ijsRateVO.rateBasis=='S')"  [disabled]= "((addEditCostRateObj.ijsRateVO.rateBasis == 'B') || (addEditCostRateObj.ijsRateVO.rateBasis == 'L'))" name="calcMethod" [config]="addEditMultiSelectConfig" [options]="_mappingData.eQTypeOptions"
+            [(ngModel)]="addEditCostRateObj.ijsRateVO.eqType" #addEditCostEQType klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">UPTO</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" label="" klass="form-control inputMandatoryClass" name="upTo" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.upto"
+            #addEditCostUpTo></app-rcl-input>
+        </div>
+        <div class="text-left">KILO</div>
+      </div>
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">UOM</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize required name="uomOptions" [config]="addEditSelectConfig" [options]="_mappingData.uomOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.uom"
+            #addEditCostUom klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div> -->
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">IMP/EXP</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize name="impOrExp" [config]="addEditSelectConfig" [options]="_mappingData.impExpOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.impOrExp"
+            #addEditCostImpExp klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+          </app-rcl-selectize>
+        </div>
+      </div> -->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">SPECIAL HANDLING</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize  name="splHandling" [config]="addEditSelectConfig" [options]="_mappingData.splHandlingOptions" [(ngModel)]="addEditCostRateObj.ijsRateVO.splHandling"
+            #addEditCostsplHandling klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one" (onChangeValue)="clearField($event)">
+          </app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">CURRENCY</div>
+        <div class="col-sm-21">
+          <!--<app-rcl-input required label="" klass="form-control inputMandatoryClass" name="currency" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.currency"
+            #addEditCostCurrency></app-rcl-input>-->
+            
+             <app-rcl-currency label="" placeholder="Currency" lookupName="Currency Lookup" helptext="What is code for Currency?" klass="form-control"
+                compid="contractCurrencyLookup" #contractCurrencyLookup [data]='currencyLookUpData' [(lookUpvalue)]="addEditCostRateObj.ijsRateVO.currency">
+              </app-rcl-currency>
+        </div>
+      </div>
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">PORT CLASS CODE</div>
+        <!-- <div class="col-sm-21">
+          <app-rcl-input [disabled]="!(addEditCostRateObj.ijsRateVO.splHandling=='DG') || addEditCostRateObj.ijsRateVO.imdgCode"
+            label="" klass="form-control inputMandatoryClass" name="portCode" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.portCode"
+            #addEditCostPortClassCode></app-rcl-input>
+        </div> -->
+
+        <div class="col-sm-21">
+          <app-rcl-selectize label=""  [disabled]="(((addEditCostRateObj.ijsRateVO.splHandling=='D1') || (addEditCostRateObj.ijsRateVO.splHandling=='RDG') || (addEditCostRateObj.ijsRateVO.splHandling=='ODG')) && (addEditCostRateObj.ijsRateVO.imdgCode != null)) || !((addEditCostRateObj.ijsRateVO.splHandling=='D1') || (addEditCostRateObj.ijsRateVO.splHandling=='RDG') || (addEditCostRateObj.ijsRateVO.splHandling=='ODG'))" 
+            klass="form-control inputMandatoryClass" name="portCode" [config]="addEditSelectConfig" [(ngModel)]="addEditCostRateObj.ijsRateVO.portCode"
+            #addEditCostPortClassCode [options]="portOptionsForCostPopup"></app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">IMDG DETAIL</div>
+        <!-- <div class="col-sm-21">
+          <app-rcl-input [disabled]="!(addEditCostRateObj.ijsRateVO.splHandling=='DG') || addEditCostRateObj.ijsRateVO.portCode"
+            label="" klass="form-control inputMandatoryClass" name="imdgDetail" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.imdgCode"
+            #addEditCostImdgDetail></app-rcl-input>
+        </div> -->
+        <div class="col-sm-21">
+          <app-rcl-selectize label="" [disabled]="(((addEditCostRateObj.ijsRateVO.splHandling=='D1') || (addEditCostRateObj.ijsRateVO.splHandling=='RDG') || (addEditCostRateObj.ijsRateVO.splHandling=='ODG')) && (addEditCostRateObj.ijsRateVO.portCode != null)) || !((addEditCostRateObj.ijsRateVO.splHandling=='D1') || (addEditCostRateObj.ijsRateVO.splHandling=='RDG') || (addEditCostRateObj.ijsRateVO.splHandling=='ODG'))"
+            klass="form-control inputMandatoryClass" name="imdgCode" [config]="addEditSelectConfig"  [(ngModel)]="addEditCostRateObj.ijsRateVO.imdgCode"
+            #addEditCostImdgDetail [options]="imdgOptionsForCostPopup"></app-rcl-selectize>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">OOG SETUP</div>
+        <div class="col-sm-21">
+          <app-rcl-selectize label="" [disabled]="!((addEditCostRateObj.ijsRateVO.splHandling=='0G') || (addEditCostRateObj.ijsRateVO.splHandling=='ODG'))"
+          klass="form-control inputMandatoryClass" name="oogCode" [config]="addEditSelectConfig" [(ngModel)]="addEditCostRateObj.ijsRateVO.oogCode"
+          #addEditCostOogSetup [options]="oogOptionsForCostPopup"></app-rcl-selectize>
+        </div>
+      </div>
+      <!--//#NIIT CR4 >>>>END-->
+      <!--comment for future funtions-->
+      <div class="row newCostRow" [hidden]='!(addEditCostRateObj.action=="editCostRate")'>
+        <div class="col-sm-27 text-right">SPECIAL COST BY CUSTOMER</div>
+        <div class="col-sm-25">
+          <div class="row">
+            <div class="col-sm-10">
+              <!--<input disabled type="checkbox" name="splCostBLCheck" [(ngModel)]="splCostByBlOrBookingFlag" />-->
+              <app-rcl-checkbox name="splCostBLCheck" [(ngModel)]="splCostByBlOrBookingFlag" klass="form-control form-control-sm">
+              </app-rcl-checkbox>
+            </div>
+            <div class="col-sm-60">
+              <!--//#NIIT CR4 >>>>BEGIN-->
+              <app-rcl-input [disabled]="!splCostByBlOrBookingFlag" label="" klass="form-control inputMandatoryClass" name="exemptedCustomer"
+                placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.splCostByBlOrBooking" #addEditCostExemptedCustomer
+                (click)="showExempted($event,addEditCostRateObj.ijsRateVO)"></app-rcl-input>
+                <!--//#NIIT CR4 >>>>END-->
+            </div>
+
+            <!--<div class="col-sm-60">
+              <app-rcl-input (click)="showSpclCostbyBlBookingModal($event , addEditCostRateObj.ijsRateVO.splCostByBlOrBookingList)" [disabled]="!splCostByBlOrBookingFlag"
+                label="" klass="form-control inputMandatoryClass" name="splCostBL" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.splCostByBlOrBooking"
+                #addEditCostSplCostBL></app-rcl-input>
+            </div>-->
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row newCostRow">
+        <div class="col-sm-27 text-right">&nbsp;</div>
+        <div class="col-sm-21">
+          <app-rcl-checkbox label="Auto" disabled name="manualRate" [(ngModel)]="addEditCostRateObj.ijsRateVO.manualRate" klass="form-control form-control-sm">
+          </app-rcl-checkbox>
+        </div>
+      </div> -->
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right" style="font-weight: 900;">Cost Rate</div>
+      </div>
+      <!--//#NIIT CR4 >>>>END-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 20</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="addEditCostRateObj.ijsRateVO.rateBasis != 'S'" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="rate20" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.rate20" #addEditCostRate20></app-rcl-input>
+        </div>
+        <!-- <div class="col-sm-12">
+          <app-rcl-checkbox style="top: 20px; position: absolute;" label="Per Trip" name="perTrip" [(ngModel)]="addEditCostRateObj.ijsRateVO.perTrip" klass="form-control form-control-sm">
+          </app-rcl-checkbox>
+        </div> -->
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 40</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="addEditCostRateObj.ijsRateVO.rateBasis != 'S'" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="rate40" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.rate40" #addEditCostRate40></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 45</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="addEditCostRateObj.ijsRateVO.rateBasis != 'S'" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="rate45" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.rate45" #addEditCostRate45></app-rcl-input>
+        </div>
+      </div>
+      <!-- show bill rates-->
+      <!--//#NIIT CR4 >>>>BEGIN-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right" style="font-weight: 900;">Billing Rate</div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 20</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="true" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="effectiveBillingRate20"  [(ngModel)]="addEditCostRateObj.ijsRateVO.effectiveBillingRate20" #addEditCostRate20></app-rcl-input>
+        </div>        
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 40</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="true" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="effectiveBillingRate40"  [(ngModel)]="addEditCostRateObj.ijsRateVO.effectiveBillingRate40" #addEditCostRate40></app-rcl-input>
+        </div>
+      </div>
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">RATE 45</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="true" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="effectiveBillingRate45" [(ngModel)]="addEditCostRateObj.ijsRateVO.effectiveBillingRate45" #addEditCostRate45></app-rcl-input>
+        </div>
+      </div>
+      <!-- show bill rates-->
+      <!--//#NIIT CR4 >>>>END-->
+      <div class="row newCostRow">
+        <div class="col-sm-27 text-right">LUMP SUM</div>
+        <div class="col-sm-21">
+          <app-rcl-input type="number" [disabled]="addEditCostRateObj.ijsRateVO.rateBasis == 'S'" label="" type="text" pattern="^(?:\d+|\d{1,3}(?:,\d{1,3})+)(?:(\.\d{1,2}|,\d{3}))?$" klass="form-control inputMandatoryClass"
+            name="lumpSum" placeholder="Enter value" [(ngModel)]="addEditCostRateObj.ijsRateVO.lumpSum" #addEditCostLumpSum></app-rcl-input>
+        </div>
+      </div>
+      <!--<div class="row newCostRow">
+        <div class="col-sm-27 text-right">EXEMPTED CUSTOMER</div>
+        <div class="col-sm-21">
+          <app-rcl-input disabled label="" klass="form-control inputMandatoryClass" name="exemptedCustomer" placeholder="Enter value"
+            [(ngModel)]="addEditCostRateObj.ijsRateVO.splCostByBlOrBooking" #addEditCostExemptedCustomer></app-rcl-input>
+        </div>
+      </div>-->
+
+      <div class="row newCostRow">
+        <div class="col-sm-18"></div>
+        <div class="col-sm-36">
+          <div class="row newCostRow">
+            <div class="col-sm-11"></div>
+            <div class="col-sm-25">
+              <div class="row newCostRow">
+                <!--//#NIIT CR4 >>>>BEGIN-->
+                <button type="button" [disabled]= "disableClose" class="uk-button uk-button-secondary" (click)="closeAddEditCost($event)">close</button>
+                <!--//#NIIT CR4 >>>>END-->
+              </div>
+            </div>
+            <div class="col-sm-25">
+              <div class="row newCostRow">
+                <button [disabled]="!addEditCostForm.valid" type="button" class="uk-button uk-button-primary" (click)="sendDataToBackEnd()">save</button>
+              </div>
+            </div>
+            <div class="col-sm-11"></div>
+          </div>
+        </div>
+        <div class="col-sm-18"></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--<app-service-lookup #CostServiceLookup (lookUpvalueChange)="serviceRowSelected($event)"></app-service-lookup>-->
+
+
+<div id="add-edit-cost-success" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+ 
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div>
+      <p>{{successTextMsg}}</p>
+      <div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-primary uk-modal-close" type="button" (click)="closeAddEditCostRate($event)">Close</button>
+      </div>
+    </div>
+    <!--<div *ngIf="!successtextFlag">
+      <p>{{successTextMsg}}</p>
+      <div class="uk-modal-footer uk-text-right">
+        <button class="uk-button uk-button-default uk-modal-close" type="button" (click)="closeAddEditCostRate($event)">Close</button>
+      </div>
+    </div>-->
+  </div>
+</div>
+
+<div id="add-edit-cost-failure" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{failureTextMsg}}</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="closeAddEditCostRate($event)">Close</button>
+  </div>
+</div>
+<!--//#NIIT CR4 >>>>BEGIN-->
+<div id="special-handling-validation-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>{{warningTextMsg}}</h5>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click) ="closeWarning()">Close</button>
+  </div>
+</div>
+<!--//#NIIT CR4 >>>>BEGIN-->
+
+<app-oog-dimention-setup [hidden]=true #OogDimentionSetup (oogSetDataListforAddEdit)="getValueOogSetup($event)"></app-oog-dimention-setup>
+<app-spcl-cost-bl-booking #spclCostBlBooking (splBlBookingDataList)="getValueSpclBlBooking($event)"></app-spcl-cost-bl-booking>
+
+<app-imdg-class-setup [hidden]=true #imDgClassSetup  (imDgClassDataListforAddEdit)="getValueimDgClassSetup($event)"></app-imdg-class-setup>
+<!-- portClassDataList name should be changed -->
+<app-port-class-setup [hidden]=true #portClassSetup  (portClassDataListforAddEdit)="getValuePortClassSetup($event)"></app-port-class-setup>
+
+<!--//#NIIT CR6 >>>>BEGIN-->
+<app-exempted-customer [currentClickedRow] = "currentClickedRow" [contarctRow]="selectedContarctRow" [selectedContarctRow] = "addEditCostRateObj.ijsRateVO"   class="slidein-from-left" style="display: block; height: 100vh; background-color: #eceeef;"
+  *ngIf="showExemptedCustomer" [checkComponent]="currentComponent" (closeExemptedCustomer)="hideExemptedCustomer($event)"></app-exempted-customer>
+<!--//#NIIT CR6 >>>>END-->
+  

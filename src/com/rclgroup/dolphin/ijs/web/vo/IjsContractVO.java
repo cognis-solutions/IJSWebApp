@@ -17,14 +17,14 @@ public class IjsContractVO {
     private String vendorCode; 
     private String vendorName;  
     private String contractId;
-    private Integer routingId;
+    private int routingId;
     private String startDate;
     private String endDate;   
     private String transMode;
     private String status;
     private String paymentFsc;
     private String currency;
-    private Integer priority;  
+    private int priority;  
     private String fromLocType;
     private String fromLocation;
     private String fromTerminal;
@@ -33,10 +33,13 @@ public class IjsContractVO {
     private String toTerminal;
     private boolean invalidContract;
     private String locType;
+    private String joDate;
     
     List<IjsLocationVO> locations;
     //for purchase term
     private String purchaseTerm;
+    private String bargeValue;
+    private String domInn;
     
 	private int days;
     private int hours;
@@ -47,7 +50,8 @@ public class IjsContractVO {
     
     List<IjsRateVO> lstCostRate;
     List<IjsRateVO> lstBillRate;
-    private List<String> term = new ArrayList();
+   // private List<String> term = new ArrayList();
+    private String  term;
     private String termVal;
     private String detailSeqNum;
     
@@ -63,8 +67,128 @@ public class IjsContractVO {
     IjsBaseMessageVO msgDupRoute;
     IjsBaseMessageVO msgSuccessVO;
     
+    
+    private String laden;
+    private String laden20;
+    private String laden40;
+    private String laden45;
+    
+    private String mT;
+    private String mt20;
+    private String mT40;
+    private String mT45;
+    private String costPriority;
+    
 
-    //for purchase term
+    
+    
+    
+    
+    public void setRoutingId(int routingId) {
+		this.routingId = routingId;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public String getJoDate() {
+		return joDate;
+	}
+
+	public void setJoDate(String joDate) {
+		this.joDate = joDate;
+	}
+
+	public String getCostPriority() {
+		return costPriority;
+	}
+
+	public void setCostPriority(String costPriority) {
+		this.costPriority = costPriority;
+	}
+
+	public String getLaden() {
+		return laden;
+	}
+
+	public void setLaden(String laden) {
+		this.laden = laden;
+	}
+
+	public String getLaden20() {
+		return laden20;
+	}
+
+	public void setLaden20(String laden20) {
+		this.laden20 = laden20;
+	}
+
+	public String getLaden40() {
+		return laden40;
+	}
+
+	public void setLaden40(String laden40) {
+		this.laden40 = laden40;
+	}
+
+	public String getLaden45() {
+		return laden45;
+	}
+
+	public void setLaden45(String laden45) {
+		this.laden45 = laden45;
+	}
+
+	public String getmT() {
+		return mT;
+	}
+
+	public void setmT(String mT) {
+		this.mT = mT;
+	}
+
+	public String getMt20() {
+		return mt20;
+	}
+
+	public void setMt20(String mt20) {
+		this.mt20 = mt20;
+	}
+
+	public String getmT40() {
+		return mT40;
+	}
+
+	public void setmT40(String mT40) {
+		this.mT40 = mT40;
+	}
+
+	public String getmT45() {
+		return mT45;
+	}
+
+	public void setmT45(String mT45) {
+		this.mT45 = mT45;
+	}
+
+	public String getDomInn() {
+		return domInn;
+	}
+
+	public void setDomInn(String domInn) {
+		this.domInn = domInn;
+	}
+
+	public String getBargeValue() {
+		return bargeValue;
+	}
+
+	public void setBargeValue(String bargeValue) {
+		this.bargeValue = bargeValue;
+	}
+
+	//for purchase term
     public String getPurchaseTerm() {
 		return purchaseTerm;
 	}
@@ -274,11 +398,11 @@ public class IjsContractVO {
         return routingId;
     }
 
-    public void setTerm(List<String> term) {
+    public void setTerm(String term) {
         this.term = term;
     }
 
-    public List<String> getTerm() {
+    public String getTerm() {
         return term;
     }
 

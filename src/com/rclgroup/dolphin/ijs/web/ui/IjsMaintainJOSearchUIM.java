@@ -13,6 +13,9 @@ public class IjsMaintainJOSearchUIM extends IjsBaseActionForm {
     private List<IjsMaintainJOSearchVO> contractsList;//For cancel etc
     private List<IjsMaintainJOSearchVO> joSaveList;
     
+    
+   
+    
     private IjsMaintainJOSearchVO joSaveListAll;
     
     //private IjsSearchResult<?> searchResult;
@@ -128,5 +131,6 @@ public class IjsMaintainJOSearchUIM extends IjsBaseActionForm {
 	public void setDownloadContainer(int downloadContainer) {
 		this.downloadContainer = downloadContainer;
 	}
-    
+
+	    
 }

@@ -108,6 +108,7 @@ public class IjsContractSearchSvc {
                 contractVo.setUom(contract.getUom());
                 contractVo.setVendorCode(contract.getVendorCode());
                 contractVo.setVendorName(contract.getVendorName());
+                
                 contractVo.setContractId(contract.getContractId());
                 contractVo.setRoutingId(contract.getRoutingId());
                 contractVo.setTerm(contract.getTerm());//MD
@@ -119,6 +120,16 @@ public class IjsContractSearchSvc {
                 contractVo.setBillingRate45(contract.getBillingRate45());
                 contractVo.setCostCurrency(contract.getCostCurrency());
                 contractVo.setBillingCurrency(contract.getBillingCurrency());
+                //nikash
+                contractVo.setDomInn(contract.getDomInn());
+                contractVo.setLaden(contract.getLaden());
+                contractVo.setmT(contract.getmT());
+                contractVo.setLaden20(contract.getLaden20());
+                contractVo.setLaden40(contract.getLaden40());
+                contractVo.setLaden45(contract.getLaden45());
+                contractVo.setMt20(contract.getMt20());
+                contractVo.setmT40(contract.getmT40());
+                contractVo.setmT45(contract.getmT45());
                 lstSearchResult.add(contractVo);
             }
             searchResult.setResult(lstSearchResult);
@@ -130,9 +141,12 @@ public class IjsContractSearchSvc {
 
     public IjsContractSearchUIM saveOrUpdateContract(IjsContractVO ijsContractVO, 
                                                      String userInfo, String action)throws IJSException  {
-                                                     
-        IjsHelper.validateDate(ijsContractVO.getStartDate(), ijsContractVO.getEndDate());
-        
+                     if(!"".equalsIgnoreCase(ijsContractVO.getJoDate())) {                                
+       IjsHelper.validateDateNew(ijsContractVO.getStartDate(), ijsContractVO.getEndDate());
+                     }
+                     else{
+       IjsHelper.validateDate(ijsContractVO.getStartDate(), ijsContractVO.getEndDate());
+                     }
         return transform(contractDao.saveOrUpdateContract(ijsContractVO,userInfo, action), action,ijsContractVO);
     }
 
@@ -170,7 +184,7 @@ public class IjsContractSearchSvc {
 //        ijsContractSearchUIM.setContract(null);
 //        }
         
-        ijsContractSearchUIM.setAction(action);
+       // ijsContractSearchUIM.setAction(action);
         return ijsContractSearchUIM;
         
     }

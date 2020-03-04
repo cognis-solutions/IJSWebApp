@@ -1,0 +1,18 @@
+<div class="row text-primary header-arrow-icon">
+  <div class="col-sm-72">
+    <p><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Intermodel and Job Order System &#x7c; <span><b>JO Inquiry</b></span></p>
+  </div>
+</div>
+
+
+<div class="col-sm-72" [hidden]="maintainJoResultsFlag">
+  <app-jo-inquiry-search [filterData]="filterData" #joInquirySearch (searchDataJoInquiry)="searchJoInquiryOrder($event)"></app-jo-inquiry-search>
+</div>
+
+<div class="col-sm-72" [hidden]="!maintainJoResultsFlag">  
+  
+<app-jo-inquiry-job-order-filter class="ijs_searchdatafilter_wrapper slide-in-left" [maintainJoSearchData]="maintainJoSearchData" [filterDataSelectedComp]="filterDataSelectedComp" [filterData]='filterData' (changeFind)="changeFind($event)"></app-jo-inquiry-job-order-filter>
+
+
+<app-jo-inquiryresult-table [filterData]='filterData' [filterDataSelectedComp]="filterDataSelectedComp" [tableDataMaintainJoSearch]="tableDataMaintainJoSearch" ></app-jo-inquiryresult-table>
+</div>

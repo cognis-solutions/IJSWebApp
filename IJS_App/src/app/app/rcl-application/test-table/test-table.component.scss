@@ -1,0 +1,168 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 15px 0 0 0;
+        //table-layout: fixed;
+}    
+
+// .rcl-table{
+// 	display: table;
+//     background-color: #eee;
+// 	border: 1px solid #666666;
+// 	border-spacing: 5px;
+//     width: 1200px;
+//     table-layout: fixed;
+// }
+// .rcl-table-row {
+// 	display: table-row;
+// }
+// .rcl-table-heading {
+// 	background-color: #EEE;
+// 	border-bottom: 1px solid #808080;
+// 	color: #666;
+// 	display: table-header-group;
+// }
+// .rcl-table-head {
+//     font-weight: 600;
+//     display: table-cell;
+//     vertical-align:top;   
+// 	padding: 3px 10px;
+// }
+
+// .rcl-table-cell {	
+// 	display: table-cell;
+//     vertical-align:top;   
+//      border: 1px solid #999999;
+// 	padding: 3px 10px;
+// }
+
+
+// .rcl-table-foot {
+// 	background-color: #EEE;
+// 	display: table-footer-group;
+// 	font-weight: bold;
+// }
+// .rcl-table-body {
+// 	display: table-row-group;
+	
+// }
+
+
+#resp-table{
+	display: table;
+    background-color: #eee;
+	border: 1px solid #666666;
+	border-collapse: collapse;
+	border-spacing: 5px;
+    width: 1200px;
+    table-layout: fixed;
+}
+
+#resp-table-caption{
+	display: table-caption;
+	font-size: 18px;
+	color: #00b0ff;
+}
+
+#resp-table-header{
+	display: table-header-group;
+	font-weight: bold;
+	font-size: 15px;
+	color: #666;
+	border-bottom: 1px solid black;
+}
+
+.table-header-cell{
+	display: table-cell;
+	text-align: justify;
+	padding: 5px 5px 5px 5px;
+    vertical-align: bottom;
+}
+#resp-table-body{
+	display: table-row-group;
+	background-color: #fff;
+}
+.resp-table-row{
+	display: table-row;
+	background-color: #fff;
+}
+
+.table-body-cell{
+	display: table-cell;
+	padding: 5px 5px 5px 5px;
+    vertical-align: bottom;
+}
+
+.action-row-btn {
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    font-size: 15px;
+    color: #5f5f5f;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.action-row-btn:disabled {
+    cursor: not-allowed;
+    background-color: #b5b5b5;
+    border: 1px solid #b5b5b5;
+}
+
+.table-caption-button {
+	display: inline-block;
+    left: 2px;
+    position: relative;
+}
+
+
+::ng-deep .tooltip-inner {
+    background-color:  #29abe2!important;
+    color: #fff;
+}
+
+//#NIIT CR4 >>>>BEGIN 
+span.top-heading {
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 3px;
+}
+span.left-heading {
+    width: 49%;
+    display: inline-block;
+    text-align: center;
+    border-right: 1px solid #000;
+}
+span.right-heading {
+    width: 49%;
+    text-align: center;
+    display: inline-block;
+}
+
+span.left-text {
+    width: 49%;
+    display: inline-block;
+    text-align: center;
+    
+}
+span.right-text {
+    width: 49%;
+    text-align: center;
+    display: inline-block;
+    color: #E74C3C;
+}
+//#NIIT CR4 >>>>END 
+
+// ::ng-deep .tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before, .tooltip.bs-tooltip-top .arrow::before {
+//     margin-left: -3px;
+//     content: "";
+//     border-width: 5px 5px 0;
+//     border-top-color: #000;
+// }
+
+
+

@@ -12,10 +12,14 @@ Author NIIT 24/08/17
 -----------------------------------------------------------------------------------------------------------*/
 package com.rclgroup.dolphin.ijs.web.constants;
 
+import com.rclgroup.dolphin.ijs.web.exception.IJSException;
+
 /**
  * 
  */
 public enum IjsErrorCode {
+	
+	DB_IJS_CNTR_EX_10021("IJS_EX_1000121"),
 	DB_IJS_CNTR_EX_99999("IJS_CNTR_EX_99999"),
     DB_IJS_COMM_EX_10001("IJS_EX_10001"),//##01
     //##02 BEGIN
@@ -48,6 +52,7 @@ public enum IjsErrorCode {
     DB_IJS_CNTR_EX_10028("IJS_EX_10028"),
     DB_IJS_CNTR_EX_10029("IJS_EX_10029"),
     DB_IJS_CNTR_EX_10030("IJS_EX_10030"),
+    DB_IJS_CNTR_EX_1001111("IJS_EX_100303030"),
     DB_IJS_CNTR_EX_10031("IJS_CNTR_EX_10031"),
     DB_IJS_CNTR_EX_10032("IJS_CNTR_EX_10032"),
     DB_IJS_CNTR_EX_10033("IJS_CNTR_EX_10033"),
@@ -92,6 +97,8 @@ public enum IjsErrorCode {
     DB_IJS_PRJ_EX_10004("IJS_PRJ_EX_10004"),//CR#03
     DB_IJS_PRJ_EX_10005("IJS_PRJ_EX_10005"),//CR#03
     DB_IJS_PRJ_EX_10006("IJS_PRJ_EX_10006"),//CR#03
+    CONTAINER_TYPE_NOT_MATCH("CONTAINER_TYPE_NOT_MATCH"),
+    CONTAINER_SIZE_NOT_MATCH("CONTAINER_SIZE_NOT_MATCH"),
     DB_IJS_COMM_SETUP_EX_1001("IJS_COMM_SETUP_EX_1001");
     String errorCode;
     

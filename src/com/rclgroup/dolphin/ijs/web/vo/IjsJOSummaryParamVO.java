@@ -34,9 +34,40 @@ public class IjsJOSummaryParamVO {
     private String toLocationTyp;
     private List<String> lstContainerl;
     private List<String> lstContainere;
+    private String transportType;
+    private String hasBundle;
+    private boolean isContainerChanged;
 
+    
+    
 
-    public void setFromLocation(String fromLocation) {
+   
+
+	public boolean isContainerChanged() {
+		return isContainerChanged;
+	}
+
+	public void setContainerChanged(boolean isContainerChanged) {
+		this.isContainerChanged = isContainerChanged;
+	}
+
+	public String getTransportType() {
+		return transportType;
+	}
+
+	public void setTransportType(String transportType) {
+		this.transportType = transportType;
+	}
+
+	public String getHasBundle() {
+		return hasBundle;
+	}
+
+	public void setHasBundle(String hasBundle) {
+		this.hasBundle = hasBundle;
+	}
+
+	public void setFromLocation(String fromLocation) {
         this.fromLocation = fromLocation;
     }
 
@@ -275,5 +306,21 @@ public class IjsJOSummaryParamVO {
     public List<String> getLstContainere() {
         return lstContainere;
     }
+
+	@Override
+	public String toString() {
+		return "IjsJOSummaryParamVO [bkgOrBLNumber=" + bkgOrBLNumber + ", bkgOrBLType=" + bkgOrBLType
+				+ ", transportMode=" + transportMode + ", bookingStatus=" + bookingStatus + ", fromTerminal="
+				+ fromTerminal + ", toTerminal=" + toTerminal + ", service=" + service + ", vessel=" + vessel
+				+ ", voyage=" + voyage + ", direction=" + direction + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", cntSize=" + cntSize + ", cntType=" + cntType + ", cntSplHandling=" + cntSplHandling
+				+ ", cntSplHandCount=" + cntSplHandCount + ", ladenCntTotal=" + ladenCntTotal + ", ladenCntAvailable="
+				+ ladenCntAvailable + ", ladenCntInJO=" + ladenCntInJO + ", emptyCntTotal=" + emptyCntTotal
+				+ ", emptyCntAvailable=" + emptyCntAvailable + ", emptyCntInJO=" + emptyCntInJO + ", fromLocation="
+				+ fromLocation + ", toLocation=" + toLocation + ", routingNumber=" + routingNumber + ", vendorCode="
+				+ vendorCode + ", fromLocationTyp=" + fromLocationTyp + ", toLocationTyp=" + toLocationTyp
+				+ ", lstContainerl=" + lstContainerl + ", lstContainere=" + lstContainere + ", hasBundle=" + hasBundle
+				+ "]";
+	}
 
 }

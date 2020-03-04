@@ -137,7 +137,9 @@ public class IjsHelper {
             return ContractStatus.PENDING.getStatus();
         }else if(ContractStatus.SUSPENDED.getStatusCode().equals(statusCode)){
             return ContractStatus.SUSPENDED.getStatus();
-        }
+        }else if(ContractStatus.EXPIRED.getStatusCode().equals(statusCode)){
+        return ContractStatus.EXPIRED.getStatus();
+    }
         return null;
     }
     public static String getContractStatusCode(String status){
@@ -150,7 +152,10 @@ public class IjsHelper {
             return ContractStatus.PENDING.getStatusCode();
         }else if(ContractStatus.SUSPENDED.getStatus().equals(status)){
             return ContractStatus.SUSPENDED.getStatusCode();
+        }else if(ContractStatus.EXPIRED.getStatus().equals(status)) {
+        	return ContractStatus.EXPIRED.getStatusCode();
         }
+        
         return null;
     }
     //##01 END
@@ -656,6 +661,26 @@ public class IjsHelper {
         validateDate(ijsRateVO.getStartDate(), ijsRateVO.getEndDate());  
     }
     
+    public static void validateDateNew(String startDate, String endDate) throws IJSException
+    {
+        Date sDate = null;
+        Date eDate = null;
+        Date currentDate=null;
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
+
+        try {
+            sDate = sdf.parse(startDate);
+            eDate = sdf.parse(endDate);
+            currentDate=sdf.parse(sdf.format(new Date()));
+            if (sDate.after(eDate)) {
+                throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10026.getErrorCode());
+            }
+        } catch (ParseException e) {
+            // TO-DO
+            throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10045.getErrorCode());
+        }
+    }
+    
     public static void validateDate(String startDate, String endDate) throws IJSException {
         //startDate = ijsContractVO.getStartDate();
         //String endDate = ijsContractVO.getEndDate();
@@ -669,11 +694,12 @@ public class IjsHelper {
             eDate = sdf.parse(endDate);
             currentDate=sdf.parse(sdf.format(new Date()));
             if (sDate.after(eDate)) {
-                throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10026.getErrorCode());
+                throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_1001111.getErrorCode());
             }
-            if (currentDate.after(eDate)) {
-                throw new IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10032.getErrorCode());
-            }
+			/*
+			 * if (currentDate.after(eDate)) { throw new
+			 * IJSException(IjsErrorCode.DB_IJS_CNTR_EX_10032.getErrorCode()); }
+			 */
             
         } catch (ParseException e) {
             // TO-DO

@@ -5,9 +5,12 @@ import com.rclgroup.dolphin.ijs.web.entity.IjsMaintainJoDownloadDTO;
 import com.rclgroup.dolphin.ijs.web.exception.IJSException;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchParamVO;
 import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainJOSearchVO;
+import com.rclgroup.dolphin.ijs.web.vo.IjsMaintainSaveVO;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 public interface IjsMaintainJOSearchDao {
     public List<IjsMaintainJOSearchDTO> findJobOrder(String userId, 
@@ -23,6 +26,8 @@ public interface IjsMaintainJOSearchDao {
     public String removeEquipmentJO(List<IjsMaintainJOSearchVO> searchVo,String userId,String action) throws IJSException;
     
     public String replaceEquipmentJO(List<IjsMaintainJOSearchVO> searchVo,String userId,String action) throws IJSException;
+    
+    public String saveNewAddedRow(List<IjsMaintainJOSearchVO> searchVo,String userId,String action,String session,IjsMaintainSaveVO ijsMaintainSaveVO) throws IJSException;
     
     public String changeVendor(List<IjsMaintainJOSearchVO> searchVo,String userId,String action) throws IJSException;
 

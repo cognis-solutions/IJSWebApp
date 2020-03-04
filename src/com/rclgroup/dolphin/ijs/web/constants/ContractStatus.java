@@ -12,7 +12,7 @@ package com.rclgroup.dolphin.ijs.web.constants;
 
 public enum ContractStatus {
     //## 01 BEGIN
-    ENTRY("Entry","E"),ACTIVE("Active","A"),SUSPENDED("Suspend","S"),PENDING("Pending","P");
+    ENTRY("Entry","E"),ACTIVE("Active","A"),SUSPENDED("Suspend","S"),PENDING("Pending","P"),EXPIRED("Expired","R"),;
     String status;
     String statusCode;
     

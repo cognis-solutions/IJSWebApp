@@ -612,7 +612,7 @@ public class RutDatabase {
     
     public static String getValue(List<IjsLookupFeildVO> valList, String strKey) {   
         ArrayList<IjsLookupFeildVO> list = (ArrayList<IjsLookupFeildVO>)valList;
-        String sb = "";
+        String sb = null;
         
         for (IjsLookupFeildVO localVO:list){
         if(strKey.equals(localVO.getKey())){

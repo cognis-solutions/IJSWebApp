@@ -127,7 +127,6 @@ public class IjsJOLookupAction extends IjsBaseAction {
             actionForm.getLookupSearchResult().getResult().size() > 0 && !IjsActionMethod.SEARCH_JOB_ORDER_SERVICE.getAction().equals(actionForm.getAction())) {
             jsonStr = 
                     new Gson().toJson(actionForm.getLookupSearchResult().getResult());
-            System.out.println(jsonStr);
 
         } else if (actionForm.getLookupSearchResult() != null && 
                    actionForm.getLookupSearchResult().getResult() != null && 
@@ -141,7 +140,7 @@ public class IjsJOLookupAction extends IjsBaseAction {
             jsonStr = new Gson().toJson(actionForm);
         }
         response.getWriter().write(jsonStr);
-        //System.out.println("JSON data  : " + jsonStr);
+        System.out.println("JSON data  : " + jsonStr);
     }
     //##01 END
 }

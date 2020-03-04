@@ -40,7 +40,6 @@ public class IjsContractSearchUIM extends IjsBaseActionForm {
     String [] filesTobeDownload=new String[3];
     private IjsContractUploadVO uploadVO;
     private List<IjsContractShipmentTermVO> termList;
-    private IjsContractShipmentTermVO purchaseTerm;
     private List<IjsContractTransportModeVO> transportModeList;
     private String vendorCode;
     private String paymentFscCode;
@@ -56,14 +55,15 @@ public class IjsContractSearchUIM extends IjsBaseActionForm {
     private String nextGPPTime;
     private IjsBaseMessageVO msgDupRoute;
     private IjsBaseMessageVO msgSuccessVO;
+    private String contractId;
     
     
-    public IjsContractShipmentTermVO getPurchaseTerm() {
-		return purchaseTerm;
+    public String getContractId() {
+		return contractId;
 	}
 
-	public void setPurchaseTerm(IjsContractShipmentTermVO purchaseTerm) {
-		this.purchaseTerm = purchaseTerm;
+	public void setContractId(String contractId) {
+		this.contractId = contractId;
 	}
 
 	public String getNextGPPTime() {

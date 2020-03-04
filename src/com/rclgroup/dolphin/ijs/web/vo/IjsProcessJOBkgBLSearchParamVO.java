@@ -44,10 +44,9 @@ public class IjsProcessJOBkgBLSearchParamVO {
     private int pageNo;
     private String fromTerminal;
     private String toTerminal;
-   
 
-
-	public void setToLocation(String toLocation) {
+    
+    public void setToLocation(String toLocation) {
         this.toLocation = toLocation;
     }
 

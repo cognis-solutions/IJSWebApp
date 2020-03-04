@@ -55,6 +55,14 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
     private IjsProcessJOBkgBLSearchJdbcDao.IjsCntrEquipmentTypeProcedure ijsCntrEquipmentTypeProcedure;
 //CR#03 END
     private IjsJoDeleteLumpsumProcedure ijsJoDeleteLumpsumProcedure;
+    
+    private static String bookingtype;
+	private static String bookingNo;
+	/*query*/
+	private static final String HASBULDLEBOOKING = "Select BUNDLE from Sealiner.BKP032 b32 where BCADAT > 20110501 and BUNDLE > 0 and BCBKNO=? and rownum =1";
+	
+	private static final String HASBULDLEBL= "Select BUNDLE from Sealiner.IDP013 i13 where BSADAT > 20110501 and BUNDLE > 0 and BSBLNO=? and rownum =1";
+	
     public void initDao() throws Exception {
         //##01 BEGIN
         super.initDao();
@@ -691,12 +699,34 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
                 lstrProcessJOType = "R";
             }
             
+        	try {
+				for (int i = 0; i < llstJOSummaryParam.size(); i++) {
+
+					IjsJOSummaryParamVO objJOSummaryParam = llstJOSummaryParam.get(i);
+
+					boolean cheackContainer = objJOSummaryParam.isContainerChanged();
+
+					if (cheackContainer) {
+						getJdbcTemplate().update(
+								"insert into IJS_PORTPAIR_VENDORCODE (FROM_LOCATION,TO_LOCATION,VENDOR_CODE,CREATED_DATE) values (?,?,?,?)",
+								new Object[] { objJOSummaryParam.getFromLocation(), objJOSummaryParam.getToLocation(),
+										objJOSummaryParam.getVendorCode(), new Date() });
+					}
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+            
+            
             for(int i=0;i<llstJOSummaryParam.size();i++){
                 IjsJOSummaryParamVO objJOSummaryParam  = (IjsJOSummaryParamVO)llstJOSummaryParam.get(i);
                 lstrBookingBl = objJOSummaryParam.getBkgOrBLType().toUpperCase();
-                
+                bookingtype =objJOSummaryParam.getBkgOrBLType().toUpperCase();
+           
                 lsbBkgBl.append(objJOSummaryParam.getBkgOrBLNumber().toUpperCase());
                 lsbBkgBl.append(COMMA);
+                bookingNo=objJOSummaryParam.getBkgOrBLNumber().toUpperCase();
                 
             }
             if(lsbBkgBl!=null){
@@ -844,8 +874,20 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
            ijsProcessJOSumDtlDTO.setBokingBL((String)outMap.get("p_o_v_failed_bkg_bl"));
            llstJOSummarySearchReturn.add(ijsProcessJOSumDtlDTO);
            resetJO(astrSessionId,userId);
-       }else{
-       	return prepareJOData((List<IjsProcessJOSummarySearchDTO>)outMap.get("p_o_v_ijs_mapping_list"));
+       }else{   
+    	   if(outMap.get("p_o_v_ijs_mapping_list")!=null)
+    	   {
+    		  
+    	return prepareJOData((List<IjsProcessJOSummarySearchDTO>)outMap.get("p_o_v_ijs_mapping_list"));
+    	   }
+    	   else {
+    		   IjsProcessJOSumDtlDTO ijsProcessJOSumDtlDTO=new IjsProcessJOSumDtlDTO();
+    		   lstrErrorCode=IjsErrorCode.DB_IJS_MAINT_JO_EX_20001.getErrorCode();
+    		   ijsProcessJOSumDtlDTO.setErrorCode(lstrErrorCode);
+              // ijsProcessJOSumDtlDTO.setBokingBL((String)outMap.get("p_o_v_failed_bkg_bl"));
+               llstJOSummarySearchReturn.add(ijsProcessJOSumDtlDTO);
+    		   
+    	   }
        }
        return llstJOSummarySearchReturn;
      }        
@@ -860,7 +902,9 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
          String nextJobOrderNo;
          for(int i=0;i< llstJOSummarySearch.size();i++){
              IjsProcessJOSummarySearchDTO joSummery = llstJOSummarySearch.get(i);
+            
              nextJobOrderNo=joSummery.getJobOrder();
+             
              if(!nextJobOrderNo.equals(prevJobOrderNo)){
             	 joSumDtlDTO=new IjsProcessJOSumDtlDTO();
             	 jobOrders=new ArrayList<>();
@@ -971,7 +1015,7 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
             Map inParameters = new HashMap();
             String lstrProcessJOType = null;
             String lstrTransportMode = null;
-            
+            bookingtype="ADHOC";
             String lstrEqList = null;      
             StringBuffer lsbEqList = new StringBuffer();
                                                   
@@ -1060,8 +1104,22 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
             llstJOSummarySearchReturn.add(ijsProcessJOSumDtlDTO);
             resetJO(astrSessionId,userId);
             }else{
-            	return prepareJOData((List<IjsProcessJOSummarySearchDTO>)outMap.get("p_o_v_ijs_mapping_list"));
-            }
+         	   if(outMap.get("p_o_v_ijs_mapping_list")!=null)
+        	   {
+        		  
+        	return prepareJOData((List<IjsProcessJOSummarySearchDTO>)outMap.get("p_o_v_ijs_mapping_list"));
+        	   }
+        	   else {
+        		   IjsProcessJOSumDtlDTO ijsProcessJOSumDtlDTO=new IjsProcessJOSumDtlDTO();
+        		   lstrErrorCode=IjsErrorCode.DB_IJS_MAINT_JO_EX_20001.getErrorCode();
+        		   ijsProcessJOSumDtlDTO.setErrorCode(lstrErrorCode);
+                  // ijsProcessJOSumDtlDTO.setBokingBL((String)outMap.get("p_o_v_failed_bkg_bl"));
+                   llstJOSummarySearchReturn.add(ijsProcessJOSumDtlDTO);
+        		   
+        	   }
+           
+            }	
+            
             return llstJOSummarySearchReturn;
         }        
         
@@ -1085,7 +1143,8 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
             declareParameter(new SqlInOutParameter("p_i_v_routingId", Types.VARCHAR));
             declareParameter(new SqlInOutParameter("p_i_v_session_id", Types.VARCHAR));
             declareParameter(new SqlInOutParameter("p_i_v_user_id", Types.VARCHAR));
-            declareParameter(new SqlOutParameter("p_i_v_job_order_no_return", Types.VARCHAR));
+            declareParameter(new SqlInOutParameter("p_i_v_status", Types.VARCHAR));
+            declareParameter(new SqlOutParameter("p_o_v_job_order_no_return", Types.VARCHAR));
             compile();
 
         }
@@ -1101,7 +1160,7 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
             Map outMap = new HashMap();
             List llstJobOrders = new ArrayList();
             String lstrProcessJOType = null;
-            
+            String status ="I";
             if("SEALEG".equals(processJoType)){
                 lstrProcessJOType = "S";
             }else if("ETR".equals(processJoType)){
@@ -1129,8 +1188,17 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
                     inParameters.put("p_i_v_routingId", RutDatabase.stringToDb(objIjsProcessJOListParamVO.getRoutingId()));
                     inParameters.put("p_i_v_session_id", RutDatabase.stringToDb(astrSessionId));
                     inParameters.put("p_i_v_user_id", RutDatabase.stringToDb(userId).toUpperCase());
+                    if("D".equalsIgnoreCase(objIjsProcessJOListParamVO.getStatus())) {
+                    	status = "D";
+                    	
+                    }
+                    else
+                	{
+                    	status = "I";
+                	}
+                    inParameters.put("p_i_v_status",RutDatabase.stringToDb(status));
                     outMap = execute(inParameters); 
-                    llstJobOrders.add(outMap.get("p_i_v_job_order_no_return"));
+                    llstJobOrders.add(outMap.get("p_o_v_job_order_no_return"));
                 }
             }
             resetJO(userId, astrSessionId);
@@ -1213,6 +1281,7 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
  ijsContractSearchDto.setFromLocationTyp(IjsHelper.getLocationType(resultSet.getString("FROM_LOCTP")));
  ijsContractSearchDto.setSpecialHandlingCode((resultSet.getString("SPECIAL_HANDLING_CODE")));
  ijsContractSearchDto.setToLocationTyp((IjsHelper.getLocationType(resultSet.getString("TO_LOCTP"))));
+ ijsContractSearchDto.setNumContainer((resultSet.getString("NUM_CONTAINER")));
  
   ijsContractSearchDto.setPriority(resultSet.getString("PRIORITY"));
  try {
@@ -1260,6 +1329,30 @@ public class IjsProcessJOBkgBLSearchJdbcDao extends IjsBaseDao implements IjsPro
                 ijsJOSummarySearchDto.setPriority(resultSet.getString("PRIORITY1"));
                 ijsJOSummarySearchDto.setRateBasis(resultSet.getString("RATE_BASIS"));
                 ijsJOSummarySearchDto.setLumpsumId(resultSet.getString("LUMPSUM_ID"));
+                
+                
+                if ("BOOKING".equalsIgnoreCase(bookingtype.trim())) {
+
+					try {
+						int val = getJdbcTemplate().queryForInt(HASBULDLEBOOKING, new Object[] { bookingNo.trim()});
+						System.out.println(val);
+						ijsJOSummarySearchDto.setHasBundle(String.valueOf(val));
+					} catch (Exception e) {
+						//e.printStackTrace();
+						ijsJOSummarySearchDto.setHasBundle(String.valueOf(0));
+						
+					}
+
+				} else if ("BL".equalsIgnoreCase(bookingtype.trim())) {
+					try {
+						int val = getJdbcTemplate().queryForInt(HASBULDLEBL, new Object[] { bookingNo.trim() });
+						System.out.println(val);
+						ijsJOSummarySearchDto.setHasBundle(String.valueOf(val));
+					} catch (Exception e) {
+						ijsJOSummarySearchDto.setHasBundle(String.valueOf(0));
+					}
+
+				}
 
             } catch (SQLException e) {
                 // TODO

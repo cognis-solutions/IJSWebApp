@@ -818,6 +818,7 @@ export class CostBillTableComponent implements OnInit {
   public counter : number = 0;
   public costRates = [];
   saveContract() {
+    debugger;
     this.saveCostRateErrorMsg = [];
     this.costRates = [];
     this.addEditCostRateObj["routingNumber"] = this.contractSelectedRow.routingId;

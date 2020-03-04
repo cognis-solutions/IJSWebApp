@@ -1,0 +1,188 @@
+<div class="row text-primary header-arrow-icon">
+  <div class="col-sm-59">
+    <p><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Intermodel and Job
+      Order System &#x7c; <span>Spl. Cost By Customer</span></p>
+  </div>
+</div>
+<!--<div class="ijs_ec_container">
+  <div class="col-sm-72">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-70">
+        <div class="row">
+          <div class="col-sm-10"><label style="color: #007bce; font-weight: 700; margin-top: 5px;">Search For </label> </div>
+          <div class="col-sm-7">
+            <p style="margin-top: 5px;">Customer</p>
+          </div>
+          <div class="col-sm-35">
+            <app-rcl-input label="" klass="form-control" name="findExemptedCustomer" placeholder="Enter value" [(ngModel)]="customerCode"
+              #addEditCostExemptedCustomer></app-rcl-input>
+          </div>
+          <div class="col-sm-15">
+            <button type="button" id="exem-find-button" class="btn btn-sm btn-info" (click)="searchExemptedCustomer($event.target)"><i class="fa fa-search"></i> <span class="find-text">&nbsp;FIND</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-70">
+        <div class="row">
+          <div class="col-sm-17"></div>
+          <div class="col-sm-35">
+            <div class="row">
+              <div class="col-sm-36">
+                <app-rcl-selectize label="Customer Type" name="splHandling" [config]="selectConfig" [options]="custTypeOptions" [(ngModel)]="splHandling"
+                  #addEditCostsplHandling klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+                </app-rcl-selectize>
+              </div>
+              <div class="col-sm-36">
+                <app-rcl-selectize label="Status" name="splHandling" [config]="selectConfig" [options]="statusOptions" [(ngModel)]="splHandling"
+                  #addEditCostsplHandling klass="form-control inputMandatoryClass" hasOptionsPlaceholder="Select one">
+                </app-rcl-selectize>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+  </div>
+</div>-->
+
+<div class="ijs_table-container">
+  <div class="col-sm-72">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-15">
+        <h5 style="text-decoration: underline; color: #007bce;">Spl. Cost By Customer</h5></div>
+      <div class="col-sm-6"><i [hidden]="tableDataExCust.length == 0">Order by</i></div>
+      <div class="col-sm-6">
+        <select [hidden]="tableDataExCust.length == 0" (change)="onChangeOrderBy(sortIn)" [(ngModel)]="sortIn">
+            <option value= "asnd" selected>Ascending</option> 
+            <option value= "dsnd" selected>Decending</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-70 text-right">
+         <!--<button class="action-row-btn" (click)="searchExemptedCustumer($event)"><i class="fa fa-search" aria-hidden="true"></i> Search</button>-->
+        <button class="action-row-btn" (click)="addExemptedCustumer($event)"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+        <button [disabled]="checkedSelectedRows.length == 0" class="action-row-btn" (click)="deleteExemptedCustumer($event)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+        <button [disabled]="checkedSelectedRows.length != 1" (click)="editExemptedCustumer($event)" class="action-row-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div [hidden]="tableDataExCust.length == 0" class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-70" style="margin-left: 45px;">
+        <div class="row">
+          <div class="col-sm-2">#</div>
+          <div class="col-sm-2">
+            <app-rcl-checkbox id="selectAllCheck" name="rowCheckAll" klass="form-control form-control-sm" (rclCheckChanged)="exCustSelectTableRowCheckBoxAll($event)">
+            </app-rcl-checkbox>
+          </div>
+          <div class="col-sm-13">
+            <h6 class="text-muted">Customer</h6></div>
+          <div class="col-sm-13">
+            <h6 class="text-muted">Customer Name</h6></div>
+          <div class="col-sm-13">
+            <h6 class="text-muted">Customer Type</h6></div>
+          <div class="col-sm-13">
+            <h6 class="text-muted">Status</h6></div>
+          <div class="col-sm-14">
+            <h6 class="text-muted">Remark</h6></div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="table_container" [hidden]="tableDataExCust.length == 0">
+      <div style="margin: 0;" class="row slidein-from-top" *ngFor="let tableRow of tableDataExCust; let i = index">
+        <div style="padding: 0;" class="col-sm-1"></div>
+        <div class="col-sm-70">
+          <div class="row table-row">
+            <div class="col-sm-2">{{i+1}}</div>
+            <div class="col-sm-2">
+              <app-rcl-checkbox name="rowCheck" [(ngModel)]="tableRow['checked']" klass="form-control form-control-sm" (rclCheckChanged)="exCustSelectTableRowCheckBox($event, tableRow)">
+              </app-rcl-checkbox>
+            </div>
+            <div class="col-sm-14">{{tableRow.custId}}</div>
+            <div class="col-sm-14">{{tableRow.custName}}</div>
+            <div class="col-sm-14">{{tableRow.custType}}</div>
+            <div class="col-sm-14">{{tableRow.status}}</div>
+            <div class="col-sm-11">{{tableRow.remark}} &nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [hidden]="!errorTextFlag" class="errorCode">
+  <p class="bottom-error">{{errorText}}</p>
+</div>
+
+<div class="close-button"><button (click)="hideExemptedCustomer($event)" class="uk-button uk-button-link" style="font-size: larger;"><b>Close</b></button></div>
+
+<div id="exemted-customer-modal-center" class="uk-flex-top" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <p><span class="lookup-heading">{{addOrEdit}} Shipper or Consignee</span></p>
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-sm-25 text-right">CUSTOMER</div>
+      <div class="col-sm-35">
+        <!--<app-rcl-input label="" klass="form-control" name="findExemptedCustomer" placeholder="Enter value" [(ngModel)]="customerCode"></app-rcl-input>-->
+        <app-rcl-customer-lookup [disabled]="addOrEdit == 'Edit'" placeholder="Customer" lookupName="Customer Lookup" helptext="What is code for Customer" klass="form-control"
+          compid="customerLookup1" #customerLookup [data]='customerLookupData' [(lookUpvalue)]="custId" (selectRowEmit)="showExemptedCustumer($event)" (customerNameEmit)="getCustomerName($event)">
+        </app-rcl-customer-lookup>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-sm-25 text-right">CUSTOMER NAME</div>
+      <div class="col-sm-35">
+        <app-rcl-input disabled label="" klass="form-control" name="findExemptedCustomer" placeholder="Enter value" [(ngModel)]="custName"></app-rcl-input>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-sm-25 text-right">CUSTOMER TYPE</div>
+      <div class="col-sm-35">
+        <app-rcl-selectize name="custType" [config]="selectConfig" [options]="custTypeOptions" [(ngModel)]="custType" klass="form-control inputMandatoryClass"
+          hasOptionsPlaceholder="Select one">
+        </app-rcl-selectize>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-sm-25 text-right">STATUS</div>
+      <div class="col-sm-25">
+        <app-rcl-selectize name="status" [config]="selectConfig" [options]="statusOptions" [(ngModel)]="status" klass="form-control inputMandatoryClass"
+          hasOptionsPlaceholder="Select one">
+        </app-rcl-selectize>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-sm-25 text-right">REMARKS</div>
+      <div class="col-sm-25">
+        <app-rcl-input label="" klass="form-control" name="findExemptedCustomer" placeholder="Enter value" [(ngModel)]="remark"></app-rcl-input>
+      </div>
+    </div>
+
+    <div class="uk-modal-footer uk-text-center">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
+      <button class="uk-button uk-button-primary" type="button" (click)="saveData(addOrEditAction)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+    </div> 
+    
+  </div>
+</div>
+
+<div id="show-failure-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <h5>{{failureTextMsg}}</h5>
+        <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;">Close</button>
+      </div>
+</div>

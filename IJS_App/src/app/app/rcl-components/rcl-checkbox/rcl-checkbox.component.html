@@ -1,0 +1,4 @@
+<div class="checkbox check-box">  
+    <input [disabled]="disabled" name='{{name}}' type="checkbox" [checked] = "checked" [value]="checkValue" [(ngModel)]="value" (change)="onChangeState($event)">
+    <label></label>  <span>{{label}}</span>
+</div>

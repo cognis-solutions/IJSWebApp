@@ -1,0 +1,410 @@
+
+<div *ngIf="openModal" id="lookup-popup-input">
+<div id="PickDropModalLookUp1" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <button class="uk-modal-close-default" type="button" uk-close (click)="resetPickDropModal($event)"></button>
+    <div class="main-content">
+      <div class="col-sm-72">
+
+        <div *ngIf="(advanceLocPickupTpye =='Door' && locselectName == 'from') || (advanceLocDropOffType =='Door' && locselectName == 'to')">
+          <p><span class="lookup-heading">Point Lookup</span></p>
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize [config]="advanceLocConfig" #locLooupDropDown [options]="doorLookUpOption" placeholder="Select one" [(ngModel)]="doorLookUpSelected"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..." #locLooupinput="ngModel"
+                [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">
+              <app-rcl-checkbox class="lookUpCheckBox" ng-checked="true"   label="Wild Card" name="lookUpCheckBox" [(ngModel)]="lookupWildCard"></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocPickupTpye =='Door' && locselectName == 'from'">
+              <button [disabled]="!_value || !doorLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocPickupTpye, doorLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocDropOffType =='Door' && locselectName == 'to'">
+              <button [disabled]="!_value || !doorLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocDropOffType, doorLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable">
+            <div class="row">
+              <div class="col-sm-14">Total {{locLookUptableData.length}} items</div>
+              <div class="col-sm-20">
+                <select [(ngModel)]="resultsPerPage">
+                 <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                </select> Results Per Page
+              </div>
+              <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                 <option *ngFor="let pageresult of doorLookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+              <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                 <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Point Code</th>
+                    <th>Point Name</th>
+                    <th>Country Code</th>
+                    <th>Zone Code</th>
+                    <th>State Code</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (dblclick)="selectRowData($event, (advanceLocPickupTpye || advanceLocDropOffType)); $event.stopPropagation()" *ngFor="let tableRow of locLookUptableData | paginate: { itemsPerPage: resultsPerPage, currentPage: p1, id: 'first1' } ; let i = index"
+                    class="slidein-from-top">
+                    <td>{{(p1-1) *resultsPerPage + i + 1  }}</td>
+                    <td>{{tableRow.pointCode}}</td>
+                    <td>{{tableRow.poingName}}</td>
+                    <td>{{tableRow.countryCode}}</td>
+                    <td>{{tableRow.status}}</td>
+                    <td>{{tableRow.stateCode}}</td>
+                    <td>{{tableRow.zoneCode}}</td>
+                    <td hidden>{{tableRow.countryName}}</td>
+                    <td hidden>{{tableRow.fsc}}</td>
+                    <td hidden>{{tableRow.currencyCode}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="p1 = $event" id="first1"></pagination-controls>
+          </div>
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+
+        </div>
+
+        <div *ngIf="(advanceLocPickupTpye =='Terminal' && locselectName == 'from') || (advanceLocDropOffType =='Terminal' && locselectName == 'to')">
+          <p><span class="lookup-heading">Terminal Lookup</span></p>
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize [config]="advanceLocConfig" #terminalLooupDropDown [options]="terminalLookUpOption" placeholder="Select one"
+                [(ngModel)]="terminalLookUpSelected"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..." #terminalLooupinput="ngModel"
+                [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">
+              <app-rcl-checkbox class="lookUpCheckBox" label="Wild Card" name="lookUpCheckBox" [(ngModel)]="lookupWildCard"></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocPickupTpye =='Terminal' && locselectName == 'from'">
+              <button [disabled]="!_value || !terminalLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocPickupTpye, terminalLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocDropOffType =='Terminal' && locselectName == 'to'">
+              <button [disabled]="!_value || !terminalLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocDropOffType, terminalLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable">
+            <div class="row">
+              <div class="col-sm-14">Total {{locLookUptableData.length}} items</div>
+              <div class="col-sm-20">
+                <select [(ngModel)]="resultsPerPage">
+                 <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                </select> Results Per Page
+              </div>
+              <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                 <option *ngFor="let pageresult of terminalLookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+              <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                 <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Terminal</th>
+                    <th>Terminal Name</th>
+                    <th>Port</th>
+                    <th>FSC</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (dblclick)="selectRowData($event, (advanceLocPickupTpye || advanceLocDropOffType)); $event.stopPropagation()" *ngFor="let tableRow of locLookUptableData | paginate: { itemsPerPage: resultsPerPage, currentPage: p2, id: 'second2' }; let i = index"
+                    class="slidein-from-top">
+                    <td>{{(p2-1) *resultsPerPage + i + 1  }}</td>
+                    <td>{{tableRow.terminal}}</td>
+                    <td>{{tableRow.terminalName}}</td>
+                    <td>{{tableRow.port}}</td>
+                    <td>{{tableRow.fsc}}</td>
+                    <td>{{tableRow.status}}</td>
+                    <td hidden>{{tableRow.countryName}}</td>
+                    <td hidden>{{tableRow.currencyCode}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="p2 = $event" id="second2"></pagination-controls>
+          </div>
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+        </div>
+
+        <div *ngIf="(advanceLocPickupTpye =='Depot' && locselectName == 'from') || (advanceLocDropOffType =='Depot' && locselectName == 'to')">
+          <p><span class="lookup-heading">Depot Lookup</span></p>
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize [config]="advanceLocConfig" #depotLooupDropDown [options]="depotLookUpOption" placeholder="Select one"
+                [(ngModel)]="depotLookUpSelected"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..." #depotLooupinput="ngModel"
+                [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">
+              <app-rcl-checkbox class="lookUpCheckBox" label="Wild Card" name="lookUpCheckBox" [(ngModel)]="lookupWildCard"></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocPickupTpye =='Depot' && locselectName == 'from'">
+              <button [disabled]="!_value || !depotLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocPickupTpye, depotLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocDropOffType =='Depot' && locselectName == 'to'">
+              <button [disabled]="!_value || !depotLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocDropOffType, depotLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable">
+            <div class="row">
+              <div class="col-sm-14">Total {{locLookUptableData.length}} items</div>
+              <div class="col-sm-20">
+                <select [(ngModel)]="resultsPerPage">
+                 <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                </select> Results Per Page
+              </div>
+              <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                 <option *ngFor="let pageresult of depotLookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+              <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                 <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Depot Code</th>
+                    <th>Depot Name</th>
+                    <th>Depot Port</th>
+                    <th>Fsc</th>                    
+                    <th>Point Code</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody class="depotDropOff">
+                  <tr (dblclick)="selectRowData($event, (advanceLocPickupTpye || advanceLocDropOffType)); $event.stopPropagation()" *ngFor="let tableRow of locLookUptableData | paginate: { itemsPerPage: resultsPerPage, currentPage: p3, id: 'three3' };  let i = index "
+                    class="slidein-from-top">
+                    <td>{{(p3-1) *resultsPerPage + i + 1  }}</td>
+                    <td>{{tableRow.depot}}</td>
+                    <td>{{tableRow.depotName}}</td>
+                    <td>{{tableRow.depotPort}}</td>
+                    <td>{{tableRow.fsc}}</td>
+                    <td>{{tableRow.pointCode}}</td>
+                    <td>{{tableRow.status}}</td>
+                    <td hidden>{{tableRow.countryName}}</td>
+                    <td hidden>{{tableRow.currencyCode}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="p3 = $event" id="three3"></pagination-controls>
+          </div>
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+        </div>
+
+        <div *ngIf="(advanceLocPickupTpye =='Haulage' && locselectName == 'from') || (advanceLocDropOffType =='Haulage' && locselectName == 'to')">
+          <p><span class="lookup-heading">Haulage Point Lookup</span></p>
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize [config]="advanceLocConfig" #depotLooupDropDown [options]="haulageLookUpOption" placeholder="Select one"
+                [(ngModel)]="haulageLookUpSelected"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..." #haulageLooupinput="ngModel"
+                [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">
+              <app-rcl-checkbox class="lookUpCheckBox" label="Wild Card" name="lookUpCheckBox" [(ngModel)]="lookupWildCard"></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocPickupTpye =='Haulage' && locselectName == 'from'">
+              <button [disabled]="!_value || !haulageLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocPickupTpye, haulageLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocDropOffType =='Haulage' && locselectName == 'to'">
+              <button [disabled]="!_value || !haulageLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocDropOffType, haulageLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable">
+            <div class="row">
+              <div class="col-sm-14">Total {{locLookUptableData.length}} items</div>
+              <div class="col-sm-20">
+                <select [(ngModel)]="resultsPerPage">
+                 <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                </select> Results Per Page
+              </div>
+              <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                 <option *ngFor="let pageresult of haulageLookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+              <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                 <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Haulage Location Code</th>
+                    <th>Inland Point</th>
+                    <th>Haulage Location Name</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (dblclick)="selectRowData($event, (advanceLocPickupTpye || advanceLocDropOffType)); $event.stopPropagation()" *ngFor="let tableRow of locLookUptableData | paginate: { itemsPerPage: resultsPerPage, currentPage: p4, id: 'four4' }; let i = index"
+                    class="slidein-from-top">
+                    <td>{{(p4-1) *resultsPerPage + i + 1  }}</td>
+                    <td>{{tableRow.haulageLocationCode}}</td>
+                    <td>{{tableRow.inlandPoint}}</td>
+                    <td>{{tableRow.hulageLocationName}}</td>
+                    <td>{{tableRow.status}}</td>
+                    <td hidden>{{tableRow.countryName}}</td>
+                    <td hidden>{{tableRow.fsc}}</td>
+                    <td hidden>{{tableRow.currencyCode}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="p4 = $event" id="four4"></pagination-controls>
+          </div>
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+        </div>
+
+        <div *ngIf="(advanceLocPickupTpye =='Port' && locselectName == 'from') || (advanceLocDropOffType =='Port' && locselectName == 'to')">
+          <p><span class="lookup-heading">Port Lookup</span></p>
+          <div class="row search-lookup-row">
+            <div class="col-sm-6">
+              Find in
+            </div>
+            <div class="col-sm-18">
+              <app-rcl-selectize [config]="advanceLocConfig" #depotLooupDropDown [options]="portLookUpOption" placeholder="Select one"
+                [(ngModel)]="portLookUpSelected"></app-rcl-selectize>
+            </div>
+            <div class="col-sm-24">
+              <app-rcl-input label="" klass="form-control" [name]="selectedDropDown" placeholder="Enter value..." #haulageLooupinput="ngModel"
+                [(ngModel)]="_value">
+              </app-rcl-input>
+            </div>
+            <div class="col-sm-12">
+              <app-rcl-checkbox class="lookUpCheckBox" label="Wild Card" name="lookUpCheckBox" [(ngModel)]="lookupWildCard"></app-rcl-checkbox>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocPickupTpye =='Port' && locselectName == 'from'">
+              <button [disabled]="!_value || !portLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocPickupTpye, portLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+            <div class="col-sm-12" *ngIf="advanceLocDropOffType =='Port' && locselectName == 'to'">
+              <button [disabled]="!_value || !portLookUpSelected" type="button" class="uk-button uk-button-primary" (click)="getLocLookUpData(advanceLocDropOffType, portLookUpSelected, $event, _value, lookupWildCard)">FIND</button>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable">
+            <div class="row">
+              <div class="col-sm-14">Total {{locLookUptableData.length}} items</div>
+              <div class="col-sm-20">
+                <select [(ngModel)]="resultsPerPage">
+                 <option *ngFor="let pageresult of resultsPerPageArr; let i = index" [value]= "pageresult">{{pageresult}}</option>
+                </select> Results Per Page
+              </div>
+              <div class="col-sm-19"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                 <option *ngFor="let pageresult of portLookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+              <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+                <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                 <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Port Code</th>
+                    <th>Port Name</th>
+                    <th>Country Code</th>
+                    <th>Zone Code</th>
+                    <th>State Code</th>
+                    <th>Status</th>
+                    <th>Port Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (dblclick)="selectRowData($event, (advanceLocPickupTpye || advanceLocDropOffType)); $event.stopPropagation()" *ngFor="let tableRow of locLookUptableData | paginate: { itemsPerPage: resultsPerPage, currentPage: p5, id: 'five5' }; let i = index"
+                    class="slidein-from-top">
+                    <td>{{(p5-1) *resultsPerPage + i + 1  }}</td>
+                    <td>{{tableRow.portCode}}</td>
+                    <td>{{tableRow.portName}}</td>
+                    <td>{{tableRow.country}}</td>
+                    <td>{{tableRow.zone}}</td>
+                    <td>{{tableRow.state}}</td>
+                    <td>{{tableRow.status}}</td>
+                    <td>{{tableRow.type}}</td>
+                    <td hidden>{{tableRow.countryName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="p5 = $event" id="five5"></pagination-controls>
+          </div>
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>

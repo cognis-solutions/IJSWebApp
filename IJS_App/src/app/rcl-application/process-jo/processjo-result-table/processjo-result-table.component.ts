@@ -72,7 +72,7 @@ export class ProcessjoResultTableComponent implements OnInit {
         try {
           this.filteredTableDataProcessJoSearch[val.index]['ladenContainerList'] = val.data;
           this.filteredTableDataProcessJoSearch[val.index]['selectedRowLaden'] = val.selectedRow;
-          this.updateContainer(val.data);
+          this.updateContainer(val.data,val.contType);
         } catch (error) {
           console.log('handling error while updating the containers selected');
         }
@@ -81,13 +81,28 @@ export class ProcessjoResultTableComponent implements OnInit {
         try {
           this.filteredTableDataProcessJoSearch[val.index]['emptyContainerList'] = val.data;
           this.filteredTableDataProcessJoSearch[val.index]['selectedRowEmpty'] = val.selectedRow;
-          this.updateContainer(val.selectedRow);
+          this.updateContainer(val.selectedRow,val.contType);
         } catch (error) {
           console.log('handling error while updating the containers selected');
         }
       }
     });
   }
+  d :any;
+
+  myTest(rowresult, id){
+    this.d =id;
+   
+    //console.log("row. = " +rowresult.numContainer);
+   // debugger;
+    if(Number(rowresult.numContainer)>=1){
+      console.log("row 2= " +rowresult.numContainer);
+
+      document.getElementById(id+"_"+id).classList.add("x"); 
+      console.log("row 3 = " +rowresult.numContainer);
+    }
+  }
+
 
   onChangeOrderBy(data) {
     this.filterDataSelectedComp.orderBy = data;
@@ -193,6 +208,7 @@ export class ProcessjoResultTableComponent implements OnInit {
   errorCodetext: string;
   getBackEndRefreshedTableData() {
     //this.refreshTableStatusFilter = false
+   // this.filteredTableDataProcessJoSearch=[];
     this._spinner.showSpinner();
     this.processJoSearchData['action'] = 'joSearch';
     let backendData = this._httpService.getProcessjoSearchData(this.processJoSearchData);
@@ -240,6 +256,32 @@ export class ProcessjoResultTableComponent implements OnInit {
 
   openNewDialog(event, contType, searchType, bookingBlNum, cntSize, cntSplHandling, bookingType, processJoType, row, emptyContainerList, ladenContainerList, i, selectedRowLaden, selectedRowEmpty) {
     //to open modal for available empty containers
+
+    this._httpService.getProcessjoSearchDataForCompare(row.vendorCode,row.fromLocation,row.toLocation).subscribe(
+      (data) => {
+        
+       
+          this._httpService.containerCount=data.count;
+    
+          if (contType == "L" && searchType == "AV") { //to open available laden containers
+            this.modalService.openDialog(this.viewRef, {
+            title: 'Please select available "Laden Container"',
+               data: { event: event, contType: contType, searchType: searchType, bkgBlNumber: bookingBlNum, cntSize: cntSize, cntSplHandling: cntSplHandling, bookType: bookingType, jobType: processJoType, row: row, emptyContainer: emptyContainerList, ladenContainer: ladenContainerList, index: i, selectedRowLaden: selectedRowLaden, selectedRowEmpty: selectedRowEmpty },
+               childComponent: RCLContainerModalComponent
+             });
+           } 
+       
+      }
+    )
+
+
+
+
+
+
+
+
+
     if (contType == "E" && searchType == "AV") {
       this.modalService.openDialog(this.viewRef, {
         title: 'Please select available "Empty Container"',
@@ -259,13 +301,8 @@ export class ProcessjoResultTableComponent implements OnInit {
         childComponent: RCLContainerModalComponent
       });
     }
-    if (contType == "L" && searchType == "AV") { //to open available laden containers
-      this.modalService.openDialog(this.viewRef, {
-        title: 'Please select available "Laden Container"',
-        data: { event: event, contType: contType, searchType: searchType, bkgBlNumber: bookingBlNum, cntSize: cntSize, cntSplHandling: cntSplHandling, bookType: bookingType, jobType: processJoType, row: row, emptyContainer: emptyContainerList, ladenContainer: ladenContainerList, index: i, selectedRowLaden: selectedRowLaden, selectedRowEmpty: selectedRowEmpty },
-        childComponent: RCLContainerModalComponent
-      });
-    } else if (contType == "L" && searchType == "T") { //to open total laden containers
+  
+    if (contType == "L" && searchType == "T") { //to open total laden containers
       this.modalService.openDialog(this.viewRef, {
         title: 'Total Laden Container',
         data: { event: event, contType: contType, searchType: searchType, bkgBlNumber: bookingBlNum, cntSize: cntSize, cntSplHandling: cntSplHandling, bookType: bookingType, jobType: processJoType, row: row, emptyContainer: emptyContainerList, ladenContainer: ladenContainerList, index: i, selectedRowLaden: selectedRowLaden, selectedRowEmpty: selectedRowEmpty },
@@ -293,6 +330,8 @@ export class ProcessjoResultTableComponent implements OnInit {
   selectedRowContainer: any;
 
   processjoselectTableRowCheckBoxes(e, rowObj) {
+    //debugger;
+    this.selectedRowContainer=[];
     this.processJoSummeryFields = [];
     this.selectedRowContainer = rowObj
     if (e.target.checked) {
@@ -373,7 +412,10 @@ export class ProcessjoResultTableComponent implements OnInit {
         'vendorCode': this.containerClickedRow['vendorCode'],
       }
       if(tempObj.actualContainerWeight != null) {
-        this.processJoSummeryFields2.push(tempObj);
+        this.containerClickedRow['isContainerChanged']=true;
+        this.processJoSummeryFields2.push(tempObj);  
+         
+          
       }
       
     }
@@ -427,7 +469,7 @@ export class ProcessjoResultTableComponent implements OnInit {
   }
 
   //method to save jo summary when different validations are satisfied
-  saveAllSelect() {
+  saveAllSelect() {debugger;
     if (this.processJoSummeryFields.length > 0) {
       let tempObj = {
         'lstJOSummaryParam': this.processJoSummeryFields,
@@ -437,6 +479,7 @@ export class ProcessjoResultTableComponent implements OnInit {
       }
       this.showJoSummeryTable.emit(tempObj);
     }
+    this.lstContainerl=[];
   }
 
   //method to close click save first validation error
@@ -460,38 +503,34 @@ export class ProcessjoResultTableComponent implements OnInit {
   private lstContainere: any = [];
   containerList: any;
   contbookingValue = '';
-  updateContainer(e) {
-    this.lstContainerl = [];
-    this.lstContainere = [];
-    e.forEach(element => {
-      if (element['bookingNumber'] == this.contbookingValue) {
-        if (element['contType'] == 'L') {
+  updateContainer(e,e1) {
+    
+   // debugger;
 
+  
+    e.forEach(element => {
+          if (e1 == 'L') { 
+          if(element['selectedFlag']){
           this.lstContainerl.push(element['container']);
-          this.lstContainerl.push(element['actualContainerWeight']);
-        } else if (element['contType'] == 'E') {
+         // this.lstContainerl.push(element['actualContainerWeight']);
+        } else if (e1 == 'E') {
           this.lstContainere.push(element['container']);
         }
-      } else {
-      //  this.lstContainerl = [];
-       // this.lstContainere = [];
-        if (element['contType'] == 'L') {
-          this.lstContainerl.push(element['container']);
-          this.lstContainerl.push(element['actualContainerWeight']);
-        } else if (element['contType'] == 'E') {
-          this.lstContainere.push(element['container']);
-        }
-      }
-      this.contbookingValue = element['bookingNumber'];
+          }
+      
     });
+ 
+    
+    
     this.containerClickedRow['lstContainere'] = this.lstContainere;
     this.containerClickedRow['lstContainerl'] = this.lstContainerl;
     //this.containerClickedRow['selectedRow'] = e;
+    this.lstContainere=[];
+    this.lstContainerl=[];
     this.processJoSummeryFields = []; //empty the object containing the selected rows
     this.createProceeJoObjectForActions();//to create object after the record is already checked  
     //to send data to backend
-    this.createProceeJoObjectForActionsToBackend(this.containerClickedRow);
-  }
+    this.createProceeJoObjectForActionsToBackend(this.containerClickedRow);}
 
   desellectSelectedRows() {
     this.filteredTableDataProcessJoSearch.forEach(element => {

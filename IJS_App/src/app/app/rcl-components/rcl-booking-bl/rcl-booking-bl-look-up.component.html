@@ -1,0 +1,149 @@
+
+
+<div *ngIf="openModal" id="lookup-popup-input">
+  <div id="booking-bl-lookup-modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <button class="uk-modal-close-default" type="button" uk-close (click)="resetPickDropModal(e)"></button>
+          <div [hidden]="lumpSumData.length<=0">
+            <p><span class="lookup-heading" style="padding-bottom: 2px;margin-bottom: 30px;font-size: 20px;border-bottom: 1px #79c1ff solid;">Lumpsum</span></p>
+            <div class="uk-overflow-auto">
+              <!--//#NIIT CR6 >>>>BEGIN -->
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th style="text-align: center">Lumpsum</th>
+                    <th style="text-align: center">Currency</th>
+                    <th style="text-align: center">Amount</th>          
+                    <th style="text-align: center">Amount USD</th>
+                    <th [hidden]="fromType =='joinquiry'" style="text-align: center">Delete LumpSum</th>                                                           
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="text-align: center" *ngFor="let lumpSumRowData of lumpSumData;let i = index"
+                    class="slidein-from-top">
+                    <td>Lumpsum</td> 
+                    <td>{{lumpSumRowData.Currency}}</td>                   
+                    <td>{{lumpSumRowData.Amount}}</td>
+                    <td>{{lumpSumRowData.AmountUSD}}</td>                    
+                    <td [hidden]="fromType =='joinquiry'">
+                      <input type="checkbox" id="selectLumpSum" label="" #selectLumpSumChecBox (change)="lumpSumCheckBoxSelected($event,lumpSumRowData)">
+                    </td>                                                                       
+                  </tr>
+                </tbody>
+                <!--//#NIIT CR6 >>>>END -->
+              </table>
+            </div>
+          </div>
+          <!--<ul>
+            <li *ngFor="let lumpSumRowData of lumpSumData;let i = index">
+              {{lumpSumRowData.Currency}}
+            </li>
+          </ul>-->
+          <!--<div *ngFor="let lumpsumData of lumpSumData">
+              <p>{{lumpsumData.currency}}</p>
+          </div>-->
+
+
+        <p><span class="lookup-heading">Booking/BL</span></p>
+
+        <div class="col-sm-19" style="display: inline-block;"><span><em>Sort by</em> &nbsp;&nbsp;</span>
+          <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+            <option *ngFor="let pageresult of joLogSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+            </select>
+        </div>
+        <div class="col-sm-19" style="display: inline-block;"><span><em>Order by</em> &nbsp;&nbsp;</span>
+          <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+            <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+            </select>
+        </div>                
+        <div class="col-sm-72">
+
+        <div [hidden]="showlookuptable">
+
+            <div class="uk-overflow-auto">
+              <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+                <thead>
+                  <tr>
+                    <th>Booking/BL</th>
+                    <th>SOC/COC</th>
+                    <th>Status</th>
+                    <th>Booking/BL Type</th>
+                    <th>Service</th>
+                    <th>Vessel</th>
+                    <th>Voyage</th>
+                    <th>ETA</th> 
+                    <th>ETD</th>
+                    <th>Size</th>
+                    <th>Type of Container</th>           
+                    <th>Total Container</th>
+                    <th>Currency</th>
+                    <th>Amount</th>          
+                    <th>Amount USD</th>                                                           
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tableRow of locLookUptableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupJoLog'}; let i = index"
+                    class="slidein-from-top"  (click)="selectRowForDelete($event,tableRow)">
+                    <td>{{tableRow.BookingBL}}</td>
+                    <td>{{tableRow.SOCCOC}}</td>
+                    <td>{{tableRow.Status}}</td>
+                    <td>{{tableRow.Type}}</td>      
+                    <td>{{tableRow.service}}</td>
+                    <td>{{tableRow.vessel}}</td>
+                    <td>{{tableRow.voyage}}</td>
+                    <td>{{tableRow.ETA}}</td>
+                    <td>{{tableRow.ETD}}</td>
+                    <td>{{tableRow.Size}}</td>
+                    <td>{{tableRow.containerType}}</td>
+                    <td>{{tableRow.TotalContainer}}</td>     
+                    <td>{{tableRow.Currency}}</td>
+                    <td>{{tableRow.Amount}}</td>
+                    <td>{{tableRow.AmountUSD}}</td>                                                                       
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div [hidden]="showlookuptable" class="lookup-pagination">
+            <pagination-controls (pageChange)="pc = $event" id="lookupJoLog"></pagination-controls>
+          </div>
+          
+          <div [hidden]="showlookuptable || fromType =='joinquiry'" class="col-sm-72" style="display: flex;justify-content: space-between;width: 600px;margin-left: 15%;"> 
+            <div class="" style="display: inline-block;text-align: right;">
+                <button type="button" id="closeButton" class="btn btn-secondary " placement="bottom" uk-close
+                (click)="resetPickDropModal($event)" style="background-color:grey;color: black;"><span>Close</span></button>
+            </div>
+            <div [hidden]="fromType =='joinquiry'" class="" style="display: inline-block;text-align: left;">
+                <button type="button" id="removeButton" class="btn btn-secondary " placement="bottom" 
+                (click)="removeBlBkg($event,joNumber, locLookUptableData)" style="background-color: #e74c3c;color: white;"><span>Remove Booking/BL</span></button>
+            </div>
+            <div [hidden]="fromType =='joinquiry'" class="" style="display: inline-block;text-align: left;">
+                <button [disabled]="checkedSelectedRows.length == 0" type="button" id="deleteLumpSum" class="btn btn-secondary " placement="bottom" 
+                (click)="deleteLumpSum()" style="background-color: #e74c3c;color: white;"><span>Delete LumpSum</span></button>
+            </div>
+          </div>      
+          <div [hidden]="!lookupErrorCodeShow" class="lookupErrorCodeShow">{{lookupErrorCodetext}}</div>    
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--//#NIIT CR6 >>>>BEGIN-->
+<!--popup to ask user whether to delete the lump sum record or not-->
+<div id="delete-lookup-lumpsum-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false" style="z-index: 9999">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>Do you want to delete the LumpSum?</h5>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;" (click)="deleteLumpSumConfirm(row, $event)">Yes</button>
+    <button class="uk-button uk-button-primary uk-modal-close" type="button" style="margin: 8px;">No</button>
+  </div>
+</div>
+
+<!--popup to show user that lump sum records have been successfully deleted-->
+<div id="delete-lumpsum-success-modal" class="uk-flex-top" uk-modal bg-close="false" esc-close="false" style="z-index: 9999">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <h5>LumpSum records successfully deleted</h5>
+    <button class="uk-button uk-button-primary" type="button" style="margin: 8px;" (click)="refreshLookupModal(row, $event)">OK</button>
+  </div>
+</div>
+<!--//#NIIT CR6 >>>>END-->

@@ -133,6 +133,9 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__common_services_imdg_class_service__ = __webpack_require__("../../../../../src/app/common-services/imdg-class.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__common_services_container_list_service__ = __webpack_require__("../../../../../src/app/common-services/container-list.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_app_common_services_session_time_out_service__ = __webpack_require__("../../../../../src/app/common-services/session-time-out.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_app_rcl_application_contract_search_sort_search_table_service__ = __webpack_require__("../../../../../src/app/rcl-application/contract-search/sort-search-table.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_app_rcl_application_process_jo_processjo_search_processjo_search_component__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search/processjo-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_app_rcl_application_process_jo_processjo_sort_search_table_service__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-sort-search-table.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* unused harmony export userServiceFactory */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -172,6 +175,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+//import { ProcessJOAdhocComponent } from "app/rcl-application/process-jo/process-joadhoc/process-joadhoc.component";
+//import { RouteListModalComponent } from "app/rcl-components/route-list-modal/route-list-modal.component";
+
+
+
+//import { ProcessjoSearchService } from "app/rcl-application/process-jo/processjo-search.service";
 var AppModule = (function () {
     function AppModule() {
     }
@@ -181,7 +190,7 @@ AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__user_user_component__["a" /* UserComponent */]
+            __WEBPACK_IMPORTED_MODULE_16__user_user_component__["a" /* UserComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -202,7 +211,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_8_angular_font_awesome_angular_font_awesome__["a" /* AngularFontAwesomeModule */],
             __WEBPACK_IMPORTED_MODULE_10__rcl_components_rcl_components_module__["a" /* RclComponentsModule */]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_10__rcl_components_rcl_components_module__["a" /* RclComponentsModule */], __WEBPACK_IMPORTED_MODULE_6__angular_common__["a" /* DatePipe */], __WEBPACK_IMPORTED_MODULE_11__common_services_spinner_service_service__["a" /* SpinnerServiceService */], __WEBPACK_IMPORTED_MODULE_12__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */], __WEBPACK_IMPORTED_MODULE_15__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */], __WEBPACK_IMPORTED_MODULE_18__user_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_19__common_services_window_ref_service__["a" /* WindowRefService */], __WEBPACK_IMPORTED_MODULE_13__common_services_file_upload_service__["a" /* FileUploadService */], __WEBPACK_IMPORTED_MODULE_20__common_services_rclapp_url_service__["a" /* RclappUrlService */], __WEBPACK_IMPORTED_MODULE_21__common_services_download_file_service__["a" /* DownloadFileService */], __WEBPACK_IMPORTED_MODULE_17__user_user_type_service__["a" /* UserTypeService */], __WEBPACK_IMPORTED_MODULE_14__common_services_special_handling_service__["a" /* SpecialHandlingService */], __WEBPACK_IMPORTED_MODULE_22__common_services_port_class_service__["a" /* PortClassService */], __WEBPACK_IMPORTED_MODULE_23__common_services_imdg_class_service__["a" /* ImdgClassService */], __WEBPACK_IMPORTED_MODULE_25_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */], __WEBPACK_IMPORTED_MODULE_24__common_services_container_list_service__["a" /* ContainerListService */],
+        providers: [__WEBPACK_IMPORTED_MODULE_28_app_rcl_application_process_jo_processjo_sort_search_table_service__["a" /* ProcessjoSortSearchTableService */], __WEBPACK_IMPORTED_MODULE_26_app_rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */], __WEBPACK_IMPORTED_MODULE_27_app_rcl_application_process_jo_processjo_search_processjo_search_component__["a" /* ProcessjoSearchComponent */], __WEBPACK_IMPORTED_MODULE_10__rcl_components_rcl_components_module__["a" /* RclComponentsModule */], __WEBPACK_IMPORTED_MODULE_6__angular_common__["a" /* DatePipe */], __WEBPACK_IMPORTED_MODULE_11__common_services_spinner_service_service__["a" /* SpinnerServiceService */], __WEBPACK_IMPORTED_MODULE_12__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */], __WEBPACK_IMPORTED_MODULE_15__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */], __WEBPACK_IMPORTED_MODULE_18__user_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_19__common_services_window_ref_service__["a" /* WindowRefService */], __WEBPACK_IMPORTED_MODULE_13__common_services_file_upload_service__["a" /* FileUploadService */], __WEBPACK_IMPORTED_MODULE_20__common_services_rclapp_url_service__["a" /* RclappUrlService */], __WEBPACK_IMPORTED_MODULE_21__common_services_download_file_service__["a" /* DownloadFileService */], __WEBPACK_IMPORTED_MODULE_17__user_user_type_service__["a" /* UserTypeService */], __WEBPACK_IMPORTED_MODULE_14__common_services_special_handling_service__["a" /* SpecialHandlingService */], __WEBPACK_IMPORTED_MODULE_22__common_services_port_class_service__["a" /* PortClassService */], __WEBPACK_IMPORTED_MODULE_23__common_services_imdg_class_service__["a" /* ImdgClassService */], __WEBPACK_IMPORTED_MODULE_25_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */], __WEBPACK_IMPORTED_MODULE_24__common_services_container_list_service__["a" /* ContainerListService */],
             {
                 provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["APP_INITIALIZER"],
                 useFactory: userServiceFactory,
@@ -666,7 +675,36 @@ var LookUpdataServiceService = (function () {
         this._http = _http;
         this._rclappUrlService = _rclappUrlService;
     }
-    LookUpdataServiceService.prototype.getDataLookupServiceJORouting = function (actionparam, type, eve, inputValueLoc, wildCard, inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent) {
+    LookUpdataServiceService.prototype.getDataLookupServiceJORoutingNew = function (actionparam, bookingType, inputValueLoc, inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent, bargeValue, cntSize, cntType, bkgOrBLNumber, cntSplHandling) {
+        var lookUpDataNew;
+        lookUpDataNew = {
+            ijsLookupParam: {
+                "findIn": bookingType,
+                "findForLoc": inputValueLoc,
+                "findForTerminal": inputValueTerminal,
+                "findForLocType": inputValueLocType,
+                "findForSaleDateOrJobOrdDate": inputSaleDateOrJobOrdDate,
+                "findForVendorCode": vendorCode,
+                "transMode": transportType,
+                "joType": joType,
+                "sameVendorInSearch": "Y",
+                "bargeValue": bargeValue,
+                "cntSize": cntSize,
+                "cntType": cntType,
+                "bkgOrBLNumber": bkgOrBLNumber,
+                "cntSplHandling": cntSplHandling,
+                "componentType": checkComponent
+            },
+            "action": actionparam
+        };
+        var seachdata = JSON.stringify(lookUpDataNew);
+        var searchParams = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
+        searchParams.set("data", seachdata);
+        return this._http.get(this._rclappUrlService.url + "/IJSWebApp/lookupSearchNewJOAll.do", { search: searchParams })
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    };
+    LookUpdataServiceService.prototype.getDataLookupServiceJORouting = function (actionparam, type, eve, inputValueLoc, wildCard, inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent, bargeValue) {
         // actionparam,bookingType,inputValue
         var lookUpsearchData;
         if (checkComponent == "adHocType" || checkComponent == "jomaintenance") {
@@ -680,7 +718,8 @@ var LookUpdataServiceService = (function () {
                     "findForVendorCode": vendorCode,
                     "transMode": transportType,
                     "joType": joType,
-                    "sameVendorInSearch": "Y"
+                    "sameVendorInSearch": "Y",
+                    "bargeValue": bargeValue
                 },
                 "action": actionparam
             };
@@ -696,7 +735,8 @@ var LookUpdataServiceService = (function () {
                     "findForVendorCode": vendorCode,
                     "transMode": transportType,
                     "joType": joType,
-                    "sameVendorInSearch": "N"
+                    "sameVendorInSearch": "N",
+                    "bargeValue": bargeValue
                 },
                 "action": actionparam
             };
@@ -714,7 +754,7 @@ var LookUpdataServiceService = (function () {
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     };
-    LookUpdataServiceService.prototype.getDataLookupServiceJOAll = function (actionparam, type, eve, inputValue, wildCard, contractId, componentType) {
+    LookUpdataServiceService.prototype.getDataLookupServiceJOAll = function (actionparam, type, eve, inputValue, wildCard, contractId, componentType, portDepo, termiPoint) {
         // actionparam,bookingType,inputValue
         var lookUpsearchData;
         if (actionparam == "getJOEquioment") {
@@ -722,7 +762,9 @@ var LookUpdataServiceService = (function () {
                 ijsLookupParam: {
                     "findIn": type,
                     "findForList": inputValue,
-                    "contractId": contractId
+                    "contractId": contractId,
+                    "portDepo": portDepo,
+                    "termiPoint": termiPoint
                 },
                 "action": actionparam
             };
@@ -1100,7 +1142,9 @@ var ServerErrorcodeService = (function () {
             "IJS_RATE_EX_10021": "Service code is not valid.",
             "IJS_RATE_EX_10022": "Vessel code is not valid.",
             "IJS_RATE_EX_10023": "Currency code is not valid.",
-            "IJS_RATE_EX_10024": "Rate Type is not setup for the selected special handling."
+            "IJS_RATE_EX_10024": "Rate Type is not setup for the selected special handling.",
+            "CONTAINER_SIZE_NOT_MATCH": "Container Size should be same as previous container.",
+            "CONTAINER_TYPE_NOT_MATCH": "Container Type should be same as previous container."
         };
     }
     ServerErrorcodeService.prototype.checkError = function (errorCode) {
@@ -1390,6 +1434,1057 @@ SortSearchTableService = __decorate([
 ], SortSearchTableService);
 
 //# sourceMappingURL=sort-search-table.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/rcl-application/process-jo/processjo-search.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_services_rclapp_url_service__ = __webpack_require__("../../../../../src/app/common-services/rclapp-url.service.ts");
+/* unused harmony export ProcessJoSearch */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProcessjoSearchService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ProcessJoSearch = (function () {
+    function ProcessJoSearch() {
+    }
+    return ProcessJoSearch;
+}());
+
+var ProcessjoSearchService = (function () {
+    function ProcessjoSearchService(_http, _rclappUrlService) {
+        this._http = _http;
+        this._rclappUrlService = _rclappUrlService;
+    }
+    //#NIIT CR3 >>>> BEGIN
+    ProcessjoSearchService.prototype.getProcessjoSearchData = function (searchDataObj) {
+        var seachdata = JSON.stringify(searchDataObj);
+        // let searchParams = new URLSearchParams();
+        // searchParams.set("data", seachdata);
+        return this._http.post(this._rclappUrlService.url + '/IJSWebApp/processJOSearchBookingBL.do', seachdata)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    };
+    ProcessjoSearchService.prototype.getProcessTableResultSearchData = function (searchDataObj) {
+        var seachdata = JSON.stringify(searchDataObj);
+        // let searchParams = new URLSearchParams();
+        // searchParams.set("data", seachdata);
+        return this._http.post(this._rclappUrlService.url + '/IJSWebApp/resultTableSearchBL.do', seachdata)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    };
+    //#NIIT CR3  <<<< END
+    //#NIIT CR3 >>>> BEGIN
+    ProcessjoSearchService.prototype.getJoSummaryListLimit = function (searchDataObj) {
+        var seachdata = JSON.stringify(searchDataObj);
+        return this._http.post(this._rclappUrlService.url + '/IJSWebApp/processJOSearchBookingBL.do', seachdata)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    };
+    //#NIIT CR3  <<<< END
+    //#NIIT CR6 >>>> BEGIN
+    //method to delete the jo summary lumpsum
+    ProcessjoSearchService.prototype.deleteProcessJoLumpSum = function (searchDataObj) {
+        var seachdata = JSON.stringify(searchDataObj);
+        return this._http.post(this._rclappUrlService.url + '/IJSWebApp/processJOSearchBookingBL.do', seachdata)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    };
+    //#NIIT CR6 >>>>END
+    ProcessjoSearchService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body;
+    };
+    ProcessjoSearchService.prototype.handleErrorObservable = function (error) {
+        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw(error);
+    };
+    return ProcessjoSearchService;
+}());
+ProcessjoSearchService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__common_services_rclapp_url_service__["a" /* RclappUrlService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__common_services_rclapp_url_service__["a" /* RclappUrlService */]) === "function" && _b || Object])
+], ProcessjoSearchService);
+
+var _a, _b;
+//# sourceMappingURL=processjo-search.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/rcl-application/process-jo/processjo-search/processjo-search.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"ijs_processjo_container slidein-from-left\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-72\">\r\n      <div class=\"col-sm-72\" style=\"padding:15px 30px 10px 30px;  background:rgb(46, 180, 241);\">\r\n        <div class=\"col-sm-50\">\r\n          <h4 style=\"color:#fff;\">Search \r\n            <span class=\"job-order-type\"\r\n              *ngIf=\"processJoSearchData.processJoParam.processJoType == 'ER'\">{{AdHocTypeText}}\r\n            </span>\r\n            <span class=\"job-order-type\"\r\n              *ngIf=\"processJoSearchData.processJoParam.processJoType == 'LAH'\">{{AdHocTypeText}}\r\n            </span>\r\n          </h4>\r\n        </div>\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"filter-button-wrapper\" style=\"padding:10px 0 0 0;\">\r\n\r\n            <!--<div class=\"filter-button\">\r\n              <button type=\"button\" id=\"find-button\" class=\"btn   btn-secondary btn-info btn-new\" (click)=\"searchProcessJoOrder($event.target)\"><i class=\"fa fa-search\">&nbsp;&nbsp;</i><span>Find</span></button>\r\n            </div>-->\r\n            <div class=\"filter-button\">\r\n              <button \r\n                type=\"button\" id=\"find-button\" class=\"btn   btn-secondary btn-info btn-new\" (click)=\"searchProcessJoOrderMain($event.target)\"><i class=\"fa fa-search\">&nbsp;&nbsp;</i><span>Find</span></button>\r\n            </div>\r\n            <div class=\"filter-button\">\r\n              <button type=\"button\" id=\"filterButton\" class=\"btn btn-secondary btn-new \" placement=\"bottom\" (click)=showhideFilter($event)><i class=\"fa fa-filter\">&nbsp;&nbsp;</i><span>Sort</span></button>\r\n            </div>\r\n            <div class=\"reset-button\">\r\n              <button type=\"button\" class=\"btn btn-secondary btn-new\" (click)=\"resetSearch()\"><i class=\"fa fa-refresh\">&nbsp;&nbsp;</i><span>Reset</span></button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <!-- change code -->\r\n      <!--<div class=\"row search-row1\">\r\n        <div class=\"col-sm-1\"></div>\r\n        <div class=\"col-sm-25\">\r\n          <div id=\"search-tab-button\">Search</div>\r\n        </div>\r\n        <div class=\"col-sm-32\"></div>\r\n        <div class=\"col-sm-13 text-right\">\r\n          <div class=\"filter-button\">\r\n            <button type=\"button\" id=\"filterButton\" class=\"btn btn-secondary\" placement=\"bottom\" (click)=showhideFilter($event)><i class=\"fa fa-filter\">&nbsp;&nbsp;</i><span>Sort</span></button>\r\n          </div>\r\n          <div class=\"reset-button\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"resetSearch()\"><i class=\"fa fa-refresh\">&nbsp;&nbsp;</i><span>Reset</span></button>\r\n          </div>\r\n        </div>\r\n      </div>-->\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row search-row1\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-10 search-for-text\">Search For</div>\r\n            <div class=\"col-sm-10 vehicle-tool-tip\">\r\n              <button \r\n                type=\"button\"  (document:click)=\"proceessJovehicleTip.close()\" (click)=\"$event.stopPropagation()\"  triggers=\"manual\" class=\"btn btn-sm tooltip-button\" placement=\"right\" #proceessJovehicleTip=\"ngbTooltip\"\r\n                [ngbTooltip]=\"processVehicleTipContent\" (click)=\"showHideVehicleToolTip()\">{{processJoSearchData.processJoParam.transMode}}</button>\r\n\r\n              <ng-template #processVehicleTipContent>\r\n                <div class=\"row vehicle-tooltip-Content\" (click)=\"proceessJovehicleTip.close()\">\r\n                  <div class=\"col-sm-72\">\r\n                    <app-rcl-radio-fa-icon #processJoVehicleRadio=\"ngModel\" [data]='processJoTransModeData' label=\"\" labelclass=\"medium trans-type-label\"\r\n                      name=\"rclAdvanceContractVehicle\" (click)=\"setJobOrederTypeOptions(processJoSearchData.processJoParam.transMode)\"\r\n                      [(ngModel)]=\"processJoSearchData.processJoParam.transMode\">\r\n                    </app-rcl-radio-fa-icon>\r\n                  </div>\r\n                </div>\r\n              </ng-template>\r\n            </div>\r\n            <div class=\"col-sm-10 text-tool-tip\">\r\n              <!--chandu new-->\r\n              <button [disabled]=\"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                type=\"button\" (document:click)=\"proceessJoBookingTip.close()\" (click)=\"$event.stopPropagation()\" triggers=\"manual\" class=\"btn btn-sm tooltip-button\" placement=\"right\" #proceessJoBookingTip=\"ngbTooltip\"\r\n                [ngbTooltip]=\"processBookingTipContent\" (click)=\"showHideBookingToolTip()\">{{bookingTypeText}}</button>\r\n              <ng-template #processBookingTipContent>\r\n                <div class=\"row vehicle-tooltip-Content\" (click)=\"proceessJoBookingTip.close()\">\r\n                  <div class=\"col-sm-72\">\r\n                    <app-text-group-radio #processJoVehicleRadio=\"ngModel\" [data]='processjoBookingType' label=\"\" labelclass=\"medium trans-type-label\"\r\n                      name=\"rclAdvanceContractVehicle\" [(ngModel)]=\"bookingTypeText\" (onChangeValue)=\"changeBookingTypeValue($event)\">\r\n                    </app-text-group-radio>\r\n                  </div>\r\n                </div>\r\n              </ng-template>\r\n            </div>\r\n\r\n            <!--chandu-->\r\n            <div class=\"col-sm-10 text-tool-tip\">\r\n              <button \r\n                type=\"button\" (document:click)=\"proceessJoAdHocTip.close()\" (click)=\"$event.stopPropagation()\" triggers=\"manual\" class=\"btn btn-sm tooltip-button\" placement=\"right\" #proceessJoAdHocTip=\"ngbTooltip\"\r\n                 [ngbTooltip]=\"processAdHocTipContent\" (click)=\"showAdHocToolTip()\">{{AdHocTypeText}}</button>\r\n                  <ng-template #processAdHocTipContent>\r\n                  <div class=\"row vehicle-tooltip-Content\" (click)=\"proceessJoAdHocTip.close()\">\r\n                    <div class=\"col-sm-72\">\r\n                      <app-text-group-radio #processJoVehicleRadio1=\"ngModel\" [data]='processjoAdHoc' label=\"\" labelclass=\"medium trans-type-label\"\r\n                        name=\"rclAdvanceContractVehicle1\" [(ngModel)]=\"AdHocTypeText\" (onChangeValue)=\"changeAdHocTypeValue($event)\">\r\n                      </app-text-group-radio>\r\n                    </div>\r\n                  </div>\r\n                </ng-template>\r\n            </div>\r\n            <!--chndu end-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row search-row1\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-selectize [disabled]=\"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\" name=\"processJoTypeSelect\" [config]=\"processJoSelectConfig\" [options]=\"processJoTypeSelectOptions\" [(ngModel)]=\"processJoSearchData.processJoParam.processJoType\"\r\n              #criteriaSelectCustType=\"ngModel\" klass=\"form-control\" hasOptionsPlaceholder=\"Select one\" label=\"Job Order Type\"\r\n              (onChangeValue)=\"onChangeProcessJOType($event)\">\r\n            </app-rcl-selectize>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-input-look-up [required]=\"processJoSearchData.processJoParam.processJoType == 'IT'\" label=\"Vendor\" placeholder=\"Vendor ID\" lookupName=\"Vendor Lookup\" helptext=\"What is code for Vendor?\"\r\n                klass=\"form-control\" compid=\"processJoVendorlookup1\" #processJoVendorlookup [data]='processJoVendorLookUpData'\r\n                [(lookUpvalue)]=\"processJoSearchData.processJoParam.vendorCode\">\r\n              </app-rcl-input-look-up>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-input [disabled]=\"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                label=\"Booking/BL #\" klass=\"form-control search-box\" compid=\"processJoBooking\" name=\"processJoBooking\" placeholder=\"Booking/BL #\"\r\n                #processJoBookingInput=\"ngModel\" [(ngModel)]=\"processJoSearchData.processJoParam.bookingVal\">\r\n              </app-rcl-input>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row search-row-last\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-17\">\r\n              <app-service-vessel-voyage-lookup [disabled]=\"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                valToSelect=\"service\" label=\"Service\" placeholder=\"Service\" lookupName=\"Service/Vessel/Voyage Lookup\" helptext=\"\"\r\n                klass=\"form-control\" compid=\"processJoServicelookup1\" #processJoserviceVesselVoyagelookup [data]='processJoserviceVesselVoyagelookupData'\r\n                [(lookUpvalue)]=\"processJoSearchData.processJoParam.serviceVal\"  (lookUpvalueChange)=\"getLookupValues($event)\" (svvValueChange)=\"getSVVValue($event)\"></app-service-vessel-voyage-lookup>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-service-vessel-voyage-lookup [disabled]=\"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                valToSelect=\"vessel\" label=\"Vessel\" placeholder=\"Vessel\" lookupName=\"Service/Vessel/Voyage Lookup\" helptext=\"\"\r\n                klass=\"form-control\" compid=\"processJoVesselookup1\" #processJoserviceVesselVoyagelookup [data]='processJoserviceVesselVoyagelookupData'\r\n                [(lookUpvalue)]=\"processJoSearchData.processJoParam.vesselVal\" (lookUpvalueChange)=\"getLookupValues($event)\" (svvValueChange)=\"getSVVValue($event)\"></app-service-vessel-voyage-lookup>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-service-vessel-voyage-lookup [disabled]=\"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                valToSelect=\"voyage\" label=\"Voyage\" placeholder=\"Voyage\" lookupName=\"Service/Vessel/Voyage Lookup\" helptext=\"\"\r\n                klass=\"form-control\" compid=\"processJoVoyagelookup1\" #processJoserviceVesselVoyagelookup [data]='processJoserviceVesselVoyagelookupData'\r\n                [(lookUpvalue)]=\"processJoSearchData.processJoParam.voyageVal\" (lookUpvalueChange)=\"getLookupValues($event)\" (svvValueChange)=\"getSVVValue($event)\"></app-service-vessel-voyage-lookup>\r\n            </div>\r\n           <!-- chandu\r\n               <div class=\"col-sm-17\">\r\n             <app-rcl-checkbox [disabled]=\"(processJoSearchData.processJoParam.processJoType != 'ER' && processJoSearchData.processJoParam.processJoType != 'LAH')\"\r\n                style=\"top: 54px; position: relative;\" label=\"AddHoc\" #adHocCheckbox (rclCheckChanged)=\"showAddHoc($event)\"\r\n                [(ngModel)]=\"checkBoxValue\"></app-rcl-checkbox>\r\n            </div>-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"row radio-select\" style=\"margin-bottom: 0; color: #007bce;\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-70\"><label style=\"text-decoration: underline; margin-bottom: 0;\"><b>Pick Up</b></label></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row search-row-last\" style=\"margin-top: 0;\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-selectize [required]=\"processJoSearchData.processJoParam.processJoType == 'IT' || processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH'\"\r\n                 name=\"PickUpLocDrop\" [config]=\"processJoSelectConfig\" [options]=\"processJoLocOptions\" [(ngModel)]=\"processJoSearchData.processJoParam['fromLocType']\"\r\n                #processJoPickLoc=\"ngModel\" klass=\"form-control\" hasOptionsPlaceholder=\"Select one\" label=\"Pickup Loc. Type\"\r\n                (onChangeValue)=\"pickUpDropDownChange($event)\">\r\n              </app-rcl-selectize>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-input-search [required]=\"processJoSearchData.processJoParam.fromLocType == 'Haulage' ||\r\n                processJoSearchData.processJoParam.fromLocType == 'Terminal' || processJoSearchData.processJoParam.fromLocType == 'Depot' || processJoSearchData.processJoParam.fromLocType == 'Door'\" [disabled]=\"!processJoSearchData.processJoParam['fromLocType'] || processJoSearchData.processJoParam['fromLocType'] == 'Port'\"\r\n                label=\"Location\" klass=\"form-control\" compid=\"PickUpLoc\" name=\"PickUpLoc\" placeholder=\"Location\" #processJoPickLocCode=\"ngModel\"\r\n                [(ngModel)]='processJoSearchData.processJoParam[\"fromLocation\"]' (handleSearch)=\"openFromLookup(processJoSearchData.processJoParam['fromLocType'],'from')\">\r\n              </app-rcl-input-search>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-input-search [required]=\"processJoSearchData.processJoParam.fromLocType == 'Port' || processJoSearchData.processJoParam.fromLocType == 'Haulage' || \r\n              processJoSearchData.processJoParam.fromLocType == 'Terminal' || processJoSearchData.processJoParam.fromLocType == 'Depot'\" [disabled]=\"!processJoSearchData.processJoParam['fromLocType'] ||processJoSearchData.processJoParam['fromLocType'] == 'Door'\"\r\n                label=\"Trm/Dpt/H.Loc\" klass=\"form-control\" compid=\"PickUpLoc1\" name=\"PickUpLoc1\" placeholder=\"Trm/Dpt/H.Loc\"\r\n                #rclinput2=\"ngModel\" [(ngModel)]='processJoSearchData.processJoParam[\"fromTerminal\"]' (handleSearch)=\"openFromLookup(processJoSearchData.processJoParam['fromLocType'],'from')\">\r\n              </app-rcl-input-search>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <!--pick drop Chnage-->\r\n      </div>\r\n\r\n      <div class=\"row radio-select\" style=\"margin-bottom: 0; color: #007bce;\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-70\">\r\n              <label style=\"text-decoration: underline; margin-bottom: 0;\"><b>Drop Off</b></label>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row search-row-last\" style=\"margin-top: 0;\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row \">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-selectize [required]=\"processJoSearchData.processJoParam.processJoType == 'IT' || processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH'\"\r\n                name=\"advanceDropLoc\" [config]=\"processJoSelectConfig\" [options]=\"processJoLocOptions\" [(ngModel)]=\"processJoSearchData.processJoParam['toLocType']\"\r\n                #advanceDropLoc=\"ngModel\" klass=\"form-control\" hasOptionsPlaceholder=\"Select one\" label=\"Loc. Type\" (onChangeValue)=\"dropOffDropDownChange($event)\">\r\n              </app-rcl-selectize>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-input-search [required]=\"processJoSearchData.processJoParam.toLocType == 'Haulage' || \r\n              processJoSearchData.processJoParam.toLocType == 'Terminal' || processJoSearchData.processJoParam.toLocType == 'Depot' || processJoSearchData.processJoParam.toLocType == 'Door'\" [disabled]=\"!processJoSearchData.processJoParam['toLocType'] || processJoSearchData.processJoParam['toLocType'] == 'Port'\"\r\n                label=\"Location\" klass=\"form-control\" compid=\"DropOffLoc\" name=\"DropOffLoc\" placeholder=\"Location\" #rclinput1=\"ngModel\"\r\n                [(ngModel)]='processJoSearchData.processJoParam[\"toLocation\"]' (handleSearch)=\"openToLookup(processJoSearchData.processJoParam['toLocType'] ,'to')\">\r\n              </app-rcl-input-search>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-input-search [required]=\"processJoSearchData.processJoParam.toLocType == 'Port' || processJoSearchData.processJoParam.toLocType == 'Haulage' || \r\n              processJoSearchData.processJoParam.toLocType == 'Terminal' || processJoSearchData.processJoParam.toLocType == 'Depot'\" [disabled]=\"!processJoSearchData.processJoParam['toLocType'] || processJoSearchData.processJoParam['toLocType'] == 'Door'\"\r\n                label=\"Trm/Dpt/H.Loc\" klass=\"form-control\" compid=\"DropOffLoc1\" name=\"DropOffLoc1\" placeholder=\"Trm/Dpt/H.Loc\"\r\n                #rclinput2=\"ngModel\" [(ngModel)]='processJoSearchData.processJoParam[\"toTerminal\"]' (handleSearch)=\"openToLookup(processJoSearchData.processJoParam['toLocType'],'to')\">\r\n              </app-rcl-input-search>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-72\">\r\n          <div class=\"row search-row-last\">\r\n            <div class=\"col-sm-1\"></div>\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-daterangepicker [readOnly]=\"true\" [disabled]=\"(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                [single]=\"false\" [time]=\"false\" [time24H]=\"true\" label=\"Start Date / End Date\" placeholder=\"Select Session\"\r\n                name=\"processJoSearchDate\" [(ngModel)]=\"processJoSearchData.processJoParam.dateRange\" #processJoSearchDatePicker=\"ngModel\"\r\n                klass=\"form-control\"></app-rcl-daterangepicker>\r\n            </div>\r\n            <!--<div class=\"col-sm-17\">\r\n              <app-rcl-input [disabled]=\"(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                label=\"Port/Point, Trm/Dpt/H.Loc\" klass=\"form-control search-box\" compid=\"processJoPPTDH\" name=\"processJoPPTDH\"\r\n                placeholder=\"Port/Point, Trm/Dpt/H.Loc\" #processJoBookingInput=\"ngModel\" [(ngModel)]=\"processJoSearchData.processJoParam.pptdhVal\"\r\n                (click)=\"openPickupDropoffPopUp($event)\">\r\n              </app-rcl-input>\r\n            </div>-->\r\n            <div class=\"col-sm-17\">\r\n              <app-rcl-selectize [disabled] = \"(blDisableFlage||processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                 name=\"processJoCOCTypeSelect\" [config]=\"processJoSelectConfig\" [options]=\"processJoCOCOptions\" [(ngModel)]=\"processJoSearchData.processJoParam.processJoCOCType\"\r\n                #criteriaSelectCustType=\"ngModel\" klass=\"form-control\" hasOptionsPlaceholder=\"Select one\" label=\"SOC/COC\">\r\n              </app-rcl-selectize>\r\n            </div>\r\n            <div class=\"col-sm-17\">\r\n              <!---->\r\n            </div>\r\n            <!--<div class=\"col-sm-17\">\r\n              <button [disabled]=\"(processJoSearchData.processJoParam.processJoType == 'ER' || processJoSearchData.processJoParam.processJoType == 'LAH')\"\r\n                type=\"button\" id=\"find-button\" class=\"btn btn-sm btn-info\" (click)=\"searchProcessJoOrder($event.target)\"><i class=\"fa fa-search\"></i> <span class=\"find-text\">&nbsp;FIND</span></button>\r\n            </div>-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row validation-error control-bottom-error\" [hidden]=\"!validationTextFlag\">\r\n        <div class=\"col-sm-72\">\r\n          <p>{{validationText}}</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"col-sm-72\">\r\n  <div *ngIf=\"processJoShowfilter\" class=\"processJoSearchFilter\">\r\n    <app-processjo-search-filter #processjoSearchFilter [contractshowfilter]=\"processJoShowfilter\" [numberofColumndata]='filterData'\r\n      (showhideFilter)='showhideFilter($event)' (filterDataSelected)='filterDataSelected($event)'></app-processjo-search-filter>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n<!--Pick drop modal interface-->\r\n<div id=\"ProcessJOPickDropModal\" class=\"uk-flex-top\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n  <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\">\r\n    <button class=\"uk-modal-close-default\" type=\"button\" (click)=\"resetPickDropModal($event)\" uk-close></button>\r\n    <div class=\"main-content\">\r\n      <p>Please insert Pick up and Drop off location.</p>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-30\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-72 text-center\"><b>Pick Up</b></div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-72\">\r\n              <app-rcl-input label=\"Location\" klass=\"form-control\" compid=\"processJoPickUpLoc\" name=\"PickUpLoc\" placeholder=\"\" #rclinput=\"ngModel\"\r\n                [(ngModel)]=\"locationCodePickUp\" (click)=\"openFromLookup(processJoLocPickupTpye,'from')\">\r\n              </app-rcl-input>\r\n            </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-72\">\r\n              <app-rcl-selectize required name=\"\" [config]=\"processJoSelectConfig\" [options]=\"processJoLocOptions\" [(ngModel)]=\"processJoLocPickupTpye\"\r\n                #processJoPickLoc=\"ngModel\" klass=\"form-control\" hasOptionsPlaceholder=\"Select one\" label=\"Loc. Type\">\r\n              </app-rcl-selectize>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"col-sm-12\"><i class=\"fa fa-long-arrow-right fa-2x\" aria-hidden=\"true\"></i></div>\r\n        <div class=\"col-sm-30\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-72 text-center\"><b>Drop off</b></div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-72\">\r\n              <app-rcl-input label=\"Location, Trm/Dpt/H.Loc\" klass=\"form-control\" compid=\"DropOffLoc\" name=\"DropOffLoc\" placeholder=\"\"\r\n                #rclinput=\"ngModel\" [(ngModel)]=\"locationCodeDropOff\" (click)=\"openToLookup(processJoLocDropOffType,'to')\">\r\n              </app-rcl-input>\r\n            </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-72\">\r\n              <app-rcl-selectize required name=\"\" [config]=\"processJoSelectConfig\" [options]=\"processJoLocOptions\" [(ngModel)]=\"processJoLocDropOffType\"\r\n                #processJoDropLoc=\"ngModel\" klass=\"form-control\" hasOptionsPlaceholder=\"Select one\" label=\"Loc. Type\">\r\n              </app-rcl-selectize>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm-27\"></div>\r\n        <div class=\"col-sm-26\"><button class=\"uk-button uk-button-primary\" (click)=\"selectLocLookUpValue()\">Select</button></div>\r\n      </div>\r\n      <div class=\"row\" [hidden]=\"!showLocErrorText\">\r\n        <div class=\"col-sm-72 control-bottom-error\">\r\n          {{errorTextLookUp}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<app-door-lookup #processJoPPTDHLookup (rowSelected)=\"rowSelected($event)\"></app-door-lookup>\r\n\r\n<div id=\"processjo-error-code-modal\" class=\"uk-flex-top\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n  <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\">\r\n    <h5 class=\"word-wrap\">Sorry!!!! {{errorCodetext}}</h5>\r\n    <button class=\"uk-button uk-button-primary uk-modal-close\" type=\"button\">Change Search</button>\r\n  </div>\r\n</div>\r\n<div class=\"container\" [hidden]=\"errormessage\" class=\"alert alert-danger\" style=\"margin:0 15px\">\r\n  <p><strong>*</strong>{{errorCodetext}}</p>\r\n</div>\r\n<div class=\"container\" [hidden]=\"serverErrormessage\" class=\"alert alert-danger\" style=\"margin:0 15px\">\r\n  <p><strong>*</strong>{{serverErrorCodetext}}</p>\r\n</div>\r\n\r\n <div id=\"requiredFields-warning-modal\" class=\"uk-flex-top\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n  <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\" >\r\n    <h5>Fill all the required fields</h5>\r\n    <button class=\"uk-button uk-button-primary uk-modal-close\" type=\"button\" style=\"width:30%;margin: 8px;\">Close</button>\r\n  </div>\r\n</div> \r\n \r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/rcl-application/process-jo/processjo-search/processjo-search.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".ijs_processjo_container {\n  margin: 1rem auto;\n  background: #ffffff;\n  width: 100%;\n  box-shadow: 1px 1px 1px 2px grey; }\n\n#search-tab-button {\n  color: #fff;\n  cursor: default;\n  background-color: #0275d8;\n  padding: 8px 16px;\n  display: inline-block; }\n\n.search-row1 {\n  margin-top: 10px;\n  margin-bottom: 10px; }\n\n.search-row-last {\n  margin-top: 10px;\n  margin-bottom: 10px; }\n\n.filter-button {\n  display: inline-block;\n  margin-right: 10px; }\n\n.reset-button {\n  display: inline-block; }\n\n.filter-button .btn-secondary, .reset-button .btn-secondary {\n  border-radius: 5px; }\n\n.filter-button button.filterButtonClicked {\n  background-color: #232323;\n  color: #ffffff; }\n\n.processJoSearchFilter {\n  margin: 0 auto;\n  width: 100%;\n  background-color: #232323;\n  color: #666666; }\n\n.tooltip-button {\n  background-color: #0f3c49;\n  color: #f6f6f6;\n  padding: .5rem 1rem;\n  border-radius: 7px;\n  font-size: 1rem; }\n\n.tooltip-inner {\n  width: 425px;\n  max-width: 425px;\n  background-color: #e6e6e6;\n  display: inline-block; }\n\n.search-for-text {\n  color: #007bce;\n  font-size: 16px;\n  font-weight: 800; }\n\n.validation-error {\n  height: 1.5em;\n  background-color: #d9534f;\n  color: #fff;\n  padding: 0 3px 0 3px;\n  text-align: left;\n  border-radius: 2px;\n  margin-bottom: 10px;\n  margin-left: 30px;\n  margin-right: 15px; }\n\n.filter-button-wrapper {\n  display: inline-block;\n  float: right;\n  margin-top: -47px; }\n\n.filter-button-wrapper > .filter-button {\n  float: left;\n  margin-right: 1rem; }\n\n.filter-button-wrapper > .reset-button {\n  float: right; }\n\n.btn-new {\n  background: #e7eaeb;\n  border-radius: 4px;\n  font-family: Arial;\n  color: #03648a;\n  font-size: 14px;\n  padding: 9px 20px 9px 20px;\n  text-decoration: none;\n  border: 1px solid #FFF;\n  cursor: pointer; }\n\n.btn-new:hover {\n  background: #2eb4f1;\n  text-decoration: none;\n  color: #FFFF;\n  border: 1px solid #eef5f7; }\n\n.job-order-type {\n  background-color: #0f3c49;\n  color: #f6f6f6;\n  padding: .5rem 1rem;\n  border-radius: 7px;\n  font-size: 1rem;\n  display: inline-block;\n  margin-left: 20px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/rcl-application/process-jo/processjo-search/processjo-search.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user_user_type_service__ = __webpack_require__("../../../../../src/app/user/user-type.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_services_rclapp_url_service__ = __webpack_require__("../../../../../src/app/common-services/rclapp-url.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_services_spinner_service_service__ = __webpack_require__("../../../../../src/app/common-services/spinner-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_services_server_errorcode_service__ = __webpack_require__("../../../../../src/app/common-services/server-errorcode.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__processjo_sort_search_table_service__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-sort-search-table.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__processjo_search_service__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_app_common_services_session_time_out_service__ = __webpack_require__("../../../../../src/app/common-services/session-time-out.service.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProcessjoSearchComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var ProcessjoSearchComponent = (function () {
+    function ProcessjoSearchComponent(spinner, _serverErrorCode, _sortTable, _userTypeService, _rclappUrlService, _joborderService, _sessionTimeOutService) {
+        this.spinner = spinner;
+        this._serverErrorCode = _serverErrorCode;
+        this._sortTable = _sortTable;
+        this._userTypeService = _userTypeService;
+        this._rclappUrlService = _rclappUrlService;
+        this._joborderService = _joborderService;
+        this._sessionTimeOutService = _sessionTimeOutService;
+        this.adHocFalg = false;
+        this.blDisableFlage = false;
+        //end
+        this.processJoShowfilter = false;
+        //this is the data to be implemented in filter 
+        this.processJoSearchData = {
+            "processJoParam": {
+                transMode: "Select Transport"
+            },
+            "action": "joSearch"
+        };
+        this.bookingTypeText = "Booking/BL #";
+        //chandu
+        this.AdHocTypeText = "AdHoc";
+        this.processJoSelectConfig = {
+            highlight: false,
+            create: false,
+            persist: true,
+            plugins: ['dropdown_direction', 'remove_button'],
+            dropdownDirection: 'down',
+            labelField: 'label',
+            valueField: 'value',
+            searchField: ['label'],
+            maxItems: 1
+        };
+        this.processJoTypeSelectAllOptions = [
+            {
+                label: 'Sea Leg',
+                value: 'SEALEG',
+            }, {
+                label: 'Export Truck/Rail',
+                value: 'ETR',
+            }, {
+                label: 'Import Truck/Rail',
+                value: 'ITR',
+            }, {
+                label: 'Inter Terminal',
+                value: 'IT'
+            },
+        ];
+        this.processJoTypeSelectBLOptions = [
+            {
+                label: 'Sealeg',
+                value: 'SEALEG',
+            }, {
+                label: 'Inter Terminal',
+                value: 'IT'
+            },
+        ];
+        this.processJoTypeSelectBookingOptions = [
+            {
+                label: 'Export Truck/Rail',
+                value: 'ETR',
+            }, {
+                label: 'Import Truck/Rail',
+                value: 'ITR',
+            }, {
+                label: 'Inter Terminal',
+                value: 'IT'
+            },
+        ];
+        this.processJoPortTypeOptions = [
+            {
+                label: 'Port',
+                value: 'port'
+            }, {
+                label: 'Inland Point',
+                value: 'inlandPoint'
+            }
+        ];
+        //filter data selected
+        this.filterDataSelectedComp = {
+            "filterDataArr": []
+        };
+        this.processJoLocOptions = [
+            {
+                label: 'Port',
+                value: 'Port'
+            },
+            {
+                label: 'Door',
+                value: 'Door'
+            }, {
+                label: 'Terminal',
+                value: 'Terminal'
+            }, {
+                label: 'Depot',
+                value: 'Depot'
+            }, {
+                label: 'Haulage Loc.',
+                value: 'Haulage'
+            }
+        ];
+        this.processJoVendorLookUpData = [{ "label": "Vendor", "value": "Vendor", "dropDownData": [{ "label": "Vendor", "value": "VCVNCD" }, { "label": "Vendor Name", "value": "VCVDNM" }, { "label": "Vendor Type", "value": "VCVDTY" }, { "label": "City", "value": "VCCITY" }, { "label": "Country", "value": "VCCNTY" }, { "label": "State", "value": "VCSTAT" }] }, { "label": "Vendor Name", "value": "Vendor" }];
+        this.processJoserviceVesselVoyagelookupData = [{ "label": "Service/Vessel/Voyage", "value": "serviceVesselLookup", "dropDownData": [{ "label": "Service", "value": "VVSRVC" }, { "label": "Vessel", "value": "VVVESS" }, { "label": "Voyage", "value": "VVVOYN" }] }];
+        this.joTypeSelected = "Empty Repo Ad-hoc";
+        this.showLocErrorText = false;
+        this.validationTextFlag = false;
+        this.processJoTransModeData = [{ id: "Truck", text: "truck" }, { id: "Barge", text: "barge" }, { id: "Feeder", text: "feeder" }, { id: "Rail", text: "rail" }];
+        this.processjoBookingType = [{ id: "Booking", text: "Booking" }, { id: "BL", text: "BL" }];
+        //chandu
+        this.processjoAdHoc = [{ id: "Empty Repo", text: "Empty" }, { id: "laden ad-hoc", text: "Laden" }];
+        this.searchDataProcessJo = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.showAddHocComp = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.callingComponent = "adHocType";
+        this.copyProcessJoTypeSelectAllOptiononTransportBaisis = [];
+        this.copyProcessJoTypeSelectAllOption = [];
+        this.errormessage = true;
+        this.serverErrormessage = true;
+    }
+    ProcessjoSearchComponent.prototype.ngOnInit = function () {
+        this.processJoCOCOptions = [
+            {
+                label: 'COC',
+                value: 'c'
+            },
+            {
+                label: 'SOC',
+                value: 's'
+            },
+        ];
+        this.processJoTypeSelectOptions = this.processJoTypeSelectAllOptions;
+    };
+    ProcessjoSearchComponent.prototype.getSearchingData = function () {
+        return this.processJoSearchData;
+    };
+    //showhide filter
+    ProcessjoSearchComponent.prototype.showhideFilter = function (e) {
+        if (this.processJoShowfilter) {
+            this.processJoShowfilter = false;
+            document.getElementById("filterButton").classList.remove("filterButtonClicked");
+        }
+        else {
+            this.processJoShowfilter = true;
+            document.getElementById("filterButton").classList.add("filterButtonClicked");
+        }
+    };
+    //show hide vehicletool tip
+    ProcessjoSearchComponent.prototype.showHideVehicleToolTip = function () {
+        if (this.proceessJovehicleTip.isOpen()) {
+            this.proceessJovehicleTip.close();
+        }
+        else {
+            this.proceessJovehicleTip.open();
+            if (this.processJoSearchData.processJoParam.transMode == 'Select Transport') {
+                this.processJoSearchData.processJoParam.transMode = 'Truck';
+                if (this.processJoSearchData.processJoParam.bookingType == 'Booking') {
+                    this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                    var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ITR' && element.value != 'IT' && element.value != 'SEALEG'; });
+                    this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+                }
+                if (this.processJoSearchData.processJoParam.bookingType == 'BL') {
+                    this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                    var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ITR' && element.value != 'IT' && element.value != 'SEALEG'; });
+                    this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+                }
+            }
+        }
+    };
+    //show hide Booking tool tip
+    ProcessjoSearchComponent.prototype.showHideBookingToolTip = function () {
+        //chandu
+        this.adHocFalg = false;
+        //end
+        if (this.proceessJoBookingTip.isOpen()) {
+            this.proceessJoBookingTip.close();
+        }
+        else {
+            this.proceessJoBookingTip.open();
+            this.processJoSearchData.processJoParam.vendorCode;
+            if (this.processJoSearchData.processJoParam.bookingType == undefined) {
+                this.processJoSearchData.processJoParam.bookingType = 'Booking';
+                this.bookingTypeText = 'Booking';
+                if (this.processJoSearchData.processJoParam.transMode == "Truck" || this.processJoSearchData.processJoParam.transMode == "Rail") {
+                    this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                    var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ITR' && element.value != 'IT' && element.value != 'SEALEG'; });
+                    this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+                }
+                if (this.processJoSearchData.processJoParam.transMode == "Barge" || this.processJoSearchData.processJoParam.transMode == "Feeder") {
+                    this.copyProcessJoTypeSelectAllOptiononTransportBaisis = this.processJoTypeSelectBLOptions;
+                    var filteredProcessJoTypeSelectAllOptionOnTransportBasis = this.copyProcessJoTypeSelectAllOptiononTransportBaisis.filter(function (element) { return element.value != 'IT'; });
+                    this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOptionOnTransportBasis;
+                }
+            }
+        }
+    };
+    //chandu
+    ProcessjoSearchComponent.prototype.showAdHocToolTip = function () {
+        this.blDisableFlage = true;
+        // this.e=e;
+        //debugger;
+        this.adHocFalg = true;
+        //console.log('showAdHocToolTip 1 ' +this.adHocFalg);
+        if (this.proceessJoAdHocTip.isOpen()) {
+            this.proceessJoAdHocTip.close();
+        }
+        else {
+            this.proceessJoAdHocTip.open();
+            if (this.processJoSearchData.processJoParam.transMode == 'Select Transport') {
+                this.processJoSearchData.processJoParam.transMode = 'Truck';
+                //this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                // const filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(element => element.value != 'ITR' && element.value != 'IT' && element.value != 'SEALEG' && element.value != 'ETR');
+                // this.processJoTypeSelectOptions=filteredProcessJoTypeSelectAllOption;
+                if (this.processJoSearchData.processJoParam.AdHocTypeText == undefined || this.processJoSearchData.processJoParam.AdHocTypeText == 'Empty') {
+                    this.processJoSearchData.processJoParam.AdHocTypeText = 'Empty';
+                    this.AdHocTypeText = 'AdHoc';
+                    // console.log('scope is ' + this.AdHocTypeText);
+                    if (this.processJoSearchData.processJoParam.AdHocTypeText == 'Empty') {
+                        // console.log('********** ' + this.processJoSearchData.processJoParam.AdHocTypeText);
+                        //console.log('xxxxxx ' + this.AdHocTypeText);
+                        this.processJoSearchData.processJoParam.processJoType = 'ER';
+                        // console.log('Process job value ' + this.processJoSearchData.processJoParam.processJoType);
+                    }
+                    else {
+                        this.processJoSearchData.processJoParam.processJoType = 'LAH';
+                        // console.log('vvvvvvv ' + this.processJoSearchData.processJoParam.processJoType);
+                    }
+                }
+                else {
+                    //console.log('my else');
+                    this.processJoSearchData.processJoParam.processJoType = 'LAH';
+                    //console.log('vvvvvvv ' + this.processJoSearchData.processJoParam.processJoType);
+                }
+            }
+        }
+    };
+    //chandu:start
+    ProcessjoSearchComponent.prototype.changeAdHocTypeValue = function (e) {
+        if (e == 'Laden') {
+            this.processJoSearchData.processJoParam.processJoType = 'LAH';
+            this.AdHocTypeText = "laden ad-hoc";
+            this.processJoSearchData.processJoParam.AdHocTypeText = 'Laden';
+        }
+        else {
+            this.processJoSearchData.processJoParam.processJoType = 'ER';
+            this.AdHocTypeText = "Empty";
+            this.processJoSearchData.processJoParam.AdHocTypeText = 'Empty';
+        }
+    };
+    ProcessjoSearchComponent.prototype.onChangeProcessJOType = function (e) {
+        this.processJoSearchData.processJoParam.processJoType = e;
+        if (this.processJoSearchData.processJoParam.processJoType == 'ER' || this.processJoSearchData.processJoParam.processJoType == 'LAH') {
+            this.processJoSearchData = {
+                "processJoParam": {
+                    transMode: "Select Transport",
+                    processJoType: "AD"
+                },
+                "action": "joSearch"
+            };
+            this.bookingTypeText = "Booking/BL #";
+            this.processJoCOCOptions = [{ label: 'COC', value: 'c' }];
+        }
+        else {
+            this.processJoCOCOptions = [{ label: 'COC', value: 'c' }, { label: 'SOC', value: 's' }];
+        }
+    };
+    ProcessjoSearchComponent.prototype.setJobOrederTypeOptions = function (transMode) {
+        if (transMode == "Truck" || transMode == "Rail") {
+            if (this.processJoSearchData.processJoParam.bookingType == "Booking") {
+                this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ITR' && element.value != 'IT' && element.value != 'SEALEG'; });
+                this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+            }
+            else {
+                this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ETR' && element.value != 'SEALEG'; });
+                this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+            }
+        }
+        else if (transMode == "Barge" || transMode == "Feeder") {
+            if (this.processJoSearchData.processJoParam.bookingType == "Booking") {
+                this.copyProcessJoTypeSelectAllOptiononTransportBaisis = this.processJoTypeSelectBLOptions;
+                var filteredProcessJoTypeSelectAllOptionOnTransportBasis = this.copyProcessJoTypeSelectAllOptiononTransportBaisis.filter(function (element) { return element.value != 'IT'; });
+                this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOptionOnTransportBasis;
+            }
+            else {
+                this.processJoTypeSelectOptions = this.processJoTypeSelectBLOptions;
+            }
+        }
+    };
+    ProcessjoSearchComponent.prototype.changeBookingTypeValue = function (e) {
+        var _this = this;
+        this.processjoBookingType.forEach(function (ele) {
+            if (ele.text == e) {
+                _this.processJoSearchData.processJoParam.bookingType = ele.id;
+            }
+        });
+        if (this.processJoSearchData.processJoParam.bookingType == "Booking") {
+            if (this.processJoSearchData.processJoParam.transMode == "Truck" || this.processJoSearchData.processJoParam.transMode == "Rail") {
+                this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ITR' && element.value != 'IT' && element.value != 'SEALEG'; });
+                this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+            }
+            else {
+                this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectBLOptions;
+                var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'IT'; });
+                this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+            }
+        }
+        else {
+            if (this.processJoSearchData.processJoParam.transMode == "Truck" || this.processJoSearchData.processJoParam.transMode == "Rail") {
+                this.copyProcessJoTypeSelectAllOption = this.processJoTypeSelectAllOptions;
+                var filteredProcessJoTypeSelectAllOption = this.copyProcessJoTypeSelectAllOption.filter(function (element) { return element.value != 'ETR' && element.value != 'SEALEG'; });
+                this.processJoTypeSelectOptions = filteredProcessJoTypeSelectAllOption;
+            }
+            else {
+                this.processJoTypeSelectOptions = this.processJoTypeSelectBLOptions;
+            }
+        }
+    };
+    //open pick and drop interface modal
+    ProcessjoSearchComponent.prototype.openPickupDropoffPopUp = function (e) {
+        if (e.target.disabled) {
+            e.stopPropogation();
+        }
+        else {
+            UIkit.modal('#ProcessJOPickDropModal').show();
+        }
+    };
+    //open from lookup modal
+    ProcessjoSearchComponent.prototype.openFromLookup = function (selectedValue, fromOrTo) {
+        this.locselectName = fromOrTo;
+        this.processJoPPTDHLookup.openFromLookup(selectedValue, fromOrTo);
+    };
+    //open to lookup modal
+    ProcessjoSearchComponent.prototype.openToLookup = function (selectedValue, fromOrTo) {
+        this.locselectName = fromOrTo;
+        this.processJoPPTDHLookup.openToLookup(selectedValue, fromOrTo);
+    };
+    ProcessjoSearchComponent.prototype.dropOffDropDownChange = function (e) {
+        this.processJoSearchData.processJoParam["toLocation"] = undefined;
+        this.processJoSearchData.processJoParam["toTerminal"] = undefined;
+    };
+    ProcessjoSearchComponent.prototype.pickUpDropDownChange = function (e) {
+        this.processJoSearchData.processJoParam["fromLocation"] = undefined;
+        this.processJoSearchData.processJoParam["fromTerminal"] = undefined;
+    };
+    //fill the data of code when row selected
+    ProcessjoSearchComponent.prototype.rowSelected = function (e) {
+        var type = e[1];
+        var event = e[0];
+        if (type == "Door") {
+            if (this.locselectName == "to") {
+                this.processJoSearchData.processJoParam["toLocation"] = event.target.parentElement.children[1].textContent;
+            }
+            else {
+                this.processJoSearchData.processJoParam["fromLocation"] = event.target.parentElement.children[1].textContent;
+            }
+        }
+        else if (type == "Terminal") {
+            if (this.locselectName == "to") {
+                this.processJoSearchData.processJoParam["toLocation"] = event.target.parentElement.children[3].textContent;
+                this.processJoSearchData.processJoParam["toTerminal"] = event.target.parentElement.children[1].textContent;
+            }
+            else {
+                this.processJoSearchData.processJoParam["fromLocation"] = event.target.parentElement.children[3].textContent;
+                this.processJoSearchData.processJoParam["fromTerminal"] = event.target.parentElement.children[1].textContent;
+            }
+        }
+        else if (type == "Depot") {
+            if (this.locselectName == "to") {
+                this.processJoSearchData.processJoParam["toTerminal"] = event.target.parentElement.children[1].textContent;
+                this.processJoSearchData.processJoParam["toLocation"] = event.target.parentElement.children[5].textContent;
+            }
+            else {
+                this.processJoSearchData.processJoParam["fromTerminal"] = event.target.parentElement.children[1].textContent;
+                ;
+                this.processJoSearchData.processJoParam["fromLocation"] = event.target.parentElement.children[5].textContent;
+            }
+        }
+        else if (type == "Haulage") {
+            if (this.locselectName == "to") {
+                this.processJoSearchData.processJoParam["toTerminal"] = event.target.parentElement.children[1].textContent;
+                ;
+                this.processJoSearchData.processJoParam["toLocation"] = event.target.parentElement.children[2].textContent;
+                //  this.locationCodeDropOff = type + "-" + event.target.parentElement.children[1].textContent + "," + event.target.parentElement.lastElementChild.innerText;
+            }
+            else {
+                this.processJoSearchData.processJoParam["fromTerminal"] = event.target.parentElement.children[1].textContent;
+                this.processJoSearchData.processJoParam["fromLocation"] = event.target.parentElement.children[2].textContent;
+                // this.locationCodePickUp = type + "-" + event.target.parentElement.children[1].textContent + "," + event.target.parentElement.lastElementChild.innerText;
+            }
+        }
+        else if (type == "Port") {
+            if (this.locselectName == "to") {
+                this.processJoSearchData.processJoParam["toTerminal"] = event.target.parentElement.children[1].textContent;
+                // this.locationCodeDropOff = type + "-" + event.target.parentElement.children[1].textContent + "," + event.target.parentElement.lastElementChild.innerText;
+            }
+            else {
+                this.processJoSearchData.processJoParam["fromTerminal"] = event.target.parentElement.children[1].textContent;
+            }
+        }
+    };
+    //nikash
+    ProcessjoSearchComponent.prototype.searchProcessJoOrderMain = function (e) {
+        if (this.processJoSearchData.processJoParam.processJoType == 'LAH' || this.processJoSearchData.processJoParam.processJoType == 'ER') {
+            this.showAddHoc(e);
+        }
+        else {
+            this.searchProcessJoOrder(e);
+        }
+    };
+    //seach for process jo order
+    ProcessjoSearchComponent.prototype.searchProcessJoOrder = function (e) {
+        //validation when jo type is inter terminal or any transport mode is selected
+        if (this.processJoSearchData.processJoParam.processJoType == 'IT' || this.processJoSearchData.processJoParam.fromLocType != undefined || this.processJoSearchData.processJoParam.toLocType != undefined) {
+            if (((this.processJoSearchData.processJoParam.vendorCode != undefined &&
+                this.processJoSearchData.processJoParam.processJoType == 'IT') &&
+                (this.processJoSearchData.processJoParam.fromLocType == undefined ||
+                    this.processJoSearchData.processJoParam.toLocType == undefined))) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            //when jo type is inter terminal and either of from location and to location is blank
+            if (((this.processJoSearchData.processJoParam.processJoType == 'IT') &&
+                (this.processJoSearchData.processJoParam.fromLocType == undefined ||
+                    this.processJoSearchData.processJoParam.toLocType == undefined))) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            //when jo type is inter terminal and vendor code is blank
+            if (this.processJoSearchData.processJoParam.processJoType == 'IT' && this.processJoSearchData.processJoParam.vendorCode == undefined) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            //  if((this.processJoSearchData.processJoParam.vendorCode == undefined 
+            //   || this.processJoSearchData.processJoParam.fromLocType == undefined 
+            //   || this.processJoSearchData.processJoParam.toLocType == undefined)){
+            //   UIkit.modal('#requiredFields-warning-modal').show();
+            //   return;
+            // }  
+            if (this.processJoSearchData.processJoParam.fromLocType == "Port"
+                && this.processJoSearchData.processJoParam.fromTerminal == undefined) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.toLocType == "Port"
+                && this.processJoSearchData.processJoParam.toTerminal == undefined) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.fromLocType == "Door"
+                && this.processJoSearchData.processJoParam.fromLocation == undefined) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.toLocType == "Door"
+                && this.processJoSearchData.processJoParam.toLocation == undefined) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.fromLocType == "Terminal" &&
+                (this.processJoSearchData.processJoParam.fromLocation == undefined || this.processJoSearchData.processJoParam.fromTerminal == undefined)) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.toLocType == "Terminal" &&
+                (this.processJoSearchData.processJoParam.toLocation == undefined || this.processJoSearchData.processJoParam.toTerminal == undefined)) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.fromLocType == "Haulage" &&
+                (this.processJoSearchData.processJoParam.fromLocation == undefined || this.processJoSearchData.processJoParam.fromTerminal == undefined)) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.toLocType == "Haulage" &&
+                (this.processJoSearchData.processJoParam.toLocation == undefined || this.processJoSearchData.processJoParam.toTerminal == undefined)) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.fromLocType == "Depot" &&
+                (this.processJoSearchData.processJoParam.fromLocation == undefined || this.processJoSearchData.processJoParam.fromTerminal == undefined)) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+            if (this.processJoSearchData.processJoParam.toLocType == "Depot" &&
+                (this.processJoSearchData.processJoParam.toLocation == undefined || this.processJoSearchData.processJoParam.toTerminal == undefined)) {
+                UIkit.modal('#requiredFields-warning-modal').show();
+                return;
+            }
+        }
+        //to make default ascending on result screen 
+        if (this.filterDataSelectedComp.orderBy == undefined) {
+            this.filterDataSelectedComp.orderBy = "asnd";
+        }
+        //to make default bkg bl in sort in in result screen
+        if (this.filterDataSelectedComp.sortIn == undefined) {
+            this.filterDataSelectedComp.sortIn = "bkgOrBLNumber";
+        }
+        this._joborderService.processJoSearchData = this.processJoSearchData;
+        this.getFilterCriteria(); //to get filter criteria
+        var findButton = document.getElementById('find-button');
+        findButton.innerHTML = '<i class="fa fa-search"></i> <span>&nbsp;LOADING...</span>';
+        document.getElementById("filterButton").classList.remove("filterButtonClicked");
+        this.validationText = this.formValidationSimpleSearch();
+        if (this.validationText == "true") {
+            this.validationTextFlag = false;
+            this.getBackEndData(findButton);
+        }
+        else {
+            this.validationTextFlag = true;
+            findButton.innerHTML = '<i class="fa fa-search"></i> <span>&nbsp;FIND</span>';
+        }
+    };
+    //check form validation
+    ProcessjoSearchComponent.prototype.formValidationSimpleSearch = function () {
+        var transtype = this.processJoSearchData.processJoParam.transMode;
+        var bookingType = this.processJoSearchData.processJoParam.bookingType;
+        var joType = this.processJoSearchData.processJoParam.processJoType;
+        //Madhuri
+        var vendor = this.processJoSearchData.processJoParam.processJoVendorlookup1;
+        var bookingBLNo = this.processJoSearchData.processJoParam.processJoBooking;
+        var service = this.processJoSearchData.processJoParam.processJoServicelookup1;
+        var vessel = this.processJoSearchData.processJoParam.processJoVesselookup1;
+        var voyage = this.processJoSearchData.processJoParam.processJoVoyagelookup1;
+        var session = this.processJoSearchData.processJoParam.session;
+        var portLookup = this.processJoSearchData.processJoParam.processJoPPTDH;
+        if (transtype && transtype != "Select Transport" && bookingType && joType) {
+            return "true";
+        }
+        else {
+            //nikash
+            if (joType == 'ER' || joType == 'LAH') {
+                return "true";
+            }
+            else {
+                return "Please provide Select Transport, Booking/BL #, and Job Order Type";
+            }
+        }
+    };
+    //filter data from filter comoponent
+    ProcessjoSearchComponent.prototype.filterDataSelected = function (e) {
+        this.filterDataSelectedComp = e;
+    };
+    ProcessjoSearchComponent.prototype.getBackEndData = function (findButton) {
+        var _this = this;
+        this.errorCodetext = "";
+        this.serverErrorCodetext = "";
+        this.spinner.showSpinner();
+        var backendData = this._joborderService.getProcessjoSearchData(this.processJoSearchData);
+        backendData.subscribe(function (data) {
+            if (data == "userSessionExpired") {
+                _this._sessionTimeOutService.checkSessionTimeout(data);
+            }
+            else if (data.hasOwnProperty("errorCode")) {
+                _this.errorCodetext = _this._serverErrorCode.checkError(data["errorCode"]);
+                _this.errormessage = false;
+                // UIkit.modal('#processjo-error-code-modal').show();
+            }
+            else {
+                _this.tableDataProcessJoSearch1 = data;
+                var searchInputOutPutData = {
+                    "filterInputData": _this.filterDataSelectedComp,
+                    "searchInputData": _this.processJoSearchData,
+                    "searchOutputData": _this.tableDataProcessJoSearch1,
+                    "filteredSearchOutputData": _this._sortTable.sortTableData(_this.tableDataProcessJoSearch1, _this.filterDataSelectedComp.sortIn, _this.filterDataSelectedComp.orderBy)
+                };
+                _this.errormessage = true;
+                _this.searchDataProcessJo.emit(searchInputOutPutData);
+            }
+            _this.spinner.hideSpinner();
+            if (findButton !== undefined)
+                findButton.innerHTML = '<i class="fa fa-search"></i> <span>&nbsp;FIND</span>';
+        }, function (err) {
+            _this.spinner.hideSpinner();
+            // A client-side or network error occurred. Handle it accordingly.
+            findButton.innerHTML = '<i class="fa fa-search"></i> <span>&nbsp;FIND</span>';
+            _this.serverErrormessage = false;
+            _this.serverErrorCodetext = "There is an issue on DB connection,  Please try again.";
+            //UIkit.modal('#processjo-error-code-modal').show();
+        });
+    };
+    ProcessjoSearchComponent.prototype.resetSearch = function () {
+        this.processJoTypeSelectOptions = this.processJoTypeSelectAllOptions;
+        this.errormessage = true;
+        this.serverErrormessage = true;
+        this.processJoSearchData = {
+            "processJoParam": {
+                transMode: "Select Transport"
+            },
+            "action": "joSearch"
+        };
+        this.bookingTypeText = "Booking/BL #";
+        this.validationTextFlag = false;
+        this.validationText = "";
+        this.processJoSearchData.processJoParam['serviceVal'] = "";
+        this.processJoSearchData.processJoParam['vesselVal'] = "";
+        this.processJoSearchData.processJoParam['voyageVal'] = "";
+        //chandu new 
+        this.adHocFalg = false;
+        this.AdHocTypeText = "AdHoc";
+        this.blDisableFlage = false;
+        //end
+    };
+    ProcessjoSearchComponent.prototype.selectLocLookUpValue = function (e) {
+        var isValidated = this.locLookupValidation();
+        if (isValidated) {
+            if (this.locationCodePickUp && this.locationCodeDropOff) {
+                this.processJoSearchData.processJoParam.pptdhVal = this.locationCodePickUp + " / " + this.locationCodeDropOff;
+            }
+            else if (this.locationCodePickUp) {
+                this.processJoSearchData.processJoParam.pptdhVal = this.locationCodePickUp;
+            }
+            else if (this.locationCodeDropOff) {
+                this.processJoSearchData.processJoParam.pptdhVal = this.locationCodeDropOff;
+            }
+            UIkit.modal('#ProcessJOPickDropModal').hide();
+            //this.locLookUptableData = [];
+            // this.lookupErrorCodetext= undefined;
+            // this.lookupErrorCodeShow=false;
+            // this.showlookuptable = true;
+            //this._value = undefined;
+        }
+    };
+    //validation 
+    ProcessjoSearchComponent.prototype.locLookupValidation = function () {
+        if (this.locationCodePickUp || this.locationCodeDropOff) {
+            this.showLocErrorText = false;
+            return true;
+        }
+        else {
+            if (this.locationCodePickUp == undefined && this.locationCodeDropOff == undefined) {
+                this.errorTextLookUp = "Please provide atleast one of the PickUp and DropOff fields.";
+                this.showLocErrorText = true;
+                return false;
+            }
+        }
+    };
+    //  }  
+    //  else {
+    //    this.validationTextFlag = true;
+    //    this.validationText = "Please provide the vendor code"
+    //    this.e.target.checked = false;
+    //  }
+    //nikash     
+    ProcessjoSearchComponent.prototype.showAddHoc = function (e) {
+        this._joborderService.processJoSearchData = this.processJoSearchData;
+        if (this.processJoSearchData.processJoParam.vendorCode || this.processJoSearchData.processJoParam.vendorCode == undefined) {
+            this.validationTextFlag = false;
+            this.validationText = "";
+            if (this.processJoSearchData.processJoParam.processJoType == "ER") {
+                this.addHocTypeCode = "ER";
+                // this.addHocTypeName = this.AdHocTypeText
+            }
+            else if (this.processJoSearchData.processJoParam.processJoType == "LAH") {
+                this.addHocTypeCode = "LAH";
+                this.addHocTypeName = this.AdHocTypeText;
+            }
+            this.getEquipmentsLimit(); //#NIIT CR3       
+        }
+        else {
+            this.validationTextFlag = true;
+            this.validationText = "Please provide atleast one of the PickUp and DropOff fields.";
+            this.e.target.checked = false;
+        }
+    };
+    //CR-TaskNo-11&12-Nikash
+    //       if(this.processJoSearchData.processJoParam.fromLocType != undefined || this.processJoSearchData.processJoParam.toLocType != undefined)
+    //       {
+    //       this.validationTextFlag = false;
+    //       this.validationText = "";
+    //         this.getEquipmentsLimit();  
+    //   }else{
+    //     this.validationTextFlag = true;
+    //     this.validationText = "Please provide atleast one of the PickUp and DropOff fields."
+    //     this.e.target.checked = false;
+    //   }
+    //  } 
+    ProcessjoSearchComponent.prototype.getLookupValues = function (e) {
+        this.processJoSearchData.processJoParam['serviceVal'] = e.serviceValue;
+        this.processJoSearchData.processJoParam['vesselVal'] = e.vesselValue;
+        this.processJoSearchData.processJoParam['voyageVal'] = e.voyageValue;
+    };
+    ProcessjoSearchComponent.prototype.getSVVValue = function (e) {
+        if (e.placeholder == "Service") {
+            this.processJoSearchData.processJoParam['serviceVal'] = e.serviceValue;
+        }
+        else if (e.placeholder == "Vessel") {
+            this.processJoSearchData.processJoParam['vesselVal'] = e.vesselValue;
+        }
+        else if (e.placeholder == "Voyage") {
+            this.processJoSearchData.processJoParam['voyageVal'] = e.voyageValue;
+        }
+    };
+    ProcessjoSearchComponent.prototype.getFilterCriteria = function () {
+        if (this.filterDataSelectedComp.orderBy == "asnd") {
+            this.filterDataSelectedComp.orderByName = "Ascending";
+        }
+        if (this.filterDataSelectedComp.orderBy == "dsnd") {
+            this.filterDataSelectedComp.orderByName = "Descending";
+        }
+        if (this.filterDataSelectedComp.sortIn == "bkgOrBLNumber") {
+            this.filterDataSelectedComp.sortInName = "Booking/BL";
+        }
+        if (this.filterDataSelectedComp.sortIn == "transMode") {
+            this.filterDataSelectedComp.sortInName = "Transport Mode";
+        }
+        if (this.filterDataSelectedComp.sortIn == "startDate") {
+            this.filterDataSelectedComp.sortInName = "EFFECTIVE DATE";
+        }
+        if (this.filterDataSelectedComp.sortIn == "endDate") {
+            this.filterDataSelectedComp.sortInName = "EXPIRY DATE";
+        }
+        if (this.filterDataSelectedComp.sortIn == "fromTerminal") {
+            this.filterDataSelectedComp.sortInName = "From";
+        }
+        if (this.filterDataSelectedComp.sortIn == "toTerminal") {
+            this.filterDataSelectedComp.sortInName = "To";
+        }
+    };
+    //#NIIT CR3 BEGIN	
+    //method to get the limit of containers that must be saved to create a jo
+    ProcessjoSearchComponent.prototype.getEquipmentsLimit = function () {
+        var _this = this;
+        var data = {
+            "action": "adhocEquipLimit"
+        };
+        var backendData = this._joborderService.getJoSummaryListLimit(data);
+        backendData.subscribe(function (result) {
+            if (result == "userSessionExpired") {
+                _this._sessionTimeOutService.checkSessionTimeout(result);
+            }
+            else {
+                _this.equipmentslimit = result;
+                var obj = {
+                    "vendorCode": _this.processJoSearchData.processJoParam.vendorCode,
+                    "addHocTypeCode": _this.addHocTypeCode,
+                    "addHocTypeName": _this.addHocTypeName,
+                    "joSummaryLimit": _this.equipmentslimit,
+                };
+                //emit the object
+                _this.showAddHocComp.emit(obj);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    return ProcessjoSearchComponent;
+}());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
+], ProcessjoSearchComponent.prototype, "searchDataProcessJo", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('proceessJovehicleTip'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "proceessJovehicleTip", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('proceessJoBookingTip'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "proceessJoBookingTip", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('proceessJoAdHocTip'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "proceessJoAdHocTip", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('processJoDropLoc'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "advanceDropLoc", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('processJoPickLoc'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "advancePickLoc", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('processJoPPTDHLookup'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "processJoPPTDHLookup", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('processjoSearchFilter'),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "processjoSearchFilter", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _b || Object)
+], ProcessjoSearchComponent.prototype, "showAddHocComp", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], ProcessjoSearchComponent.prototype, "filterData", void 0);
+ProcessjoSearchComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-processjo-search',
+        template: __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search/processjo-search.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search/processjo-search.component.scss")]
+    }),
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__processjo_sort_search_table_service__["a" /* ProcessjoSortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__processjo_sort_search_table_service__["a" /* ProcessjoSortSearchTableService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__user_user_type_service__["a" /* UserTypeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__user_user_type_service__["a" /* UserTypeService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_rclapp_url_service__["a" /* RclappUrlService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_rclapp_url_service__["a" /* RclappUrlService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__processjo_search_service__["a" /* ProcessjoSearchService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__processjo_search_service__["a" /* ProcessjoSearchService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _j || Object])
+], ProcessjoSearchComponent);
+
+var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+//# sourceMappingURL=processjo-search.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/rcl-application/process-jo/processjo-sort-search-table.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProcessjoSortSearchTableService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ProcessjoSortSearchTableService = (function () {
+    function ProcessjoSortSearchTableService() {
+    }
+    //sort table data
+    ProcessjoSortSearchTableService.prototype.sortTableData = function (tableData, sortIn, orderBy) {
+        if (orderBy == undefined) {
+            orderBy = "asnd";
+        }
+        if (sortIn == undefined) {
+            sortIn = "bkgOrBLNumber";
+        }
+        tableData.sort(function (a, b) {
+            if (orderBy == "asnd") {
+                if (a[sortIn] < b[sortIn])
+                    return -1;
+                if (a[sortIn] > b[sortIn])
+                    return 1;
+                else
+                    return 0;
+            }
+            else if (orderBy == "dsnd") {
+                if (a[sortIn] < b[sortIn])
+                    return 1;
+                if (a[sortIn] > b[sortIn])
+                    return -1;
+                else
+                    return 0;
+            }
+            else if (orderBy == "hp") {
+                if (a[sortIn] < b[sortIn]) {
+                    return -1;
+                }
+                if (a[sortIn] > b[sortIn]) {
+                    return 1;
+                }
+                else {
+                    if (a["priority"] < b["priority"])
+                        return -1;
+                    if (a["priority"] > b["priority"])
+                        return 1;
+                    else
+                        return 0;
+                }
+            }
+            else if (orderBy == "lp") {
+                if (a[sortIn] < b[sortIn]) {
+                    return 1;
+                }
+                if (a[sortIn] > b[sortIn]) {
+                    return -1;
+                }
+                else {
+                    if (a["priority"] < b["priority"])
+                        return 1;
+                    if (a["priority"] > b["priority"])
+                        return -1;
+                    else
+                        return 0;
+                }
+            }
+        });
+        return tableData;
+    };
+    //code for filter the data od the screen
+    ProcessjoSortSearchTableService.prototype.addRemoveSortFilter = function (filterDataSelectedComp, tableDataContractSearch1) {
+        this.tableDataContractSearch = tableDataContractSearch1;
+        if (filterDataSelectedComp !== undefined) {
+            this.tableDataContractSearch = this.sortTableData(this.tableDataContractSearch, filterDataSelectedComp.sortIn, filterDataSelectedComp.orderBy);
+            return this.tableDataContractSearch;
+        }
+    };
+    return ProcessjoSortSearchTableService;
+}());
+ProcessjoSortSearchTableService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [])
+], ProcessjoSortSearchTableService);
+
+//# sourceMappingURL=processjo-sort-search-table.service.js.map
 
 /***/ }),
 
@@ -2098,6 +3193,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_jquery__ = __webpack_require__("../../../../jquery/dist/jquery.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_app_common_services_session_time_out_service__ = __webpack_require__("../../../../../src/app/common-services/session-time-out.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_app_rcl_application_process_jo_processjo_search_service__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EquipmentBrowserLookupComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2119,8 +3215,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var EquipmentBrowserLookupComponent = (function () {
-    function EquipmentBrowserLookupComponent(_spinner, _lookupData, _serverErrorCode, _sortTable, _http, _sessionTimeOutService) {
+    function EquipmentBrowserLookupComponent(_joborderService, _spinner, _lookupData, _serverErrorCode, _sortTable, _http, _sessionTimeOutService) {
+        this._joborderService = _joborderService;
         this._spinner = _spinner;
         this._lookupData = _lookupData;
         this._serverErrorCode = _serverErrorCode;
@@ -2131,6 +3229,7 @@ var EquipmentBrowserLookupComponent = (function () {
         this.editAdhocList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](); //#NIIT CR3
         this.equipmentBrowserArray = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"](); //#NIIT CR3
         this.selectUpdateEqList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.valueChange = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.openEmptyEquipemtModal = false; //#NIIT CR3
         this.openModal = false;
         this.lookUpConfig = {
@@ -2171,6 +3270,10 @@ var EquipmentBrowserLookupComponent = (function () {
             {
                 label: "Activity Date",
                 value: "EQCUMD" //activityDate"
+            },
+            {
+                label: "Activity Time",
+                value: "RECORD_ADD_TIME" //activityDate"
             },
             {
                 label: "Terminal",
@@ -2263,7 +3366,7 @@ var EquipmentBrowserLookupComponent = (function () {
         this.lookupErrorCodeShow = false;
         this.uikitEqModal = UIkit.modal('#equipment-browser-modal-center');
         this.crossFlag = false; // #NIIT CR3
-        this.eqBrowserSortData = [{ label: "Equipment No", value: "eqpNum" }, { label: "Category", value: "catg" }, { label: "Size", value: "size" }, { label: "Type", value: "type" }, { label: "Point", value: "point" }, { label: "Activity", value: "activity" }, { label: "Activity Date", value: "activityDate" }, { label: "Terminal", value: "terminal" }, { label: "Service", value: "service" }, { label: "Vessel", value: "vessel" }, { label: "Voyage", value: "voyage" }, { label: "Direction", value: "direction" }, { label: "Origin", value: "origin" }, { label: "POL", value: "pol" }, { label: "POT", value: "pot" }, { label: "POD", value: "pod" }, { label: "Destination", value: "destination" }, { label: "Owner", value: "owner" }, { label: "Booking No", value: "booking" }, { label: "BL No", value: "bl" }];
+        this.eqBrowserSortData = [{ label: "Activity Time", value: "ativityTime" }, { label: "Equipment No", value: "eqpNum" }, { label: "Category", value: "catg" }, { label: "Size", value: "size" }, { label: "Type", value: "type" }, { label: "Point", value: "point" }, { label: "Activity", value: "activity" }, { label: "Activity Date", value: "activityDate" }, { label: "Terminal", value: "terminal" }, { label: "Service", value: "service" }, { label: "Vessel", value: "vessel" }, { label: "Voyage", value: "voyage" }, { label: "Direction", value: "direction" }, { label: "Origin", value: "origin" }, { label: "POL", value: "pol" }, { label: "POT", value: "pot" }, { label: "POD", value: "pod" }, { label: "Destination", value: "destination" }, { label: "Owner", value: "owner" }, { label: "Booking No", value: "booking" }, { label: "BL No", value: "bl" }];
         this.lookUpSortData = [{ label: 'Ascending', value: 'asnd' }, { label: 'Descending', value: 'dsnd' }];
         this.locLookUpEqBrowserTableData = [];
         //method to add the equipment query for search
@@ -2390,7 +3493,7 @@ var EquipmentBrowserLookupComponent = (function () {
         }
         var point = this.routeListDtl;
         var terminal = this.routeListDtl;
-        var backendData = this._lookupData.getDataLookupServiceJOAll('getJOEquioment', this.typeCheck, '', this.seachCriteriaList, '', this.contractId, '');
+        var backendData = this._lookupData.getDataLookupServiceJOAll('getJOEquioment', this.typeCheck, '', this.seachCriteriaList, '', this.contractId, '', this.equipData.fromLoaction, this.equipData.fromTerminal);
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 UIkit.modal('#equipment-browser-modal-center').hide();
@@ -2500,9 +3603,22 @@ var EquipmentBrowserLookupComponent = (function () {
         UIkit.modal('#equipment-browser-modal-center').hide();
         this.checkedSelectedRows = [];
     };
+    EquipmentBrowserLookupComponent.prototype.sendingAddEquipmentData = function (selectedEquipmentData, checkComponent) {
+        this.invokingComponent1 = checkComponent;
+        this.equipData1 = selectedEquipmentData;
+    };
     //method to open empty equipment modal
     // #NIIT CR3	>>>> BEGIN
-    EquipmentBrowserLookupComponent.prototype.openEmptyEquipmentsModal = function () {
+    EquipmentBrowserLookupComponent.prototype.openEmptyEquipmentsModal = function (rowObj) {
+        //debugger;
+        if (rowObj != undefined) {
+            if (rowObj.contDetailJO && rowObj.contDetailJO.length != 0) {
+                rowObj.contDetailJO[0].contEmptyOrLaden;
+                this.addhocCheck = "E";
+            }
+        }
+        console.log(rowObj);
+        //alert("?Equipment");
         __WEBPACK_IMPORTED_MODULE_9_jquery__('#add-empty-equipment-setup-modal').parent().parent().parent().scrollTop(0);
         __WEBPACK_IMPORTED_MODULE_9_jquery__('#add-empty-equipment-setup-modal').parent().parent().parent().css({ 'overflow': 'hidden', 'top': '50px' });
         this.openEmptyEquipemtModal = true;
@@ -2528,6 +3644,7 @@ var EquipmentBrowserLookupComponent = (function () {
     //method to add empty equipment container row
     // #NIIT CR3	>>>> BEGIN
     EquipmentBrowserLookupComponent.prototype.addEmptyEquipment = function () {
+        //alert("addEmptyEquipment???????????.....")
         var rowObj = {
             "type": this.eqTypeOptions[0].value,
             "size": this.rateOptions[0].value,
@@ -2538,11 +3655,17 @@ var EquipmentBrowserLookupComponent = (function () {
     };
     //method to save empty equipments
     // #NIIT CR3	>>>> BEGIN
-    EquipmentBrowserLookupComponent.prototype.saveEmptyEquipment = function () {
+    EquipmentBrowserLookupComponent.prototype.saveEmptyEquipment = function (jsonArray) {
+        //alert("helo");
+        console.log(jsonArray);
+        this.selectUpdateEqList.emit(this.emptyContainerList);
         var inValidFlag = false;
         var duplicateFlag = false;
         var negativeQuantityFlag = false;
         //checking whether job order type is Empty Repo or Laden Ad Hoc
+        if (this._joborderService.processJoSearchData != null && this._joborderService.processJoSearchData.processJoParam != null && this._joborderService.processJoSearchData.processJoParam.processJoType != null) {
+            this.addhocCheck = this._joborderService.processJoSearchData.processJoParam.processJoType.substring(0, 1);
+        }
         if (this.addHocType == 'Empty Repo') {
             this.addhocCheck = 'E';
         }
@@ -2774,16 +3897,20 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
 ], EquipmentBrowserLookupComponent.prototype, "routeListDtl", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", Object)
+], EquipmentBrowserLookupComponent.prototype, "valueChange", void 0);
 EquipmentBrowserLookupComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-equipment-browser-lookup',
         template: __webpack_require__("../../../../../src/app/rcl-components/equipment-browser-lookup/equipment-browser-lookup.component.html"),
         styles: [__webpack_require__("../../../../../src/app/rcl-components/equipment-browser-lookup/equipment-browser-lookup.component.scss")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_10_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_11_app_rcl_application_process_jo_processjo_search_service__["a" /* ProcessjoSearchService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11_app_rcl_application_process_jo_processjo_search_service__["a" /* ProcessjoSearchService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_10_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _g || Object])
 ], EquipmentBrowserLookupComponent);
 
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=equipment-browser-lookup.component.js.map
 
 /***/ }),
@@ -3134,7 +4261,7 @@ var RclBookingBLLookUpComponent = RclBookingBLLookUpComponent_1 = (function () {
     RclBookingBLLookUpComponent.prototype.getLocLookUpData = function (lookupTpye, type, eve, inpuvaluevalue, wildCard) {
         var _this = this;
         this._spinner.showSpinner();
-        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', '');
+        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', '', '', '');
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 UIkit.modal('#booking-bl-lookup-modal-center').hide();
@@ -3235,7 +4362,7 @@ var RclBookingBLLookUpComponent = RclBookingBLLookUpComponent_1 = (function () {
                 this.deleteCriteriaList.push(obj);
             }
             this._spinner.showSpinner();
-            var backendData = this._lookupData.getDataLookupServiceJOAll('delBkgBl', joNumber, '', this.deleteCriteriaList, '', '', '');
+            var backendData = this._lookupData.getDataLookupServiceJOAll('delBkgBl', joNumber, '', this.deleteCriteriaList, '', '', '', '', '');
             backendData.subscribe(function (data) {
                 //if (data.hasOwnProperty("errorCode")) {
                 // if (this._serverErrorCode.checkError(data["errorCode"])=='IJS_MSG_1022') {
@@ -3691,7 +4818,7 @@ RclComponentsModule = __decorate([
 /***/ "../../../../../src/app/rcl-components/rcl-container/rcl-container.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"openModal\" id=\"lookup-popup-input\">\r\n  <div id=\"rcl-container-lookup-modal-center\" class=\"ngx-container\">\r\n    <div class=\"ngx-dialog-modal\">\r\n      <!--<button  type=\"button\" (click)=\"resetRouteListModal($event)\"></button>-->\r\n\r\n      <!--<p><span class=\"lookup-heading\">Please Select Container</span></p>-->\r\n      <div class=\"col-sm-12\" style=\"max-width: 100%;\">\r\n        <div [hidden]=\"showlookuptable\">\r\n          <div class=\"ngx-overflow-auto\">\r\n            <div class=\"CommonModel\">\r\n\r\n              <!--for Value only -->\r\n\r\n              <!--  <div class='row'>\r\n                  <div class='col-md-70'>\r\n                    <h6><span class=\"id-text\">Container Number </span></h6>\r\n                      <div class=\"onlySpanValue\" [hidden]=\"showContainers\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                          <span>{{tableRow.container}}</span>\r\n                        </div>\r\n                 </div>\r\n              </div> -->\r\n              <!--SAI // for AV searchtype-->\r\n              <div class=\"uk-overflow-auto\">\r\n                <table class=\"uk-table uk-table-divider slidein-from-top\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th [hidden]=\"!showContainers\">Container Number</th>\r\n                      <th [hidden]=\"!showContainers\">Container Weight</th>\r\n                      <th [hidden]=\"!showContainers\">Actual Container Weight</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody [hidden]=\"showContainers\">\r\n                    <tr>\r\n\r\n                      <td *ngIf=\"multipleSelect\">\r\n                        <div class=\"onlySpanValue\" [hidden]=\"showContainers\"\r\n                          *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                          <span>{{tableRow.container}}</span>\r\n                        </div>\r\n                      </td>\r\n                      <ng-container *ngIf=\"!showContainers\">\r\n                        <td>\r\n                          <div class=\"onlySpanValue\" [hidden]=\"!showContainers\"\r\n                            *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                            <span>{{tableRow.container}}</span>\r\n                          </div>\r\n                        </td>\r\n                      </ng-container>\r\n                      <ng-container>\r\n                        <td *ngIf=\"!showContainers\">\r\n                          <div class=\"onlySpanValue\" [hidden]=\"!showContainers\"\r\n                            *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                            <span><input type=\"text\"></span>\r\n                          </div>\r\n                        </td>\r\n                      </ng-container>\r\n\r\n\r\n                    </tr>\r\n                  </tbody>\r\n                  <tbody>\r\n                    <tr>\r\n                      <td [hidden]=\"!showContainers\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                          <div *ngIf=\"noContainerFlag\">\r\n                            <span>{{tableRow.container}}</span>\r\n                          </div>\r\n\r\n\r\n                          <div *ngIf=\"!noContainerFlag\">\r\n                            <label>{{tableRow.container}}</label>\r\n                          </div>\r\n\r\n                        </div>\r\n                      </td>\r\n                      <td [hidden]=\"!showContainers\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                          <div *ngIf=\"noContainerFlag\">\r\n                            <span>{{tableRow.container}}</span>\r\n                          </div>\r\n\r\n                          <div *ngIf=\"!noContainerFlag\">\r\n                            <label>{{tableRow.containerWeight}}</label>\r\n\r\n                          </div>\r\n\r\n\r\n                        </div>\r\n                      </td>\r\n                      <td [hidden]=\"!showContainers\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                          <label>\r\n                            <input type=\"number\" />\r\n                          </label>\r\n                        </div>\r\n                      </td>\r\n                      <td>\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                          <div *ngIf=\"!noContainerFlag\">\r\n                            <label>\r\n                              <app-rcl-checkbox *ngIf=\"multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                                name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                                (rclCheckChanged)=\"getRowData($event, tableRow, i )\" [hidden]=\"showCheckBox\"\r\n                                [(ngModel)]=\"tableRow.selectedFlag\">\r\n                              </app-rcl-checkbox>\r\n\r\n\r\n                              <app-rcl-checkbox *ngIf=\"!multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                                name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                                (rclCheckChanged)=\"getSelectedData($event, tableRow, i )\" [hidden]=\"!showCheckBox\"\r\n                                [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\">\r\n                              </app-rcl-checkbox>\r\n                            </label>\r\n                          </div>\r\n\r\n                        </div>\r\n                      </td>\r\n                    </tr>\r\n                  </tbody>\r\n                </table>\r\n              </div>\r\n\r\n\r\n\r\n              <!--for Value with checkbox-->\r\n               <!--<div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                <div *ngIf=\"noContainerFlag\">\r\n                  <span>{{tableRow.container}}</span>\r\n                </div>\r\n\r\n\r\n                <div *ngIf=\"!noContainerFlag\">\r\n                  <!-- for multiple select checkbox\r\n                  <app-rcl-checkbox *ngIf=\"multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                    label=\"{{tableRow.container}}\" name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                    (rclCheckChanged)=\"getRowData($event, tableRow, i )\" [hidden]=\"showCheckBox\"\r\n                    [(ngModel)]=\"tableRow.selectedFlag\">\r\n                  </app-rcl-checkbox>\r\n                  \r\n\r\n                  <!-- for single select checkbox\r\n                  <app-rcl-checkbox *ngIf=\"!multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                    label=\"{{tableRow.container}}\" name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                    (rclCheckChanged)=\"getSelectedData($event, tableRow, i )\" [hidden]=\"showCheckBox\"\r\n                    [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\">\r\n                  </app-rcl-checkbox>\r\n                </div>\r\n\r\n              </div>-->\r\n            </div>\r\n          </div>\r\n          <!--<div class=\"text-center\">\r\n            <button type=\"button\" class=\"btn btn-default whiteBg\" (click)=\"resetRouteListModal($event)\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"updateRoute()\" [hidden]=\"showCheckBox\">Select</button>\r\n          </div>\r\n        </div>-->\r\n          <div [hidden]=\"!lookupErrorCodeShow\" class=\"lookupErrorCodeShow\">{{lookupErrorCodetext}}</div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>"
+module.exports = "<div *ngIf=\"openModal\" id=\"lookup-popup-input\">\r\n  <div id=\"rcl-container-lookup-modal-center\" class=\"ngx-container\">\r\n    <div class=\"ngx-dialog-modal\">\r\n      <!--<button  type=\"button\" (click)=\"resetRouteListModal($event)\"></button>-->\r\n\r\n      <!--<p><span class=\"lookup-heading\">Please Select Container</span></p>-->\r\n      <div class=\"col-sm-12\" style=\"max-width: 100%;\">\r\n        <div [hidden]=\"showlookuptable\">\r\n          <div class=\"ngx-overflow-auto\">\r\n            <div class=\"CommonModel\">\r\n\r\n              <!--for Value only -->\r\n\r\n              <!--  <div class='row'>\r\n                  <div class='col-md-70'>\r\n                    <h6><span class=\"id-text\">Container Number </span></h6>\r\n                      <div class=\"onlySpanValue\" [hidden]=\"showContainers\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                          <span>{{tableRow.container}}</span>\r\n                        </div>\r\n                 </div>\r\n              </div> -->\r\n              <!--SAI // for AV searchtype-->\r\n              <div class=\"uk-overflow-auto\">\r\n                <table class=\"uk-table uk-table-divider slidein-from-top\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th [hidden]=\"!showContainers\">Container Number</th>\r\n                      <th [hidden]=\"!showContainers\">Container Weight</th>\r\n                      <th [hidden]=\"!showContainers\">Actual Container Weight</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody [hidden]=\"showContainers\">\r\n                    <tr>\r\n\r\n                      <td *ngIf=\"multipleSelect\">\r\n                        <div class=\"onlySpanValue\" [hidden]=\"showContainers\"\r\n                          *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                          <span>{{tableRow.container}}</span>\r\n                        </div>\r\n                      </td>\r\n                      <ng-container *ngIf=\"!showContainers\">\r\n                        <td>\r\n                          <div class=\"onlySpanValue\" [hidden]=\"!showContainers\"\r\n                            *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                            <span>{{tableRow.container}}</span>\r\n                          </div>\r\n                        </td>\r\n                      </ng-container>\r\n                      <ng-container>\r\n                        <td *ngIf=\"!showContainers\">\r\n                          <div class=\"onlySpanValue\" [hidden]=\"!showContainers\"\r\n                            *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                            <span><input type=\"text\"></span>\r\n                          </div>\r\n                        </td>\r\n                      </ng-container>\r\n\r\n\r\n                    </tr>\r\n                  </tbody>\r\n                  <tbody>\r\n                    <tr>\r\n                      <td [hidden]=\"!showContainers\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                          <div *ngIf=\"noContainerFlag\">\r\n                            <span>{{tableRow.container}}</span>\r\n                          </div>\r\n\r\n\r\n                          <div *ngIf=\"!noContainerFlag\">\r\n                            <label>{{tableRow.container}}</label>\r\n                          </div>\r\n\r\n                        </div>\r\n                      </td>\r\n                      <td [hidden]=\"!showContainers\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                          <div *ngIf=\"noContainerFlag\">\r\n                            <span>{{tableRow.container}}</span>\r\n                          </div>\r\n\r\n                          <div *ngIf=\"!noContainerFlag\">\r\n                            <label>{{tableRow.containerWeight}}</label>\r\n\r\n                          </div>\r\n\r\n\r\n                        </div>\r\n                      </td>\r\n                      <td [hidden]=\"!showContainers\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n                          <label>\r\n                            <input type=\"number\" [(ngModel)] = \"tableRow.actualContainerWeight\" [attr.disabled] = \"inputTag ? true: null\"/>\r\n                          </label>\r\n                        </div>\r\n                      </td>\r\n                      <td style=\"padding-bottom: 6%\">\r\n                        <div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                          <div *ngIf=\"!noContainerFlag\">\r\n                            <label>\r\n                              <app-rcl-checkbox *ngIf=\"multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                                name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                                (rclCheckChanged)=\"getRowData($event, tableRow, i )\" [hidden]=\"showCheckBox\"\r\n                                [(ngModel)]=\"tableRow.selectedFlag\">\r\n                              </app-rcl-checkbox>\r\n\r\n\r\n                              <app-rcl-checkbox *ngIf=\"!multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                                name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                                (rclCheckChanged)=\"getSelectedData($event, tableRow, i )\" [hidden]=\"!showCheckBox\"\r\n                                [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\">\r\n                              </app-rcl-checkbox>\r\n                            </label>\r\n                          </div>\r\n\r\n                        </div>\r\n                      </td>\r\n                    </tr>\r\n                  </tbody>\r\n                </table>\r\n              </div>\r\n\r\n\r\n\r\n              <!--for Value with checkbox-->\r\n               <!--<div class=\"CustomCheckBoxModel\" *ngFor=\"let tableRow of  getCntrListData(); let i = index\">\r\n\r\n                <div *ngIf=\"noContainerFlag\">\r\n                  <span>{{tableRow.container}}</span>\r\n                </div>\r\n\r\n\r\n                <div *ngIf=\"!noContainerFlag\">\r\n                  <!-- for multiple select checkbox\r\n                  <app-rcl-checkbox *ngIf=\"multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                    label=\"{{tableRow.container}}\" name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                    (rclCheckChanged)=\"getRowData($event, tableRow, i )\" [hidden]=\"showCheckBox\"\r\n                    [(ngModel)]=\"tableRow.selectedFlag\">\r\n                  </app-rcl-checkbox>\r\n                  \r\n\r\n                  <!-- for single select checkbox\r\n                  <app-rcl-checkbox *ngIf=\"!multipleSelect\" style=\"top: 5px; position: relative;\"\r\n                    label=\"{{tableRow.container}}\" name=\"processJoRouteListCheck{{i}}\" #processJoRouteListCheck\r\n                    (rclCheckChanged)=\"getSelectedData($event, tableRow, i )\" [hidden]=\"showCheckBox\"\r\n                    [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\">\r\n                  </app-rcl-checkbox>\r\n                </div>\r\n\r\n              </div>-->\r\n            </div>\r\n          </div>\r\n          <!--<div class=\"text-center\">\r\n            <button type=\"button\" class=\"btn btn-default whiteBg\" (click)=\"resetRouteListModal($event)\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"updateRoute()\" [hidden]=\"showCheckBox\">Select</button>\r\n          </div>\r\n        </div>-->\r\n          <div [hidden]=\"!lookupErrorCodeShow\" class=\"lookupErrorCodeShow\">{{lookupErrorCodetext}}</div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -3729,6 +4856,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_app_common_services_session_time_out_service__ = __webpack_require__("../../../../../src/app/common-services/session-time-out.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__rcl_application_process_jo_processjo_search_service__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RCLContainerModalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3749,8 +4877,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RCLContainerModalComponent = (function () {
-    function RCLContainerModalComponent(_spinner, _lookupData, _serverErrorCode, _sortTable, _http, clService, _sessionTimeOutService) {
+    function RCLContainerModalComponent(_spinner, _lookupData, _serverErrorCode, _sortTable, _http, clService, _sessionTimeOutService, _httpService) {
         // this.actionButtons = [     
         //   //{ text: 'Close', onAction: () => true },
         //   { text: 'Select', onAction: () => this.updateRoute() }
@@ -3762,10 +4891,12 @@ var RCLContainerModalComponent = (function () {
         this._http = _http;
         this.clService = clService;
         this._sessionTimeOutService = _sessionTimeOutService;
+        this._httpService = _httpService;
         this.selectUpdateRouteList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.containerList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.containerCheckedList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.selectReplaceContainer = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.inputTag = null;
         this.openModal = false;
         this.showlookuptable = false;
         this.resultsPerPageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -3783,7 +4914,9 @@ var RCLContainerModalComponent = (function () {
         this.ladenContainerList = [];
         this.cntrlistData = [];
         this.noContainerFlag = false;
-        console.log(this.clService.cntrlistData);
+        //select Check box
+        this.selectedFlag = true;
+        console.log(this._httpService.processJoSearchData);
     }
     RCLContainerModalComponent.prototype.ngOnInit = function () {
         //this.openLookUpModal();
@@ -3868,6 +5001,22 @@ var RCLContainerModalComponent = (function () {
         this.seachValueList.push(obj);
         obj = { "key": "cntType", "value": row.cntType };
         this.seachValueList.push(obj);
+        if (this._httpService.processJoSearchData.processJoParam.vendorCode == null || this._httpService.processJoSearchData.processJoParam.fromLocation == null || this._httpService.processJoSearchData.processJoParam.toLocation == null || this._httpService.processJoSearchData.processJoParam.fromTerminal == null || this._httpService.processJoSearchData.processJoParam.toTerminal == null) {
+            this.inputTag = true;
+        }
+        obj = { "key": "searchvendorCode", "value": this._httpService.processJoSearchData.processJoParam.vendorCode };
+        this.seachValueList.push(obj);
+        obj = { "key": "searchfromLocation", "value": this._httpService.processJoSearchData.processJoParam.fromLocation };
+        this.seachValueList.push(obj);
+        obj = { "key": "searchtoLocation", "value": this._httpService.processJoSearchData.processJoParam.toLocation };
+        this.seachValueList.push(obj);
+        obj = { "key": "searchfromTerminal", "value": this._httpService.processJoSearchData.processJoParam.fromTerminal };
+        this.seachValueList.push(obj);
+        obj = { "key": "searchtoTerminal", "value": this._httpService.processJoSearchData.processJoParam.toTerminal };
+        this.seachValueList.push(obj);
+        obj = { "key": "routingNumber", "value": row.routingNumber };
+        this.seachValueList.push(obj);
+        this._httpService.processJoSearchData;
         this.openModal = true;
         this.showlookuptable = true;
         this.lookupErrorCodeShow = false;
@@ -3911,6 +5060,9 @@ var RCLContainerModalComponent = (function () {
             this.lookupErrorCodeShow = false;
             if (contType == "L") {
                 this.clService.cntrlistData = ladenContainer;
+                if ((contType == "L" && ladenContainer != undefined && searchType == "AV")) {
+                    this.getLocLookUpData('getJOContainer', '', '', this.seachValueList, '', ladenContainer, '');
+                }
             }
             else {
                 this.clService.cntrlistData = emptyContainer;
@@ -3927,7 +5079,7 @@ var RCLContainerModalComponent = (function () {
         var _this = this;
         //this.clService.cntrlistData = containerList; 
         this._spinner.showSpinner();
-        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', componentType);
+        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', componentType, '', '');
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 _this._sessionTimeOutService.checkSessionTimeout(data);
@@ -3976,6 +5128,7 @@ var RCLContainerModalComponent = (function () {
                 "container": rowData.container,
                 "contType": this.contType,
                 'bookingNumber': this.bookingNumber,
+                'actualContainerWeight': rowData.actualContainerWeight
             };
             this.selectedRow.push(tempObj);
             // console.log("getRowData <<>>"+ JSON.stringify(this.selectedRow));
@@ -4074,10 +5227,10 @@ RCLContainerModalComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/rcl-components/rcl-container/rcl-container.component.html"),
         styles: [__webpack_require__("../../../../../src/app/rcl-components/rcl-container/rcl-container.component.scss")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__common_services_container_list_service__["a" /* ContainerListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__common_services_container_list_service__["a" /* ContainerListService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_9_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__common_services_container_list_service__["a" /* ContainerListService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__common_services_container_list_service__["a" /* ContainerListService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_9_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_10__rcl_application_process_jo_processjo_search_service__["a" /* ProcessjoSearchService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__rcl_application_process_jo_processjo_search_service__["a" /* ProcessjoSearchService */]) === "function" && _h || Object])
 ], RCLContainerModalComponent);
 
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=rcl-container.component.js.map
 
 /***/ }),
@@ -5121,7 +6274,7 @@ var RclDGIMDGLookUpComponent = RclDGIMDGLookUpComponent_1 = (function () {
     RclDGIMDGLookUpComponent.prototype.getLocLookUpData = function (lookupTpye, type, eve, inpuvaluevalue, wildCard) {
         var _this = this;
         this._spinner.showSpinner();
-        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', '');
+        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', '', '', '');
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 _this._sessionTimeOutService.checkSessionTimeout(data);
@@ -5447,7 +6600,7 @@ var RclFSCLookUpComponent = RclFSCLookUpComponent_1 = (function () {
         eve.stopPropagation();
         eve.preventDefault();
         eve.stopImmediatePropagation();
-        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvalue, wildCard, '', '');
+        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvalue, wildCard, '', '', '', '');
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 UIkit.modal('#fsc-lookup-modal-center').hide();
@@ -6063,7 +7216,7 @@ var RclJOLogLookUpComponent = RclJOLogLookUpComponent_1 = (function () {
     RclJOLogLookUpComponent.prototype.getLocLookUpData = function (lookupTpye, type, eve, inpuvaluevalue, wildCard) {
         var _this = this;
         this._spinner.showSpinner();
-        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', '');
+        var backendData = this._lookupData.getDataLookupServiceJOAll(lookupTpye, type, eve, inpuvaluevalue, wildCard, '', '', '', '');
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 _this._sessionTimeOutService.checkSessionTimeout(data);
@@ -6790,7 +7943,7 @@ var RclRsnCdLookUpComponent = RclRsnCdLookUpComponent_1 = (function () {
         eve.stopPropagation();
         eve.preventDefault();
         eve.stopImmediatePropagation();
-        var backendData = this._lookupData.getDataLookupServiceJOAll('getReasonCd', findfror, eve, inpuvaluevalue, wildCard, '', '');
+        var backendData = this._lookupData.getDataLookupServiceJOAll('getReasonCd', findfror, eve, inpuvaluevalue, wildCard, '', '', '', '');
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 UIkit.modal('#reason-code-lookup-modal-center').hide();
@@ -7954,7 +9107,7 @@ var RclInputLookUpComponent_1, _a, _b, _c, _d, _e, _f, _g, _h;
 /***/ "../../../../../src/app/rcl-components/route-list-modal/route-list-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"openModal\" id=\"lookup-popup-input\">\r\n  <div id=\"route-list-modal-center\" class=\"uk-modal-container\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n    <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\">\r\n      <button class=\"uk-modal-close-default\" type=\"button\" uk-close (click)=\"resetRouteListModal($event)\"></button>\r\n\r\n      <p><span class=\"lookup-heading\">Route List</span></p>\r\n      <div class=\"col-sm-72\">\r\n        <div [hidden]=\"showlookuptable\">\r\n          <div class=\"row search-lookup-row\">\r\n            <div class=\"col-sm-14\">Total {{routeListTableData.length}} items</div>\r\n             <div class=\"col-sm-20\">\r\n                <select [(ngModel)]=\"resultsPerPage\">\r\n                  <option *ngFor=\"let pageresult of resultsPerPageArr; let i = index\" [value]= \"pageresult\">{{pageresult}}</option>\r\n                  </select> Results Per Page\r\n              </div>\r\n            <div class=\"col-sm-19\"><span><em>Sort by</em> &nbsp;&nbsp;</span>\r\n              <select [(ngModel)]=\"lookupSortIn\" (change)=\"sortLookUpDataByColumn($event)\">\r\n                  <option *ngFor=\"let pageresult of routeListSortData; let i = index\" [value]= \"pageresult.value\">{{pageresult.label}}</option>\r\n                  </select>\r\n            </div>\r\n            <div class=\"col-sm-19\"><span><em>Order by</em> &nbsp;&nbsp;</span>\r\n              <select [(ngModel)]=\"looUpOrderBy\" (change)=\"sortLookUpDataByOrder($event)\">\r\n                  <option *ngFor=\"let pageresult of lookUpSortData; let i = index\" [value]= \"pageresult.value\">{{pageresult.label}}</option>\r\n                  </select>\r\n            </div>\r\n          </div>\r\n          <div class=\"uk-overflow-auto\">\r\n            <table class=\"uk-table uk-table-hover uk-table-divider slidein-from-top\">\r\n              <thead>\r\n                <tr>\r\n                  <th>#</th>\r\n                  <th>Contract</th>\r\n                  <th>Priority</th>\r\n                  <th>Location</th>\r\n                  <th>Currency</th>\r\n                  <th>Leg Type</th>\r\n                  <th>Select</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr *ngFor=\"let tableRow of routeListTableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupRouteList'}; let i = index\">\r\n                  <td><span style=\"top: 5px; position: relative;\">{{i+1}}</span></td>\r\n                  <td>\r\n                    <span style=\"display:block;line-height: 30px;\"> \r\n                    <span style=\"display:inline-block;display: inline-block; font-size: 13px; font-weight: 600; color: #999;\">Contract #</span>\r\n                    <span style=\"display:inline-block;width:10px;\"></span>\r\n                    <span style=\"display:inline-block; font-weight: 700;\">{{tableRow.contractId}}</span>\r\n                    </span>\r\n                    <span style=\"display:block; line-height: 30px;\"> \r\n                        <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i> <span style=\"font-weight: 500;\">{{tableRow.days}} D {{tableRow.hours}} hr</span>\r\n                    <span style=\"display:inline-block;width:10px;\"></span>\r\n                    <i class=\"fa fa-tachometer\" aria-hidden=\"true\"></i> <span style=\"font-weight: 500;\">{{tableRow.distance}} {{tableRow.uom}}</span>\r\n                    </span>\r\n                    <span style=\"inline-block; font-size: 13px; font-weight: 600; color: #999;\">VENDOR</span><span style=\"display:inline-block;width:10px;\"></span>\r\n                     <span style=\"display:inline-block; font-weight: 600;\">{{tableRow.vendorCode}}</span>\r\n                  </td>\r\n                  <td><span style=\"padding: 3px 9px; background-color: #807f7f; border-radius: 15px; border: 1px solid #807F7F; color: white; font-weight: 600; top: 11px; position: relative;\">{{tableRow.priority}}</span></td>\r\n                  <td>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-weight:600;font-size: 20px;\">{{tableRow.fromLocation}}</span>\r\n                    <span style=\"display:inline-block;width:50px;\"></span>\r\n                    <span style=\"display:inline-block;font-weight:600; font-size: 20px;\">{{tableRow.toLocation}}</span>\r\n                    </span>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-size: 13px;\">{{tableRow.fromLocType}}</span>\r\n                    <span style=\"display:inline-block;width:50px;\"></span>\r\n                    <span style=\"display:inline-block;font-size: 13px;\">{{tableRow.toLocType}}</span>\r\n                    </span>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-size: 13px;\">&#x25CF; {{tableRow.fromTerminal}}</span>\r\n                    <span class=\"arrow-block\"></span>\r\n                    <span style=\"display:inline-block;font-size: 13px;\">&#x25CF; {{tableRow.toTerminal}}</span>\r\n                    </span>\r\n                  </td>\r\n                  <td>{{tableRow.currency}}</td>\r\n                  <td>{{tableRow.legType}}</td>\r\n                  <td>\r\n                    <app-rcl-checkbox style=\"top: 5px; position: relative;\" label=\"\" [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\" name=\"processJoRouteListCheck\" #processJoRouteListCheck\r\n                      (rclCheckChanged)=\"getRowData($event, tableRow, i )\"></app-rcl-checkbox>\r\n                  </td>\r\n                </tr>                \r\n              </tbody>\r\n            </table>\r\n          </div>          \r\n          <div [hidden]=\"showlookuptable\" class=\"lookup-pagination\">\r\n            <pagination-controls (pageChange)=\"pc = $event\" id=\"lookupRouteList\"></pagination-controls>\r\n          </div>\r\n          <div class=\"uk-modal-footer uk-text-center\">\r\n            <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\" (click)=\"resetRouteListModal($event)\">Close</button>\r\n            <button class=\"uk-button uk-button-primary\" type=\"button\" (click)=\"updateRoute()\">Update Route</button>\r\n          </div>\r\n        </div>\r\n        <div [hidden]=\"!lookupErrorCodeShow\" class=\"lookupErrorCodeShow\">{{lookupErrorCodetext}}</div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div *ngIf=\"openModal\" id=\"lookup-popup-input\">\r\n  <div id=\"route-list-modal-center\" class=\"uk-modal-container\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n    <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\">\r\n      <button class=\"uk-modal-close-default\" type=\"button\" uk-close (click)=\"resetRouteListModal($event)\"></button>\r\n\r\n      <p><span class=\"lookup-heading\">Route List</span></p>\r\n      <div class=\"col-sm-72\">\r\n        <div [hidden]=\"showlookuptable\">\r\n          <div class=\"row search-lookup-row\">\r\n            <div class=\"col-sm-14\">Total {{routeListTableData.length}} items</div>\r\n             <div class=\"col-sm-20\">\r\n                <select [(ngModel)]=\"resultsPerPage\">\r\n                  <option *ngFor=\"let pageresult of resultsPerPageArr; let i = index\" [value]= \"pageresult\">{{pageresult}}</option>\r\n                  </select> Results Per Page\r\n              </div>\r\n            <div class=\"col-sm-19\"><span><em>Sort by</em> &nbsp;&nbsp;</span>\r\n              <select [(ngModel)]=\"lookupSortIn\" (change)=\"sortLookUpDataByColumn($event)\">\r\n                  <option *ngFor=\"let pageresult of routeListSortData; let i = index\" [value]= \"pageresult.value\">{{pageresult.label}}</option>\r\n                  </select>\r\n            </div>\r\n            <div class=\"col-sm-19\"><span><em>Order by</em> &nbsp;&nbsp;</span>\r\n              <select [(ngModel)]=\"looUpOrderBy\" (change)=\"sortLookUpDataByOrder($event)\">\r\n                  <option *ngFor=\"let pageresult of lookUpSortData; let i = index\" [value]= \"pageresult.value\">{{pageresult.label}}</option>\r\n                  </select>\r\n            </div>\r\n          </div>\r\n          <div class=\"uk-overflow-auto\">\r\n            <table class=\"uk-table uk-table-hover uk-table-divider slidein-from-top\">\r\n              <thead>\r\n                <tr>\r\n                  <th>#</th>\r\n                  <th>Contract</th>\r\n                  <th>Priority</th>\r\n                  <th>Location</th>\r\n                  <th>Currency</th>\r\n                  <th>Leg Type</th>\r\n                  <th>Select</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr *ngFor=\"let tableRow of routeListTableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupRouteList'}; let i = index\">\r\n                  <td><span style=\"top: 5px; position: relative;\">{{i+1}}</span></td>\r\n                  <td>\r\n                    <span style=\"display:block;line-height: 30px;\"> \r\n                    <span style=\"display:inline-block;display: inline-block; font-size: 13px; font-weight: 600; color: #999;\">Contract #</span>\r\n                    <span style=\"display:inline-block;width:10px;\"></span>\r\n                    <span style=\"display:inline-block; font-weight: 700;\">{{tableRow.contractId}}</span>\r\n                    </span>\r\n                    <span style=\"display:block; line-height: 30px;\"> \r\n                        <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i> <span style=\"font-weight: 500;\">{{tableRow.days}} D {{tableRow.hours}} hr</span>\r\n                    <span style=\"display:inline-block;width:10px;\"></span>\r\n                    <i class=\"fa fa-tachometer\" aria-hidden=\"true\"></i> <span style=\"font-weight: 500;\">{{tableRow.distance}} {{tableRow.uom}}</span>\r\n                    </span>\r\n                    <span style=\"inline-block; font-size: 13px; font-weight: 600; color: #999;\">VENDOR</span><span style=\"display:inline-block;width:10px;\"></span>\r\n                     <span style=\"display:inline-block; font-weight: 600;\">{{tableRow.vendorCode}}</span>\r\n                  </td>\r\n                  <td><span style=\"padding: 3px 9px; background-color: #807f7f; border-radius: 15px; border: 1px solid #807F7F; color: white; font-weight: 600; top: 11px; position: relative;left: 20px;\">{{tableRow.priority}}</span>\r\n                    <span style=\"display:block; font-size: 13px; font-weight: 600; color: #999;padding-top: 20px;\">Purchase Term</span>\r\n                    <span style=\"display:inline-block; font-weight: 700;\">{{tableRow.purchaseTerm}}</span>\r\n                  \r\n                  </td>\r\n                  <td>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-weight:600;font-size: 20px;\">{{tableRow.fromLocation}}</span>\r\n                    <span style=\"display:inline-block;width:50px;\"></span>\r\n                    <span style=\"display:inline-block;font-weight:600; font-size: 20px;\">{{tableRow.toLocation}}</span>\r\n                    </span>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-size: 13px;\">{{tableRow.fromLocType}}</span>\r\n                    <span style=\"display:inline-block;width:50px;\"></span>\r\n                    <span style=\"display:inline-block;font-size: 13px;\">{{tableRow.toLocType}}</span>\r\n                    </span>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-size: 13px;\">&#x25CF; {{tableRow.fromTerminal}}</span>\r\n                    <span class=\"arrow-block\"></span>\r\n                    <span style=\"display:inline-block;font-size: 13px;\">&#x25CF; {{tableRow.toTerminal}}</span>\r\n                    </span>\r\n                  </td>\r\n                  <td>{{tableRow.currency}}\r\n                    <span style=\"display:block; font-size: 13px; font-weight: 600; color: #999;padding-top: 20px;\">{{tableRow.bargeValue}}</span>\r\n                  </td>\r\n                  <td>{{tableRow.legType}}</td>\r\n                  <td>\r\n                    <app-rcl-checkbox style=\"top: 5px; position: relative;\" label=\"\" [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\" name=\"processJoRouteListCheck\" #processJoRouteListCheck\r\n                      (rclCheckChanged)=\"getRowData($event, tableRow, i )\"></app-rcl-checkbox>\r\n                  </td>\r\n                </tr>                \r\n              </tbody>\r\n            </table>\r\n          </div>          \r\n          <div [hidden]=\"showlookuptable\" class=\"lookup-pagination\">\r\n            <pagination-controls (pageChange)=\"pc = $event\" id=\"lookupRouteList\"></pagination-controls>\r\n          </div>\r\n          <div class=\"uk-modal-footer uk-text-center\">\r\n            <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\" (click)=\"resetRouteListModal($event)\">Close</button>\r\n            <button class=\"uk-button uk-button-primary\" type=\"button\" (click)=\"updateRoute()\">Update Route</button>\r\n          </div>\r\n        </div>\r\n        <div [hidden]=\"!lookupErrorCodeShow\" class=\"lookupErrorCodeShow\">{{lookupErrorCodetext}}</div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n</div> \r\n\r\n<!-- nikash -->\r\n\r\n<div *ngIf=\"openModal\" id=\"lookup-popup-input\">\r\n  <div id=\"lookup-popup-input-vendor\" class=\"uk-modal-container\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n    <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\">\r\n      <button class=\"uk-modal-close-default\" type=\"button\" uk-close (click)=\"resetRouteListModal($event)\"></button>\r\n\r\n      <p><span class=\"lookup-heading\">Available Vendors</span></p>\r\n      <div class=\"col-sm-72\">\r\n        <div [hidden]=\"showlookuptable\">\r\n          <div class=\"row search-lookup-row\">\r\n            <div class=\"col-sm-14\">Total {{routeListTableData.length}} items</div>\r\n             <div class=\"col-sm-20\">\r\n                <select [(ngModel)]=\"resultsPerPage\">\r\n                  <option *ngFor=\"let pageresult of resultsPerPageArr; let i = index\" [value]= \"pageresult\">{{pageresult}}</option>\r\n                  </select> Results Per Page\r\n              </div>\r\n            <div class=\"col-sm-19\"><span><em>Sort by</em> &nbsp;&nbsp;</span>\r\n              <select [(ngModel)]=\"lookupSortIn\" (change)=\"sortLookUpDataByColumn($event)\">\r\n                  <option *ngFor=\"let pageresult of routeListSortData; let i = index\" [value]= \"pageresult.value\">{{pageresult.label}}</option>\r\n                  </select>\r\n            </div>\r\n            <div class=\"col-sm-19\"><span><em>Order by</em> &nbsp;&nbsp;</span>\r\n              <select [(ngModel)]=\"looUpOrderBy\" (change)=\"sortLookUpDataByOrder($event)\">\r\n                  <option *ngFor=\"let pageresult of lookUpSortData; let i = index\" [value]= \"pageresult.value\">{{pageresult.label}}</option>\r\n                  </select>\r\n            </div>\r\n          </div>\r\n          <div class=\"uk-overflow-auto\">\r\n            <table class=\"uk-table uk-table-hover uk-table-divider slidein-from-top\">\r\n              <thead>\r\n                <tr>\r\n                  <th>#</th>\r\n                  <th>Contract</th>\r\n                  <th>Priority</th>\r\n                  <th>Location</th>\r\n                  <th>Currency</th>\r\n                  <th>Leg Type</th>\r\n                  <th>Select</th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr *ngFor=\"let tableRow of routeListTableData | paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'lookupRouteList'}; let i = index\">\r\n                  <td><span style=\"top: 5px; position: relative;\">{{i+1}}</span></td>\r\n                  <td>\r\n                    <span style=\"display:block;line-height: 30px;\"> \r\n                    <span style=\"display:inline-block;display: inline-block; font-size: 13px; font-weight: 600; color: #999;\">Contract #</span>\r\n                    <span style=\"display:inline-block;width:10px;\"></span>\r\n                    <span style=\"display:inline-block; font-weight: 700;\">{{tableRow.contractId}}</span>\r\n                    </span>\r\n                    <span style=\"display:block; line-height: 30px;\"> \r\n                        <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i> <span style=\"font-weight: 500;\">{{tableRow.days}} D {{tableRow.hours}} hr</span>\r\n                    <span style=\"display:inline-block;width:10px;\"></span>\r\n                    <i class=\"fa fa-tachometer\" aria-hidden=\"true\"></i> <span style=\"font-weight: 500;\">{{tableRow.distance}} {{tableRow.uom}}</span>\r\n                    </span>\r\n                    <span style=\"inline-block; font-size: 13px; font-weight: 600; color: #999;\">VENDOR</span><span style=\"display:inline-block;width:10px;\"></span>\r\n                     <span style=\"display:inline-block; font-weight: 600;\">{{tableRow.vendorCode}}</span>\r\n                  </td>\r\n                  <td><span style=\"padding: 3px 9px; background-color: #807f7f; border-radius: 15px; border: 1px solid #807F7F; color: white; font-weight: 600; top: 11px; position: relative;left: 20px;\">{{tableRow.priority}}</span>\r\n                    <span style=\"display:block; font-size: 13px; font-weight: 600; color: #999;padding-top: 20px;\">Purchase Term</span>\r\n                    <span style=\"display:inline-block; font-weight: 700;\">{{tableRow.purchaseTerm}}</span>\r\n                  \r\n                  </td>\r\n                  <td>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-weight:600;font-size: 20px;\">{{tableRow.fromLocation}}</span>\r\n                    <span style=\"display:inline-block;width:50px;\"></span>\r\n                    <span style=\"display:inline-block;font-weight:600; font-size: 20px;\">{{tableRow.toLocation}}</span>\r\n                    </span>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-size: 13px;\">{{tableRow.fromLocType}}</span>\r\n                    <span style=\"display:inline-block;width:50px;\"></span>\r\n                    <span style=\"display:inline-block;font-size: 13px;\">{{tableRow.toLocType}}</span>\r\n                    </span>\r\n                    <span style=\"display:block;\"> \r\n                      <span style=\"display:inline-block;font-size: 13px;\">&#x25CF; {{tableRow.fromTerminal}}</span>\r\n                    <span class=\"arrow-block\"></span>\r\n                    <span style=\"display:inline-block;font-size: 13px;\">&#x25CF; {{tableRow.toTerminal}}</span>\r\n                    </span>\r\n                  </td>\r\n                  <td>{{tableRow.currency}}\r\n                    <span style=\"display:block; font-size: 13px; font-weight: 600; color: #999;padding-top: 20px;\">{{tableRow.bargeValue}}</span>\r\n                  </td>\r\n                  <td>{{tableRow.legType}}</td>\r\n                  <td>\r\n                    <!-- <app-rcl-checkbox style=\"top: 5px; position: relative;\" label=\"\" [(ngModel)]=\"tableRow['checked']\" [checked]=\"tableRow.selected\" name=\"processJoRouteListCheck\" #processJoRouteListCheck\r\n                      (rclCheckChanged)=\"getRowData($event, tableRow, i )\"></app-rcl-checkbox> -->\r\n                  </td>\r\n                </tr>                \r\n              </tbody>\r\n            </table>\r\n          </div>          \r\n          <div [hidden]=\"showlookuptable\" class=\"lookup-pagination\">\r\n            <pagination-controls (pageChange)=\"pc = $event\" id=\"lookupRouteList\"></pagination-controls>\r\n          </div>\r\n          <!-- <div class=\"uk-modal-footer uk-text-center\">\r\n            <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\" (click)=\"resetRouteListModal($event)\">Close</button>\r\n            <button class=\"uk-button uk-button-primary\" type=\"button\" (click)=\"updateRoute()\">Update Route</button>\r\n          </div> -->\r\n        </div>\r\n        <div [hidden]=\"!lookupErrorCodeShow\" class=\"lookupErrorCodeShow\">{{lookupErrorCodetext}}</div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n<div id=\"priorityExceedModal\" class=\"uk-flex-wrap-stretch\" uk-modal bg-close=\"false\" esc-close=\"false\">\r\n  <div class=\"uk-modal-dialog uk-modal-body uk-margin-auto-vertical\" >\r\n    <p>The Selected Row Has Less Priority!</p>\r\n    <button class=\"uk-button uk-button-primary uk-modal-close\" type=\"button\" style=\"width:20%;margin: 8px;float: right;\">Close</button>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -7991,6 +9144,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_catch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_app_common_services_session_time_out_service__ = __webpack_require__("../../../../../src/app/common-services/session-time-out.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_app_rcl_application_process_jo_processjo_search_service__ = __webpack_require__("../../../../../src/app/rcl-application/process-jo/processjo-search.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RouteListModalComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8006,20 +9160,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+//import {ProcessjoSearchComponent} from "app/rcl-application/process-jo/processjo-search/processjo-search.component"
+
 
 
 
 
 var RouteListModalComponent = (function () {
-    function RouteListModalComponent(_spinner, _lookupData, _serverErrorCode, _sortTable, _http, _sessionTimeOutService) {
+    // public _sortTable: SortSearchTableService
+    function RouteListModalComponent(_joborderService, _sortTable, _spinner, _lookupData, _serverErrorCode, _http, _sessionTimeOutService) {
+        this._joborderService = _joborderService;
+        this._sortTable = _sortTable;
         this._spinner = _spinner;
         this._lookupData = _lookupData;
         this._serverErrorCode = _serverErrorCode;
-        this._sortTable = _sortTable;
         this._http = _http;
         this._sessionTimeOutService = _sessionTimeOutService;
+        // @Input() private fromLoc:any;
+        // @Input() private toLoc:any;
+        // @Input() private transMode:any;
+        // @Input() private vendorCd:any;
         this.actionparam = "lookupRouteList";
         this.selectUpdateRouteList = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        //@Output() processJoSearchVendors= new EventEmitter();
+        //@Output() searchRouteList:EventEmitter<any> = new EventEmitter();
         this.openModal = false;
         this.showlookuptable = false;
         this.resultsPerPageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -8030,12 +9194,102 @@ var RouteListModalComponent = (function () {
         this.lookUpSortData = [{ label: 'Ascending', value: 'asnd' }, { label: 'Descending', value: 'dsnd' }];
         this.routeListTableData = [];
         this.pc = 1;
+        //select Check box
+        this.showLocErrorText = false;
     }
     RouteListModalComponent.prototype.ngOnInit = function () {
         //this.openLookUpModal();
+        // console.log(this._joborderService.processJoSearchData)
+        // alert(this._joborderService.processJoSearchData)
+        // this.fromLoc=this._joborderService.processJoSearchData.processJoParam.fromLocation;
+        // this.toLoc=this._joborderService.processJoSearchData.processJoParam.toLocation;
+        // alert(this.fromLoc + this.toLoc )
     };
+    //    processJoSearchVendors: any = {
+    //      "processJoSearchVendors": {
+    //     },
+    //    }
+    // //nikash
+    // openLookUpModalNew(callingComponent){
+    //   alert("openLookUpModalNew");
+    //   // jQuery("#lookup-popup-input-vendor").detach();
+    //    jQuery("#lookup-popup-input-vendor").detach();
+    // //this.getLocLookUpDataRouteListNew(this.actionparam,this.fromLocation,this.toLocation);
+    // this.openModal = true;
+    // this.showlookuptable = true;
+    // this.lookupErrorCodeShow = false;
+    // this.looUpOrderBy="asnd";
+    // this.lookupSortIn = "contractId";
+    // this.selectedRow = [];
+    // this.checkComponent = callingComponent;
+    // this._spinner.showSpinner();
+    // this.getLocLookUpDataRouteListNew(this.actionparam, this.bookingType, this.inputValueLoc,
+    //   this.inputValueTerminal,this.inputValueLocType,this.inputSaleDateOrJobOrdDate,
+    //   this.vendorCode,this.transportType,this.joType,this.checkComponent,
+    //   this.bargeValue,this.cntSize,this.cntType,this.bkgOrBLNumber,this.cntSplHandling);
+    // setTimeout(function () {
+    //   UIkit.modal('#lookup-popup-input-vendor').show();
+    // }, 100);
+    //    }
+    // getLocLookUpDataRouteListNew(actionparam, bookingType, inputValueLoc,
+    //   inputValueTerminal,inputValueLocType,inputSaleDateOrJobOrdDate,
+    //   vendorCode,transportType,joType,checkComponent,bargeValue,cntSize,cntType,bkgOrBLNumber,cntSplHandling)
+    //  {
+    //   this._spinner.showSpinner();
+    //    this._lookupData.getDataLookupServiceJORoutingNew(actionparam, bookingType, inputValueLoc,
+    //     inputValueTerminal,inputValueLocType,inputSaleDateOrJobOrdDate,
+    //     vendorCode,transportType,joType,checkComponent,bargeValue,cntSize,cntType,bkgOrBLNumber,cntSplHandling).subscribe(
+    //      data => {
+    //        if(data == "userSessionExpired"){
+    //        UIkit.modal('#lookup-popup-input-vendor').hide();
+    //           this._sessionTimeOutService.checkSessionTimeout(data);
+    //      }
+    //       else if (data.hasOwnProperty("errorCode")) {
+    //         this.lookupErrorCodetext = this._serverErrorCode.checkError(data["errorCode"]);
+    //         this.lookupErrorCodeShow = true;
+    //         this.showlookuptable = true;
+    //      }
+    //          else {
+    //            this.showlookuptable = false;
+    //            this.lookupErrorCodetext = undefined;
+    //            this.lookupErrorCodeShow = false;
+    //            this.routeListTableData = data; 
+    //            alert('routeListTableData');
+    //           // this._lookupData.processJoSearchVendors= this.routeListTableData;
+    //          // this.processJoSearchVendors.emit(this.routeListTableData);
+    //         }
+    //          this.pc = 1;
+    //          this._spinner.hideSpinner();
+    //        //return data;
+    //       },
+    //        (err) => {
+    //          this.lookupErrorCodetext = "Something went wrong please try again";
+    //        this.lookupErrorCodeShow = true;
+    //         this._spinner.hideSpinner();
+    //       }
+    //    )
+    //    }
     RouteListModalComponent.prototype.openLookUpModal = function (callingComponent) {
         jQuery("#route-list-modal-center").detach();
+        //nikash
+        if (this._joborderService.processJoSearchData.processJoParam.processJoType == "ER" || this._joborderService.processJoSearchData.processJoParam.processJoType == "LAH") {
+            // this.fromLoc=this._joborderService.processJoSearchData.processJoParam.fromLocation;
+            // this.toLoc=this._joborderService.processJoSearchData.processJoParam.toLocation;
+            // this.transMode=this._joborderService.processJoSearchData.processJoParam.transMode;
+            // this.vendorCd = this._joborderService.processJoSearchData.processJoParam.vendorCode;
+            this.inputValueLoc = this._joborderService.processJoSearchData.processJoParam.fromLocation
+                + '/' + this._joborderService.processJoSearchData.processJoParam.toLocation;
+            //console.log(this.inputValueLoc);
+            this.inputValueTerminal = this._joborderService.processJoSearchData.processJoParam.fromTerminal
+                + '/' + this._joborderService.processJoSearchData.processJoParam.toTerminal;
+            //console.log(this.inputValueTerminal);
+            this.inputValueLocType = this._joborderService.processJoSearchData.processJoParam.fromLocType
+                + '/' + this._joborderService.processJoSearchData.processJoParam.fromLocType;
+            // console.log(this.inputValueLocType);
+            this.transportType = this._joborderService.processJoSearchData.processJoParam.transMode;
+            this.vendorCode = this._joborderService.processJoSearchData.processJoParam.vendorCode;
+            this.bookingType = "adhoc";
+        }
         this.openModal = true;
         this.showlookuptable = true;
         this.lookupErrorCodeShow = false;
@@ -8044,19 +9298,24 @@ var RouteListModalComponent = (function () {
         this.selectedRow = [];
         this.checkComponent = callingComponent;
         this._spinner.showSpinner();
-        this.getLocLookUpDataRouteList(this.actionparam, this.bookingType, this.inputValueLoc, this.inputValueTerminal, this.inputValueLocType, this.inputSaleDateOrJobOrdDate, this.vendorCode, this.transportType, this.joType, this.checkComponent);
+        this.getLocLookUpDataRouteList(this.actionparam, this.bookingType, this.inputValueLoc, this.inputValueTerminal, this.inputValueLocType, this.inputSaleDateOrJobOrdDate, this.vendorCode, this.transportType, this.joType, this.checkComponent, this.bargeValue);
         setTimeout(function () {
             UIkit.modal('#route-list-modal-center').show();
         }, 100);
     };
-    RouteListModalComponent.prototype.getLocLookUpDataRouteList = function (actionparam, bookingType, inputValueLoc, inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent) {
+    RouteListModalComponent.prototype.getLocLookUpDataRouteList = function (actionparam, bookingType, inputValueLoc, inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent, bargeValue) {
         var _this = this;
         this._spinner.showSpinner();
-        var backendData = this._lookupData.getDataLookupServiceJORouting(actionparam, bookingType, '', inputValueLoc, '', inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent);
+        var backendData = this._lookupData.getDataLookupServiceJORouting(actionparam, bookingType, '', inputValueLoc, '', inputValueTerminal, inputValueLocType, inputSaleDateOrJobOrdDate, vendorCode, transportType, joType, checkComponent, bargeValue);
         backendData.subscribe(function (data) {
             if (data == "userSessionExpired") {
                 UIkit.modal('#route-list-modal-center').hide();
                 _this._sessionTimeOutService.checkSessionTimeout(data);
+            }
+            else if (data == null || data == undefined) {
+                _this.lookupErrorCodetext = _this._serverErrorCode.checkError("IJS_EX_10001");
+                _this.lookupErrorCodeShow = true;
+                _this.showlookuptable = true;
             }
             else if (data.hasOwnProperty("errorCode")) {
                 _this.lookupErrorCodetext = _this._serverErrorCode.checkError(data["errorCode"]);
@@ -8089,19 +9348,26 @@ var RouteListModalComponent = (function () {
         this.openModal = false;
         UIkit.modal('#route-list-modal-center').hide();
     };
-    //select Check box    
+    //Nikash
     RouteListModalComponent.prototype.getRowData = function (e, rowData, i) {
         this.selectedRow = [];
         var selected = rowData.selected;
         this.deselectAll(this.routeListTableData);
         rowData.selected = !selected;
         rowData['checked'] = rowData.selected;
+        for (i = 0; i < this.routeListTableData.length; i++) {
+            if (rowData['priority'] > this.routeListTableData[i]['priority']) {
+                alert("The Selected Row Has Less Priority!!");
+                //UIkit.modal('#priorityExceedModal').show();
+                break;
+            }
+        }
         this.selectedRow.push(rowData);
         // if (e.target.checked == true) {
-        //   rowData['selected'] = true;
-        //   this.selectedRow.push(rowData);
+        // rowData['selected'] = true;
+        // this.selectedRow.push(rowData);
         // } else {
-        //   this.selectedRow = this.deleteObjByRoutingId(this.selectedRow, 'routingId', rowData.routingId);
+        // this.selectedRow = this.deleteObjByRoutingId(this.selectedRow, 'routingId', rowData.routingId);
         // }
     };
     RouteListModalComponent.prototype.deselectAll = function (arr) {
@@ -8123,6 +9389,7 @@ var RouteListModalComponent = (function () {
         return arr;
     };
     RouteListModalComponent.prototype.updateRoute = function () {
+        //alert("update.....");  
         if (this.selectedRow.length == 1) {
             UIkit.modal('#route-list-modal-center').hide();
             this.selectUpdateRouteList.emit(this.selectedRow[0]);
@@ -8143,6 +9410,22 @@ var RouteListModalComponent = (function () {
     };
     return RouteListModalComponent;
 }());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "cntSplHandling", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "cntSize", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "cntType", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "bkgOrBLNumber", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
@@ -8176,6 +9459,18 @@ __decorate([
     __metadata("design:type", Object)
 ], RouteListModalComponent.prototype, "joType", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "bargeValue", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "fromLocation", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], RouteListModalComponent.prototype, "toLocation", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", Object)
 ], RouteListModalComponent.prototype, "selectUpdateRouteList", void 0);
@@ -8185,10 +9480,10 @@ RouteListModalComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/rcl-components/route-list-modal/route-list-modal.component.html"),
         styles: [__webpack_require__("../../../../../src/app/rcl-components/route-list-modal/route-list-modal.component.scss")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_8_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_9_app_rcl_application_process_jo_processjo_search_service__["a" /* ProcessjoSearchService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9_app_rcl_application_process_jo_processjo_search_service__["a" /* ProcessjoSearchService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__rcl_application_contract_search_sort_search_table_service__["a" /* SortSearchTableService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__common_services_spinner_service_service__["a" /* SpinnerServiceService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__common_services_look_updata_service_service__["a" /* LookUpdataServiceService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__common_services_server_errorcode_service__["a" /* ServerErrorcodeService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* Http */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_8_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_app_common_services_session_time_out_service__["a" /* SessionTimeOutService */]) === "function" && _g || Object])
 ], RouteListModalComponent);
 
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=route-list-modal.component.js.map
 
 /***/ }),

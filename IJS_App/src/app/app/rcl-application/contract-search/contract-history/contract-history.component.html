@@ -1,0 +1,46 @@
+<div id="modal-center" class="uk-modal-container" uk-modal bg-close="false" esc-close="false">
+  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <p><span class="lookup-heading">Contract # {{historyData.contract.contractId}} log</span></p>
+
+    <div [hidden]="showHistoryFlag" class="row search-lookup-row">
+      <div class="col-sm-19"><span><em>Sort in</em> &nbsp;&nbsp;</span>
+        <select [(ngModel)]="lookupSortIn" (change)="sortLookUpDataByColumn($event)">
+                  <option *ngFor="let pageresult of vendorDetaisSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+        </select>
+      </div>
+      <div class="col-sm-19"><span><em>Order by</em> &nbsp;&nbsp;</span>
+        <select [(ngModel)]="looUpOrderBy" (change)="sortLookUpDataByOrder($event)">
+                  <option *ngFor="let pageresult of lookUpSortData; let i = index" [value]= "pageresult.value">{{pageresult.label}}</option>
+        </select>
+      </div>
+    </div>
+    <div [hidden]="showHistoryFlag" class="uk-overflow-auto">
+      <table class="uk-table uk-table-hover uk-table-divider slidein-from-top">
+        <thead>
+          <tr>
+            <th>Sr</th>
+            <th>Activity</th>
+            <th>Date</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tableRow of tableData| paginate: {itemsPerPage: resultsPerPage, currentPage: pc, id: 'vendorHist'}; let i = index"	class="slidein-from-top">
+            <td>{{tableRow.activitySeq}}</td>
+            <td>{{tableRow.activity}}</td>
+            <td>{{tableRow.activityDate}}</td>
+            <td>{{tableRow.activityUser}}</td>                   
+	        </tr>
+        </tbody>
+      </table>     
+    </div>      
+    <div [hidden]="!showHistoryFlag">
+      <p class="validation-error text-center">{{errorText}}</p>
+    </div> 
+    <div [hidden]="showHistoryFlag"  class="lookup-pagination" style="margin-top:20px">
+          <pagination-controls (pageChange)="pc = $event" id="vendorHist"></pagination-controls>
+      </div>    
+  </div>
+</div>

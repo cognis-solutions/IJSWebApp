@@ -8,6 +8,8 @@ import { ContractSearchComponent } from "../contract-search.component";
 import { LookUpdataServiceService } from '../../../common-services/look-updata-service.service';
 import * as $ from 'jquery';
 import { SessionTimeOutService } from "app/common-services/session-time-out.service";
+import { delay } from 'rxjs/operator/delay';
+import { delayWhen } from 'rxjs/operator/delayWhen';
 
 @Component({
   selector: 'app-new-contract',
@@ -18,6 +20,7 @@ import { SessionTimeOutService } from "app/common-services/session-time-out.serv
 })
 export class NewContractComponent implements OnInit {
 
+  barge:any;
   constructor(private cd: ChangeDetectorRef,
     public spinner: SpinnerServiceService,
     public _newContractService: ContractSearchService,
@@ -25,7 +28,11 @@ export class NewContractComponent implements OnInit {
     public _contractSearchComponent: ContractSearchComponent,
     private _lookupData: LookUpdataServiceService,
     private _spinner: SpinnerServiceService,
-    private _sessionTimeOutService:SessionTimeOutService) {
+    private _sessionTimeOutService:SessionTimeOutService) 
+    {  
+      // this.barge = {
+      // bargeValue: "international"
+      //   };
   }
 
   newContractData = {
@@ -44,7 +51,8 @@ export class NewContractComponent implements OnInit {
         "paymentFscErr": '',
         "toLocationErr": '',
         "fromTerminalErr":'',
-        "toTerminalErr": ''
+        "toTerminalErr": '',
+        "bargeValue":''
         
       }],
     },
@@ -221,9 +229,13 @@ export class NewContractComponent implements OnInit {
   ];
 
 
+
+
+
   contractId:boolean = false;
-  ngOnInit() {     
-    setInterval(()=>{
+  ngOnInit() {  
+    
+ setInterval(()=>{
         this.cd.markForCheck();
       },200)  
     this.selectOptionsForTransport = [];   
@@ -246,7 +258,8 @@ export class NewContractComponent implements OnInit {
         this.newContractData.contract.locations[0]['currency'] = this.userData['fscCurr'];
         this.selectOptionsForStatus = [{ label: 'Entry', value: 'Entry' }, { label: 'Pending', value: 'Pending' }];
       } else {
-        this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Suspend', value: 'Suspend' }, { label: 'Pending', value: 'Pending' }, { label: 'Entry', value: 'Entry' }];
+        this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Suspend', value: 'Suspend' }, { label: 'Pending', value: 'Pending' }, { label: 'Entry', value: 'Entry' }
+      ,{ label: 'Expired', value: 'Expired' }];
       }
       this.contractType = "New";
       this.newContractData.contract['uom'] = "KM";
@@ -257,7 +270,8 @@ export class NewContractComponent implements OnInit {
         this.selectOptionsForStatus = [{ label: 'Entry', value: 'Entry' }, { label: 'Pending', value: 'Pending' }];
       }
       else if (this.userData['userAuthType'] == 'HQ') {
-        this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Suspend', value: 'Suspend' }, { label: 'Pending', value: 'Pending' }, { label: 'Entry', value: 'Entry' }];
+        this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Suspend', value: 'Suspend' }, { label: 'Pending', value: 'Pending' }, { label: 'Entry', value: 'Entry' }
+      ,{ label: 'Expired', value: 'Expired' }];
       }
       this.assignEditCopyData();
     } else if (this.action == "Copy") {
@@ -266,7 +280,8 @@ export class NewContractComponent implements OnInit {
         this.newContractData.contract['currency'] = this.userData['fscCurr'];
         this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Pending', value: 'Pending' }];
       } else {
-        this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Suspend', value: 'Suspend' }, { label: 'Pending', value: 'Pending' }, { label: 'Entry', value: 'Entry' }];
+        this.selectOptionsForStatus = [{ label: 'Active', value: 'Active' }, { label: 'Suspend', value: 'Suspend' }, { label: 'Pending', value: 'Pending' }, { label: 'Entry', value: 'Entry' }
+      ,{ label: 'Expired', value: 'Expired' }];
       }
       this.assignEditCopyData();
       this.contractType = "New";
@@ -277,6 +292,7 @@ export class NewContractComponent implements OnInit {
 
   // to assign the data from copy and Edit functions
   assignEditCopyData() {
+    //debugger;
     this.newContractData.contract['vendorCode'] = this.editNewcontractData['vendorCode'];
     if (this.action == 'Edit' || this.action == 'edit' || this.action == "Copy") {
       //this.getTransportMode();
@@ -289,6 +305,13 @@ export class NewContractComponent implements OnInit {
     this.newContractData.contract['transMode'] = this.editNewcontractData['transMode'];
     this.newContractData.contract['status'] = this.editNewcontractData['status'];
     this.newContractData.contract['term'] = this.editNewcontractData['term'];
+    //this.newContractData.contract['bargeValue'] = this.editNewcontractData["domInn"];
+    this.newContractData.contract['costPriority'] = this.editNewcontractData["costPriority"];
+    
+    //this.newContractData.contract['international'] = this.editNewcontractData['international'];
+    // var termString = this.newContractData.contract['term'];
+    // this.newContractData.contract['term'] = [];
+    // this.newContractData.contract['term'].push(termString);
     this.newContractData.contract.locations[0]['fromLocType'] = this.editNewcontractData['fromLocType'];
     this.newContractData.contract.locations[0]['fromLocation'] = this.editNewcontractData['fromLocation'];
     this.newContractData.contract.locations[0]['fromTerminal'] = this.editNewcontractData['fromTerminal'];
@@ -298,7 +321,8 @@ export class NewContractComponent implements OnInit {
     this.newContractData.contract.locations[0]['toTerminal'] = this.editNewcontractData['toTerminal'];
     this.newContractData.contract.locations[0]['currency'] = this.editNewcontractData['currency'];
     this.newContractData.contract.locations[0]['priority'] = this.editNewcontractData['priority'];
-    this.newContractData.contract['days'] = this.editNewcontractData['days'];
+    this.newContractData.contract.locations[0]['bargeValue'] = this.editNewcontractData["domInn"];
+    this.newContractData.contract.locations[0]['days'] = this.editNewcontractData['days'];
     this.newContractData.contract['hours'] = this.editNewcontractData['hours'];
     this.newContractData.contract['distance'] = this.editNewcontractData['distance'];
     this.newContractData.contract['uom'] = this.editNewcontractData['uom'];
@@ -311,12 +335,14 @@ export class NewContractComponent implements OnInit {
 } 
   //changes for getting selectedContractData
   getSelectedContractData(index){
-    /**
+    /*
+     *
      * logic for getting transport mode, terms and fsc code in single request
      * plus all the data related to the selected contract
      * 
-     */    
-    this._spinner.showSpinner();  
+     */   
+     
+    //this._spinner.showSpinner();  
 
     var backendResult = this._newContractService.getData({ action: 'getSelectedContractData', 
               vendorCode: this.newContractData.contract["vendorCode"],
@@ -328,6 +354,7 @@ export class NewContractComponent implements OnInit {
                         toLocation: this.newContractData.contract.locations[index]['toLocation'],
                         transMode: this.newContractData.contract['transMode']  
       }});
+      
       backendResult.subscribe(
         (data) => {
           if(data == "userSessionExpired"){
@@ -446,10 +473,14 @@ export class NewContractComponent implements OnInit {
         "paymentFscErr": '',
         "toLocationErr": '',
         "fromTerminalErr":'',
-        "toTerminalErr": ''
-
+        "toTerminalErr": '',
+        "bargeValue":''
+        
+       
       }
     );
+   
+ 
 
   }
   removeLocations(i) {
@@ -706,17 +737,24 @@ export class NewContractComponent implements OnInit {
    
   }
   saveNewContract(event, action) {
-    console.log(this.newContractData.contract['term']);
-    var termString = this.newContractData.contract['term'];
-    this.newContractData.contract['term'] = [];
-    this.newContractData.contract['term'].push(termString);
+   // console.log(this.newContractData.contract['term']);
+   // console.log(this.newContractData.contract['domestic']);
     
+   // console.log(this.newContractData.contract['bargeValue']);
+    // if(this.newContractData.contract['term']!=undefined){
+
+    // var termString = this.newContractData.contract['term'];
+    // this.newContractData.contract['term'] = [];
+    // this.newContractData.contract['term'].push(termString);
+    // }
+   // this.newContractData.contract['bargeValue'];
     this.successTextMsg = undefined;
     var submitFlag: boolean = false;
     //alert(action);
     //alert( this.contractType);
     if (action == 'changepriority') {
       action = this.contractType + action;
+      $('#success-modal').addClass('uk-open').hide();
       //  alert("Change priority    "+action);
     }
     if (this.validateData(event, submitFlag)) {
@@ -737,13 +775,13 @@ export class NewContractComponent implements OnInit {
    }
 }
 
-  closeWarning() {
-   // $('html').removeAttr('class');
-    //$('#priority-warning-modal').remove();
-    $('#priority-warning-modal').addClass('uk-open').hide();
-   // UIkit.modal('#priority-warning-modal').hide();
+  // closeWarning() {
+  //  // $('html').removeAttr('class');
+  //   //$('#priority-warning-modal').remove();
+  //   $('#priority-warning-modal').addClass('uk-open').hide();
+  //  // UIkit.modal('#priority-warning-modal').hide();
 
-  }
+  // }
 
   closeValidationWarning(){
     $('#validation-warning-modal').addClass('uk-open').hide();
@@ -857,9 +895,15 @@ export class NewContractComponent implements OnInit {
       this.newContractData.contract.locations[i]["priority"] ='0';
        submitFlag = true;
     }
-   
-    
-   
+    //debugger;
+    if ((this.newContractData.contract.locations[i]['bargeValue']==undefined||this.newContractData.contract.locations[i]['bargeValue']=="")&& (this.newContractData.contract['transMode']== 'Barge')) {
+      this.validationError = 'Please Select One Barge Value';
+      return false;
+    }
+    else {
+      submitFlag = true;
+    }
+     
     /*if((this.newContractData.contract.locations[i]['priority'] <= '0') ||
       (this.newContractData.contract.locations[i]['priority'] == '00') ||
       (this.newContractData.contract.locations[i]['priority'] == '0-')) {
@@ -968,6 +1012,7 @@ export class NewContractComponent implements OnInit {
   //Change this method with addRecord to DB
   getBackEndData() {
     this.spinner.showSpinner();
+    delay;
     var backendData = this._newContractService.getData(this.newContractData);
     backendData.subscribe(
       (data) => {
@@ -976,6 +1021,7 @@ export class NewContractComponent implements OnInit {
         }
         else if (data.hasOwnProperty("errorCode")) {
           if (data["errorCode"] == 'IJS_MSG_1002') {
+            window.dispatchEvent(new Event('resize')); 
             this.successTextMsg = "Contract Successfully Updated"
             this.successtextFlag = true;
           } else {
@@ -986,6 +1032,7 @@ export class NewContractComponent implements OnInit {
           this._contractSearchComponent.showNewContractPage = true;
         }
         this.spinner.hideSpinner();
+        window.dispatchEvent(new Event('resize')); 
         $('#success-modal').addClass('uk-open').show();
        // UIkit.modal('#success-modal').show();
       }
@@ -1005,17 +1052,23 @@ export class NewContractComponent implements OnInit {
     // if(this.editNewcontractData.status=="Pending" && this.userType == "modifyOnly"){
     //   this.newContractData.contract['locationUserSave']="canNotSave";
     // }
-
+    // debugger;
     //to change status to Entry when logged in via location user and status is Active or Pending
     if(this.userType == "modifyOnly" && (this.newContractData.contract['status']=="Active"|| this.newContractData.contract['status']=="Suspend")){
       this.newContractData.contract['status']="Entry";
+    }if(this.joDate!=null || this.joDate!=undefined){
+    this.newContractData.contract['startDate']=this.joDate;
+    this.newContractData.contract['joDate']=this.joDate;
+    }else{
+      this.newContractData.contract['joDate']="";
     }
-    //this.newContractData.contract['term'] = this.newContractData.contract['term'].toString();
+   // debugger;
+ 
     var backendResult = this._newContractService.saveContractData(this.newContractData);
     if(this.newContractData["action"] == 'copy'){
       delete this.newContractData.contract['contractId'];
     }
-    
+    delay;
     backendResult.subscribe(
       (data) => {
         
@@ -1083,6 +1136,7 @@ export class NewContractComponent implements OnInit {
         }
         this.spinner.hideSpinner();
         this.cd.markForCheck(); // marks path
+        //debugger;
         $('#success-modal').addClass('uk-open').show();
        // UIkit.modal('#success-modal').show();
         
@@ -1101,8 +1155,9 @@ export class NewContractComponent implements OnInit {
     this.fromOrTo = fromOrTo;
     this.cuurentLookupIndex = i;
     this._lookupAddContract.openToLookup(selectedValue, fromOrTo);
-  }
 
+
+  }
 
 
   //fill the data of code when row selected
@@ -1236,6 +1291,7 @@ export class NewContractComponent implements OnInit {
   }
 
   searchContract(event) {
+    //debugger;
     if (this.contractType == 'Edit' || this.contractType == 'edit' ||
       this.contractType == 'editchangepriority') {
       this._contractSearchComponent.refreshTableData();
@@ -1252,6 +1308,7 @@ export class NewContractComponent implements OnInit {
       };
       // this._contractSearchComponent.simpleContSearchData.contractParam.searchScreenParam.contractNumber = this.contractID;
       this._contractSearchComponent.simpleContSearchData.contractParam.searchScreenParam.contractNumber = this.contractIds;
+      //this._contractSearchComponent.simpleContSearchData.contractParam.searchScreenParam['status']="All";
       //alert(this.contractIds);
       
       $('html').removeAttr('class');
@@ -1375,6 +1432,19 @@ getCurrencyCode() {
     this._spinner.hideSpinner();
   }
 }
+changepriority(priority)
+{
+  //this.editNewcontractData.priority
+ // alert(this.editNewcontractData.priority);
+if(this.newContractData.contract.locations[0].priority >this.editNewcontractData.priority+1)
+{
+  this.newContractData.contract.locations[0].priority=this.newContractData.contract.locations[0].priority+1;
+}else {
+  this.newContractData.contract.locations[0].priority=this.editNewcontractData.priority+1;
+}
+
+
+}
 
 pickUpDropDownChange(e, index, obj) {
    this.newContractData.contract.locations[index]['fromLocation'] = undefined;
@@ -1420,7 +1490,18 @@ dropOffDropDownChange(e, index) {
      
   }
   }
-
+  dateValidate(e)
+  {
+        
+    var backendData = this._newContractService.validateDate(this.newContractData.contract['contractId']);
+    backendData.subscribe(
+      (data) => {
+  if(data.length!=0){
+        this.joDate = data[0].endDate;
+  }
+    })
+  }
+joDate:any;
   toTerminalErrorTextMsg: string;
   validateToTerminal(index){
     if (this.newContractData.contract.locations[index]['toLocation'] &&
